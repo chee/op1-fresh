@@ -119,7 +119,6 @@ let state = {
 	}
 }
 
-init
 function init() {
 	transport = host.createTransport()
 	keyboard = op1.input().createNoteInput("op-1 fresh keyboard", "??????")
@@ -137,6 +136,8 @@ function init() {
 	trackBank = host.createTrackBank(8, 4, 0)
 	cursorDevice = cursorTrack.createCursorDevice()
 	userControls = host.createUserControls(42)
+	transport.isMetronomeEnabled().markInterested()
+	transport.isMetronomeAudibleDuringPreRoll().markInterested()
 
 	// figure this out:
 	// transport.getPosition().addTimeObserver(".", 1, 2, 2, 0, onTimeUpdate)
@@ -167,6 +168,13 @@ let midiHandlers = {
 			cursorTrack.getMute().toggle()
 		} else {
 			transport.stop()
+		}
+	},
+	[op1.cc.metronome] () {
+		if (state.shift) {
+			transport.isMetronomeAudibleDuringPreRoll().toggle()
+		} else {
+			transport.isMetronomeEnabled().toggle()
 		}
 	}
 }
