@@ -13,31 +13,31 @@ OnOffHardwareLight.prototype.constructor = OnOffHardwareLight;
 /**
  * Property that determines if this light is on or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanHardwareProperty}
+ * @return {BooleanHardwareProperty}
  */
 OnOffHardwareLight.prototype.isOn = function() {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 OnOffHardwareLight.prototype.setOnColor = function(color) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 OnOffHardwareLight.prototype.setOffColor = function(color) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.HardwareLightVisualState} state
+ * @param {HardwareLightVisualState} state
  */
 OnOffHardwareLight.prototype.setOnVisualState = function(state) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.HardwareLightVisualState} state
+ * @param {HardwareLightVisualState} state
  */
 OnOffHardwareLight.prototype.setOffVisualState = function(state) {};
 
 /**
- * @param {java.util.function.Function<java.lang.Boolean,com.bitwig.extension.controller.api.HardwareLightVisualState>} function
+ * @param {java.util.function.Function<java.lang.Boolean,HardwareLightVisualState>} function
  */
 OnOffHardwareLight.prototype.setStateToVisualStateFuncation = function(function) {};

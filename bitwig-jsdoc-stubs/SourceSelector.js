@@ -17,7 +17,7 @@ SourceSelector.prototype.constructor = SourceSelector;
 /**
  * Returns an object that indicates if the source selector has note inputs enabled.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a boolean value object
+ * @return {BooleanValue} a boolean value object
  * @since API version 5
  */
 SourceSelector.prototype.hasNoteInputSelected = function() {};
@@ -25,7 +25,7 @@ SourceSelector.prototype.hasNoteInputSelected = function() {};
 /**
  * Returns an object that indicates if the source selector has audio inputs enabled.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a boolean value object
+ * @return {BooleanValue} a boolean value object
  * @since API version 5
  */
 SourceSelector.prototype.hasAudioInputSelected = function() {};

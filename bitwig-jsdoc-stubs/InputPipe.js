@@ -28,7 +28,7 @@ InputPipe.prototype.readAsync = function(data, callback, timeoutInMs) {};
  * Requests to read some data from this pipe in a synchronous way (the caller is blocked until the transfer
  * completes).
  *
- * @param {com.bitwig.extension.api.MemoryBlock} data
+ * @param {MemoryBlock} data
  * @param {int} timeoutInMs
  * @return {int} The number of bytes that was read.
  */

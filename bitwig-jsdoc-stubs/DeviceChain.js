@@ -22,7 +22,7 @@ DeviceChain.prototype.selectInEditor = function() {};
  * Value that reports the name of the device chain, such as the track name or the drum pad
  * name.
  *
- * @return {com.bitwig.extension.controller.api.SettableStringValue}
+ * @return {SettableStringValue}
  * @since API version 2
  */
 DeviceChain.prototype.name = function() {};
@@ -41,7 +41,7 @@ DeviceChain.prototype.addIsSelectedInEditorObserver = function(callback) {};
  *
  * @param numDevices
           the number of devices should be accessible simultaneously
- * @return {com.bitwig.extension.controller.api.DeviceBank} the requested device bank object
+ * @return {DeviceBank} the requested device bank object
 @since API version 1
  */
 DeviceChain.prototype.createDeviceBank = function(numDevices) {};
@@ -54,7 +54,7 @@ DeviceChain.prototype.createDeviceBank = function(numDevices) {};
           the size of the window used to navigate the filter column entries.
  * @param numResultsColumnEntries
           the size of the window used to navigate the results column entries.
- * @return {com.bitwig.extension.controller.api.Browser} the requested device browser object.
+ * @return {Browser} the requested device browser object.
  * @since API version 1
  */
 DeviceChain.prototype.createDeviceBrowser = function(numFilterColumnEntries, numResultsColumnEntries) {};
@@ -62,7 +62,7 @@ DeviceChain.prototype.createDeviceBrowser = function(numFilterColumnEntries, num
 /**
  * {@link InsertionPoint} that can be used to insert at the start of the device chain.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 DeviceChain.prototype.startOfDeviceChainInsertionPoint = function() {};
@@ -70,7 +70,7 @@ DeviceChain.prototype.startOfDeviceChainInsertionPoint = function() {};
 /**
  * {@link InsertionPoint} that can be used to insert at the end of the device chain.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 DeviceChain.prototype.endOfDeviceChainInsertionPoint = function() {};

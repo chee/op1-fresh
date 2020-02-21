@@ -15,7 +15,7 @@ BeatTimeValue.prototype.constructor = BeatTimeValue;
 /**
  * Gets the current beat time formatted according to the supplied formatter.
  *
- * @param {com.bitwig.extension.controller.api.BeatTimeFormatter} formatter
+ * @param {BeatTimeFormatter} formatter
  * @return {string}
  * @since API version 2
  */

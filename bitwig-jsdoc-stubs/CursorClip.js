@@ -13,7 +13,7 @@ CursorClip.prototype.constructor = CursorClip;
 /**
  * Requests that the supplied clip be selected in this cursor.
  *
- * @param {com.bitwig.extension.controller.api.Clip} clip
+ * @param {Clip} clip
  * @since API version 10
  */
 CursorClip.prototype.selectClip = function(clip) {};

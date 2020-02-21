@@ -25,7 +25,7 @@ OutputPipe.prototype.constructor = OutputPipe;
 OutputPipe.prototype.writeAsync = function(data, callback, timeoutInMs) {};
 
 /**
- * @param {com.bitwig.extension.api.MemoryBlock} data
+ * @param {MemoryBlock} data
  * @param {int} timeoutInMs
  * @return {int}
  */

@@ -35,25 +35,25 @@ RelativeHardwareControl.prototype.setSensitivity = function(sensitivity) {};
  * Sets the {@link RelativeHardwareValueMatcher} that can be used to detect when the user adjusts the
  * hardware control's value.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher} matcher
+ * @param {RelativeHardwareValueMatcher} matcher
  */
 RelativeHardwareControl.prototype.setAdjustValueMatcher = function(matcher) {};
 
 /**
  * Adds a binding to the supplied target with the supplied sensitivity.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwarControlBindable} target
+ * @param {RelativeHardwarControlBindable} target
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.addBindingWithSensitivity = function(target, sensitivity) {};
 
 /**
  * Makes sure there is a single binding to the supplied target with the supplied sensitivity.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwarControlBindable} target
+ * @param {RelativeHardwarControlBindable} target
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.setBindingWithSensitivity = function(target, sensitivity) {};
 
@@ -61,10 +61,10 @@ RelativeHardwareControl.prototype.setBindingWithSensitivity = function(target, s
  * Adds a binding to the supplied target that does not adjust the target outside of the supplied min and
  * max normalized range.
  *
- * @param {com.bitwig.extension.controller.api.SettableRangedValue} target
+ * @param {SettableRangedValue} target
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.addBindingWithRange = function(target, minNormalizedValue, maxNormalizedValue) {};
 
@@ -72,10 +72,10 @@ RelativeHardwareControl.prototype.addBindingWithRange = function(target, minNorm
  * Makes sure there is single binding to the supplied target that does not adjust the target outside of the
  * supplied min and max normalized range.
  *
- * @param {com.bitwig.extension.controller.api.SettableRangedValue} target
+ * @param {SettableRangedValue} target
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.setBindingWithRange = function(target, minNormalizedValue, maxNormalizedValue) {};
 
@@ -83,11 +83,11 @@ RelativeHardwareControl.prototype.setBindingWithRange = function(target, minNorm
  * Adds a binding to the supplied target that does not adjust the target outside of the supplied min and
  * max normalized range and is adjusted with the supplied sensitivity.
  *
- * @param {com.bitwig.extension.controller.api.SettableRangedValue} target
+ * @param {SettableRangedValue} target
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.addBindingWithRangeAndSensitivity = function(target, minNormalizedValue, maxNormalizedValue, sensitivity) {};
 
@@ -95,11 +95,11 @@ RelativeHardwareControl.prototype.addBindingWithRangeAndSensitivity = function(t
  * Makes sure there is a single binding to the supplied target that does not adjust the target outside of
  * the supplied min and max normalized range and is adjusted with the supplied sensitivity.
  *
- * @param {com.bitwig.extension.controller.api.SettableRangedValue} target
+ * @param {SettableRangedValue} target
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.setBindingWithRangeAndSensitivity = function(target, minNormalizedValue, maxNormalizedValue, sensitivity) {};
 

@@ -14,7 +14,7 @@ function Mixer() {}
  * registered on the returned object for receiving notifications when the meter section switches between
  * shown and hidden state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the meter section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the meter section visibility
  * @since API version 1
  */
 Mixer.prototype.isMeterSectionVisible = function() {};
@@ -24,7 +24,7 @@ Mixer.prototype.isMeterSectionVisible = function() {};
  * on the returned object for receiving notifications when the io section switches between shown and hidden
  * state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the io section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the io section visibility
  * @since API version 1
  */
 Mixer.prototype.isIoSectionVisible = function() {};
@@ -34,7 +34,7 @@ Mixer.prototype.isIoSectionVisible = function() {};
  * registered on the returned object for receiving notifications when the sends section switches between
  * shown and hidden state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the sends section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the sends section visibility
  * @since API version 1
  */
 Mixer.prototype.isSendSectionVisible = function() {};
@@ -44,7 +44,7 @@ Mixer.prototype.isSendSectionVisible = function() {};
  * registered on the returned object for receiving notifications when the clip launcher section switches
  * between shown and hidden state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the clip launcher section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the clip launcher section visibility
  * @since API version 1
  */
 Mixer.prototype.isClipLauncherSectionVisible = function() {};
@@ -54,7 +54,7 @@ Mixer.prototype.isClipLauncherSectionVisible = function() {};
  * registered on the returned object for receiving notifications when the devices section switches between
  * shown and hidden state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the devices section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the devices section visibility
  * @since API version 1
  */
 Mixer.prototype.isDeviceSectionVisible = function() {};
@@ -64,7 +64,7 @@ Mixer.prototype.isDeviceSectionVisible = function() {};
  * registered on the returned object for receiving notifications when the cross-fade section switches
  * between shown and hidden state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the cross-fade section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the cross-fade section visibility
  * @since API version 1
  */
 Mixer.prototype.isCrossFadeSectionVisible = function() {};

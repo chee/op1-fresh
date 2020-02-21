@@ -13,7 +13,7 @@ BrowserItem.prototype.constructor = BrowserItem;
 /**
  * Value that reports the name of the browser item.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 BrowserItem.prototype.name = function() {};
@@ -21,7 +21,7 @@ BrowserItem.prototype.name = function() {};
 /**
  * Returns an object that provides access to the selected state of the browser item.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} an boolean value object
+ * @return {SettableBooleanValue} an boolean value object
  * @since API version 1
  */
 BrowserItem.prototype.isSelected = function() {};

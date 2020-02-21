@@ -13,7 +13,7 @@ Project.prototype.constructor = Project;
 /**
  * Returns an object that represents the root track group of the active Bitwig Studio project.
  *
- * @return {com.bitwig.extension.controller.api.Track} the root track group of the currently active project
+ * @return {Track} the root track group of the currently active project
  * @since API version 1
  */
 Project.prototype.getRootTrackGroup = function() {};
@@ -22,7 +22,7 @@ Project.prototype.getRootTrackGroup = function() {};
  * Returns an object that represents the top level track group as shown in the arranger/mixer of the active
  * Bitwig Studio project.
  *
- * @return {com.bitwig.extension.controller.api.Track} the shown top level track group of the currently active project
+ * @return {Track} the shown top level track group of the currently active project
  * @since API version 1
  */
 Project.prototype.getShownTopLevelTrackGroup = function() {};
@@ -38,7 +38,7 @@ Project.prototype.createSceneFromPlayingLauncherClips = function() {};
 /**
  * The volume used for cue output.
  *
- * @return {com.bitwig.extension.controller.api.Parameter}
+ * @return {Parameter}
  * @since API version 10
  */
 Project.prototype.cueVolume = function() {};
@@ -46,7 +46,7 @@ Project.prototype.cueVolume = function() {};
 /**
  * Mix between cue bus and the studio bus (master).
  *
- * @return {com.bitwig.extension.controller.api.Parameter}
+ * @return {Parameter}
  * @since API version 10
  */
 Project.prototype.cueMix = function() {};
@@ -59,7 +59,7 @@ Project.prototype.cueMix = function() {};
 Project.prototype.unsoloAll = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  */
 Project.prototype.hasSoloedTracks = function() {};
 
@@ -73,7 +73,7 @@ Project.prototype.unmuteAll = function() {};
 /**
  * Value that indicates if the project has muted tracks or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 Project.prototype.hasMutedTracks = function() {};
@@ -88,7 +88,7 @@ Project.prototype.unarmAll = function() {};
 /**
  * Value that indicates if the project has armed tracks or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 Project.prototype.hasArmedTracks = function() {};

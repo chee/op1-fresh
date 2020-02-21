@@ -14,7 +14,7 @@ DrumPad.prototype.constructor = DrumPad;
 /**
  * {@link InsertionPoint} that can be used to insert content in this drum pad.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 DrumPad.prototype.insertionPoint = function() {};

@@ -10,20 +10,20 @@ function HardwareTextDisplayLine() {}
 /**
  * Property that defines the current text shown.
  *
- * @return {com.bitwig.extension.controller.api.StringHardwareProperty}
+ * @return {StringHardwareProperty}
  */
 HardwareTextDisplayLine.prototype.text = function() {};
 
 /**
  * Property that defines the background color of this line.
  *
- * @return {com.bitwig.extension.controller.api.ColorHardwareProperty}
+ * @return {ColorHardwareProperty}
  */
 HardwareTextDisplayLine.prototype.backgroundColor = function() {};
 
 /**
  * Property that defines the text color of this line.
  *
- * @return {com.bitwig.extension.controller.api.ColorHardwareProperty}
+ * @return {ColorHardwareProperty}
  */
 HardwareTextDisplayLine.prototype.textColor = function() {};

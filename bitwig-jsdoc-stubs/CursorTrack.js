@@ -33,13 +33,13 @@ CursorTrack.prototype.selectFirstChild = function() {};
  * within the current nesting level, or over a flat list of either all tracks or only the expanded tracks.
  * Default is CursorNavigationMode.FLAT.
  *
- * @param {com.bitwig.extension.controller.api.CursorNavigationMode} mode
+ * @param {CursorNavigationMode} mode
  * @since API version 1
  */
 CursorTrack.prototype.setCursorNavigationMode = function(mode) {};
 
 /**
- * @return {com.bitwig.extension.controller.api.PinnableCursorDevice}
+ * @return {PinnableCursorDevice}
  */
 CursorTrack.prototype.createCursorDevice = function() {};
 
@@ -55,7 +55,7 @@ CursorTrack.prototype.createCursorDevice = function() {};
           the number of sends that are simultaneously accessible in nested channels.
  * @param followMode
           Mode that defines how this cursor should follow devices.
- * @return {com.bitwig.extension.controller.api.PinnableCursorDevice}
+ * @return {PinnableCursorDevice}
  * @since API version 2
  */
 CursorTrack.prototype.createCursorDevice = function(id, name, numSends, followMode) {};
@@ -68,7 +68,7 @@ CursorTrack.prototype.createCursorDevice = function(id, name, numSends, followMo
  *
  * @param {int} gridWidth
  * @param {int} gridHeight
- * @return {com.bitwig.extension.controller.api.PinnableCursorClip}
+ * @return {PinnableCursorClip}
  * @since API version 10
  */
 CursorTrack.prototype.createLauncherCursorClip = function(gridWidth, gridHeight) {};
@@ -83,7 +83,7 @@ CursorTrack.prototype.createLauncherCursorClip = function(gridWidth, gridHeight)
  * @param {string} name
  * @param {int} gridWidth
  * @param {int} gridHeight
- * @return {com.bitwig.extension.controller.api.PinnableCursorClip}
+ * @return {PinnableCursorClip}
  * @since API version 10
  */
 CursorTrack.prototype.createLauncherCursorClip = function(id, name, gridWidth, gridHeight) {};

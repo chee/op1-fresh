@@ -13,14 +13,14 @@ ColorHardwareProperty.prototype.constructor = ColorHardwareProperty;
 /**
  * Gets the current value. This is the value that should be sent to the hardware to be displayed.
  *
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 ColorHardwareProperty.prototype.currentValue = function() {};
 
 /**
  * The value that was last sent to the hardware.
  *
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 ColorHardwareProperty.prototype.lastSentValue = function() {};
 
@@ -29,20 +29,20 @@ ColorHardwareProperty.prototype.lastSentValue = function() {};
  * callback is called as a result of calling the {@link HardwareSurface#updateHardware()} method (typically
  * from the flush method).
  *
- * @param {java.util.function.Consumer<com.bitwig.extension.api.Color>} sendValueConsumer
+ * @param {java.util.function.Consumer<Color>} sendValueConsumer
  */
 ColorHardwareProperty.prototype.onUpdateHardware = function(sendValueConsumer) {};
 
 /**
  * Sets the current value.
  *
- * @param {com.bitwig.extension.api.Color} value
+ * @param {Color} value
  */
 ColorHardwareProperty.prototype.setValue = function(value) {};
 
 /**
  * Sets the current value from a {@link Supplier} that supplies the latest value.
  *
- * @param {java.util.function.Supplier<com.bitwig.extension.api.Color>} supplier
+ * @param {java.util.function.Supplier<Color>} supplier
  */
 ColorHardwareProperty.prototype.setValueSupplier = function(supplier) {};

@@ -31,7 +31,7 @@ TimeSignatureValue.prototype.set = function(name) {};
 /**
  * Returns an object that provides access to the time signature numerator.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue} an integer value object that represents the time signature numerator.
+ * @return {SettableIntegerValue} an integer value object that represents the time signature numerator.
  * @since API version 5
  */
 TimeSignatureValue.prototype.numerator = function() {};
@@ -39,7 +39,7 @@ TimeSignatureValue.prototype.numerator = function() {};
 /**
  * Returns an object that provides access to the time signature denominator.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue} an integer value object that represents the time signature denominator.
+ * @return {SettableIntegerValue} an integer value object that represents the time signature denominator.
  * @since API version 5
  */
 TimeSignatureValue.prototype.denominator = function() {};
@@ -47,7 +47,7 @@ TimeSignatureValue.prototype.denominator = function() {};
 /**
  * Returns an object that provides access to the time signature tick subdivisions.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue} an integer value object that represents the time signature ticks.
+ * @return {SettableIntegerValue} an integer value object that represents the time signature ticks.
  * @since API version 5
  */
 TimeSignatureValue.prototype.ticks = function() {};

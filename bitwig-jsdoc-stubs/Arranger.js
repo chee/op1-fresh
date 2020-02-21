@@ -13,7 +13,7 @@ function Arranger() {}
  * Gets an object that allows to enable/disable arranger playback follow. Observers can be registered on
  * the returned object for receiving notifications when the setting switches between on and off.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the enabled state of arranger playback follow
+ * @return {SettableBooleanValue} a boolean value object that represents the enabled state of arranger playback follow
  * @since API version 1
  */
 Arranger.prototype.isPlaybackFollowEnabled = function() {};
@@ -22,7 +22,7 @@ Arranger.prototype.isPlaybackFollowEnabled = function() {};
  * Gets an object that allows to control the arranger track height. Observers can be registered on the
  * returned object for receiving notifications when the track height changes.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that has the state `true` when the tracks have double row height and
+ * @return {SettableBooleanValue} a boolean value object that has the state `true` when the tracks have double row height and
         `false` when the tracks have single row height.
  * @since API version 1
  */
@@ -33,7 +33,7 @@ Arranger.prototype.hasDoubleRowTrackHeight = function() {};
  * registered on the returned object for receiving notifications when the cue marker lane switches between
  * shown and hidden.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the cue marker section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the cue marker section visibility
  * @since API version 1
  */
 Arranger.prototype.areCueMarkersVisible = function() {};
@@ -43,7 +43,7 @@ Arranger.prototype.areCueMarkersVisible = function() {};
  * registered on the returned object for receiving notifications when the clip launcher switches between
  * shown and hidden.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the clip launcher visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the clip launcher visibility
  * @since API version 1
  */
 Arranger.prototype.isClipLauncherVisible = function() {};
@@ -52,7 +52,7 @@ Arranger.prototype.isClipLauncherVisible = function() {};
  * Gets an object that allows to show/hide the timeline in the arranger panel. Observers can be registered
  * on the returned object for receiving notifications when the timeline switches between shown and hidden.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the timeline visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the timeline visibility
  * @since API version 1
  */
 Arranger.prototype.isTimelineVisible = function() {};
@@ -62,7 +62,7 @@ Arranger.prototype.isTimelineVisible = function() {};
  * can be registered on the returned object for receiving notifications when the I/O section switches
  * between shown and hidden.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the visibility of the track I/O section
+ * @return {SettableBooleanValue} a boolean value object that represents the visibility of the track I/O section
  * @since API version 1
  */
 Arranger.prototype.isIoSectionVisible = function() {};
@@ -72,7 +72,7 @@ Arranger.prototype.isIoSectionVisible = function() {};
  * registered on the returned object for receiving notifications when the effect track section switches
  * between shown and hidden.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the visibility of the effect track section
+ * @return {SettableBooleanValue} a boolean value object that represents the visibility of the effect track section
  * @since API version 1
  */
 Arranger.prototype.areEffectTracksVisible = function() {};
@@ -83,6 +83,6 @@ Arranger.prototype.areEffectTracksVisible = function() {};
  *
  * @param size
           the number of simultaneously accessible items
- * @return {com.bitwig.extension.controller.api.CueMarkerBank} the requested item bank object
+ * @return {CueMarkerBank} the requested item bank object
  */
 Arranger.prototype.createCueMarkerBank = function(size) {};

@@ -13,7 +13,7 @@ NoteLatch.prototype.constructor = NoteLatch;
 /**
  * Returns an object to enable or disable the note latch component.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 NoteLatch.prototype.isEnabled = function() {};
@@ -25,7 +25,7 @@ NoteLatch.prototype.isEnabled = function() {};
  *  - toggle
  *  - velocity
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 10
  */
 NoteLatch.prototype.mode = function() {};
@@ -33,7 +33,7 @@ NoteLatch.prototype.mode = function() {};
 /**
  * Only one note at a time.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 NoteLatch.prototype.mono = function() {};
@@ -41,7 +41,7 @@ NoteLatch.prototype.mono = function() {};
 /**
  * The velocity threshold used by the velocity latch mode.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 10
  */
 NoteLatch.prototype.velocityThreshold = function() {};
@@ -49,7 +49,7 @@ NoteLatch.prototype.velocityThreshold = function() {};
 /**
  * How many notes are being latched.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 10
  */
 NoteLatch.prototype.activeNotes = function() {};

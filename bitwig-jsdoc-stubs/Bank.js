@@ -55,7 +55,7 @@ Bank.prototype.getItemAt = function(index) {};
  * Value that reports the underlying total item count (not the number of items available in the bank
  * window).
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 Bank.prototype.itemCount = function() {};
@@ -64,7 +64,7 @@ Bank.prototype.itemCount = function() {};
  * An integer value that defines the location of the cursor that this bank is following. If there is no
  * cursor or the cursor is not within the bank then the value is -1.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 2
  */
 Bank.prototype.cursorIndex = function() {};

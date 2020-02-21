@@ -13,7 +13,7 @@ CursorRemoteControlsPage.prototype.constructor = CursorRemoteControlsPage;
 /**
  * Value that reports the names of the devices parameter pages.
  *
- * @return {com.bitwig.extension.controller.api.StringArrayValue}
+ * @return {StringArrayValue}
  */
 CursorRemoteControlsPage.prototype.pageNames = function() {};
 
@@ -62,7 +62,7 @@ CursorRemoteControlsPage.prototype.selectPreviousPageMatching = function(express
 /**
  * Value that reports the currently selected parameter page index.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 2
  */
 CursorRemoteControlsPage.prototype.selectedPageIndex = function() {};
@@ -70,7 +70,7 @@ CursorRemoteControlsPage.prototype.selectedPageIndex = function() {};
 /**
  * Value that represents the number of pages.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 7
  */
 CursorRemoteControlsPage.prototype.pageCount = function() {};

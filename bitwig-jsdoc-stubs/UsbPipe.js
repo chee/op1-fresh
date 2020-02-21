@@ -13,7 +13,7 @@ UsbPipe.prototype.constructor = UsbPipe;
 /**
  * The device this endpoint is on.
  *
- * @return {com.bitwig.extension.controller.api.UsbDevice}
+ * @return {UsbDevice}
  * @since API version 7
  */
 UsbPipe.prototype.device = function() {};
@@ -22,7 +22,7 @@ UsbPipe.prototype.device = function() {};
  * The {@link UsbEndpointMatcher} that was provided by the controller for identifying the endpoint to use
  * for communication.
  *
- * @return {com.bitwig.extension.controller.UsbEndpointMatcher}
+ * @return {UsbEndpointMatcher}
  */
 UsbPipe.prototype.endpointMatcher = function() {};
 
@@ -37,13 +37,13 @@ UsbPipe.prototype.endpointAddress = function() {};
 /**
  * {@link UsbTransferDirection} for this pipe.
  *
- * @return {com.bitwig.extension.controller.api.UsbTransferDirection}
+ * @return {UsbTransferDirection}
  */
 UsbPipe.prototype.direction = function() {};
 
 /**
  * The {@link UsbTransferType} type that this pipe uses for communicating with the USB device.
  *
- * @return {com.bitwig.extension.controller.api.UsbTransferType}
+ * @return {UsbTransferType}
  */
 UsbPipe.prototype.transferType = function() {};

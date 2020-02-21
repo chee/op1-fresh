@@ -172,6 +172,6 @@ ClipLauncherSlotBank.prototype.setIndication = function(shouldIndicate) {};
  * either scenes launch buttons (for launching the content of the track group) or the clips of the group
  * master track.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object.
+ * @return {SettableBooleanValue} a boolean value object.
  */
 ClipLauncherSlotBank.prototype.isMasterTrackContentShownOnTrackGroups = function() {};

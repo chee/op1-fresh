@@ -8,7 +8,7 @@ ClipLauncherSlotOrScene.prototype.constructor = ClipLauncherSlotOrScene;
 /**
  * Returns an object that provides access to the name of the scene.
  *
- * @return {com.bitwig.extension.controller.api.StringValue} a string value object that represents the scene name.
+ * @return {StringValue} a string value object that represents the scene name.
  * @since API version 2
  */
 ClipLauncherSlotOrScene.prototype.name = function() {};
@@ -21,14 +21,14 @@ ClipLauncherSlotOrScene.prototype.name = function() {};
 ClipLauncherSlotOrScene.prototype.launch = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 ClipLauncherSlotOrScene.prototype.launchAction = function() {};
 
 /**
  * Value that reports the position of the scene within the list of Bitwig Studio scenes.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 ClipLauncherSlotOrScene.prototype.sceneIndex = function() {};
@@ -36,7 +36,7 @@ ClipLauncherSlotOrScene.prototype.sceneIndex = function() {};
 /**
  * Value that reports the color of this slot.
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  * @since API version 7
  */
 ClipLauncherSlotOrScene.prototype.color = function() {};
@@ -54,7 +54,7 @@ ClipLauncherSlotOrScene.prototype.setIndication = function(shouldIndicate) {};
 /**
  * An {@link InsertionPoint} that is used to replace the contents of this slot or scene.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 ClipLauncherSlotOrScene.prototype.replaceInsertionPoint = function() {};
@@ -62,7 +62,7 @@ ClipLauncherSlotOrScene.prototype.replaceInsertionPoint = function() {};
 /**
  * An {@link InsertionPoint} that can be used to insert content in the next scene.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 ClipLauncherSlotOrScene.prototype.nextSceneInsertionPoint = function() {};
@@ -70,7 +70,7 @@ ClipLauncherSlotOrScene.prototype.nextSceneInsertionPoint = function() {};
 /**
  * An {@link InsertionPoint} that can be used to insert content after this slot or scene.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 ClipLauncherSlotOrScene.prototype.previousSceneInsertionPoint = function() {};

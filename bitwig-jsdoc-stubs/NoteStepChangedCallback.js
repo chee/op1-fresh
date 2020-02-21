@@ -6,6 +6,6 @@ NoteStepChangedCallback.prototype = new Callback();
 NoteStepChangedCallback.prototype.constructor = NoteStepChangedCallback;
 
 /**
- * @param {com.bitwig.extension.controller.api.NoteStep} noteStep
+ * @param {NoteStep} noteStep
  */
 NoteStepChangedCallback.prototype.noteStepChanged = function(noteStep) {};

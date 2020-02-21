@@ -11,7 +11,7 @@ function NoteLane() {}
  * Value which represents the id of this lane. is either the note pitch represented by this lane, or in
  * case of audio a lane index (currently always 0 in that case).
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 NoteLane.prototype.noteLaneId = function() {};
@@ -20,7 +20,7 @@ NoteLane.prototype.noteLaneId = function() {};
  * Value  that reports the name of the note lane. Typically the name of a note lane is
  * either equal to the title of an associated drum pad, or reflects the pitch of the note, e.g. "C#3".
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  */
 NoteLane.prototype.name = function() {};
 
@@ -28,7 +28,7 @@ NoteLane.prototype.name = function() {};
  * Value the color of the note lane. By default the reported color will be the
  * track color, or in case an associated drum pad has a custom color it will be the color of that pad
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  */
 NoteLane.prototype.color = function() {};
 

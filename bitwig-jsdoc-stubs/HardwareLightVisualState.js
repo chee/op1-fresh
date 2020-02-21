@@ -12,41 +12,41 @@
 function HardwareLightVisualState() {}
 
 /**
- * @param {com.bitwig.extension.api.Color} lightColor
- * @return {com.bitwig.extension.api.Color}
+ * @param {Color} lightColor
+ * @return {Color}
  */
 HardwareLightVisualState.prototype.defaultLabelColorForLightColor = function(lightColor) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
- * @return {com.bitwig.extension.controller.api.HardwareLightVisualState}
+ * @param {Color} color
+ * @return {HardwareLightVisualState}
  */
 HardwareLightVisualState.prototype.createForColor = function(color) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
- * @param {com.bitwig.extension.api.Color} labelColor
- * @return {com.bitwig.extension.controller.api.HardwareLightVisualState}
+ * @param {Color} color
+ * @param {Color} labelColor
+ * @return {HardwareLightVisualState}
  */
 HardwareLightVisualState.prototype.createForColor = function(color, labelColor) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} onColor
- * @param {com.bitwig.extension.api.Color} offColor
+ * @param {Color} onColor
+ * @param {Color} offColor
  * @param {double} onBlinkTimeInSec
  * @param {double} offBlinkTimeInSec
- * @return {com.bitwig.extension.controller.api.HardwareLightVisualState}
+ * @return {HardwareLightVisualState}
  */
 HardwareLightVisualState.prototype.createBlinking = function(onColor, offColor, onBlinkTimeInSec, offBlinkTimeInSec) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} onColor
- * @param {com.bitwig.extension.api.Color} offColor
- * @param {com.bitwig.extension.api.Color} labelOnColor
- * @param {com.bitwig.extension.api.Color} labelOffColor
+ * @param {Color} onColor
+ * @param {Color} offColor
+ * @param {Color} labelOnColor
+ * @param {Color} labelOffColor
  * @param {double} onBlinkTimeInSec
  * @param {double} offBlinkTimeInSec
- * @return {com.bitwig.extension.controller.api.HardwareLightVisualState}
+ * @return {HardwareLightVisualState}
  */
 HardwareLightVisualState.prototype.createBlinking = function(onColor, offColor, labelOnColor, labelOffColor, onBlinkTimeInSec, offBlinkTimeInSec) {};
 
@@ -56,12 +56,12 @@ HardwareLightVisualState.prototype.createBlinking = function(onColor, offColor, 
 HardwareLightVisualState.prototype.isBlinking = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 HardwareLightVisualState.prototype.getColor = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 HardwareLightVisualState.prototype.getBlinkOffColor = function() {};
 
@@ -76,11 +76,11 @@ HardwareLightVisualState.prototype.getOffBlinkTime = function() {};
 HardwareLightVisualState.prototype.getOnBlinkTime = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 HardwareLightVisualState.prototype.getLabelColor = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 HardwareLightVisualState.prototype.getLabelBlinkOffColor = function() {};

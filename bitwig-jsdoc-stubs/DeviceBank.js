@@ -20,7 +20,7 @@ DeviceBank.prototype.constructor = DeviceBank;
  * Returns the object that was used to instantiate this device bank. Possible device chain instances are
  * tracks, device layers, drums pads, or FX slots.
  *
- * @return {com.bitwig.extension.controller.api.DeviceChain} the requested device chain object
+ * @return {DeviceChain} the requested device chain object
  * @since API version 1
  */
 DeviceBank.prototype.getDeviceChain = function() {};
@@ -31,7 +31,7 @@ DeviceBank.prototype.getDeviceChain = function() {};
  * @param indexInBank
           the device index within this bank, not the position within the device chain. Must be in the
           range [0..sizeOfBank-1].
- * @return {com.bitwig.extension.controller.api.Device} the requested device object
+ * @return {Device} the requested device object
  * @since API version 1
  */
 DeviceBank.prototype.getDevice = function(indexInBank) {};

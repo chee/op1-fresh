@@ -27,7 +27,7 @@ Transport.prototype.continuePlayback = function() {};
 /**
  * Action that can be used to play the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.playAction = function() {};
@@ -35,7 +35,7 @@ Transport.prototype.playAction = function() {};
 /**
  * Action that can be used to continue the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.continuePlaybackAction = function() {};
@@ -50,7 +50,7 @@ Transport.prototype.stop = function() {};
 /**
  * Action that can be used to stop the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.stopAction = function() {};
@@ -73,7 +73,7 @@ Transport.prototype.restart = function() {};
 /**
  * Action that can be used to restart the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.restartAction = function() {};
@@ -88,7 +88,7 @@ Transport.prototype.record = function() {};
 /**
  * Action that can be used to start recording
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.recordAction = function() {};
@@ -103,7 +103,7 @@ Transport.prototype.rewind = function() {};
 /**
  * Action that can be used to rewind the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.rewindAction = function() {};
@@ -118,7 +118,7 @@ Transport.prototype.fastForward = function() {};
 /**
  * Action that can be used to fast forward the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.fastForwardAction = function() {};
@@ -134,7 +134,7 @@ Transport.prototype.tapTempo = function() {};
 /**
  * Action that can be used to tap the tempo.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.tapTempoAction = function() {};
@@ -142,7 +142,7 @@ Transport.prototype.tapTempoAction = function() {};
 /**
  * Value that reports if the Bitwig Studio transport is playing.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isPlaying = function() {};
@@ -150,7 +150,7 @@ Transport.prototype.isPlaying = function() {};
 /**
  * Value that reports if the Bitwig Studio transport is recording.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isArrangerRecordEnabled = function() {};
@@ -158,7 +158,7 @@ Transport.prototype.isArrangerRecordEnabled = function() {};
 /**
  * Value that reports if overdubbing is enabled in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isArrangerOverdubEnabled = function() {};
@@ -166,7 +166,7 @@ Transport.prototype.isArrangerOverdubEnabled = function() {};
 /**
  * Value reports if clip launcher overdubbing is enabled in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isClipLauncherOverdubEnabled = function() {};
@@ -175,7 +175,7 @@ Transport.prototype.isClipLauncherOverdubEnabled = function() {};
  * Value that reports the current automation write mode. Possible values are `"latch"`, `"touch"` or
  * `"write"`.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 2
  */
 Transport.prototype.automationWriteMode = function() {};
@@ -183,7 +183,7 @@ Transport.prototype.automationWriteMode = function() {};
 /**
  * Value that reports if automation write is currently enabled for the arranger.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isArrangerAutomationWriteEnabled = function() {};
@@ -191,7 +191,7 @@ Transport.prototype.isArrangerAutomationWriteEnabled = function() {};
 /**
  * Value that reports if automation write is currently enabled on the clip launcher.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isClipLauncherAutomationWriteEnabled = function() {};
@@ -199,7 +199,7 @@ Transport.prototype.isClipLauncherAutomationWriteEnabled = function() {};
 /**
  * Value that indicates if automation override is currently on.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Transport.prototype.isAutomationOverrideActive = function() {};
@@ -207,7 +207,7 @@ Transport.prototype.isAutomationOverrideActive = function() {};
 /**
  * Value that indicates if the loop is currently active or not.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isArrangerLoopEnabled = function() {};
@@ -215,7 +215,7 @@ Transport.prototype.isArrangerLoopEnabled = function() {};
 /**
  * Value that reports if punch-in is enabled in the Bitwig Studio transport.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isPunchInEnabled = function() {};
@@ -223,7 +223,7 @@ Transport.prototype.isPunchInEnabled = function() {};
 /**
  * Value that reports if punch-in is enabled in the Bitwig Studio transport.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isPunchOutEnabled = function() {};
@@ -231,7 +231,7 @@ Transport.prototype.isPunchOutEnabled = function() {};
 /**
  * Value that reports if the metronome is enabled in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isMetronomeEnabled = function() {};
@@ -239,7 +239,7 @@ Transport.prototype.isMetronomeEnabled = function() {};
 /**
  * Value that reports if the metronome has tick playback enabled.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isMetronomeTickPlaybackEnabled = function() {};
@@ -247,7 +247,7 @@ Transport.prototype.isMetronomeTickPlaybackEnabled = function() {};
 /**
  * Value that reports the metronome volume.
  *
- * @return {com.bitwig.extension.controller.api.SettableRangedValue}
+ * @return {SettableRangedValue}
  * @since API version 2
  */
 Transport.prototype.metronomeVolume = function() {};
@@ -255,7 +255,7 @@ Transport.prototype.metronomeVolume = function() {};
 /**
  * Value that reports if the metronome is audible during pre-roll.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isMetronomeAudibleDuringPreRoll = function() {};
@@ -264,7 +264,7 @@ Transport.prototype.isMetronomeAudibleDuringPreRoll = function() {};
  * Value that reports the current pre-roll setting. Possible values are `"none"`, `"one_bar"`,
  * `"two_bars"`, or `"four_bars"`.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 2
  */
 Transport.prototype.preRoll = function() {};
@@ -307,7 +307,7 @@ Transport.prototype.returnToArrangement = function() {};
 /**
  * Returns an object that provides access to the project tempo.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} the requested tempo value object
+ * @return {Parameter} the requested tempo value object
  * @since API version 1
  */
 Transport.prototype.tempo = function() {};
@@ -327,7 +327,7 @@ Transport.prototype.increaseTempo = function(amount, range) {};
 /**
  * Returns an object that provides access to the transport position in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} a beat time object that represents the transport position
+ * @return {SettableBeatTimeValue} a beat time object that represents the transport position
  * @since API version 1
  */
 Transport.prototype.getPosition = function() {};
@@ -335,7 +335,7 @@ Transport.prototype.getPosition = function() {};
 /**
  * Returns an object that provides access to the current transport position.
  *
- * @return {com.bitwig.extension.controller.api.BeatTimeValue} beat-time value
+ * @return {BeatTimeValue} beat-time value
  * @since API version 10
  */
 Transport.prototype.playPosition = function() {};
@@ -343,7 +343,7 @@ Transport.prototype.playPosition = function() {};
 /**
  * Returns an object that provides access to the current transport position in seconds.
  *
- * @return {com.bitwig.extension.controller.api.DoubleValue} value (seconds)
+ * @return {DoubleValue} value (seconds)
  * @since API version 10
  */
 Transport.prototype.playPositionInSeconds = function() {};
@@ -351,7 +351,7 @@ Transport.prototype.playPositionInSeconds = function() {};
 /**
  * Returns an object that provides access to the transport's play-start position. (blue triangle)
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} beat-time value
+ * @return {SettableBeatTimeValue} beat-time value
  * @since API version 10
  */
 Transport.prototype.playStartPosition = function() {};
@@ -359,7 +359,7 @@ Transport.prototype.playStartPosition = function() {};
 /**
  * Returns an object that provides access to the transport's play-start position in seconds. (blue triangle)
  *
- * @return {com.bitwig.extension.controller.api.SettableDoubleValue} value (seconds)
+ * @return {SettableDoubleValue} value (seconds)
  * @since API version 10
  */
 Transport.prototype.playStartPositionInSeconds = function() {};
@@ -372,7 +372,7 @@ Transport.prototype.playStartPositionInSeconds = function() {};
 Transport.prototype.launchFromPlayStartPosition = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Transport.prototype.launchFromPlayStartPositionAction = function() {};
 
@@ -384,7 +384,7 @@ Transport.prototype.launchFromPlayStartPositionAction = function() {};
 Transport.prototype.jumpToPlayStartPosition = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Transport.prototype.jumpToPlayStartPositionAction = function() {};
 
@@ -396,7 +396,7 @@ Transport.prototype.jumpToPlayStartPositionAction = function() {};
 Transport.prototype.jumpToPreviousCueMarker = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Transport.prototype.jumpToPreviousCueMarkerAction = function() {};
 
@@ -408,7 +408,7 @@ Transport.prototype.jumpToPreviousCueMarkerAction = function() {};
 Transport.prototype.jumpToNextCueMarker = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Transport.prototype.jumpToNextCueMarkerAction = function() {};
 
@@ -438,7 +438,7 @@ Transport.prototype.incPosition = function(beats, snap) {};
 /**
  * Returns an object that provides access to the punch-in position in the Bitwig Studio transport.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} a beat time object that represents the punch-in position
+ * @return {SettableBeatTimeValue} a beat time object that represents the punch-in position
  * @since API version 1
  */
 Transport.prototype.getInPosition = function() {};
@@ -446,7 +446,7 @@ Transport.prototype.getInPosition = function() {};
 /**
  * Returns an object that provides access to the punch-out position in the Bitwig Studio transport.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} a beat time object that represents the punch-out position
+ * @return {SettableBeatTimeValue} a beat time object that represents the punch-out position
  * @since API version 1
  */
 Transport.prototype.getOutPosition = function() {};
@@ -455,7 +455,7 @@ Transport.prototype.getOutPosition = function() {};
  * Returns an object that provides access to the cross-fader, used for mixing between A/B-channels as
  * specified on the Bitwig Studio tracks.
  *
- * @return {com.bitwig.extension.controller.api.Parameter}
+ * @return {Parameter}
  * @since API version 5
  */
 Transport.prototype.crossfade = function() {};
@@ -463,7 +463,7 @@ Transport.prototype.crossfade = function() {};
 /**
  * Returns an object that provides access to the transport time signature.
  *
- * @return {com.bitwig.extension.controller.api.TimeSignatureValue} the time signature value object that represents the transport time signature.
+ * @return {TimeSignatureValue} the time signature value object that represents the transport time signature.
  * @since API version 5
  */
 Transport.prototype.timeSignature = function() {};
@@ -473,7 +473,7 @@ Transport.prototype.timeSignature = function() {};
  * `"play_recorded"`, `"record_next_free_slot"`, `"stop"`, `"return_to_arrangement"`,
  * `"return_to_previous_clip"` or `"play_random"`.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 2
  */
 Transport.prototype.clipLauncherPostRecordingAction = function() {};
@@ -481,7 +481,7 @@ Transport.prototype.clipLauncherPostRecordingAction = function() {};
 /**
  * Returns an object that provides access to the clip launcher post recording time offset.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} a beat time object that represents the post recording time offset
+ * @return {SettableBeatTimeValue} a beat time object that represents the post recording time offset
  * @since API version 1
  */
 Transport.prototype.getClipLauncherPostRecordingTimeOffset = function() {};
@@ -491,7 +491,7 @@ Transport.prototype.getClipLauncherPostRecordingTimeOffset = function() {};
  * 
  * Possible values are `"none"`, `"8"`, `"4"`, `"2"`, `"1"`, `"1/2"`, `"1/4"`, `"1/8"`, `"1/16"`.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 8
  */
 Transport.prototype.defaultLaunchQuantization = function() {};

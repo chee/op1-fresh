@@ -13,6 +13,6 @@ HardwarePixelDisplay.prototype.constructor = HardwarePixelDisplay;
 /**
  * The {@link Bitmap} that contains the contents of this display.
  *
- * @return {com.bitwig.extension.api.graphics.Bitmap}
+ * @return {Bitmap}
  */
 HardwarePixelDisplay.prototype.bitmap = function() {};

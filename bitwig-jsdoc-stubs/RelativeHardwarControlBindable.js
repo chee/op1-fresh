@@ -18,8 +18,8 @@ RelativeHardwarControlBindable.prototype.constructor = RelativeHardwarControlBin
  * When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
  * it.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @param {RelativeHardwareControl} hardwareControl
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwarControlBindable.prototype.addBinding = function(hardwareControl) {};
 
@@ -30,8 +30,8 @@ RelativeHardwarControlBindable.prototype.addBinding = function(hardwareControl) 
  * When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
  * it.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
+ * @param {RelativeHardwareControl} hardwareControl
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwarControlBindable.prototype.addBindingWithSensitivity = function(hardwareControl, sensitivity) {};

@@ -8,7 +8,7 @@ ClipLauncherSlot.prototype.constructor = ClipLauncherSlot;
 /**
  * Value that reports whether this slot is selected or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isSelected = function() {};
@@ -16,7 +16,7 @@ ClipLauncherSlot.prototype.isSelected = function() {};
 /**
  * Value that reports whether this slot has content or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.hasContent = function() {};
@@ -24,7 +24,7 @@ ClipLauncherSlot.prototype.hasContent = function() {};
 /**
  * Value that reports whether this slot is playing or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isPlaying = function() {};
@@ -32,7 +32,7 @@ ClipLauncherSlot.prototype.isPlaying = function() {};
 /**
  * Value that reports whether this slot is queued for playback or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isPlaybackQueued = function() {};
@@ -40,7 +40,7 @@ ClipLauncherSlot.prototype.isPlaybackQueued = function() {};
 /**
  * Value that reports whether this slot is recording or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isRecording = function() {};
@@ -48,7 +48,7 @@ ClipLauncherSlot.prototype.isRecording = function() {};
 /**
  * Value that reports whether this slot is queued for recording or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isRecordingQueued = function() {};
@@ -56,7 +56,7 @@ ClipLauncherSlot.prototype.isRecordingQueued = function() {};
 /**
  * Value that reports whether this slot is queued for recording or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isStopQueued = function() {};
@@ -71,7 +71,7 @@ ClipLauncherSlot.prototype.browseToInsertClip = function() {};
 /**
  * Value that reports the color of this slot.
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.color = function() {};
@@ -84,7 +84,7 @@ ClipLauncherSlot.prototype.color = function() {};
 ClipLauncherSlot.prototype.select = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 ClipLauncherSlot.prototype.selectAction = function() {};
@@ -97,7 +97,7 @@ ClipLauncherSlot.prototype.selectAction = function() {};
 ClipLauncherSlot.prototype.record = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 ClipLauncherSlot.prototype.recordAction = function() {};

@@ -108,7 +108,7 @@ Clip.prototype.scrollStepsStepBackwards = function() {};
 /**
  * Value that reports if the note grid keys can be scrolled further up.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Clip.prototype.canScrollKeysUp = function() {};
@@ -116,7 +116,7 @@ Clip.prototype.canScrollKeysUp = function() {};
 /**
  * Value that reports if the note grid keys can be scrolled further down.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Clip.prototype.canScrollKeysDown = function() {};
@@ -124,7 +124,7 @@ Clip.prototype.canScrollKeysDown = function() {};
 /**
  * Value that reports if the note grid if the note grid steps can be scrolled backwards.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Clip.prototype.canScrollStepsBackwards = function() {};
@@ -132,7 +132,7 @@ Clip.prototype.canScrollStepsBackwards = function() {};
 /**
  * Value that reports if the note grid if the note grid steps can be scrolled forwards.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Clip.prototype.canScrollStepsForwards = function() {};
@@ -274,7 +274,7 @@ Clip.prototype.addStepDataObserver = function(callback) {};
 /**
  * Registers an observer that reports which note grid steps/keys contain notes.
  *
- * @param {com.bitwig.extension.callback.NoteStepChangedCallback} callback A callback function that receives the StepInfo.
+ * @param {NoteStepChangedCallback} callback A callback function that receives the StepInfo.
  * @since API version 10
  */
 Clip.prototype.addNoteStepObserver = function(callback) {};
@@ -282,7 +282,7 @@ Clip.prototype.addNoteStepObserver = function(callback) {};
 /**
  * Value that reports note grid cells as they get played by the sequencer.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 Clip.prototype.playingStep = function() {};
@@ -299,7 +299,7 @@ Clip.prototype.setName = function(name) {};
 /**
  * Returns shuffle settings of the clip.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} the value object that represents the clips shuffle setting.
+ * @return {SettableBooleanValue} the value object that represents the clips shuffle setting.
  * @since API version 1
  */
 Clip.prototype.getShuffle = function() {};
@@ -307,7 +307,7 @@ Clip.prototype.getShuffle = function() {};
 /**
  * Returns accent setting of the clip.
  *
- * @return {com.bitwig.extension.controller.api.SettableRangedValue} the ranged value object that represents the clips accent setting.
+ * @return {SettableRangedValue} the ranged value object that represents the clips accent setting.
  * @since API version 1
  */
 Clip.prototype.getAccent = function() {};
@@ -315,7 +315,7 @@ Clip.prototype.getAccent = function() {};
 /**
  * Returns the start of the clip in beat time.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} the beat time object that represents the clips start time.
+ * @return {SettableBeatTimeValue} the beat time object that represents the clips start time.
  * @since API version 1
  */
 Clip.prototype.getPlayStart = function() {};
@@ -323,7 +323,7 @@ Clip.prototype.getPlayStart = function() {};
 /**
  * Returns the length of the clip in beat time.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} the beat time object that represents the duration of the clip.
+ * @return {SettableBeatTimeValue} the beat time object that represents the duration of the clip.
  * @since API version 1
  */
 Clip.prototype.getPlayStop = function() {};
@@ -331,7 +331,7 @@ Clip.prototype.getPlayStop = function() {};
 /**
  * Returns an object that provides access to the loop enabled state of the clip.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object.
+ * @return {SettableBooleanValue} a boolean value object.
  * @since API version 1
  */
 Clip.prototype.isLoopEnabled = function() {};
@@ -339,7 +339,7 @@ Clip.prototype.isLoopEnabled = function() {};
 /**
  * Returns the loop start time of the clip in beat time.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} the beat time object that represents the clips loop start time.
+ * @return {SettableBeatTimeValue} the beat time object that represents the clips loop start time.
  * @since API version 1
  */
 Clip.prototype.getLoopStart = function() {};
@@ -347,7 +347,7 @@ Clip.prototype.getLoopStart = function() {};
 /**
  * Returns the loop length of the clip in beat time.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} the beat time object that represents the clips loop length.
+ * @return {SettableBeatTimeValue} the beat time object that represents the clips loop length.
  * @since API version 1
  */
 Clip.prototype.getLoopLength = function() {};
@@ -355,7 +355,7 @@ Clip.prototype.getLoopLength = function() {};
 /**
  * Get the color of the clip.
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  * @since API version 2
  */
 Clip.prototype.color = function() {};
@@ -397,7 +397,7 @@ Clip.prototype.quantize = function(amount) {};
 /**
  * Gets the track that contains the clip.
  *
- * @return {com.bitwig.extension.controller.api.Track} a track object that represents the track which contains the clip.
+ * @return {Track} a track object that represents the track which contains the clip.
  * @since API version 1
  */
 Clip.prototype.getTrack = function() {};
@@ -408,7 +408,7 @@ Clip.prototype.getTrack = function() {};
  * Possible values are `"default"`, `"none"`, `"8"`, `"4"`, `"2"`, `"1"`, `"1/2"`, `"1/4"`, `"1/8"`,
  * `"1/16"`.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 8
  */
 Clip.prototype.launchQuantization = function() {};
@@ -416,7 +416,7 @@ Clip.prototype.launchQuantization = function() {};
 /**
  * Setting "Q to loop" in the inspector.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 8
  */
 Clip.prototype.useLoopStartAsQuantizationReference = function() {};
@@ -428,7 +428,7 @@ Clip.prototype.useLoopStartAsQuantizationReference = function() {};
  *  - continue_immediately
  *  - continue_with_quantization
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 9
  */
 Clip.prototype.launchMode = function() {};
@@ -439,7 +439,7 @@ Clip.prototype.launchMode = function() {};
  * @param {int} channel
  * @param {int} x
  * @param {int} y
- * @return {com.bitwig.extension.controller.api.NoteStep}
+ * @return {NoteStep}
  * @since API version 10
  */
 Clip.prototype.getStep = function(channel, x, y) {};
@@ -454,7 +454,7 @@ Clip.prototype.launch = function() {};
 /**
  * Get the clip launcher slot containing the clip.
  *
- * @return {com.bitwig.extension.controller.api.ClipLauncherSlot}
+ * @return {ClipLauncherSlot}
  * @since API version 10
  */
 Clip.prototype.clipLauncherSlot = function() {};

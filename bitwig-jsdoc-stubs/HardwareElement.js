@@ -32,26 +32,26 @@ HardwareElement.prototype.setLabel = function(label) {};
 /**
  * The color of the label.
  *
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 HardwareElement.prototype.getLabelColor = function() {};
 
 /**
  * Sets the color of the label.
  *
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 HardwareElement.prototype.setLabelColor = function(color) {};
 
 /**
  * {@link RelativePosition} that defines where the label is.
  *
- * @return {com.bitwig.extension.controller.api.RelativePosition}
+ * @return {RelativePosition}
  */
 HardwareElement.prototype.getLabelPosition = function() {};
 
 /**
- * @param {com.bitwig.extension.controller.api.RelativePosition} position
+ * @param {RelativePosition} position
  */
 HardwareElement.prototype.setLabelPosition = function(position) {};
 

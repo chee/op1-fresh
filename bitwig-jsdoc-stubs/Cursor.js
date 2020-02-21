@@ -22,7 +22,7 @@ Cursor.prototype.constructor = Cursor;
 Cursor.prototype.selectPrevious = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Cursor.prototype.selectPreviousAction = function() {};
 
@@ -34,7 +34,7 @@ Cursor.prototype.selectPreviousAction = function() {};
 Cursor.prototype.selectNext = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Cursor.prototype.selectNextAction = function() {};
 
@@ -55,7 +55,7 @@ Cursor.prototype.selectLast = function() {};
 /**
  * Boolean value that reports whether there is an item after the current cursor position.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Cursor.prototype.hasNext = function() {};
@@ -63,7 +63,7 @@ Cursor.prototype.hasNext = function() {};
 /**
  * Boolean value that reports whether there is an item before the current cursor position.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Cursor.prototype.hasPrevious = function() {};

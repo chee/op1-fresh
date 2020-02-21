@@ -11,7 +11,7 @@ function Color() {}
  * @param {double} red
  * @param {double} green
  * @param {double} blue
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.fromRGB = function(red, green, blue) {};
 
@@ -20,7 +20,7 @@ Color.prototype.fromRGB = function(red, green, blue) {};
  * @param {double} green
  * @param {double} blue
  * @param {double} alpha
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.fromRGBA = function(red, green, blue, alpha) {};
 
@@ -28,7 +28,7 @@ Color.prototype.fromRGBA = function(red, green, blue, alpha) {};
  * @param {int} red
  * @param {int} green
  * @param {int} blue
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.fromRGB255 = function(red, green, blue) {};
 
@@ -37,39 +37,39 @@ Color.prototype.fromRGB255 = function(red, green, blue) {};
  * @param {int} green
  * @param {int} blue
  * @param {int} alpha
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.fromRGBA255 = function(red, green, blue, alpha) {};
 
 /**
  * @param {string} hex
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.fromHex = function(hex) {};
 
 /**
  * Mixes two colors.
  *
- * @param {com.bitwig.extension.api.Color} c1
- * @param {com.bitwig.extension.api.Color} c2
+ * @param {Color} c1
+ * @param {Color} c2
  * @param {double} blend
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  * @since API version 4
  */
 Color.prototype.mix = function(c1, c2, blend) {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.nullColor = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.blackColor = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.whiteColor = function() {};
 

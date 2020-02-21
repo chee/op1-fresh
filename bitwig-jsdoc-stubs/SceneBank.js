@@ -7,9 +7,9 @@
  * the list of underlying scenes.
  * 
  * To receive an instance of scene bank call
- * {@link com.bitwig.extension.controller.api.ControllerHost#createSceneBank}.
+ * {@link ControllerHost#createSceneBank}.
  *
- * @see {@link com.bitwig.extension.controller.api.ControllerHost#createSceneBank}
+ * @see {@link ControllerHost#createSceneBank}
  * @since API version 1
  */
 function SceneBank() {}
@@ -23,7 +23,7 @@ SceneBank.prototype.constructor = SceneBank;
  * @param indexInBank
           the scene index within this bank, not the index within the list of all Bitwig Studio scenes.
           Must be in the range [0..sizeOfBank-1].
- * @return {com.bitwig.extension.controller.api.Scene} the requested scene object
+ * @return {Scene} the requested scene object
  * @since API version 1
  */
 SceneBank.prototype.getScene = function(indexInBank) {};

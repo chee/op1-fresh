@@ -13,7 +13,7 @@ function InternalHardwareLightState() {}
 /**
  * The visual state of this light (used by Bitwig Studio to visualize the light when needed).
  *
- * @return {com.bitwig.extension.controller.api.HardwareLightVisualState}
+ * @return {HardwareLightVisualState}
  */
 InternalHardwareLightState.prototype.getVisualState = function() {};
 

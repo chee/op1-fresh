@@ -12,7 +12,7 @@ PianoKeyboard.prototype.constructor = PianoKeyboard;
  * The {@link MidiIn} where this piano keyboard would send key presses. If set this allows the simulator
  * for the hardware to simulate the note input.
  *
- * @param {com.bitwig.extension.controller.api.MidiIn} midiIn
+ * @param {MidiIn} midiIn
  */
 PianoKeyboard.prototype.setMidiIn = function(midiIn) {};
 

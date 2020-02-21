@@ -57,7 +57,7 @@ Application.prototype.createEffectTrack = function(position) {};
  * other (probably more convenient) interfaces methods of the API. In contrast to that, this method
  * provides a more generic way to find available application functionality.
  *
- * @return {com.bitwig.extension.controller.api.Action[]} the list of actions
+ * @return {Action[]} the list of actions
 @since API version 1
  */
 Application.prototype.getActions = function() {};
@@ -68,7 +68,7 @@ Application.prototype.getActions = function() {};
  *
  * @param id
           the action identifier string, must not be `null`
- * @return {com.bitwig.extension.controller.api.Action} the action associated with the given id, or null in case there is no action with the given
+ * @return {Action} the action associated with the given id, or null in case there is no action with the given
         identifier.
 @since API version 1
  */
@@ -77,7 +77,7 @@ Application.prototype.getAction = function(id) {};
 /**
  * Returns a list of action categories that is used by Bitwig Studio to group actions into categories.
  *
- * @return {com.bitwig.extension.controller.api.ActionCategory[]} the list of action categories
+ * @return {ActionCategory[]} the list of action categories
 @since API version 1
  */
 Application.prototype.getActionCategories = function() {};
@@ -88,7 +88,7 @@ Application.prototype.getActionCategories = function() {};
  *
  * @param id
           the category identifier string, must not be `null`
- * @return {com.bitwig.extension.controller.api.ActionCategory} the action associated with the given id, or null in case there is no category with the given
+ * @return {ActionCategory} the action associated with the given id, or null in case there is no category with the given
         identifier
 @since API version 1
  */
@@ -111,7 +111,7 @@ Application.prototype.deactivateEngine = function() {};
 /**
  * Value that reports whether an audio engine is active or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Application.prototype.hasActiveEngine = function() {};
@@ -119,7 +119,7 @@ Application.prototype.hasActiveEngine = function() {};
 /**
  * Value that reports the name of the current project.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Application.prototype.projectName = function() {};
@@ -141,7 +141,7 @@ Application.prototype.previousProject = function() {};
 /**
  * Set BitwigStudio to navigate into the group.
  *
- * @param {com.bitwig.extension.controller.api.Track} track
+ * @param {Track} track
  * @since API version 2
  */
 Application.prototype.navigateIntoTrackGroup = function(track) {};
@@ -161,7 +161,7 @@ Application.prototype.navigateToParentTrackGroup = function() {};
 Application.prototype.undo = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.undoAction = function() {};
 
@@ -173,7 +173,7 @@ Application.prototype.undoAction = function() {};
 Application.prototype.redo = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.redoAction = function() {};
 
@@ -204,7 +204,7 @@ Application.prototype.previousPanelLayout = function() {};
 /**
  * Value that reports the name of the active panel layout.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Application.prototype.panelLayout = function() {};
@@ -212,7 +212,7 @@ Application.prototype.panelLayout = function() {};
 /**
  * Value that reports the name of the active display profile.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Application.prototype.displayProfile = function() {};
@@ -329,7 +329,7 @@ Application.prototype.escape = function() {};
 Application.prototype.selectAll = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectAllAction = function() {};
 
@@ -341,7 +341,7 @@ Application.prototype.selectAllAction = function() {};
 Application.prototype.selectNone = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectNoneAction = function() {};
 
@@ -353,7 +353,7 @@ Application.prototype.selectNoneAction = function() {};
 Application.prototype.selectPrevious = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectPreviousAction = function() {};
 
@@ -365,7 +365,7 @@ Application.prototype.selectPreviousAction = function() {};
 Application.prototype.selectNext = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectNextAction = function() {};
 
@@ -377,7 +377,7 @@ Application.prototype.selectNextAction = function() {};
 Application.prototype.selectFirst = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectFirstAction = function() {};
 
@@ -389,7 +389,7 @@ Application.prototype.selectFirstAction = function() {};
 Application.prototype.selectLast = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectLastAction = function() {};
 
@@ -401,7 +401,7 @@ Application.prototype.selectLastAction = function() {};
 Application.prototype.cut = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.cutAction = function() {};
 
@@ -413,7 +413,7 @@ Application.prototype.cutAction = function() {};
 Application.prototype.copy = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.copyAction = function() {};
 
@@ -425,7 +425,7 @@ Application.prototype.copyAction = function() {};
 Application.prototype.paste = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.pasteAction = function() {};
 
@@ -437,7 +437,7 @@ Application.prototype.pasteAction = function() {};
 Application.prototype.duplicate = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Application.prototype.duplicateAction = function() {};
@@ -452,7 +452,7 @@ Application.prototype.duplicateAction = function() {};
 Application.prototype.remove = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.removeAction = function() {};
 
@@ -471,7 +471,7 @@ Application.prototype.rename = function() {};
 Application.prototype.zoomIn = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomInAction = function() {};
 
@@ -483,7 +483,7 @@ Application.prototype.zoomInAction = function() {};
 Application.prototype.zoomOut = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomOutAction = function() {};
 
@@ -495,7 +495,7 @@ Application.prototype.zoomOutAction = function() {};
 Application.prototype.zoomToSelection = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomToSelectionAction = function() {};
 
@@ -507,7 +507,7 @@ Application.prototype.zoomToSelectionAction = function() {};
 Application.prototype.zoomToSelectionOrAll = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomToSelectionOrAllAction = function() {};
 
@@ -519,7 +519,7 @@ Application.prototype.zoomToSelectionOrAllAction = function() {};
 Application.prototype.zoomToSelectionOrPrevious = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomToSelectionOrPreviousAction = function() {};
 
@@ -531,7 +531,7 @@ Application.prototype.zoomToSelectionOrPreviousAction = function() {};
 Application.prototype.zoomToFit = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomToFitAction = function() {};
 
@@ -574,7 +574,7 @@ Application.prototype.toggleFullScreen = function() {};
  * Returns the record quantization grid setting from the preferences.
  * Possible values are "OFF", "1/32", "1/16", "1/8", "1/4".
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 10
  */
 Application.prototype.recordQuantizationGrid = function() {};
@@ -582,7 +582,7 @@ Application.prototype.recordQuantizationGrid = function() {};
 /**
  * Returns a settable value to choose if the record quantization should quantize note length.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 Application.prototype.recordQuantizeNoteLength = function() {};

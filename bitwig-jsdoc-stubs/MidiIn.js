@@ -61,7 +61,7 @@ MidiIn.prototype.setSysexCallback = function(callback) {};
 
           If multiple note input match the same MIDI event then they'll all receive the MIDI event, and
           if one of them does not consume events then the events wont' be consumed.
- * @return {com.bitwig.extension.controller.api.NoteInput} the object representing the requested note input
+ * @return {NoteInput} the object representing the requested note input
  * @since API version 1
  */
 MidiIn.prototype.createNoteInput = function(name, /*...*/masks) {};
@@ -71,7 +71,7 @@ MidiIn.prototype.createNoteInput = function(name, /*...*/masks) {};
  *
  * @param {int} channel
  * @param {int} controlNumber
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createAbsoluteCCValueMatcher = function(channel, controlNumber) {};
@@ -81,7 +81,7 @@ MidiIn.prototype.createAbsoluteCCValueMatcher = function(channel, controlNumber)
  *
  * @param {int} channel
  * @param {int} note
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createPolyAftertouchValueMatcher = function(channel, note) {};
@@ -92,7 +92,7 @@ MidiIn.prototype.createPolyAftertouchValueMatcher = function(channel, note) {};
  * @param {int} channel
  * @param {int} controlNumber
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBitCCValueMatcher = function(channel, controlNumber, valueAmountForOneFullRotation) {};
@@ -103,7 +103,7 @@ MidiIn.prototype.createRelativeSignedBitCCValueMatcher = function(channel, contr
  * @param {int} channel
  * @param {int} controlNumber
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBit2CCValueMatcher = function(channel, controlNumber, valueAmountForOneFullRotation) {};
@@ -114,7 +114,7 @@ MidiIn.prototype.createRelativeSignedBit2CCValueMatcher = function(channel, cont
  * @param {int} channel
  * @param {int} controlNumber
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeBinOffsetCCValueMatcher = function(channel, controlNumber, valueAmountForOneFullRotation) {};
@@ -125,7 +125,7 @@ MidiIn.prototype.createRelativeBinOffsetCCValueMatcher = function(channel, contr
  * @param {int} channel
  * @param {int} controlNumber
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelative2sComplementCCValueMatcher = function(channel, controlNumber, valueAmountForOneFullRotation) {};
@@ -134,7 +134,7 @@ MidiIn.prototype.createRelative2sComplementCCValueMatcher = function(channel, co
  * Create a matcher that matches the absolute value of a MIDI pitch bend message.
  *
  * @param {int} channel
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createAbsolutePitchBendValueMatcher = function(channel) {};
@@ -146,10 +146,10 @@ MidiIn.prototype.createAbsolutePitchBendValueMatcher = function(channel) {};
  * This can be used to get a much higher precision value that a single MIDI event would allow. Some
  * controllers for example will send 2 CC events for a single value.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} firstValueMatcher
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} secondValueMatcher
+ * @param {AbsoluteHardwareValueMatcher} firstValueMatcher
+ * @param {AbsoluteHardwareValueMatcher} secondValueMatcher
  * @param {boolean} areMostSignificantBitsInSecondEvent
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createSequencedValueMatcher = function(firstValueMatcher, secondValueMatcher, areMostSignificantBitsInSecondEvent) {};
@@ -164,7 +164,7 @@ MidiIn.prototype.createSequencedValueMatcher = function(firstValueMatcher, secon
           Expression that determines the value once an event has been matched.
  * @param valueBitCount
           The number of bits that are relevant from the value extracted by the valueExpression.
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createAbsoluteValueMatcher = function(eventExpression, valueExpression, valueBitCount) {};
@@ -176,7 +176,7 @@ MidiIn.prototype.createAbsoluteValueMatcher = function(eventExpression, valueExp
           Expression that must be true in order to extract the value.
  * @param relativeAdjustment
           The amount of relative adjustment that should be applied
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeValueMatcher = function(eventExpression, relativeAdjustment) {};
@@ -197,7 +197,7 @@ MidiIn.prototype.createRelativeValueMatcher = function(eventExpression, relative
           127 meant it had been rotated to the right by a full rotation then you would pass 127 here.
           This ensures that {@link RelativeHardwareControl}s have similar sensitivity to each other and
           can be mapped and behave in a very similar way to {@link AbsoluteHardwareControl}s.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBitValueMatcher = function(eventExpression, valueExpression, valueBitCount, valueAmountForOneFullRotation) {};
@@ -214,7 +214,7 @@ MidiIn.prototype.createRelativeSignedBitValueMatcher = function(eventExpression,
           127 meant it had been rotated to the right by a full rotation then you would pass 127 here.
           This ensures that {@link RelativeHardwareControl}s have similar sensitivity to each other and
           can be mapped and behave in a very similar way to {@link AbsoluteHardwareControl}s.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBitValueMatcher = function(valueMatcher, valueAmountForOneFullRotation) {};
@@ -235,7 +235,7 @@ MidiIn.prototype.createRelativeSignedBitValueMatcher = function(valueMatcher, va
           127 meant it had been rotated to the right by a full rotation then you would pass 127 here.
           This ensures that {@link RelativeHardwareControl}s have similar sensitivity to each other and
           can be mapped and behave in a very similar way to {@link AbsoluteHardwareControl}s.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBit2ValueMatcher = function(eventExpression, valueExpression, valueBitCount, valueAmountForOneFullRotation) {};
@@ -244,9 +244,9 @@ MidiIn.prototype.createRelativeSignedBit2ValueMatcher = function(eventExpression
  * Creates a matcher that converts a value matched by an {@link AbsoluteHardwareValueMatcher} to a relative
  * value using signed bit 2.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} valueMatcher
+ * @param {AbsoluteHardwareValueMatcher} valueMatcher
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBit2ValueMatcher = function(valueMatcher, valueAmountForOneFullRotation) {};
@@ -267,7 +267,7 @@ MidiIn.prototype.createRelativeSignedBit2ValueMatcher = function(valueMatcher, v
           127 meant it had been rotated to the right by a full rotation then you would pass 127 here.
           This ensures that {@link RelativeHardwareControl}s have similar sensitivity to each other and
           can be mapped and behave in a very similar way to {@link AbsoluteHardwareControl}s.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeBinOffsetValueMatcher = function(eventExpression, valueExpression, valueBitCount, valueAmountForOneFullRotation) {};
@@ -276,9 +276,9 @@ MidiIn.prototype.createRelativeBinOffsetValueMatcher = function(eventExpression,
  * Creates a matcher that converts a value matched by an {@link AbsoluteHardwareValueMatcher} to a relative
  * value using bin offset.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} valueMatcher
+ * @param {AbsoluteHardwareValueMatcher} valueMatcher
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeBinOffsetValueMatcher = function(valueMatcher, valueAmountForOneFullRotation) {};
@@ -299,7 +299,7 @@ MidiIn.prototype.createRelativeBinOffsetValueMatcher = function(valueMatcher, va
           127 meant it had been rotated to the right by a full rotation then you would pass 127 here.
           This ensures that {@link RelativeHardwareControl}s have similar sensitivity to each other and
           can be mapped and behave in a very similar way to {@link AbsoluteHardwareControl}s.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelative2sComplementValueMatcher = function(eventExpression, valueExpression, valueBitCount, valueAmountForOneFullRotation) {};
@@ -308,9 +308,9 @@ MidiIn.prototype.createRelative2sComplementValueMatcher = function(eventExpressi
  * Creates a matcher that converts a value matched by an {@link AbsoluteHardwareValueMatcher} to a relative
  * value using 2s complement.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} valueMatcher
+ * @param {AbsoluteHardwareValueMatcher} valueMatcher
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelative2sComplementValueMatcher = function(valueMatcher, valueAmountForOneFullRotation) {};
@@ -321,7 +321,7 @@ MidiIn.prototype.createRelative2sComplementValueMatcher = function(valueMatcher,
  * @param {int} channel
  * @param {int} controlNumber
  * @param {int} value
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @return {HardwareActionMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createCCActionMatcher = function(channel, controlNumber, value) {};
@@ -331,7 +331,7 @@ MidiIn.prototype.createCCActionMatcher = function(channel, controlNumber, value)
  *
  * @param {int} channel
  * @param {int} controlNumber
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @return {HardwareActionMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createCCActionMatcher = function(channel, controlNumber) {};
@@ -341,7 +341,7 @@ MidiIn.prototype.createCCActionMatcher = function(channel, controlNumber) {};
  *
  * @param {int} channel
  * @param {int} note
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @return {HardwareActionMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createNoteOnActionMatcher = function(channel, note) {};
@@ -351,7 +351,7 @@ MidiIn.prototype.createNoteOnActionMatcher = function(channel, note) {};
  *
  * @param {int} channel
  * @param {int} note
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createNoteOnVelocityValueMatcher = function(channel, note) {};
@@ -361,7 +361,7 @@ MidiIn.prototype.createNoteOnVelocityValueMatcher = function(channel, note) {};
  *
  * @param {int} channel
  * @param {int} note
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createNoteOffVelocityValueMatcher = function(channel, note) {};
@@ -371,7 +371,7 @@ MidiIn.prototype.createNoteOffVelocityValueMatcher = function(channel, note) {};
  *
  * @param {int} channel
  * @param {int} note
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @return {HardwareActionMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createNoteOffActionMatcher = function(channel, note) {};
@@ -382,6 +382,6 @@ MidiIn.prototype.createNoteOffActionMatcher = function(channel, note) {};
  *
  * @param expression
           Expression returns true if the event matches
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @return {HardwareActionMatcher}
  */
 MidiIn.prototype.createActionMatcher = function(expression) {};

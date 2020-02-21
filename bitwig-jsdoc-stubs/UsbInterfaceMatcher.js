@@ -3,6 +3,6 @@
 function UsbInterfaceMatcher() {}
 
 /**
- * @return {com.bitwig.extension.controller.UsbEndpointMatcher[]}
+ * @return {UsbEndpointMatcher[]}
  */
 UsbInterfaceMatcher.prototype.getEndpointMatchers = function() {};

@@ -26,7 +26,7 @@ NoteStep.prototype.y = function() {};
 NoteStep.prototype.channel = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.NoteStep.State} the state of the step, it lets you know if a note starts.
+ * @return {State} the state of the step, it lets you know if a note starts.
  * @since API version 10
  */
 NoteStep.prototype.state = function() {};
@@ -152,7 +152,7 @@ NoteStep.prototype.isIsSelected = function() {};
 /**
  * @since API version 10
  */
-com.bitwig.extension.controller.api.NoteStep.State = {
+State = {
 	Empty: 0,
 	NoteOn: 1,
 	NoteSustain: 2,

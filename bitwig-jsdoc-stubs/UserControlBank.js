@@ -13,7 +13,7 @@ function UserControlBank() {}
  *
  * @param index
           the index of the control within the bank
- * @return {com.bitwig.extension.controller.api.Parameter} the requested user control object
+ * @return {Parameter} the requested user control object
  * @since API version 1
  */
 UserControlBank.prototype.getControl = function(index) {};

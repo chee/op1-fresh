@@ -25,7 +25,7 @@ ChannelBank.prototype.setChannelScrollStepSize = function(stepSize) {};
 /**
  * Value that reports if the channel bank can be scrolled further down.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ChannelBank.prototype.canScrollChannelsUp = function() {};
@@ -33,7 +33,7 @@ ChannelBank.prototype.canScrollChannelsUp = function() {};
 /**
  * Value that reports if the channel bank can be scrolled further down.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ChannelBank.prototype.canScrollChannelsDown = function() {};
@@ -42,7 +42,7 @@ ChannelBank.prototype.canScrollChannelsDown = function() {};
  * Value that reports the underlying total channel count (not the number of channels available in the bank
  * window).
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 ChannelBank.prototype.channelCount = function() {};

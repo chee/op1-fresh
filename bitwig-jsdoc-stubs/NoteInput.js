@@ -100,7 +100,7 @@ NoteInput.prototype.sendRawMidiEvent = function(status, data0, data1) {};
 /**
  * Creates a proxy object to the NoteInput's NoteLatch component.
  *
- * @return {com.bitwig.extension.controller.api.NoteLatch}
+ * @return {NoteLatch}
  * @since API version 10
  */
 NoteInput.prototype.noteLatch = function() {};
@@ -108,7 +108,7 @@ NoteInput.prototype.noteLatch = function() {};
 /**
  * Creates a proxy object to the NoteInput's Arpeggiator component.
  *
- * @return {com.bitwig.extension.controller.api.Arpeggiator}
+ * @return {Arpeggiator}
  * @since API version 10
  */
 NoteInput.prototype.arpeggiator = function() {};
@@ -116,7 +116,7 @@ NoteInput.prototype.arpeggiator = function() {};
 /**
  * Should this note input be included in the "All Inputs" note source?
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 NoteInput.prototype.includeInAllInputs = function() {};
@@ -128,7 +128,7 @@ NoteInput.prototype.includeInAllInputs = function() {};
  *
  * @since API version 1
  */
-com.bitwig.extension.controller.api.NoteInput.NoteExpression = {
+NoteExpression = {
 	NONE: 0,
 	PITCH_DOWN: 1,
 	PITCH_UP: 2,

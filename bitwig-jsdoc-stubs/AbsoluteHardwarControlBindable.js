@@ -18,8 +18,8 @@ AbsoluteHardwarControlBindable.prototype.constructor = AbsoluteHardwarControlBin
  * When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
  * it.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareControl} hardwareControl
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareControlBinding} The newly created binding
+ * @param {AbsoluteHardwareControl} hardwareControl
+ * @return {AbsoluteHardwareControlBinding} The newly created binding
  */
 AbsoluteHardwarControlBindable.prototype.addBinding = function(hardwareControl) {};
 
@@ -31,9 +31,9 @@ AbsoluteHardwarControlBindable.prototype.addBinding = function(hardwareControl) 
  * When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
  * it.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareControl} hardwareControl
+ * @param {AbsoluteHardwareControl} hardwareControl
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareControlBinding} The newly created binding
+ * @return {AbsoluteHardwareControlBinding} The newly created binding
  */
 AbsoluteHardwarControlBindable.prototype.addBindingWithRange = function(hardwareControl, minNormalizedValue, maxNormalizedValue) {};

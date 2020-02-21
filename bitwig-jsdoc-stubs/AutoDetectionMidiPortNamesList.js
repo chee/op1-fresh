@@ -9,7 +9,7 @@ function AutoDetectionMidiPortNamesList() {}
 AutoDetectionMidiPortNamesList.prototype.add = function(inputNames, outputNames) {};
 
 /**
- * @return {java.util.List<com.bitwig.extension.controller.AutoDetectionMidiPortNames>}
+ * @return {java.util.List<AutoDetectionMidiPortNames>}
  */
 AutoDetectionMidiPortNamesList.prototype.getPortNames = function() {};
 
@@ -20,6 +20,6 @@ AutoDetectionMidiPortNamesList.prototype.getCount = function() {};
 
 /**
  * @param {int} index
- * @return {com.bitwig.extension.controller.AutoDetectionMidiPortNames}
+ * @return {AutoDetectionMidiPortNames}
  */
 AutoDetectionMidiPortNamesList.prototype.getPortNamesAt = function(index) {};

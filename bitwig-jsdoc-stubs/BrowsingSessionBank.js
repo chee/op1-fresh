@@ -24,7 +24,7 @@ BrowsingSessionBank.prototype.getSize = function() {};
  *
  * @param index
           the session index, must be in the range `[0..getSize-1]`
- * @return {com.bitwig.extension.controller.api.GenericBrowsingSession} the requested browser session object
+ * @return {GenericBrowsingSession} the requested browser session object
  * @since API version 1
  */
 BrowsingSessionBank.prototype.getSession = function(index) {};

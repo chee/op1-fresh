@@ -14,7 +14,7 @@ Parameter.prototype.constructor = Parameter;
 /**
  * Gets the current value of this parameter.
  *
- * @return {com.bitwig.extension.controller.api.SettableRangedValue}
+ * @return {SettableRangedValue}
  * @since API version 2
  */
 Parameter.prototype.value = function() {};
@@ -22,7 +22,7 @@ Parameter.prototype.value = function() {};
 /**
  * Gets the modulated value of this parameter.
  *
- * @return {com.bitwig.extension.controller.api.RangedValue}
+ * @return {RangedValue}
  * @since API version 2
  */
 Parameter.prototype.modulatedValue = function() {};
@@ -30,7 +30,7 @@ Parameter.prototype.modulatedValue = function() {};
 /**
  * The name of the parameter.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Parameter.prototype.name = function() {};

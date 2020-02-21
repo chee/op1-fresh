@@ -16,6 +16,6 @@ CursorBrowserItem.prototype.constructor = CursorBrowserItem;
  *
  * @param numSiblings
           the number of simultaneously accessible siblings
- * @return {com.bitwig.extension.controller.api.BrowserItemBank} the requested item bank object
+ * @return {BrowserItemBank} the requested item bank object
  */
 CursorBrowserItem.prototype.createSiblingsBank = function(numSiblings) {};

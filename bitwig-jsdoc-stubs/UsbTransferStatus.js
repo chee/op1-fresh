@@ -5,7 +5,7 @@
  *
  * @newSince API version 7
  */
-com.bitwig.extension.controller.api.UsbTransferStatus = {
+UsbTransferStatus = {
 	Completed: 0,
 	Error: 1,
 	TimedOut: 2,

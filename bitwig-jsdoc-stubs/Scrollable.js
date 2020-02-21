@@ -13,7 +13,7 @@ Scrollable.prototype.constructor = Scrollable;
 /**
  * Value that reports the current scroll position.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 2
  */
 Scrollable.prototype.scrollPosition = function() {};
@@ -42,7 +42,7 @@ Scrollable.prototype.scrollBy = function(amount) {};
 Scrollable.prototype.scrollForwards = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Scrollable.prototype.scrollForwardsAction = function() {};
 
@@ -54,7 +54,7 @@ Scrollable.prototype.scrollForwardsAction = function() {};
 Scrollable.prototype.scrollBackwards = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Scrollable.prototype.scrollBackwardsAction = function() {};
 
@@ -74,7 +74,7 @@ Scrollable.prototype.scrollByPages = function(amount) {};
 Scrollable.prototype.scrollPageForwards = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Scrollable.prototype.scrollPageForwardsAction = function() {};
 
@@ -86,14 +86,14 @@ Scrollable.prototype.scrollPageForwardsAction = function() {};
 Scrollable.prototype.scrollPageBackwards = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Scrollable.prototype.scrollPageBackwardsAction = function() {};
 
 /**
  * Value that reports if it is possible to scroll the bank backwards or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Scrollable.prototype.canScrollBackwards = function() {};
@@ -101,7 +101,7 @@ Scrollable.prototype.canScrollBackwards = function() {};
 /**
  * Value that reports if it is possible to scroll the bank forwards or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Scrollable.prototype.canScrollForwards = function() {};

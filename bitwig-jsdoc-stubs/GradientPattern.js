@@ -13,7 +13,7 @@ GradientPattern.prototype.constructor = GradientPattern;
 
 /**
  * @param {double} offset
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 GradientPattern.prototype.addColorStop = function(offset, color) {};
 

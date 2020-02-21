@@ -19,7 +19,7 @@ HardwareBindingSource.prototype.canBindTo = function(target) {};
  * Binds this source to the supplied target and returns the created binding. This can only be called if the
  * {@link #canBindTo(Object)} returns true.
  *
- * @param {com.bitwig.extension.controller.api.HardwareBindable} target
+ * @param {HardwareBindable} target
  * @return {HardwareBindingType}
  */
 HardwareBindingSource.prototype.addBinding = function(target) {};
@@ -35,7 +35,7 @@ HardwareBindingSource.prototype.clearBindings = function() {};
  * This is a convenience method that is equivalent to calling {@link #clearBindings()} and the
  * {@link #addBinding(HardwareBindable)}
  *
- * @param {com.bitwig.extension.controller.api.HardwareBindable} target
+ * @param {HardwareBindable} target
  * @return {HardwareBindingType}
  */
 HardwareBindingSource.prototype.setBinding = function(target) {};

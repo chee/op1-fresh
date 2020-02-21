@@ -13,7 +13,7 @@ BrowserColumn.prototype.constructor = BrowserColumn;
 /**
  * Value that reports the underlying total count of column entries (not the size of the column window).
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 BrowserColumn.prototype.entryCount = function() {};
@@ -21,7 +21,7 @@ BrowserColumn.prototype.entryCount = function() {};
 /**
  * Returns the cursor item, which can be used to navigate over the list of entries.
  *
- * @return {com.bitwig.extension.controller.api.BrowserItem} the requested filter item object
+ * @return {BrowserItem} the requested filter item object
  * @since API version 1
  */
 BrowserColumn.prototype.createCursorItem = function() {};
@@ -32,6 +32,6 @@ BrowserColumn.prototype.createCursorItem = function() {};
  *
  * @param size
           the number of simultaneously accessible items
- * @return {com.bitwig.extension.controller.api.BrowserItemBank} the requested item bank object
+ * @return {BrowserItemBank} the requested item bank object
  */
 BrowserColumn.prototype.createItemBank = function(size) {};

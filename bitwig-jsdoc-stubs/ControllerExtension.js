@@ -7,13 +7,13 @@ function ControllerExtension() {}
 
 /**
  * @param {int} index
- * @return {com.bitwig.extension.controller.api.MidiIn}
+ * @return {MidiIn}
  */
 ControllerExtension.prototype.getMidiInPort = function(index) {};
 
 /**
  * @param {int} index
- * @return {com.bitwig.extension.controller.api.MidiOut}
+ * @return {MidiOut}
  */
 ControllerExtension.prototype.getMidiOutPort = function(index) {};
 

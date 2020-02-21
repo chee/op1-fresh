@@ -16,6 +16,6 @@ OscBundle.prototype.constructor = OscBundle;
 OscBundle.prototype.getNanoseconds = function() {};
 
 /**
- * @return {java.util.List<com.bitwig.extension.api.opensoundcontrol.OscPacket>}
+ * @return {java.util.List<OscPacket>}
  */
 OscBundle.prototype.getPackets = function() {};

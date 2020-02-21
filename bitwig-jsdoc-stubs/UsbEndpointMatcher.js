@@ -3,11 +3,11 @@
 function UsbEndpointMatcher() {}
 
 /**
- * @return {com.bitwig.extension.controller.api.UsbTransferDirection}
+ * @return {UsbTransferDirection}
  */
 UsbEndpointMatcher.prototype.getDirection = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.UsbTransferType}
+ * @return {UsbTransferType}
  */
 UsbEndpointMatcher.prototype.getTransferType = function() {};

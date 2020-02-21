@@ -34,7 +34,7 @@ RangedValue.prototype.getAsDouble = function() {};
 /**
  * Value that represents a formatted text representation of the value whenever the value changes.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 RangedValue.prototype.displayedValue = function() {};

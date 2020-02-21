@@ -46,7 +46,7 @@ Host.prototype.getHostVersion = function() {};
 /**
  * The platform type that this host is running on.
  *
- * @return {com.bitwig.extension.api.PlatformType}
+ * @return {PlatformType}
  */
 Host.prototype.getPlatformType = function() {};
 
@@ -61,7 +61,7 @@ Host.prototype.setErrorReportingEMail = function(address) {};
 /**
  * Gets the OpenSoundControl module.
  *
- * @return {com.bitwig.extension.api.opensoundcontrol.OscModule}
+ * @return {OscModule}
  * @since API version 5
  */
 Host.prototype.getOscModule = function() {};
@@ -70,7 +70,7 @@ Host.prototype.getOscModule = function() {};
  * Allocates some memory that will be automatically freed once the extension exits.
  *
  * @param {int} size
- * @return {com.bitwig.extension.api.MemoryBlock}
+ * @return {MemoryBlock}
  * @since API version 7
  */
 Host.prototype.allocateMemoryBlock = function(size) {};
@@ -81,8 +81,8 @@ Host.prototype.allocateMemoryBlock = function(size) {};
  *
  * @param {int} width
  * @param {int} height
- * @param {com.bitwig.extension.api.graphics.BitmapFormat} format
- * @return {com.bitwig.extension.api.graphics.Bitmap}
+ * @param {BitmapFormat} format
+ * @return {Bitmap}
  * @since API version 7
  */
 Host.prototype.createBitmap = function(width, height, format) {};
@@ -92,7 +92,7 @@ Host.prototype.createBitmap = function(width, height, format) {};
  * The memory used by this font is guaranteed to be freed once this extension exits.
  *
  * @param {string} path
- * @return {com.bitwig.extension.api.graphics.FontFace}
+ * @return {FontFace}
  * @since API version 7
  */
 Host.prototype.loadFontFace = function(path) {};
@@ -102,7 +102,7 @@ Host.prototype.loadFontFace = function(path) {};
  * This object is used to configure how the GraphicOutput will display text.
  * The memory used by this object is guaranteed to be freed once this extension exits.
  *
- * @return {com.bitwig.extension.api.graphics.FontOptions}
+ * @return {FontOptions}
  * @since API version 7
  */
 Host.prototype.createFontOptions = function() {};
@@ -112,7 +112,7 @@ Host.prototype.createFontOptions = function() {};
  * The memory used by this image is guaranteed to be freed once this extension exits.
  *
  * @param {string} path
- * @return {com.bitwig.extension.api.graphics.Image}
+ * @return {Image}
  * @since API version 7
  */
 Host.prototype.loadPNG = function(path) {};
@@ -123,7 +123,7 @@ Host.prototype.loadPNG = function(path) {};
  *
  * @param {string} path
  * @param {double} scale
- * @return {com.bitwig.extension.api.graphics.Image}
+ * @return {Image}
  * @since API version 7
  */
 Host.prototype.loadSVG = function(path, scale) {};

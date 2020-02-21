@@ -13,14 +13,14 @@ UsbDevice.prototype.constructor = UsbDevice;
 /**
  * The {@link UsbDeviceMatcher} that was provided by the controller for identifying this device.
  *
- * @return {com.bitwig.extension.controller.UsbDeviceMatcher}
+ * @return {UsbDeviceMatcher}
  */
 UsbDevice.prototype.deviceMatcher = function() {};
 
 /**
  * The list of {@link UsbInterface}s that have been opened for this device.
  *
- * @return {java.util.List<com.bitwig.extension.controller.api.UsbInterface>}
+ * @return {java.util.List<UsbInterface>}
  */
 UsbDevice.prototype.ifaces = function() {};
 
@@ -29,6 +29,6 @@ UsbDevice.prototype.ifaces = function() {};
  * corresponding index in the {@link UsbDeviceMatcher}.
  *
  * @param {int} index
- * @return {com.bitwig.extension.controller.api.UsbInterface}
+ * @return {UsbInterface}
  */
 UsbDevice.prototype.iface = function(index) {};

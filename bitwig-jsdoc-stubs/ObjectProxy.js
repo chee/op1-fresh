@@ -14,7 +14,7 @@ ObjectProxy.prototype.constructor = ObjectProxy;
 /**
  * Returns a value object that indicates if the object being proxied exists, or if it has content.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  */
 ObjectProxy.prototype.exists = function() {};
 
@@ -22,8 +22,8 @@ ObjectProxy.prototype.exists = function() {};
  * Creates a {@link BooleanValue} that determines this proxy is considered equal to another proxy. For this
  * to be the case both proxies need to be proxying the same target object.
  *
- * @param {com.bitwig.extension.controller.api.ObjectProxy} other
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @param {ObjectProxy} other
+ * @return {BooleanValue}
  * @since API version 3
  */
 ObjectProxy.prototype.createEqualsValue = function(other) {};

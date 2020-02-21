@@ -42,8 +42,8 @@ ControllerExtensionDefinition.prototype.getNumMidiOutPorts = function() {};
  * Obtains a {@link AutoDetectionMidiPortNamesList} that defines the names of the MIDI in and out ports
  * that can be used for auto detection of the controller for the supplied platform type.
  *
- * @param {com.bitwig.extension.api.PlatformType} platformType
- * @return {com.bitwig.extension.controller.AutoDetectionMidiPortNamesList}
+ * @param {PlatformType} platformType
+ * @return {AutoDetectionMidiPortNamesList}
  */
 ControllerExtensionDefinition.prototype.getAutoDetectionMidiPortNamesList = function(platformType) {};
 
@@ -51,13 +51,13 @@ ControllerExtensionDefinition.prototype.getAutoDetectionMidiPortNamesList = func
  * Lists the {@link AutoDetectionMidiPortNames} that defines the names of the MIDI in and out ports that
  * can be used for auto detection of the controller for the supplied platform type.
  *
- * @param {com.bitwig.extension.controller.AutoDetectionMidiPortNamesList} list
- * @param {com.bitwig.extension.api.PlatformType} platformType
+ * @param {AutoDetectionMidiPortNamesList} list
+ * @param {PlatformType} platformType
  */
 ControllerExtensionDefinition.prototype.listAutoDetectionMidiPortNames = function(list, platformType) {};
 
 /**
- * @return {com.bitwig.extension.controller.HardwareDeviceMatcherList}
+ * @return {HardwareDeviceMatcherList}
  */
 ControllerExtensionDefinition.prototype.getHardwareDeviceMatcherList = function() {};
 
@@ -67,7 +67,7 @@ ControllerExtensionDefinition.prototype.getHardwareDeviceMatcherList = function(
  * device. The {@link HardwareDeviceMatcher} will also be used during auto detection to automatically add
  * and select the device if possible.
  *
- * @param {com.bitwig.extension.controller.HardwareDeviceMatcherList} list
+ * @param {HardwareDeviceMatcherList} list
  * @since API version 7
  */
 ControllerExtensionDefinition.prototype.listHardwareDevices = function(list) {};
@@ -75,7 +75,7 @@ ControllerExtensionDefinition.prototype.listHardwareDevices = function(list) {};
 /**
  * Creates an instance of this extension.
  *
- * @param {com.bitwig.extension.controller.api.ControllerHost} host
- * @return {com.bitwig.extension.controller.ControllerExtension}
+ * @param {ControllerHost} host
+ * @return {ControllerExtension}
  */
 ControllerExtensionDefinition.prototype.createInstance = function(host) {};

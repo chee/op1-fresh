@@ -14,7 +14,7 @@ Device.prototype.constructor = Device;
  * Returns a representation of the device chain that contains this device. Possible device chain instances
  * are tracks, device layers, drums pads, or FX slots.
  *
- * @return {com.bitwig.extension.controller.api.DeviceChain} the requested device chain object
+ * @return {DeviceChain} the requested device chain object
  * @since API version 5
  */
 Device.prototype.deviceChain = function() {};
@@ -22,7 +22,7 @@ Device.prototype.deviceChain = function() {};
 /**
  * Value that reports the position of the device within the parent device chain.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 Device.prototype.position = function() {};
@@ -30,7 +30,7 @@ Device.prototype.position = function() {};
 /**
  * Returns an object that provides access to the open state of plugin windows.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the open state of the editor window, in case the device
+ * @return {SettableBooleanValue} a boolean value object that represents the open state of the editor window, in case the device
         features a custom editor window (such as plugins).
  * @since API version 1
  */
@@ -39,7 +39,7 @@ Device.prototype.isWindowOpen = function() {};
 /**
  * Returns an object that provides access to the expanded state of the device.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the expanded state of the device.
+ * @return {SettableBooleanValue} a boolean value object that represents the expanded state of the device.
  * @since API version 1
  */
 Device.prototype.isExpanded = function() {};
@@ -47,7 +47,7 @@ Device.prototype.isExpanded = function() {};
 /**
  * Returns an object that provides access to the visibility of the device remote controls section.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the remote controls section visibility.
+ * @return {SettableBooleanValue} a boolean value object that represents the remote controls section visibility.
  * @since API version 2
  */
 Device.prototype.isRemoteControlsSectionVisible = function() {};
@@ -58,7 +58,7 @@ Device.prototype.isRemoteControlsSectionVisible = function() {};
  *
  * @param parameterCount
           The number of parameters the remote controls should contain
- * @return {com.bitwig.extension.controller.api.CursorRemoteControlsPage}
+ * @return {CursorRemoteControlsPage}
  * @since API version 2
  */
 Device.prototype.createCursorRemoteControlsPage = function(parameterCount) {};
@@ -79,7 +79,7 @@ Device.prototype.createCursorRemoteControlsPage = function(parameterCount) {};
           An expression used to match pages that the user can navigate through. For now this can only be
           the name of a single tag the pages should contain (e.g "drawbars", "dyn", "env", "eq",
           "filter", "fx", "lfo", "mixer", "osc", "overview", "perf").
- * @return {com.bitwig.extension.controller.api.CursorRemoteControlsPage}
+ * @return {CursorRemoteControlsPage}
  * @since API version 2
  */
 Device.prototype.createCursorRemoteControlsPage = function(name, parameterCount, filterExpression) {};
@@ -94,7 +94,7 @@ Device.prototype.selectInEditor = function() {};
 /**
  * Value that reports if the device is a plugin.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Device.prototype.isPlugin = function() {};
@@ -148,7 +148,7 @@ Device.prototype.setParameterPage = function(page) {};
           the size of the window used to navigate the filter column entries.
  * @param numResultsColumnEntries
           the size of the window used to navigate the results column entries.
- * @return {com.bitwig.extension.controller.api.Browser} the requested device browser object.
+ * @return {Browser} the requested device browser object.
  * @since API version 1
  */
 Device.prototype.createDeviceBrowser = function(numFilterColumnEntries, numResultsColumnEntries) {};
@@ -156,7 +156,7 @@ Device.prototype.createDeviceBrowser = function(numFilterColumnEntries, numResul
 /**
  * Value that reports the name of the device.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Device.prototype.name = function() {};
@@ -164,7 +164,7 @@ Device.prototype.name = function() {};
 /**
  * Value that reports the last loaded preset name.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Device.prototype.presetName = function() {};
@@ -172,7 +172,7 @@ Device.prototype.presetName = function() {};
 /**
  * Value that reports the current preset category name.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Device.prototype.presetCategory = function() {};
@@ -180,7 +180,7 @@ Device.prototype.presetCategory = function() {};
 /**
  * Value that reports the current preset creator name.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Device.prototype.presetCreator = function() {};
@@ -188,7 +188,7 @@ Device.prototype.presetCreator = function() {};
 /**
  * Value that reports if the device is enabled.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Device.prototype.isEnabled = function() {};
@@ -197,7 +197,7 @@ Device.prototype.isEnabled = function() {};
  * Indicates if the device has nested device chain slots. Use {@link #slotNames()} to get a list of
  * available slot names, and navigate to devices in those slots using the {@link CursorDevice} interface.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a value object that indicates if the device has nested device chains in FX slots.
+ * @return {BooleanValue} a value object that indicates if the device has nested device chains in FX slots.
  * @since API version 1
  */
 Device.prototype.hasSlots = function() {};
@@ -205,7 +205,7 @@ Device.prototype.hasSlots = function() {};
 /**
  * Value of the list of available FX slots in this device.
  *
- * @return {com.bitwig.extension.controller.api.StringArrayValue}
+ * @return {StringArrayValue}
  * @since API version 2
  */
 Device.prototype.slotNames = function() {};
@@ -214,7 +214,7 @@ Device.prototype.slotNames = function() {};
  * Returns an object that represents the selected device slot as shown in the user interface, and that
  * provides access to the contents of slot's device chain.
  *
- * @return {com.bitwig.extension.controller.api.DeviceSlot} the requested slot cursor object
+ * @return {DeviceSlot} the requested slot cursor object
  * @since API version 1
  */
 Device.prototype.getCursorSlot = function() {};
@@ -222,7 +222,7 @@ Device.prototype.getCursorSlot = function() {};
 /**
  * Indicates if the device is contained by another device.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a value object that indicates if the device is nested
+ * @return {BooleanValue} a value object that indicates if the device is nested
  * @since API version 1
  */
 Device.prototype.isNested = function() {};
@@ -230,7 +230,7 @@ Device.prototype.isNested = function() {};
 /**
  * Indicates if the device supports nested layers.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a value object that indicates if the device supports nested layers.
+ * @return {BooleanValue} a value object that indicates if the device supports nested layers.
  * @since API version 1
  */
 Device.prototype.hasLayers = function() {};
@@ -238,7 +238,7 @@ Device.prototype.hasLayers = function() {};
 /**
  * Indicates if the device has individual device chains for each note value.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a value object that indicates if the device has individual device chains for each note value.
+ * @return {BooleanValue} a value object that indicates if the device has individual device chains for each note value.
  * @since API version 1
  */
 Device.prototype.hasDrumPads = function() {};
@@ -254,7 +254,7 @@ Device.prototype.hasDrumPads = function() {};
  *
  * @param numChannels
           the number of channels that the device layer bank should be configured with
- * @return {com.bitwig.extension.controller.api.DeviceLayerBank} a device layer bank object configured with the desired number of channels
+ * @return {DeviceLayerBank} a device layer bank object configured with the desired number of channels
  * @since API version 1
  */
 Device.prototype.createLayerBank = function(numChannels) {};
@@ -264,7 +264,7 @@ Device.prototype.createLayerBank = function(numChannels) {};
  *
  * @param numPads
           the number of channels that the drum pad bank should be configured with
- * @return {com.bitwig.extension.controller.api.DrumPadBank} a drum pad bank object configured with the desired number of pads
+ * @return {DrumPadBank} a drum pad bank object configured with the desired number of pads
  * @since API version 1
  */
 Device.prototype.createDrumPadBank = function(numPads) {};
@@ -275,7 +275,7 @@ Device.prototype.createDrumPadBank = function(numPads) {};
  * 
  * This is the selected layer from the user interface.
  *
- * @return {com.bitwig.extension.controller.api.CursorDeviceLayer} a cursor device layer instance
+ * @return {CursorDeviceLayer} a cursor device layer instance
  * @since API version 1
  */
 Device.prototype.createCursorLayer = function() {};
@@ -288,7 +288,7 @@ Device.prototype.createCursorLayer = function() {};
  * 
  * If you want to have access to all the chains, use {@link #createLayerBank(int)}.
  *
- * @return {com.bitwig.extension.controller.api.ChainSelector} a chain selector instance
+ * @return {ChainSelector} a chain selector instance
  * @since API version 6
  */
 Device.prototype.createChainSelector = function() {};
@@ -325,7 +325,7 @@ Device.prototype.addDirectParameterNameObserver = function(maxChars, callback) {
           maximum length of the string sent to the observer.
  * @param callback
           function with the signature (String ID, String valueDisplay)
- * @return {com.bitwig.extension.controller.api.DirectParameterValueDisplayObserver} an observer object that can be used to enable or disable actual observing for certain
+ * @return {DirectParameterValueDisplayObserver} an observer object that can be used to enable or disable actual observing for certain
         parameters.
  * @since API version 1
  */
@@ -373,7 +373,7 @@ Device.prototype.incDirectParameterValueNormalized = function(id, increment, res
  * Value that reports the file name of the currently loaded sample, in case the device is a sample
  * container device.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Device.prototype.sampleName = function() {};
@@ -384,7 +384,7 @@ Device.prototype.sampleName = function() {};
  *
  * @param numDevices
           the number of devices that are simultaneously accessible
- * @return {com.bitwig.extension.controller.api.DeviceBank} the requested device bank object
+ * @return {DeviceBank} the requested device bank object
 @since API version 1
  */
 Device.prototype.createSiblingsDeviceBank = function(numDevices) {};
@@ -392,7 +392,7 @@ Device.prototype.createSiblingsDeviceBank = function(numDevices) {};
 /**
  * {@link InsertionPoint} that can be used for inserting after this device.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 Device.prototype.afterDeviceInsertionPoint = function() {};
@@ -400,7 +400,7 @@ Device.prototype.afterDeviceInsertionPoint = function() {};
 /**
  * {@link InsertionPoint} that can be used for inserting before this device.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 Device.prototype.beforeDeviceInsertionPoint = function() {};
@@ -408,7 +408,7 @@ Device.prototype.beforeDeviceInsertionPoint = function() {};
 /**
  * {@link InsertionPoint} that can be used for replacing this device.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 Device.prototype.replaceDeviceInsertionPoint = function() {};

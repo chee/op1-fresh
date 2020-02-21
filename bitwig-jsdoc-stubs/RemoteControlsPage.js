@@ -12,11 +12,11 @@ RemoteControlsPage.prototype.constructor = RemoteControlsPage;
 
 /**
  * @param {int} indexInBank
- * @return {com.bitwig.extension.controller.api.RemoteControl}
+ * @return {RemoteControl}
  */
 RemoteControlsPage.prototype.getParameter = function(indexInBank) {};
 
 /**
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  */
 RemoteControlsPage.prototype.getName = function() {};

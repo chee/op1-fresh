@@ -14,6 +14,6 @@ HardwareTextDisplay.prototype.constructor = HardwareTextDisplay;
  * The line at the supplied line index.
  *
  * @param {int} line
- * @return {com.bitwig.extension.controller.api.HardwareTextDisplayLine}
+ * @return {HardwareTextDisplayLine}
  */
 HardwareTextDisplay.prototype.line = function(line) {};

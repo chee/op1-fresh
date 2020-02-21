@@ -21,7 +21,7 @@ CueMarker.prototype.launch = function(quantized) {};
 /**
  * Gets a representation of the marker name.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 CueMarker.prototype.getName = function() {};
@@ -29,7 +29,7 @@ CueMarker.prototype.getName = function() {};
 /**
  * Gets a representation of the marker color.
  *
- * @return {com.bitwig.extension.controller.api.ColorValue}
+ * @return {ColorValue}
  * @since API version 2
  */
 CueMarker.prototype.getColor = function() {};
@@ -37,7 +37,7 @@ CueMarker.prototype.getColor = function() {};
 /**
  * Gets a representation of the markers beat-time position in quarter-notes.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue}
+ * @return {SettableBeatTimeValue}
  * @since API version 10
  */
 CueMarker.prototype.position = function() {};

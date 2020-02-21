@@ -17,8 +17,8 @@ HardwareActionBindable.prototype.constructor = HardwareActionBindable;
  * When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
  * it.
  *
- * @param {com.bitwig.extension.controller.api.HardwareAction} action
- * @return {com.bitwig.extension.controller.api.HardwareActionBinding}
+ * @param {HardwareAction} action
+ * @return {HardwareActionBinding}
  */
 HardwareActionBindable.prototype.addBinding = function(action) {};
 

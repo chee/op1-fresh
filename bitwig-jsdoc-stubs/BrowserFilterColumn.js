@@ -13,7 +13,7 @@ BrowserFilterColumn.prototype.constructor = BrowserFilterColumn;
 /**
  * Returns the filter item that represents the top-level all/any/everything wildcard item.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterItem} the requested filter item object
+ * @return {BrowserFilterItem} the requested filter item object
  * @since API version 1
  */
 BrowserFilterColumn.prototype.getWildcardItem = function() {};
@@ -21,7 +21,7 @@ BrowserFilterColumn.prototype.getWildcardItem = function() {};
 /**
  * Returns the cursor filter item, which can be used to navigate over the list of entries.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterItem} the requested filter item object
+ * @return {BrowserFilterItem} the requested filter item object
  * @since API version 1
  */
 BrowserFilterColumn.prototype.createCursorItem = function() {};
@@ -32,14 +32,14 @@ BrowserFilterColumn.prototype.createCursorItem = function() {};
  *
  * @param size
           the number of simultaneously accessible items
- * @return {com.bitwig.extension.controller.api.BrowserFilterItemBank} the requested item bank object
+ * @return {BrowserFilterItemBank} the requested item bank object
  */
 BrowserFilterColumn.prototype.createItemBank = function(size) {};
 
 /**
  * Value that reports the name of the filter column.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version2
  */
 BrowserFilterColumn.prototype.name = function() {};

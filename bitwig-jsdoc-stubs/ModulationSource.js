@@ -10,7 +10,7 @@ function ModulationSource() {}
 /**
  * Value which reports when the modulation source is in mapping mode.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ModulationSource.prototype.isMapping = function() {};
@@ -25,7 +25,7 @@ ModulationSource.prototype.toggleIsMapping = function() {};
 /**
  * Value the reports the name of the modulation source.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 ModulationSource.prototype.name = function() {};
@@ -33,7 +33,7 @@ ModulationSource.prototype.name = function() {};
 /**
  * Value which reports if the modulation source is mapped to any destination(s).
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ModulationSource.prototype.isMapped = function() {};

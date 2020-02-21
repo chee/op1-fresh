@@ -13,6 +13,6 @@ function HardwareDevice() {}
  * The {@link HardwareDeviceMatcher} that was provided by the controller for identifying this hardware
  * device in {@link ControllerExtensionDefinition#listHardwareDevices(java.util.List)}.
  *
- * @return {com.bitwig.extension.controller.HardwareDeviceMatcher}
+ * @return {HardwareDeviceMatcher}
  */
 HardwareDevice.prototype.deviceMatcher = function() {};

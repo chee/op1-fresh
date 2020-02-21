@@ -3,7 +3,7 @@
 function OscMethodCallback() {}
 
 /**
- * @param {com.bitwig.extension.api.opensoundcontrol.OscConnection} source
- * @param {com.bitwig.extension.api.opensoundcontrol.OscMessage} message
+ * @param {OscConnection} source
+ * @param {OscMessage} message
  */
 OscMethodCallback.prototype.handle = function(source, message) {};

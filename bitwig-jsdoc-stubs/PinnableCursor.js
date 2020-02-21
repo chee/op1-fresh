@@ -14,7 +14,7 @@ PinnableCursor.prototype.constructor = PinnableCursor;
  * Determines if this cursor is currently pinned or not. If the cursor is pinned then it won't follow the
  * selection the user makes in the application.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 PinnableCursor.prototype.isPinned = function() {};

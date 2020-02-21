@@ -24,7 +24,7 @@ function NotificationSettings() {}
  * will be shown in the Bitwig Studio user interface. If user notifications are enabled, all automatic
  * notifications will be shown that are enabled using the methods of this interface.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 1
  */
 NotificationSettings.prototype.getUserNotificationsEnabled = function() {};

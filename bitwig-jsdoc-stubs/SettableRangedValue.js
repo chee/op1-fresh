@@ -90,45 +90,45 @@ SettableRangedValue.prototype.setRaw = function(value) {};
 SettableRangedValue.prototype.incRaw = function(delta) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareControl} hardwareControl
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareControlBinding}
+ * @param {AbsoluteHardwareControl} hardwareControl
+ * @return {AbsoluteHardwareControlBinding}
  */
 SettableRangedValue.prototype.addBinding = function(hardwareControl) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareControl} hardwareControl
+ * @param {AbsoluteHardwareControl} hardwareControl
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareControlBinding}
+ * @return {AbsoluteHardwareControlBinding}
  */
 SettableRangedValue.prototype.addBindingWithRange = function(hardwareControl, minNormalizedValue, maxNormalizedValue) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlToRangedValueBinding}
+ * @param {RelativeHardwareControl} hardwareControl
+ * @return {RelativeHardwareControlToRangedValueBinding}
  */
 SettableRangedValue.prototype.addBinding = function(hardwareControl) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
+ * @param {RelativeHardwareControl} hardwareControl
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 SettableRangedValue.prototype.addBindingWithRange = function(hardwareControl, minNormalizedValue, maxNormalizedValue) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
+ * @param {RelativeHardwareControl} hardwareControl
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlToRangedValueBinding}
+ * @return {RelativeHardwareControlToRangedValueBinding}
  */
 SettableRangedValue.prototype.addBindingWithRangeAndSensitivity = function(hardwareControl, minNormalizedValue, maxNormalizedValue, sensitivity) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
+ * @param {RelativeHardwareControl} hardwareControl
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlToRangedValueBinding}
+ * @return {RelativeHardwareControlToRangedValueBinding}
  */
 SettableRangedValue.prototype.addBindingWithSensitivity = function(hardwareControl, sensitivity) {};

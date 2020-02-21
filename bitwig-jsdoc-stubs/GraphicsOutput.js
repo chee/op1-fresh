@@ -45,17 +45,17 @@ GraphicsOutput.prototype.newPath = function() {};
 GraphicsOutput.prototype.newSubPath = function() {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.Path}
+ * @return {Path}
  */
 GraphicsOutput.prototype.copyPath = function() {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.Path}
+ * @return {Path}
  */
 GraphicsOutput.prototype.copyPathFlat = function() {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.Path} path
+ * @param {Path} path
  */
 GraphicsOutput.prototype.appendPath = function(path) {};
 
@@ -146,7 +146,7 @@ GraphicsOutput.prototype.paint = function() {};
 GraphicsOutput.prototype.paintWithAlpha = function(alpha) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.Image} image
+ * @param {Image} image
  * @param {double} x
  * @param {double} y
  */
@@ -176,17 +176,17 @@ GraphicsOutput.prototype.setColor = function(red, green, blue) {};
 GraphicsOutput.prototype.setColor = function(red, green, blue, alpha) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 GraphicsOutput.prototype.setColor = function(color) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.Pattern} pattern
+ * @param {Pattern} pattern
  */
 GraphicsOutput.prototype.setPattern = function(pattern) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.AntialiasMode} antialiasMode
+ * @param {AntialiasMode} antialiasMode
  */
 GraphicsOutput.prototype.setAntialias = function(antialiasMode) {};
 
@@ -207,17 +207,17 @@ GraphicsOutput.prototype.setDash = function(dashes, offset) {};
 GraphicsOutput.prototype.setDash = function(dashes) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.FillRule} rule
+ * @param {FillRule} rule
  */
 GraphicsOutput.prototype.setFillRule = function(rule) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.LineCap} lineCap
+ * @param {LineCap} lineCap
  */
 GraphicsOutput.prototype.setLineCap = function(lineCap) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.LineJoin} lineJoin
+ * @param {LineJoin} lineJoin
  */
 GraphicsOutput.prototype.setLineJoin = function(lineJoin) {};
 
@@ -227,7 +227,7 @@ GraphicsOutput.prototype.setLineJoin = function(lineJoin) {};
 GraphicsOutput.prototype.setMiterLimit = function(limit) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.Operator} operator
+ * @param {Operator} operator
  */
 GraphicsOutput.prototype.setOperator = function(operator) {};
 
@@ -237,7 +237,7 @@ GraphicsOutput.prototype.setOperator = function(operator) {};
 GraphicsOutput.prototype.setTolerance = function(tolerance) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.Image} image
+ * @param {Image} image
  * @param {double} x
  * @param {double} y
  */
@@ -248,12 +248,12 @@ GraphicsOutput.prototype.drawImage = function(image, x, y) {};
  * @param {double} y1
  * @param {double} x2
  * @param {double} y2
- * @return {com.bitwig.extension.api.graphics.GradientPattern}
+ * @return {GradientPattern}
  */
 GraphicsOutput.prototype.createLinearGradient = function(x1, y1, x2, y2) {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.MeshPattern}
+ * @return {MeshPattern}
  */
 GraphicsOutput.prototype.createMeshGradient = function() {};
 
@@ -268,35 +268,35 @@ GraphicsOutput.prototype.showText = function(text) {};
 GraphicsOutput.prototype.setFontSize = function(fontSize) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.FontFace} fontFace
+ * @param {FontFace} fontFace
  */
 GraphicsOutput.prototype.setFontFace = function(fontFace) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.FontOptions} fontOptions
+ * @param {FontOptions} fontOptions
  */
 GraphicsOutput.prototype.setFontOptions = function(fontOptions) {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.FontExtents}
+ * @return {FontExtents}
  */
 GraphicsOutput.prototype.getFontExtents = function() {};
 
 /**
  * @param {string} text
- * @return {com.bitwig.extension.api.graphics.TextExtents}
+ * @return {TextExtents}
  */
 GraphicsOutput.prototype.getTextExtents = function(text) {};
 
 
-com.bitwig.extension.api.graphics.GraphicsOutput.AntialiasMode = {
+AntialiasMode = {
 	DEFAULT: 0,
 	OFF: 1,
 	GOOD: 2,
 	BEST: 3,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.SubPixelOrder = {
+SubPixelOrder = {
 	DEFAULT: 0,
 	RGB: 1,
 	BGR: 2,
@@ -304,7 +304,7 @@ com.bitwig.extension.api.graphics.GraphicsOutput.SubPixelOrder = {
 	VBGR: 4,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.HintStyle = {
+HintStyle = {
 	DEFAULT: 0,
 	NONE: 1,
 	SLIGHT: 2,
@@ -312,30 +312,30 @@ com.bitwig.extension.api.graphics.GraphicsOutput.HintStyle = {
 	FULL: 4,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.HintMetrics = {
+HintMetrics = {
 	DEFAULT: 0,
 	ON: 1,
 	OFF: 2,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.FillRule = {
+FillRule = {
 	WINDING: 0,
 	EVEN_ODD: 1,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.LineCap = {
+LineCap = {
 	BUTT: 0,
 	LINE: 1,
 	SQUARE: 2,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.LineJoin = {
+LineJoin = {
 	MITER: 0,
 	ROUND: 1,
 	BEVEL: 2,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.Operator = {
+Operator = {
 	CLEAR: 0,
 	SOURCE: 1,
 	OVER: 2,

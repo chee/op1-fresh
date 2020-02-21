@@ -8,41 +8,41 @@
 function FontOptions() {}
 
 /**
- * @return {com.bitwig.extension.api.graphics.GraphicsOutput.AntialiasMode}
+ * @return {AntialiasMode}
  */
 FontOptions.prototype.getAntialiasMode = function() {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.AntialiasMode} mode
+ * @param {AntialiasMode} mode
  */
 FontOptions.prototype.setAntialiasMode = function(mode) {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.GraphicsOutput.SubPixelOrder}
+ * @return {SubPixelOrder}
  */
 FontOptions.prototype.getSubPixelOrder = function() {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.SubPixelOrder} subPixelOrder
+ * @param {SubPixelOrder} subPixelOrder
  */
 FontOptions.prototype.setSubPixelOrder = function(subPixelOrder) {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.GraphicsOutput.HintStyle}
+ * @return {HintStyle}
  */
 FontOptions.prototype.getHintStyle = function() {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.HintStyle} hintStyle
+ * @param {HintStyle} hintStyle
  */
 FontOptions.prototype.setHintStyle = function(hintStyle) {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.GraphicsOutput.HintMetrics}
+ * @return {HintMetrics}
  */
 FontOptions.prototype.getHintMetrics = function() {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.HintMetrics} hintMetrics
+ * @param {HintMetrics} hintMetrics
  */
 FontOptions.prototype.setHintMetrics = function(hintMetrics) {};

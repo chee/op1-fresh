@@ -14,7 +14,7 @@ function HardwareDeviceMatcherList() {}
  * For each entry added to this list the user will see a device chooser that lets them select an
  * appropriate device. The information added here is also used for auto detection purposes.
  *
- * @param {com.bitwig.extension.controller.HardwareDeviceMatcher} deviceMatchers
+ * @param {HardwareDeviceMatcher} deviceMatchers
  */
 HardwareDeviceMatcherList.prototype.add = function(/*...*/deviceMatchers) {};
 
@@ -27,11 +27,11 @@ HardwareDeviceMatcherList.prototype.getCount = function() {};
 
 /**
  * @param {int} index
- * @return {com.bitwig.extension.controller.HardwareDeviceMatcher[]}
+ * @return {HardwareDeviceMatcher[]}
  */
 HardwareDeviceMatcherList.prototype.getHardwareDeviceMatchersAt = function(index) {};
 
 /**
- * @return {java.util.List<com.bitwig.extension.controller.HardwareDeviceMatcher[]>}
+ * @return {java.util.List<HardwareDeviceMatcher[]>}
  */
 HardwareDeviceMatcherList.prototype.getList = function() {};

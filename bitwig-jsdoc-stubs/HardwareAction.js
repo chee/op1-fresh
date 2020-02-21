@@ -14,7 +14,7 @@ HardwareAction.prototype.constructor = HardwareAction;
 /**
  * Sets the {@link HardwareActionMatcher} that is used to recognize when this action happens.
  *
- * @param {com.bitwig.extension.controller.api.HardwareActionMatcher} actionMatcher
+ * @param {HardwareActionMatcher} actionMatcher
  */
 HardwareAction.prototype.setActionMatcher = function(actionMatcher) {};
 
@@ -27,7 +27,7 @@ HardwareAction.prototype.setActionMatcher = function(actionMatcher) {};
  * {@link ControllerHost#createAction(java.util.function.DoubleConsumer, java.util.function.Supplier)} and
  * then binding the created action to this {@link HardwareAction}.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} actionMatcher
+ * @param {AbsoluteHardwareValueMatcher} actionMatcher
  */
 HardwareAction.prototype.setPressureActionMatcher = function(actionMatcher) {};
 

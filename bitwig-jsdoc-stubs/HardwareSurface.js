@@ -48,7 +48,7 @@ function HardwareSurface() {}
  *
  * @param id
           A unique string that identifies this control.
- * @return {com.bitwig.extension.controller.api.HardwareSlider}
+ * @return {HardwareSlider}
  * @since API version 10
  */
 HardwareSurface.prototype.createHardwareSlider = function(id) {};
@@ -59,7 +59,7 @@ HardwareSurface.prototype.createHardwareSlider = function(id) {};
  *
  * @param id
           A unique string that identifies this control.
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareKnob}
+ * @return {AbsoluteHardwareKnob}
  * @since API version 10
  */
 HardwareSurface.prototype.createAbsoluteHardwareKnob = function(id) {};
@@ -70,7 +70,7 @@ HardwareSurface.prototype.createAbsoluteHardwareKnob = function(id) {};
  *
  * @param id
           A unique string that identifies this control.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareKnob}
+ * @return {RelativeHardwareKnob}
  * @since API version 10
  */
 HardwareSurface.prototype.createRelativeHardwareKnob = function(id) {};
@@ -80,7 +80,7 @@ HardwareSurface.prototype.createRelativeHardwareKnob = function(id) {};
  * @param {int} numKeys
  * @param {int} octave
  * @param {int} startKeyInOctave
- * @return {com.bitwig.extension.controller.api.PianoKeyboard}
+ * @return {PianoKeyboard}
  */
 HardwareSurface.prototype.createPianoKeyboard = function(id, numKeys, octave, startKeyInOctave) {};
 
@@ -89,7 +89,7 @@ HardwareSurface.prototype.createPianoKeyboard = function(id, numKeys, octave, st
  *
  * @param id
           A unique string that identifies this control.
- * @return {com.bitwig.extension.controller.api.HardwareButton}
+ * @return {HardwareButton}
  * @since API version 10
  */
 HardwareSurface.prototype.createHardwareButton = function(id) {};
@@ -98,7 +98,7 @@ HardwareSurface.prototype.createHardwareButton = function(id) {};
  * Creates a {@link OnOffHardwareLight} that represents a physical light on a controller
  *
  * @param {string} id
- * @return {com.bitwig.extension.controller.api.OnOffHardwareLight}
+ * @return {OnOffHardwareLight}
  * @since API version 10
  */
 HardwareSurface.prototype.createOnOffHardwareLight = function(id) {};
@@ -107,7 +107,7 @@ HardwareSurface.prototype.createOnOffHardwareLight = function(id) {};
  * Creates a {@link MultiStateHardwareLight} that represents a physical light on a controller
  *
  * @param {string} id
- * @return {com.bitwig.extension.controller.api.MultiStateHardwareLight}
+ * @return {MultiStateHardwareLight}
  * @since API version 10
  */
 HardwareSurface.prototype.createMultiStateHardwareLight = function(id) {};
@@ -117,7 +117,7 @@ HardwareSurface.prototype.createMultiStateHardwareLight = function(id) {};
  *
  * @param {string} id
  * @param {int} numLines
- * @return {com.bitwig.extension.controller.api.HardwareTextDisplay}
+ * @return {HardwareTextDisplay}
  * @since API version 10
  */
 HardwareSurface.prototype.createHardwareTextDisplay = function(id, numLines) {};
@@ -127,8 +127,8 @@ HardwareSurface.prototype.createHardwareTextDisplay = function(id, numLines) {};
  * controller.
  *
  * @param {string} id
- * @param {com.bitwig.extension.api.graphics.Bitmap} bitmap
- * @return {com.bitwig.extension.controller.api.HardwarePixelDisplay}
+ * @param {Bitmap} bitmap
+ * @return {HardwarePixelDisplay}
  * @since API version 10
  */
 HardwareSurface.prototype.createHardwarePixelDisplay = function(id, bitmap) {};
@@ -165,7 +165,7 @@ HardwareSurface.prototype.invalidateHardwareOutputState = function() {};
 /**
  * A list of all the {@link HardwareControl}s that have been created on this {@link HardwareSurface}.
  *
- * @return {java.util.List<? extends com.bitwig.extension.controller.api.HardwareControl>}
+ * @return {java.util.List<? extends HardwareControl>}
  */
 HardwareSurface.prototype.hardwareControls = function() {};
 
@@ -173,13 +173,13 @@ HardwareSurface.prototype.hardwareControls = function() {};
  * Finds the {@link HardwareElement} that has the supplied id or null if not found.
  *
  * @param {string} id
- * @return {com.bitwig.extension.controller.api.HardwareElement}
+ * @return {HardwareElement}
  */
 HardwareSurface.prototype.hardwareElementWithId = function(id) {};
 
 /**
  * List of all {@link HardwareElement}s on this {@link HardwareSurface}.
  *
- * @return {java.util.List<? extends com.bitwig.extension.controller.api.HardwareOutputElement>}
+ * @return {java.util.List<? extends HardwareOutputElement>}
  */
 HardwareSurface.prototype.hardwareOutputElements = function() {};

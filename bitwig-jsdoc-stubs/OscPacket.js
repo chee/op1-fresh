@@ -11,6 +11,6 @@ function OscPacket() {}
  * If the message was part of a bundle, get a pointer back to it.
  * If not, this methods returns null.
  *
- * @return {com.bitwig.extension.api.opensoundcontrol.OscBundle}
+ * @return {OscBundle}
  */
 OscPacket.prototype.getParentBundle = function() {};

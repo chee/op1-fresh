@@ -15,7 +15,7 @@ ContinuousHardwareControl.prototype.constructor = ContinuousHardwareControl;
  * An optional button that can be associated with this control when this control can also act as a button
  * (e.g by pressing down on it).
  *
- * @return {com.bitwig.extension.controller.api.HardwareButton}
+ * @return {HardwareButton}
  */
 ContinuousHardwareControl.prototype.hardwareButton = function() {};
 
@@ -23,6 +23,6 @@ ContinuousHardwareControl.prototype.hardwareButton = function() {};
  * Sets an optional button that can be associated with this control when this control can also act as a
  * button (e.g by pressing down on it).
  *
- * @param {com.bitwig.extension.controller.api.HardwareButton} button
+ * @param {HardwareButton} button
  */
 ContinuousHardwareControl.prototype.setHardwareButton = function(button) {};

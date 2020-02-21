@@ -35,7 +35,7 @@ Action.prototype.getName = function() {};
 /**
  * Returns the category of this action.
  *
- * @return {com.bitwig.extension.controller.api.ActionCategory} the category string
+ * @return {ActionCategory} the category string
  * @since API version 1
  */
 Action.prototype.getCategory = function() {};

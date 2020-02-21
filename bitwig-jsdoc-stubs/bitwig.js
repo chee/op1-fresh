@@ -18,8 +18,8 @@ AbsoluteHardwarControlBindable.prototype.constructor = AbsoluteHardwarControlBin
  * When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
  * it.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareControl} hardwareControl
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareControlBinding} The newly created binding
+ * @param {AbsoluteHardwareControl} hardwareControl
+ * @return {AbsoluteHardwareControlBinding} The newly created binding
  */
 AbsoluteHardwarControlBindable.prototype.addBinding = function(hardwareControl) {};
 
@@ -31,10 +31,10 @@ AbsoluteHardwarControlBindable.prototype.addBinding = function(hardwareControl) 
  * When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
  * it.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareControl} hardwareControl
+ * @param {AbsoluteHardwareControl} hardwareControl
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareControlBinding} The newly created binding
+ * @return {AbsoluteHardwareControlBinding} The newly created binding
  */
 AbsoluteHardwarControlBindable.prototype.addBindingWithRange = function(hardwareControl, minNormalizedValue, maxNormalizedValue) {};
 /* API Version - 3.1.2 */
@@ -65,21 +65,21 @@ AbsoluteHardwareControl.prototype.constructor = AbsoluteHardwareControl;
  * Sets the {@link AbsoluteHardwareValueMatcher} that can be used to detect when the user adjusts the
  * hardware control's value.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} matcher
+ * @param {AbsoluteHardwareValueMatcher} matcher
  */
 AbsoluteHardwareControl.prototype.setAdjustValueMatcher = function(matcher) {};
 
 /**
  * The current value of this hardware control (0..1)
  *
- * @return {com.bitwig.extension.controller.api.DoubleValue}
+ * @return {DoubleValue}
  */
 AbsoluteHardwareControl.prototype.value = function() {};
 
 /**
  * The value of the target that this hardware control has been bound to (0..1).
  *
- * @return {com.bitwig.extension.controller.api.DoubleValue}
+ * @return {DoubleValue}
  */
 AbsoluteHardwareControl.prototype.targetValue = function() {};
 
@@ -87,14 +87,14 @@ AbsoluteHardwareControl.prototype.targetValue = function() {};
  * Can be called from the {@link #targetValue()} changed callback to check if this control is responsible
  * for changing the target value or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  */
 AbsoluteHardwareControl.prototype.isUpdatingTargetValue = function() {};
 
 /**
  * Value that indicates if this hardware control has a target value that it changes or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  */
 AbsoluteHardwareControl.prototype.hasTargetValue = function() {};
 
@@ -110,10 +110,10 @@ AbsoluteHardwareControl.prototype.disableTakeOver = function() {};
 /**
  * Adds a new binding from this hardware control to the supplied target.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwarControlBindable} target
+ * @param {AbsoluteHardwarControlBindable} target
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareControlBinding}
+ * @return {AbsoluteHardwareControlBinding}
  */
 AbsoluteHardwareControl.prototype.addBindingWithRange = function(target, minNormalizedValue, maxNormalizedValue) {};
 
@@ -122,10 +122,10 @@ AbsoluteHardwareControl.prototype.addBindingWithRange = function(target, minNorm
  * equivalent to calling {@link #clearBindings()} and then
  * {@link #addBindingWithRange(AbsoluteHardwarControlBindable, double, double)}
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwarControlBindable} target
+ * @param {AbsoluteHardwarControlBindable} target
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareControlBinding}
+ * @return {AbsoluteHardwareControlBinding}
  */
 AbsoluteHardwareControl.prototype.setBindingWithRange = function(target, minNormalizedValue, maxNormalizedValue) {};
 /* API Version - 3.1.2 */
@@ -189,7 +189,7 @@ ActionCategory.prototype.getName = function() {};
 /**
  * Lists all actions in this category.
  *
- * @return {com.bitwig.extension.controller.api.Action[]} the array of actions in this category
+ * @return {Action[]} the array of actions in this category
  * @since API version 1
  */
 ActionCategory.prototype.getActions = function() {};
@@ -230,7 +230,7 @@ Action.prototype.getName = function() {};
 /**
  * Returns the category of this action.
  *
- * @return {com.bitwig.extension.controller.api.ActionCategory} the category string
+ * @return {ActionCategory} the category string
  * @since API version 1
  */
 Action.prototype.getCategory = function() {};
@@ -308,7 +308,7 @@ Application.prototype.createEffectTrack = function(position) {};
  * other (probably more convenient) interfaces methods of the API. In contrast to that, this method
  * provides a more generic way to find available application functionality.
  *
- * @return {com.bitwig.extension.controller.api.Action[]} the list of actions
+ * @return {Action[]} the list of actions
 @since API version 1
  */
 Application.prototype.getActions = function() {};
@@ -319,7 +319,7 @@ Application.prototype.getActions = function() {};
  *
  * @param id
           the action identifier string, must not be `null`
- * @return {com.bitwig.extension.controller.api.Action} the action associated with the given id, or null in case there is no action with the given
+ * @return {Action} the action associated with the given id, or null in case there is no action with the given
         identifier.
 @since API version 1
  */
@@ -328,7 +328,7 @@ Application.prototype.getAction = function(id) {};
 /**
  * Returns a list of action categories that is used by Bitwig Studio to group actions into categories.
  *
- * @return {com.bitwig.extension.controller.api.ActionCategory[]} the list of action categories
+ * @return {ActionCategory[]} the list of action categories
 @since API version 1
  */
 Application.prototype.getActionCategories = function() {};
@@ -339,7 +339,7 @@ Application.prototype.getActionCategories = function() {};
  *
  * @param id
           the category identifier string, must not be `null`
- * @return {com.bitwig.extension.controller.api.ActionCategory} the action associated with the given id, or null in case there is no category with the given
+ * @return {ActionCategory} the action associated with the given id, or null in case there is no category with the given
         identifier
 @since API version 1
  */
@@ -362,7 +362,7 @@ Application.prototype.deactivateEngine = function() {};
 /**
  * Value that reports whether an audio engine is active or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Application.prototype.hasActiveEngine = function() {};
@@ -370,7 +370,7 @@ Application.prototype.hasActiveEngine = function() {};
 /**
  * Value that reports the name of the current project.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Application.prototype.projectName = function() {};
@@ -392,7 +392,7 @@ Application.prototype.previousProject = function() {};
 /**
  * Set BitwigStudio to navigate into the group.
  *
- * @param {com.bitwig.extension.controller.api.Track} track
+ * @param {Track} track
  * @since API version 2
  */
 Application.prototype.navigateIntoTrackGroup = function(track) {};
@@ -412,7 +412,7 @@ Application.prototype.navigateToParentTrackGroup = function() {};
 Application.prototype.undo = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.undoAction = function() {};
 
@@ -424,7 +424,7 @@ Application.prototype.undoAction = function() {};
 Application.prototype.redo = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.redoAction = function() {};
 
@@ -455,7 +455,7 @@ Application.prototype.previousPanelLayout = function() {};
 /**
  * Value that reports the name of the active panel layout.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Application.prototype.panelLayout = function() {};
@@ -463,7 +463,7 @@ Application.prototype.panelLayout = function() {};
 /**
  * Value that reports the name of the active display profile.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Application.prototype.displayProfile = function() {};
@@ -580,7 +580,7 @@ Application.prototype.escape = function() {};
 Application.prototype.selectAll = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectAllAction = function() {};
 
@@ -592,7 +592,7 @@ Application.prototype.selectAllAction = function() {};
 Application.prototype.selectNone = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectNoneAction = function() {};
 
@@ -604,7 +604,7 @@ Application.prototype.selectNoneAction = function() {};
 Application.prototype.selectPrevious = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectPreviousAction = function() {};
 
@@ -616,7 +616,7 @@ Application.prototype.selectPreviousAction = function() {};
 Application.prototype.selectNext = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectNextAction = function() {};
 
@@ -628,7 +628,7 @@ Application.prototype.selectNextAction = function() {};
 Application.prototype.selectFirst = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectFirstAction = function() {};
 
@@ -640,7 +640,7 @@ Application.prototype.selectFirstAction = function() {};
 Application.prototype.selectLast = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.selectLastAction = function() {};
 
@@ -652,7 +652,7 @@ Application.prototype.selectLastAction = function() {};
 Application.prototype.cut = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.cutAction = function() {};
 
@@ -664,7 +664,7 @@ Application.prototype.cutAction = function() {};
 Application.prototype.copy = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.copyAction = function() {};
 
@@ -676,7 +676,7 @@ Application.prototype.copyAction = function() {};
 Application.prototype.paste = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.pasteAction = function() {};
 
@@ -688,7 +688,7 @@ Application.prototype.pasteAction = function() {};
 Application.prototype.duplicate = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Application.prototype.duplicateAction = function() {};
@@ -703,7 +703,7 @@ Application.prototype.duplicateAction = function() {};
 Application.prototype.remove = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.removeAction = function() {};
 
@@ -722,7 +722,7 @@ Application.prototype.rename = function() {};
 Application.prototype.zoomIn = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomInAction = function() {};
 
@@ -734,7 +734,7 @@ Application.prototype.zoomInAction = function() {};
 Application.prototype.zoomOut = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomOutAction = function() {};
 
@@ -746,7 +746,7 @@ Application.prototype.zoomOutAction = function() {};
 Application.prototype.zoomToSelection = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomToSelectionAction = function() {};
 
@@ -758,7 +758,7 @@ Application.prototype.zoomToSelectionAction = function() {};
 Application.prototype.zoomToSelectionOrAll = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomToSelectionOrAllAction = function() {};
 
@@ -770,7 +770,7 @@ Application.prototype.zoomToSelectionOrAllAction = function() {};
 Application.prototype.zoomToSelectionOrPrevious = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomToSelectionOrPreviousAction = function() {};
 
@@ -782,7 +782,7 @@ Application.prototype.zoomToSelectionOrPreviousAction = function() {};
 Application.prototype.zoomToFit = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Application.prototype.zoomToFitAction = function() {};
 
@@ -825,7 +825,7 @@ Application.prototype.toggleFullScreen = function() {};
  * Returns the record quantization grid setting from the preferences.
  * Possible values are "OFF", "1/32", "1/16", "1/8", "1/4".
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 10
  */
 Application.prototype.recordQuantizationGrid = function() {};
@@ -833,7 +833,7 @@ Application.prototype.recordQuantizationGrid = function() {};
 /**
  * Returns a settable value to choose if the record quantization should quantize note length.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 Application.prototype.recordQuantizeNoteLength = function() {};
@@ -870,7 +870,7 @@ Arpeggiator.prototype.constructor = Arpeggiator;
  *  - pinky-up
  *  - pinky-down
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 10
  */
 Arpeggiator.prototype.mode = function() {};
@@ -879,7 +879,7 @@ Arpeggiator.prototype.mode = function() {};
  * Returns an object to configure the range in octaves.
  * The range is between 0 and 8.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 10
  */
 Arpeggiator.prototype.octaves = function() {};
@@ -887,7 +887,7 @@ Arpeggiator.prototype.octaves = function() {};
 /**
  * Returns an object to enable or disable the note repeat component.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 Arpeggiator.prototype.isEnabled = function() {};
@@ -895,7 +895,7 @@ Arpeggiator.prototype.isEnabled = function() {};
 /**
  * If true the arpeggiator will not try to sync to the transport.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version  10
  */
 Arpeggiator.prototype.isFreeRunning = function() {};
@@ -903,7 +903,7 @@ Arpeggiator.prototype.isFreeRunning = function() {};
 /**
  * Return an object to configure the note repeat to use shuffle or not.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 Arpeggiator.prototype.shuffle = function() {};
@@ -911,7 +911,7 @@ Arpeggiator.prototype.shuffle = function() {};
 /**
  * Returns an object to configure the note repeat rate in beats.
  *
- * @return {com.bitwig.extension.controller.api.SettableDoubleValue}
+ * @return {SettableDoubleValue}
  * @since API version 10
  */
 Arpeggiator.prototype.rate = function() {};
@@ -920,7 +920,7 @@ Arpeggiator.prototype.rate = function() {};
  * Returns an object to configure the note length, expressed as a ratio of the period.
  * Must be between 1/32 and 1.
  *
- * @return {com.bitwig.extension.controller.api.SettableDoubleValue}
+ * @return {SettableDoubleValue}
  * @since API version 10
  */
 Arpeggiator.prototype.gateLength = function() {};
@@ -928,7 +928,7 @@ Arpeggiator.prototype.gateLength = function() {};
 /**
  * Will use the note pressure to determine the velocity of arpeggiated notes.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 Arpeggiator.prototype.usePressureToVelocity = function() {};
@@ -954,7 +954,7 @@ function Arranger() {}
  * Gets an object that allows to enable/disable arranger playback follow. Observers can be registered on
  * the returned object for receiving notifications when the setting switches between on and off.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the enabled state of arranger playback follow
+ * @return {SettableBooleanValue} a boolean value object that represents the enabled state of arranger playback follow
  * @since API version 1
  */
 Arranger.prototype.isPlaybackFollowEnabled = function() {};
@@ -963,7 +963,7 @@ Arranger.prototype.isPlaybackFollowEnabled = function() {};
  * Gets an object that allows to control the arranger track height. Observers can be registered on the
  * returned object for receiving notifications when the track height changes.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that has the state `true` when the tracks have double row height and
+ * @return {SettableBooleanValue} a boolean value object that has the state `true` when the tracks have double row height and
         `false` when the tracks have single row height.
  * @since API version 1
  */
@@ -974,7 +974,7 @@ Arranger.prototype.hasDoubleRowTrackHeight = function() {};
  * registered on the returned object for receiving notifications when the cue marker lane switches between
  * shown and hidden.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the cue marker section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the cue marker section visibility
  * @since API version 1
  */
 Arranger.prototype.areCueMarkersVisible = function() {};
@@ -984,7 +984,7 @@ Arranger.prototype.areCueMarkersVisible = function() {};
  * registered on the returned object for receiving notifications when the clip launcher switches between
  * shown and hidden.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the clip launcher visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the clip launcher visibility
  * @since API version 1
  */
 Arranger.prototype.isClipLauncherVisible = function() {};
@@ -993,7 +993,7 @@ Arranger.prototype.isClipLauncherVisible = function() {};
  * Gets an object that allows to show/hide the timeline in the arranger panel. Observers can be registered
  * on the returned object for receiving notifications when the timeline switches between shown and hidden.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the timeline visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the timeline visibility
  * @since API version 1
  */
 Arranger.prototype.isTimelineVisible = function() {};
@@ -1003,7 +1003,7 @@ Arranger.prototype.isTimelineVisible = function() {};
  * can be registered on the returned object for receiving notifications when the I/O section switches
  * between shown and hidden.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the visibility of the track I/O section
+ * @return {SettableBooleanValue} a boolean value object that represents the visibility of the track I/O section
  * @since API version 1
  */
 Arranger.prototype.isIoSectionVisible = function() {};
@@ -1013,7 +1013,7 @@ Arranger.prototype.isIoSectionVisible = function() {};
  * registered on the returned object for receiving notifications when the effect track section switches
  * between shown and hidden.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the visibility of the effect track section
+ * @return {SettableBooleanValue} a boolean value object that represents the visibility of the effect track section
  * @since API version 1
  */
 Arranger.prototype.areEffectTracksVisible = function() {};
@@ -1024,7 +1024,7 @@ Arranger.prototype.areEffectTracksVisible = function() {};
  *
  * @param size
           the number of simultaneously accessible items
- * @return {com.bitwig.extension.controller.api.CueMarkerBank} the requested item bank object
+ * @return {CueMarkerBank} the requested item bank object
  */
 Arranger.prototype.createCueMarkerBank = function(size) {};
 /* API Version - 3.1.2 */
@@ -1066,7 +1066,7 @@ function AutoDetectionMidiPortNamesList() {}
 AutoDetectionMidiPortNamesList.prototype.add = function(inputNames, outputNames) {};
 
 /**
- * @return {java.util.List<com.bitwig.extension.controller.AutoDetectionMidiPortNames>}
+ * @return {java.util.List<AutoDetectionMidiPortNames>}
  */
 AutoDetectionMidiPortNamesList.prototype.getPortNames = function() {};
 
@@ -1077,7 +1077,7 @@ AutoDetectionMidiPortNamesList.prototype.getCount = function() {};
 
 /**
  * @param {int} index
- * @return {com.bitwig.extension.controller.AutoDetectionMidiPortNames}
+ * @return {AutoDetectionMidiPortNames}
  */
 AutoDetectionMidiPortNamesList.prototype.getPortNamesAt = function(index) {};
 /* API Version - 3.1.2 */
@@ -1137,7 +1137,7 @@ Bank.prototype.getItemAt = function(index) {};
  * Value that reports the underlying total item count (not the number of items available in the bank
  * window).
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 Bank.prototype.itemCount = function() {};
@@ -1146,7 +1146,7 @@ Bank.prototype.itemCount = function() {};
  * An integer value that defines the location of the cursor that this bank is following. If there is no
  * cursor or the cursor is not within the bank then the value is -1.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 2
  */
 Bank.prototype.cursorIndex = function() {};
@@ -1188,7 +1188,7 @@ BeatTimeValue.prototype.constructor = BeatTimeValue;
 /**
  * Gets the current beat time formatted according to the supplied formatter.
  *
- * @param {com.bitwig.extension.controller.api.BeatTimeFormatter} formatter
+ * @param {BeatTimeFormatter} formatter
  * @return {string}
  * @since API version 2
  */
@@ -1203,7 +1203,7 @@ BeatTimeValue.prototype.getFormatted = function(formatter) {};
 BeatTimeValue.prototype.getFormatted = function() {};
 /* API Version - 3.1.2 */
 
-com.bitwig.extension.api.graphics.BitmapFormat = {
+BitmapFormat = {
 	/**
 	 * Each pixel is a 32-bit quantity, with alpha in the upper 8 bits, then red, then green, then
  * blue. The 32-bit quantities are stored native-endian. Pre-multiplied alpha is used. (That is,
@@ -1244,12 +1244,12 @@ Bitmap.prototype.getWidth = function() {};
 Bitmap.prototype.getHeight = function() {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.BitmapFormat}
+ * @return {BitmapFormat}
  */
 Bitmap.prototype.getFormat = function() {};
 
 /**
- * @return {com.bitwig.extension.api.MemoryBlock}
+ * @return {MemoryBlock}
  */
 Bitmap.prototype.getMemoryBlock = function() {};
 
@@ -1257,7 +1257,7 @@ Bitmap.prototype.getMemoryBlock = function() {};
  * Call this method to start painting the bitmap.
  * This method will take care of disposing allocated patterns during the rendering.
  *
- * @param {com.bitwig.extension.api.graphics.Renderer} renderer
+ * @param {Renderer} renderer
  * @since API version 7
  */
 Bitmap.prototype.render = function(renderer) {};
@@ -1379,7 +1379,7 @@ BrowserColumn.prototype.constructor = BrowserColumn;
 /**
  * Value that reports the underlying total count of column entries (not the size of the column window).
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 BrowserColumn.prototype.entryCount = function() {};
@@ -1387,7 +1387,7 @@ BrowserColumn.prototype.entryCount = function() {};
 /**
  * Returns the cursor item, which can be used to navigate over the list of entries.
  *
- * @return {com.bitwig.extension.controller.api.BrowserItem} the requested filter item object
+ * @return {BrowserItem} the requested filter item object
  * @since API version 1
  */
 BrowserColumn.prototype.createCursorItem = function() {};
@@ -1398,7 +1398,7 @@ BrowserColumn.prototype.createCursorItem = function() {};
  *
  * @param size
           the number of simultaneously accessible items
- * @return {com.bitwig.extension.controller.api.BrowserItemBank} the requested item bank object
+ * @return {BrowserItemBank} the requested item bank object
  */
 BrowserColumn.prototype.createItemBank = function(size) {};
 /* API Version - 3.1.2 */
@@ -1417,7 +1417,7 @@ BrowserFilterColumn.prototype.constructor = BrowserFilterColumn;
 /**
  * Returns the filter item that represents the top-level all/any/everything wildcard item.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterItem} the requested filter item object
+ * @return {BrowserFilterItem} the requested filter item object
  * @since API version 1
  */
 BrowserFilterColumn.prototype.getWildcardItem = function() {};
@@ -1425,7 +1425,7 @@ BrowserFilterColumn.prototype.getWildcardItem = function() {};
 /**
  * Returns the cursor filter item, which can be used to navigate over the list of entries.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterItem} the requested filter item object
+ * @return {BrowserFilterItem} the requested filter item object
  * @since API version 1
  */
 BrowserFilterColumn.prototype.createCursorItem = function() {};
@@ -1436,14 +1436,14 @@ BrowserFilterColumn.prototype.createCursorItem = function() {};
  *
  * @param size
           the number of simultaneously accessible items
- * @return {com.bitwig.extension.controller.api.BrowserFilterItemBank} the requested item bank object
+ * @return {BrowserFilterItemBank} the requested item bank object
  */
 BrowserFilterColumn.prototype.createItemBank = function(size) {};
 
 /**
  * Value that reports the name of the filter column.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version2
  */
 BrowserFilterColumn.prototype.name = function() {};
@@ -1473,7 +1473,7 @@ BrowserFilterItem.prototype.constructor = BrowserFilterItem;
 /**
  * Value that reports the hit count of the filter item.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 BrowserFilterItem.prototype.hitCount = function() {};
@@ -1503,7 +1503,7 @@ BrowserItem.prototype.constructor = BrowserItem;
 /**
  * Value that reports the name of the browser item.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 BrowserItem.prototype.name = function() {};
@@ -1511,7 +1511,7 @@ BrowserItem.prototype.name = function() {};
 /**
  * Returns an object that provides access to the selected state of the browser item.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} an boolean value object
+ * @return {SettableBooleanValue} an boolean value object
  * @since API version 1
  */
 BrowserItem.prototype.isSelected = function() {};
@@ -1531,7 +1531,7 @@ BrowserResultsColumn.prototype.constructor = BrowserResultsColumn;
 /**
  * Returns the cursor result item, which can be used to navigate over the list of entries.
  *
- * @return {com.bitwig.extension.controller.api.BrowserResultsItem} the requested filter item object
+ * @return {BrowserResultsItem} the requested filter item object
  * @since API version 1
  */
 BrowserResultsColumn.prototype.createCursorItem = function() {};
@@ -1542,7 +1542,7 @@ BrowserResultsColumn.prototype.createCursorItem = function() {};
  *
  * @param size
           the number of simultaneously accessible items
- * @return {com.bitwig.extension.controller.api.BrowserResultsItemBank} the requested item bank object
+ * @return {BrowserResultsItemBank} the requested item bank object
  */
 BrowserResultsColumn.prototype.createItemBank = function(size) {};
 /* API Version - 3.1.2 */
@@ -1593,7 +1593,7 @@ BrowsingSessionBank.prototype.getSize = function() {};
  *
  * @param index
           the session index, must be in the range `[0..getSize-1]`
- * @return {com.bitwig.extension.controller.api.GenericBrowsingSession} the requested browser session object
+ * @return {GenericBrowsingSession} the requested browser session object
  * @since API version 1
  */
 BrowsingSessionBank.prototype.getSession = function(index) {};
@@ -1620,7 +1620,7 @@ ChainSelector.prototype.constructor = ChainSelector;
  * In case the chain selector has no chains or the value is not connected to the chain selector,
  * then the value will be 0.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 6
  */
 ChainSelector.prototype.activeChainIndex = function() {};
@@ -1628,7 +1628,7 @@ ChainSelector.prototype.activeChainIndex = function() {};
 /**
  * The number of chains in the chain selector.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 6
  */
 ChainSelector.prototype.chainCount = function() {};
@@ -1636,7 +1636,7 @@ ChainSelector.prototype.chainCount = function() {};
 /**
  * The active device layer.
  *
- * @return {com.bitwig.extension.controller.api.DeviceLayer}
+ * @return {DeviceLayer}
  * @since API version 6
  */
 ChainSelector.prototype.activeChain = function() {};
@@ -1683,7 +1683,7 @@ ChannelBank.prototype.setChannelScrollStepSize = function(stepSize) {};
 /**
  * Value that reports if the channel bank can be scrolled further down.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ChannelBank.prototype.canScrollChannelsUp = function() {};
@@ -1691,7 +1691,7 @@ ChannelBank.prototype.canScrollChannelsUp = function() {};
 /**
  * Value that reports if the channel bank can be scrolled further down.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ChannelBank.prototype.canScrollChannelsDown = function() {};
@@ -1700,7 +1700,7 @@ ChannelBank.prototype.canScrollChannelsDown = function() {};
  * Value that reports the underlying total channel count (not the number of channels available in the bank
  * window).
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 ChannelBank.prototype.channelCount = function() {};
@@ -1720,7 +1720,7 @@ Channel.prototype.constructor = Channel;
 /**
  * Returns an object that represents the activated state of the channel.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} an object that provides access to the channels activated state.
+ * @return {SettableBooleanValue} an object that provides access to the channels activated state.
  * @since API version 1
  */
 Channel.prototype.isActivated = function() {};
@@ -1728,7 +1728,7 @@ Channel.prototype.isActivated = function() {};
 /**
  * Gets a representation of the channels volume control.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an object that provides access to the channels volume control.
+ * @return {Parameter} an object that provides access to the channels volume control.
  * @since API version 5
  */
 Channel.prototype.volume = function() {};
@@ -1736,7 +1736,7 @@ Channel.prototype.volume = function() {};
 /**
  * Gets a representation of the channels pan control.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an object that provides access to the channels pan control.
+ * @return {Parameter} an object that provides access to the channels pan control.
  * @since API version 5
  */
 Channel.prototype.pan = function() {};
@@ -1744,7 +1744,7 @@ Channel.prototype.pan = function() {};
 /**
  * Gets a representation of the channels mute control.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} an object that provides access to the channels mute control.
+ * @return {SettableBooleanValue} an object that provides access to the channels mute control.
  * @since API version 5
  */
 Channel.prototype.mute = function() {};
@@ -1752,7 +1752,7 @@ Channel.prototype.mute = function() {};
 /**
  * Gets a representation of the channels solo control.
  *
- * @return {com.bitwig.extension.controller.api.SoloValue} an object that provides access to the channels solo control.
+ * @return {SoloValue} an object that provides access to the channels solo control.
  * @since API version 1
  */
 Channel.prototype.solo = function() {};
@@ -1760,7 +1760,7 @@ Channel.prototype.solo = function() {};
 /**
  * True if the current channel is being muted by an other channel with solo on.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 Channel.prototype.isMutedBySolo = function() {};
@@ -1785,7 +1785,7 @@ Channel.prototype.addVuMeterObserver = function(range, channel, peak, callback) 
 /**
  * Returns an array of the playing notes.
  *
- * @return {com.bitwig.extension.controller.api.PlayingNoteArrayValue}
+ * @return {PlayingNoteArrayValue}
  * @since API version 2
  */
 Channel.prototype.playingNotes = function() {};
@@ -1793,7 +1793,7 @@ Channel.prototype.playingNotes = function() {};
 /**
  * Get the color of the channel.
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  * @since API version 2
  */
 Channel.prototype.color = function() {};
@@ -1801,7 +1801,7 @@ Channel.prototype.color = function() {};
 /**
  * Gets a {@link SendBank} that can be used to navigate the sends of this channel.
  *
- * @return {com.bitwig.extension.controller.api.SendBank}
+ * @return {SendBank}
  * @since API version 2
  */
 Channel.prototype.sendBank = function() {};
@@ -1953,7 +1953,7 @@ Clip.prototype.scrollStepsStepBackwards = function() {};
 /**
  * Value that reports if the note grid keys can be scrolled further up.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Clip.prototype.canScrollKeysUp = function() {};
@@ -1961,7 +1961,7 @@ Clip.prototype.canScrollKeysUp = function() {};
 /**
  * Value that reports if the note grid keys can be scrolled further down.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Clip.prototype.canScrollKeysDown = function() {};
@@ -1969,7 +1969,7 @@ Clip.prototype.canScrollKeysDown = function() {};
 /**
  * Value that reports if the note grid if the note grid steps can be scrolled backwards.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Clip.prototype.canScrollStepsBackwards = function() {};
@@ -1977,7 +1977,7 @@ Clip.prototype.canScrollStepsBackwards = function() {};
 /**
  * Value that reports if the note grid if the note grid steps can be scrolled forwards.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Clip.prototype.canScrollStepsForwards = function() {};
@@ -2119,7 +2119,7 @@ Clip.prototype.addStepDataObserver = function(callback) {};
 /**
  * Registers an observer that reports which note grid steps/keys contain notes.
  *
- * @param {com.bitwig.extension.callback.NoteStepChangedCallback} callback A callback function that receives the StepInfo.
+ * @param {NoteStepChangedCallback} callback A callback function that receives the StepInfo.
  * @since API version 10
  */
 Clip.prototype.addNoteStepObserver = function(callback) {};
@@ -2127,7 +2127,7 @@ Clip.prototype.addNoteStepObserver = function(callback) {};
 /**
  * Value that reports note grid cells as they get played by the sequencer.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 Clip.prototype.playingStep = function() {};
@@ -2144,7 +2144,7 @@ Clip.prototype.setName = function(name) {};
 /**
  * Returns shuffle settings of the clip.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} the value object that represents the clips shuffle setting.
+ * @return {SettableBooleanValue} the value object that represents the clips shuffle setting.
  * @since API version 1
  */
 Clip.prototype.getShuffle = function() {};
@@ -2152,7 +2152,7 @@ Clip.prototype.getShuffle = function() {};
 /**
  * Returns accent setting of the clip.
  *
- * @return {com.bitwig.extension.controller.api.SettableRangedValue} the ranged value object that represents the clips accent setting.
+ * @return {SettableRangedValue} the ranged value object that represents the clips accent setting.
  * @since API version 1
  */
 Clip.prototype.getAccent = function() {};
@@ -2160,7 +2160,7 @@ Clip.prototype.getAccent = function() {};
 /**
  * Returns the start of the clip in beat time.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} the beat time object that represents the clips start time.
+ * @return {SettableBeatTimeValue} the beat time object that represents the clips start time.
  * @since API version 1
  */
 Clip.prototype.getPlayStart = function() {};
@@ -2168,7 +2168,7 @@ Clip.prototype.getPlayStart = function() {};
 /**
  * Returns the length of the clip in beat time.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} the beat time object that represents the duration of the clip.
+ * @return {SettableBeatTimeValue} the beat time object that represents the duration of the clip.
  * @since API version 1
  */
 Clip.prototype.getPlayStop = function() {};
@@ -2176,7 +2176,7 @@ Clip.prototype.getPlayStop = function() {};
 /**
  * Returns an object that provides access to the loop enabled state of the clip.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object.
+ * @return {SettableBooleanValue} a boolean value object.
  * @since API version 1
  */
 Clip.prototype.isLoopEnabled = function() {};
@@ -2184,7 +2184,7 @@ Clip.prototype.isLoopEnabled = function() {};
 /**
  * Returns the loop start time of the clip in beat time.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} the beat time object that represents the clips loop start time.
+ * @return {SettableBeatTimeValue} the beat time object that represents the clips loop start time.
  * @since API version 1
  */
 Clip.prototype.getLoopStart = function() {};
@@ -2192,7 +2192,7 @@ Clip.prototype.getLoopStart = function() {};
 /**
  * Returns the loop length of the clip in beat time.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} the beat time object that represents the clips loop length.
+ * @return {SettableBeatTimeValue} the beat time object that represents the clips loop length.
  * @since API version 1
  */
 Clip.prototype.getLoopLength = function() {};
@@ -2200,7 +2200,7 @@ Clip.prototype.getLoopLength = function() {};
 /**
  * Get the color of the clip.
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  * @since API version 2
  */
 Clip.prototype.color = function() {};
@@ -2242,7 +2242,7 @@ Clip.prototype.quantize = function(amount) {};
 /**
  * Gets the track that contains the clip.
  *
- * @return {com.bitwig.extension.controller.api.Track} a track object that represents the track which contains the clip.
+ * @return {Track} a track object that represents the track which contains the clip.
  * @since API version 1
  */
 Clip.prototype.getTrack = function() {};
@@ -2253,7 +2253,7 @@ Clip.prototype.getTrack = function() {};
  * Possible values are `"default"`, `"none"`, `"8"`, `"4"`, `"2"`, `"1"`, `"1/2"`, `"1/4"`, `"1/8"`,
  * `"1/16"`.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 8
  */
 Clip.prototype.launchQuantization = function() {};
@@ -2261,7 +2261,7 @@ Clip.prototype.launchQuantization = function() {};
 /**
  * Setting "Q to loop" in the inspector.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 8
  */
 Clip.prototype.useLoopStartAsQuantizationReference = function() {};
@@ -2273,7 +2273,7 @@ Clip.prototype.useLoopStartAsQuantizationReference = function() {};
  *  - continue_immediately
  *  - continue_with_quantization
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 9
  */
 Clip.prototype.launchMode = function() {};
@@ -2284,7 +2284,7 @@ Clip.prototype.launchMode = function() {};
  * @param {int} channel
  * @param {int} x
  * @param {int} y
- * @return {com.bitwig.extension.controller.api.NoteStep}
+ * @return {NoteStep}
  * @since API version 10
  */
 Clip.prototype.getStep = function(channel, x, y) {};
@@ -2299,7 +2299,7 @@ Clip.prototype.launch = function() {};
 /**
  * Get the clip launcher slot containing the clip.
  *
- * @return {com.bitwig.extension.controller.api.ClipLauncherSlot}
+ * @return {ClipLauncherSlot}
  * @since API version 10
  */
 Clip.prototype.clipLauncherSlot = function() {};
@@ -2477,7 +2477,7 @@ ClipLauncherSlotBank.prototype.setIndication = function(shouldIndicate) {};
  * either scenes launch buttons (for launching the content of the track group) or the clips of the group
  * master track.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object.
+ * @return {SettableBooleanValue} a boolean value object.
  */
 ClipLauncherSlotBank.prototype.isMasterTrackContentShownOnTrackGroups = function() {};
 /* API Version - 3.1.2 */
@@ -2508,7 +2508,7 @@ ClipLauncherSlot.prototype.constructor = ClipLauncherSlot;
 /**
  * Value that reports whether this slot is selected or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isSelected = function() {};
@@ -2516,7 +2516,7 @@ ClipLauncherSlot.prototype.isSelected = function() {};
 /**
  * Value that reports whether this slot has content or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.hasContent = function() {};
@@ -2524,7 +2524,7 @@ ClipLauncherSlot.prototype.hasContent = function() {};
 /**
  * Value that reports whether this slot is playing or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isPlaying = function() {};
@@ -2532,7 +2532,7 @@ ClipLauncherSlot.prototype.isPlaying = function() {};
 /**
  * Value that reports whether this slot is queued for playback or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isPlaybackQueued = function() {};
@@ -2540,7 +2540,7 @@ ClipLauncherSlot.prototype.isPlaybackQueued = function() {};
 /**
  * Value that reports whether this slot is recording or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isRecording = function() {};
@@ -2548,7 +2548,7 @@ ClipLauncherSlot.prototype.isRecording = function() {};
 /**
  * Value that reports whether this slot is queued for recording or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isRecordingQueued = function() {};
@@ -2556,7 +2556,7 @@ ClipLauncherSlot.prototype.isRecordingQueued = function() {};
 /**
  * Value that reports whether this slot is queued for recording or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.isStopQueued = function() {};
@@ -2571,7 +2571,7 @@ ClipLauncherSlot.prototype.browseToInsertClip = function() {};
 /**
  * Value that reports the color of this slot.
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  * @since API version 2
  */
 ClipLauncherSlot.prototype.color = function() {};
@@ -2584,7 +2584,7 @@ ClipLauncherSlot.prototype.color = function() {};
 ClipLauncherSlot.prototype.select = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 ClipLauncherSlot.prototype.selectAction = function() {};
@@ -2597,7 +2597,7 @@ ClipLauncherSlot.prototype.selectAction = function() {};
 ClipLauncherSlot.prototype.record = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 ClipLauncherSlot.prototype.recordAction = function() {};
@@ -2654,7 +2654,7 @@ ClipLauncherSlotOrSceneBank.prototype.stop = function() {};
 /**
  * Action to call {@link #stop()}.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 ClipLauncherSlotOrSceneBank.prototype.stopAction = function() {};
@@ -2687,7 +2687,7 @@ ClipLauncherSlotOrScene.prototype.constructor = ClipLauncherSlotOrScene;
 /**
  * Returns an object that provides access to the name of the scene.
  *
- * @return {com.bitwig.extension.controller.api.StringValue} a string value object that represents the scene name.
+ * @return {StringValue} a string value object that represents the scene name.
  * @since API version 2
  */
 ClipLauncherSlotOrScene.prototype.name = function() {};
@@ -2700,14 +2700,14 @@ ClipLauncherSlotOrScene.prototype.name = function() {};
 ClipLauncherSlotOrScene.prototype.launch = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 ClipLauncherSlotOrScene.prototype.launchAction = function() {};
 
 /**
  * Value that reports the position of the scene within the list of Bitwig Studio scenes.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 ClipLauncherSlotOrScene.prototype.sceneIndex = function() {};
@@ -2715,7 +2715,7 @@ ClipLauncherSlotOrScene.prototype.sceneIndex = function() {};
 /**
  * Value that reports the color of this slot.
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  * @since API version 7
  */
 ClipLauncherSlotOrScene.prototype.color = function() {};
@@ -2733,7 +2733,7 @@ ClipLauncherSlotOrScene.prototype.setIndication = function(shouldIndicate) {};
 /**
  * An {@link InsertionPoint} that is used to replace the contents of this slot or scene.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 ClipLauncherSlotOrScene.prototype.replaceInsertionPoint = function() {};
@@ -2741,7 +2741,7 @@ ClipLauncherSlotOrScene.prototype.replaceInsertionPoint = function() {};
 /**
  * An {@link InsertionPoint} that can be used to insert content in the next scene.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 ClipLauncherSlotOrScene.prototype.nextSceneInsertionPoint = function() {};
@@ -2749,7 +2749,7 @@ ClipLauncherSlotOrScene.prototype.nextSceneInsertionPoint = function() {};
 /**
  * An {@link InsertionPoint} that can be used to insert content after this slot or scene.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 ClipLauncherSlotOrScene.prototype.previousSceneInsertionPoint = function() {};
@@ -2768,14 +2768,14 @@ ColorHardwareProperty.prototype.constructor = ColorHardwareProperty;
 /**
  * Gets the current value. This is the value that should be sent to the hardware to be displayed.
  *
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 ColorHardwareProperty.prototype.currentValue = function() {};
 
 /**
  * The value that was last sent to the hardware.
  *
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 ColorHardwareProperty.prototype.lastSentValue = function() {};
 
@@ -2784,21 +2784,21 @@ ColorHardwareProperty.prototype.lastSentValue = function() {};
  * callback is called as a result of calling the {@link HardwareSurface#updateHardware()} method (typically
  * from the flush method).
  *
- * @param {java.util.function.Consumer<com.bitwig.extension.api.Color>} sendValueConsumer
+ * @param {java.util.function.Consumer<Color>} sendValueConsumer
  */
 ColorHardwareProperty.prototype.onUpdateHardware = function(sendValueConsumer) {};
 
 /**
  * Sets the current value.
  *
- * @param {com.bitwig.extension.api.Color} value
+ * @param {Color} value
  */
 ColorHardwareProperty.prototype.setValue = function(value) {};
 
 /**
  * Sets the current value from a {@link Supplier} that supplies the latest value.
  *
- * @param {java.util.function.Supplier<com.bitwig.extension.api.Color>} supplier
+ * @param {java.util.function.Supplier<Color>} supplier
  */
 ColorHardwareProperty.prototype.setValueSupplier = function(supplier) {};
 /* API Version - 3.1.2 */
@@ -2814,7 +2814,7 @@ function Color() {}
  * @param {double} red
  * @param {double} green
  * @param {double} blue
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.fromRGB = function(red, green, blue) {};
 
@@ -2823,7 +2823,7 @@ Color.prototype.fromRGB = function(red, green, blue) {};
  * @param {double} green
  * @param {double} blue
  * @param {double} alpha
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.fromRGBA = function(red, green, blue, alpha) {};
 
@@ -2831,7 +2831,7 @@ Color.prototype.fromRGBA = function(red, green, blue, alpha) {};
  * @param {int} red
  * @param {int} green
  * @param {int} blue
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.fromRGB255 = function(red, green, blue) {};
 
@@ -2840,39 +2840,39 @@ Color.prototype.fromRGB255 = function(red, green, blue) {};
  * @param {int} green
  * @param {int} blue
  * @param {int} alpha
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.fromRGBA255 = function(red, green, blue, alpha) {};
 
 /**
  * @param {string} hex
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.fromHex = function(hex) {};
 
 /**
  * Mixes two colors.
  *
- * @param {com.bitwig.extension.api.Color} c1
- * @param {com.bitwig.extension.api.Color} c2
+ * @param {Color} c1
+ * @param {Color} c2
  * @param {double} blend
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  * @since API version 4
  */
 Color.prototype.mix = function(c1, c2, blend) {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.nullColor = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.blackColor = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 Color.prototype.whiteColor = function() {};
 
@@ -2972,7 +2972,7 @@ ColorValue.prototype.blue = function() {};
 ColorValue.prototype.alpha = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 ColorValue.prototype.get = function() {};
 /* API Version - 3.1.2 */
@@ -2983,7 +2983,7 @@ ConnectionEstablishedCallback.prototype = new Callback();
 ConnectionEstablishedCallback.prototype.constructor = ConnectionEstablishedCallback;
 
 /**
- * @param {com.bitwig.extension.controller.api.RemoteConnection} connection
+ * @param {RemoteConnection} connection
  */
 ConnectionEstablishedCallback.prototype.connectionEstablished = function(connection) {};
 /* API Version - 3.1.2 */
@@ -3003,7 +3003,7 @@ ContinuousHardwareControl.prototype.constructor = ContinuousHardwareControl;
  * An optional button that can be associated with this control when this control can also act as a button
  * (e.g by pressing down on it).
  *
- * @return {com.bitwig.extension.controller.api.HardwareButton}
+ * @return {HardwareButton}
  */
 ContinuousHardwareControl.prototype.hardwareButton = function() {};
 
@@ -3011,7 +3011,7 @@ ContinuousHardwareControl.prototype.hardwareButton = function() {};
  * Sets an optional button that can be associated with this control when this control can also act as a
  * button (e.g by pressing down on it).
  *
- * @param {com.bitwig.extension.controller.api.HardwareButton} button
+ * @param {HardwareButton} button
  */
 ContinuousHardwareControl.prototype.setHardwareButton = function(button) {};
 /* API Version - 3.1.2 */
@@ -3073,8 +3073,8 @@ ControllerExtensionDefinition.prototype.getNumMidiOutPorts = function() {};
  * Obtains a {@link AutoDetectionMidiPortNamesList} that defines the names of the MIDI in and out ports
  * that can be used for auto detection of the controller for the supplied platform type.
  *
- * @param {com.bitwig.extension.api.PlatformType} platformType
- * @return {com.bitwig.extension.controller.AutoDetectionMidiPortNamesList}
+ * @param {PlatformType} platformType
+ * @return {AutoDetectionMidiPortNamesList}
  */
 ControllerExtensionDefinition.prototype.getAutoDetectionMidiPortNamesList = function(platformType) {};
 
@@ -3082,13 +3082,13 @@ ControllerExtensionDefinition.prototype.getAutoDetectionMidiPortNamesList = func
  * Lists the {@link AutoDetectionMidiPortNames} that defines the names of the MIDI in and out ports that
  * can be used for auto detection of the controller for the supplied platform type.
  *
- * @param {com.bitwig.extension.controller.AutoDetectionMidiPortNamesList} list
- * @param {com.bitwig.extension.api.PlatformType} platformType
+ * @param {AutoDetectionMidiPortNamesList} list
+ * @param {PlatformType} platformType
  */
 ControllerExtensionDefinition.prototype.listAutoDetectionMidiPortNames = function(list, platformType) {};
 
 /**
- * @return {com.bitwig.extension.controller.HardwareDeviceMatcherList}
+ * @return {HardwareDeviceMatcherList}
  */
 ControllerExtensionDefinition.prototype.getHardwareDeviceMatcherList = function() {};
 
@@ -3098,7 +3098,7 @@ ControllerExtensionDefinition.prototype.getHardwareDeviceMatcherList = function(
  * device. The {@link HardwareDeviceMatcher} will also be used during auto detection to automatically add
  * and select the device if possible.
  *
- * @param {com.bitwig.extension.controller.HardwareDeviceMatcherList} list
+ * @param {HardwareDeviceMatcherList} list
  * @since API version 7
  */
 ControllerExtensionDefinition.prototype.listHardwareDevices = function(list) {};
@@ -3106,8 +3106,8 @@ ControllerExtensionDefinition.prototype.listHardwareDevices = function(list) {};
 /**
  * Creates an instance of this extension.
  *
- * @param {com.bitwig.extension.controller.api.ControllerHost} host
- * @return {com.bitwig.extension.controller.ControllerExtension}
+ * @param {ControllerHost} host
+ * @return {ControllerExtension}
  */
 ControllerExtensionDefinition.prototype.createInstance = function(host) {};
 /* API Version - 3.1.2 */
@@ -3119,13 +3119,13 @@ function ControllerExtension() {}
 
 /**
  * @param {int} index
- * @return {com.bitwig.extension.controller.api.MidiIn}
+ * @return {MidiIn}
  */
 ControllerExtension.prototype.getMidiInPort = function(index) {};
 
 /**
  * @param {int} index
- * @return {com.bitwig.extension.controller.api.MidiOut}
+ * @return {MidiOut}
  */
 ControllerExtension.prototype.getMidiOutPort = function(index) {};
 
@@ -3301,7 +3301,7 @@ ControllerHost.prototype.defineMidiPorts = function(numInports, numOutports) {};
  *
  * @param index
           the index of the MIDI input port, must be valid.
- * @return {com.bitwig.extension.controller.api.MidiIn} the requested MIDI input port
+ * @return {MidiIn} the requested MIDI input port
  * @since API version 1
  */
 ControllerHost.prototype.getMidiInPort = function(index) {};
@@ -3311,7 +3311,7 @@ ControllerHost.prototype.getMidiInPort = function(index) {};
  *
  * @param index
           the index of the MIDI output port, must be valid.
- * @return {com.bitwig.extension.controller.api.MidiOut} the requested MIDI output port
+ * @return {MidiOut} the requested MIDI output port
  * @since API version 1
  */
 ControllerHost.prototype.getMidiOutPort = function(index) {};
@@ -3322,7 +3322,7 @@ ControllerHost.prototype.getMidiOutPort = function(index) {};
  * {@link ControllerExtensionDefinition#listHardwareDevices(java.util.List)}
  *
  * @param {int} index
- * @return {com.bitwig.extension.controller.api.HardwareDevice}
+ * @return {HardwareDevice}
  * @since API version 7
  */
 ControllerHost.prototype.hardwareDevice = function(index) {};
@@ -3351,7 +3351,7 @@ ControllerHost.prototype.addDeviceNameBasedDiscoveryPair = function(inputs, outp
  * Creates a preferences object that can be used to insert settings into the Controller Preferences panel
  * in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Preferences} an object that provides access to custom controller preferences
+ * @return {Preferences} an object that provides access to custom controller preferences
  * @since API version 1
  */
 ControllerHost.prototype.getPreferences = function() {};
@@ -3360,7 +3360,7 @@ ControllerHost.prototype.getPreferences = function() {};
  * Creates a document state object that can be used to insert settings into the Studio I/O Panel in Bitwig
  * Studio.
  *
- * @return {com.bitwig.extension.controller.api.DocumentState} an object that provides access to custom document settings
+ * @return {DocumentState} an object that provides access to custom document settings
  * @since API version 1
  */
 ControllerHost.prototype.getDocumentState = function() {};
@@ -3371,7 +3371,7 @@ ControllerHost.prototype.getDocumentState = function() {};
  * track or the current device preset was changed on the controller these notifications are shown,
  * depending on your configuration.
  *
- * @return {com.bitwig.extension.controller.api.NotificationSettings} a configuration object used to enable/disable the various automatic notifications supported by
+ * @return {NotificationSettings} a configuration object used to enable/disable the various automatic notifications supported by
         Bitwig Studio
  * @since API version 1
  */
@@ -3380,7 +3380,7 @@ ControllerHost.prototype.getNotificationSettings = function() {};
 /**
  * Returns an object for controlling various aspects of the currently selected project.
  *
- * @return {com.bitwig.extension.controller.api.Project}
+ * @return {Project}
  * @since API version 1
  */
 ControllerHost.prototype.getProject = function() {};
@@ -3390,7 +3390,7 @@ ControllerHost.prototype.getProject = function() {};
  * Studio. This function should be called once during initialization of the script if transport access is
  * desired.
  *
- * @return {com.bitwig.extension.controller.api.Transport} an object that represents the `Transport` section in Bitwig Studio.
+ * @return {Transport} an object that represents the `Transport` section in Bitwig Studio.
  * @since API version 1
  */
 ControllerHost.prototype.createTransport = function() {};
@@ -3399,7 +3399,7 @@ ControllerHost.prototype.createTransport = function() {};
  * Returns an object for controlling and monitoring the `Groove` section in Bitwig Studio. This function
  * should be called once during initialization of the script if groove control is desired.
  *
- * @return {com.bitwig.extension.controller.api.Groove} an object that represents the `Groove` section in Bitwig Studio.
+ * @return {Groove} an object that represents the `Groove` section in Bitwig Studio.
  * @since API version 1
  */
 ControllerHost.prototype.createGroove = function() {};
@@ -3409,7 +3409,7 @@ ControllerHost.prototype.createGroove = function() {};
  * settings, the list of open projects, and other global settings that are not related to a certain
  * document.
  *
- * @return {com.bitwig.extension.controller.api.Application} an application object.
+ * @return {Application} an application object.
  * @since API version 1
  */
 ControllerHost.prototype.createApplication = function() {};
@@ -3418,7 +3418,7 @@ ControllerHost.prototype.createApplication = function() {};
  * Returns an object which provides access to the `Arranger` panel of Bitwig Studio. Calling this function
  * is equal to `createArranger(-1)`.
  *
- * @return {com.bitwig.extension.controller.api.Arranger} an arranger object
+ * @return {Arranger} an arranger object
  * @since API version 1
  */
 ControllerHost.prototype.createArranger = function() {};
@@ -3429,7 +3429,7 @@ ControllerHost.prototype.createArranger = function() {};
  * @param window
           the index of the window where the arranger panel is shown, or -1 in case the first arranger
           panel found on any window should be taken
- * @return {com.bitwig.extension.controller.api.Arranger} an arranger object
+ * @return {Arranger} an arranger object
  * @since API version 1
  */
 ControllerHost.prototype.createArranger = function(window) {};
@@ -3438,7 +3438,7 @@ ControllerHost.prototype.createArranger = function(window) {};
  * Returns an object which provides access to the `Mixer` panel of Bitwig Studio. Calling this function is
  * equal to `createMixer(-1, null)`.
  *
- * @return {com.bitwig.extension.controller.api.Mixer} a `Mixer` object
+ * @return {Mixer} a `Mixer` object
  * @since API version 1
  */
 ControllerHost.prototype.createMixer = function() {};
@@ -3452,7 +3452,7 @@ ControllerHost.prototype.createMixer = function() {};
           panel layout in Bitwig Studio should be followed. Empty strings or invalid names are treated
           the same way as `null`. To receive the list of available panel layouts see
           {@link Application#addPanelLayoutObserver}.
- * @return {com.bitwig.extension.controller.api.Mixer} a `Mixer` object
+ * @return {Mixer} a `Mixer` object
  * @since API version 1
  */
 ControllerHost.prototype.createMixer = function(panelLayout) {};
@@ -3464,7 +3464,7 @@ ControllerHost.prototype.createMixer = function(panelLayout) {};
  * @param window
           the index of the window where the mixer panel is shown, or -1 in case the first mixer panel
           found on any window should be taken
- * @return {com.bitwig.extension.controller.api.Mixer} a `Mixer` object
+ * @return {Mixer} a `Mixer` object
  * @since API version 1
  */
 ControllerHost.prototype.createMixer = function(window) {};
@@ -3480,7 +3480,7 @@ ControllerHost.prototype.createMixer = function(window) {};
  * @param window
           the index of the window where the mixer panel is shown, or -1 in case the first mixer panel
           found on any window should be taken
- * @return {com.bitwig.extension.controller.api.Mixer} a `Mixer` object
+ * @return {Mixer} a `Mixer` object
  * @since API version 1
  */
 ControllerHost.prototype.createMixer = function(panelLayout, window) {};
@@ -3508,7 +3508,7 @@ ControllerHost.prototype.createMixer = function(panelLayout, window) {};
           the number of sends spanned by the track bank
  * @param numScenes
           the number of scenes spanned by the track bank
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 ControllerHost.prototype.createTrackBank = function(numTracks, numSends, numScenes) {};
@@ -3539,7 +3539,7 @@ ControllerHost.prototype.createTrackBank = function(numTracks, numSends, numScen
  * @param hasFlatTrackList
           specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 ControllerHost.prototype.createTrackBank = function(numTracks, numSends, numScenes, hasFlatTrackList) {};
@@ -3555,7 +3555,7 @@ ControllerHost.prototype.createTrackBank = function(numTracks, numSends, numScen
           the number of sends spanned by the track bank
  * @param numScenes
           the number of scenes spanned by the track bank
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 ControllerHost.prototype.createMainTrackBank = function(numTracks, numSends, numScenes) {};
@@ -3569,7 +3569,7 @@ ControllerHost.prototype.createMainTrackBank = function(numTracks, numSends, num
           the number of tracks spanned by the track bank
  * @param numScenes
           the number of scenes spanned by the track bank
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 ControllerHost.prototype.createEffectTrackBank = function(numTracks, numScenes) {};
@@ -3579,7 +3579,7 @@ ControllerHost.prototype.createEffectTrackBank = function(numTracks, numScenes) 
  *
  * @param numScenes
           the number of scenes for bank-wise navigation of the master tracks clip launcher slots.
- * @return {com.bitwig.extension.controller.api.MasterTrack} an object representing the master track.
+ * @return {MasterTrack} an object representing the master track.
  * @since API version 1
  */
 ControllerHost.prototype.createMasterTrack = function(numScenes) {};
@@ -3593,7 +3593,7 @@ ControllerHost.prototype.createMasterTrack = function(numScenes) {};
  * @param {int} numSends
  * @param {int} numScenes
  * @param {boolean} shouldFollowSelection
- * @return {com.bitwig.extension.controller.api.CursorTrack} an object representing the currently selected arranger track (in the future also multiple
+ * @return {CursorTrack} an object representing the currently selected arranger track (in the future also multiple
         tracks).
  * @since API version 1
  */
@@ -3614,7 +3614,7 @@ ControllerHost.prototype.createCursorTrack = function(id, name, numSends, numSce
  *
  * @param numScenes
           the number of scenes spanned by the track bank
- * @return {com.bitwig.extension.controller.api.SceneBank} an object for bank-wise navigation of scenes
+ * @return {SceneBank} an object for bank-wise navigation of scenes
  * @since API version 1
  */
 ControllerHost.prototype.createSceneBank = function(numScenes) {};
@@ -3627,7 +3627,7 @@ ControllerHost.prototype.createSceneBank = function(numScenes) {};
           the number of steps spanned by one page of the note content grid.
  * @param gridHeight
           the number of keys spanned by one page of the note content grid.
- * @return {com.bitwig.extension.controller.api.Clip} an object representing the currently selected cursor clip
+ * @return {Clip} an object representing the currently selected cursor clip
  * @since API version 1
  */
 ControllerHost.prototype.createLauncherCursorClip = function(gridWidth, gridHeight) {};
@@ -3640,7 +3640,7 @@ ControllerHost.prototype.createLauncherCursorClip = function(gridWidth, gridHeig
           the number of steps spanned by one page of the note content grid.
  * @param gridHeight
           the number of keys spanned by one page of the note content grid.
- * @return {com.bitwig.extension.controller.api.Clip} an object representing the currently selected cursor clip
+ * @return {Clip} an object representing the currently selected cursor clip
  * @since API version 1
  */
 ControllerHost.prototype.createArrangerCursorClip = function(gridWidth, gridHeight) {};
@@ -3652,7 +3652,7 @@ ControllerHost.prototype.createArrangerCursorClip = function(gridWidth, gridHeig
  *
  * @param numControllers
           the number of controls that are available for free assignments
- * @return {com.bitwig.extension.controller.api.UserControlBank} An object that represents a set of custom user controls.
+ * @return {UserControlBank} An object that represents a set of custom user controls.
  * @since API version 1
  */
 ControllerHost.prototype.createUserControls = function(numControllers) {};
@@ -3715,7 +3715,7 @@ ControllerHost.prototype.showPopupNotification = function(text) {};
  * @param defaultPort
           the port that should be used for the connection. If the port is already in use, then another
           port will be used. Check {@link RemoteSocket#getPort()} on the returned object to be sure.
- * @return {com.bitwig.extension.controller.api.RemoteSocket} the object that represents the socket
+ * @return {RemoteSocket} the object that represents the socket
  * @since API version 1
  */
 ControllerHost.prototype.createRemoteConnection = function(name, defaultPort) {};
@@ -3766,7 +3766,7 @@ ControllerHost.prototype.addDatagramPacketObserver = function(name, port, callba
 /**
  * @param {int} numSends
  * @param {int} numScenes
- * @return {com.bitwig.extension.controller.api.CursorTrack}
+ * @return {CursorTrack}
  * @since API version 1
  */
 ControllerHost.prototype.createCursorTrack = function(numSends, numScenes) {};
@@ -3774,7 +3774,7 @@ ControllerHost.prototype.createCursorTrack = function(numSends, numScenes) {};
 /**
  * Creates a {@link PopupBrowser} that represents the pop-up browser in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.PopupBrowser}
+ * @return {PopupBrowser}
  * @since API version 2
  */
 ControllerHost.prototype.createPopupBrowser = function() {};
@@ -3784,7 +3784,7 @@ ControllerHost.prototype.createPopupBrowser = function() {};
  * when asking for a beat time in string format without providing any formatting options. For example by
  * calling {@link BeatTimeStringValue#get()}.
  *
- * @return {com.bitwig.extension.controller.api.BeatTimeFormatter}
+ * @return {BeatTimeFormatter}
  * @since API version 2
  */
 ControllerHost.prototype.defaultBeatTimeFormatter = function() {};
@@ -3792,7 +3792,7 @@ ControllerHost.prototype.defaultBeatTimeFormatter = function() {};
 /**
  * Sets the {@link BeatTimeFormatter} to use by default for formatting beat times.
  *
- * @param {com.bitwig.extension.controller.api.BeatTimeFormatter} formatter
+ * @param {BeatTimeFormatter} formatter
  * @since API version 2
  */
 ControllerHost.prototype.setDefaultBeatTimeFormatter = function(formatter) {};
@@ -3811,7 +3811,7 @@ ControllerHost.prototype.setDefaultBeatTimeFormatter = function(formatter) {};
           the number of digits reserved for beat subdivisions
  * @param ticksLen
           the number of digits reserved for ticks
- * @return {com.bitwig.extension.controller.api.BeatTimeFormatter}
+ * @return {BeatTimeFormatter}
  * @since API version 2
  */
 ControllerHost.prototype.createBeatTimeFormatter = function(separator, barsLen, beatsLen, subdivisionLen, ticksLen) {};
@@ -3819,7 +3819,7 @@ ControllerHost.prototype.createBeatTimeFormatter = function(separator, barsLen, 
 /**
  * Creates a {@link HardwareSurface} that can contain hardware controls.
  *
- * @return {com.bitwig.extension.controller.api.HardwareSurface}
+ * @return {HardwareSurface}
  * @since API version 10
  */
 ControllerHost.prototype.createHardwareSurface = function() {};
@@ -3827,9 +3827,9 @@ ControllerHost.prototype.createHardwareSurface = function() {};
 /**
  * Creates a {@link HardwareActionMatcher} that is matched by either of the 2 supplied action matchers.
  *
- * @param {com.bitwig.extension.controller.api.HardwareActionMatcher} matcher1
- * @param {com.bitwig.extension.controller.api.HardwareActionMatcher} matcher2
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @param {HardwareActionMatcher} matcher1
+ * @param {HardwareActionMatcher} matcher2
+ * @return {HardwareActionMatcher}
  * @since API version 10
  */
 ControllerHost.prototype.createOrHardwareActionMatcher = function(matcher1, matcher2) {};
@@ -3838,9 +3838,9 @@ ControllerHost.prototype.createOrHardwareActionMatcher = function(matcher1, matc
  * Creates a {@link RelativeHardwareValueMatcher} that is matched by either of the 2 supplied action
  * matchers.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher} matcher1
- * @param {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher} matcher2
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @param {RelativeHardwareValueMatcher} matcher1
+ * @param {RelativeHardwareValueMatcher} matcher2
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 ControllerHost.prototype.createOrRelativeHardwareValueMatcher = function(matcher1, matcher2) {};
@@ -3849,9 +3849,9 @@ ControllerHost.prototype.createOrRelativeHardwareValueMatcher = function(matcher
  * Creates a {@link AbsoluteHardwareValueMatcher} that is matched by either of the 2 supplied action
  * matchers.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} matcher1
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} matcher2
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @param {AbsoluteHardwareValueMatcher} matcher1
+ * @param {AbsoluteHardwareValueMatcher} matcher2
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 ControllerHost.prototype.createOrAbsoluteHardwareValueMatcher = function(matcher1, matcher2) {};
@@ -3860,7 +3860,7 @@ ControllerHost.prototype.createOrAbsoluteHardwareValueMatcher = function(matcher
  * An object that can be used to generate useful MIDI expression strings which can be used in
  * {@link MidiIn#createActionMatcher(String)} and other related methods.
  *
- * @return {com.bitwig.extension.controller.api.MidiExpressions}
+ * @return {MidiExpressions}
  * @since API version 10
  */
 ControllerHost.prototype.midiExpressions = function() {};
@@ -3874,7 +3874,7 @@ ControllerHost.prototype.midiExpressions = function() {};
  * @param descriptionProvider
           Provider that can provide a description of what the runnable does (used for showing onscreen
           feedback or help to the user).
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 ControllerHost.prototype.createAction = function(runnable, descriptionProvider) {};
@@ -3888,7 +3888,7 @@ ControllerHost.prototype.createAction = function(runnable, descriptionProvider) 
  * @param descriptionProvider
           Provider that can provide a description of what the runnable does (used for showing onscreen
           feedback or help to the user).
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 ControllerHost.prototype.createAction = function(actionPressureConsumer, descriptionProvider) {};
@@ -3902,7 +3902,7 @@ ControllerHost.prototype.createAction = function(actionPressureConsumer, descrip
           The action that should happen when stepping forwards
  * @param stepBackwardsAction
           The action that should happen when stepping backwards
- * @return {com.bitwig.extension.controller.api.RelativeHardwarControlBindable}
+ * @return {RelativeHardwarControlBindable}
  * @since API version 10
  */
 ControllerHost.prototype.createRelativeHardwareControlStepTarget = function(stepForwardsAction, stepBackwardsAction) {};
@@ -3914,7 +3914,7 @@ ControllerHost.prototype.createRelativeHardwareControlStepTarget = function(step
  * @param adjustmentConsumer
           A consumer that will receive the relative adjustment amount when bound to a
           {@link RelativeHardwareControl}.
- * @return {com.bitwig.extension.controller.api.RelativeHardwarControlBindable}
+ * @return {RelativeHardwarControlBindable}
  * @since API version 10
  */
 ControllerHost.prototype.createRelativeHardwareControlAdjustmentTarget = function(adjustmentConsumer) {};
@@ -3926,7 +3926,7 @@ ControllerHost.prototype.createRelativeHardwareControlAdjustmentTarget = functio
  * @param adjustmentConsumer
           A consumer that will receive the absolute adjustment amount when bound to an
           {@link AbsoluteHardwareControl}.
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwarControlBindable}
+ * @return {AbsoluteHardwarControlBindable}
  * @since API version 10
  */
 ControllerHost.prototype.createAbsoluteHardwareControlAdjustmentTarget = function(adjustmentConsumer) {};
@@ -3935,14 +3935,14 @@ ControllerHost.prototype.createAbsoluteHardwareControlAdjustmentTarget = functio
  * It will delete multiple object within one undo step.
  *
  * @param {string} undoName
- * @param {com.bitwig.extension.controller.api.DeleteableObject} objects
+ * @param {DeleteableObject} objects
  */
 ControllerHost.prototype.deleteObjects = function(undoName, /*...*/objects) {};
 
 /**
  * It will delete multiple object within one undo step.
  *
- * @param {com.bitwig.extension.controller.api.DeleteableObject} objects
+ * @param {DeleteableObject} objects
  */
 ControllerHost.prototype.deleteObjects = function(/*...*/objects) {};
 /* API Version - 3.1.2 */
@@ -3992,7 +3992,7 @@ CueMarker.prototype.launch = function(quantized) {};
 /**
  * Gets a representation of the marker name.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 CueMarker.prototype.getName = function() {};
@@ -4000,7 +4000,7 @@ CueMarker.prototype.getName = function() {};
 /**
  * Gets a representation of the marker color.
  *
- * @return {com.bitwig.extension.controller.api.ColorValue}
+ * @return {ColorValue}
  * @since API version 2
  */
 CueMarker.prototype.getColor = function() {};
@@ -4008,7 +4008,7 @@ CueMarker.prototype.getColor = function() {};
 /**
  * Gets a representation of the markers beat-time position in quarter-notes.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue}
+ * @return {SettableBeatTimeValue}
  * @since API version 10
  */
 CueMarker.prototype.position = function() {};
@@ -4122,7 +4122,7 @@ CursorBrowserItem.prototype.constructor = CursorBrowserItem;
  *
  * @param numSiblings
           the number of simultaneously accessible siblings
- * @return {com.bitwig.extension.controller.api.BrowserItemBank} the requested item bank object
+ * @return {BrowserItemBank} the requested item bank object
  */
 CursorBrowserItem.prototype.createSiblingsBank = function(numSiblings) {};
 /* API Version - 3.1.2 */
@@ -4185,7 +4185,7 @@ CursorClip.prototype.constructor = CursorClip;
 /**
  * Requests that the supplied clip be selected in this cursor.
  *
- * @param {com.bitwig.extension.controller.api.Clip} clip
+ * @param {Clip} clip
  * @since API version 10
  */
 CursorClip.prototype.selectClip = function(clip) {};
@@ -4196,7 +4196,7 @@ CursorClip.prototype.selectClip = function(clip) {};
  * for by default. The user can still override this on a track by track basis but this defines a default
  * follow mode when the user has not done this.
  */
-com.bitwig.extension.controller.api.CursorDeviceFollowMode = {
+CursorDeviceFollowMode = {
 	/**
 	 * Follows the device selection made by the user in the track.
 	 */
@@ -4241,7 +4241,7 @@ CursorDevice.prototype.constructor = CursorDevice;
  * Returns the channel that this cursor device was created on. Currently this will always be a track or
  * cursor track instance.
  *
- * @return {com.bitwig.extension.controller.api.Channel} the track or cursor track object that was used for creation of this cursor device.
+ * @return {Channel} the track or cursor track object that was used for creation of this cursor device.
  * @since API version 5
  */
 CursorDevice.prototype.channel = function() {};
@@ -4403,7 +4403,7 @@ Cursor.prototype.constructor = Cursor;
 Cursor.prototype.selectPrevious = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Cursor.prototype.selectPreviousAction = function() {};
 
@@ -4415,7 +4415,7 @@ Cursor.prototype.selectPreviousAction = function() {};
 Cursor.prototype.selectNext = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Cursor.prototype.selectNextAction = function() {};
 
@@ -4436,7 +4436,7 @@ Cursor.prototype.selectLast = function() {};
 /**
  * Boolean value that reports whether there is an item after the current cursor position.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Cursor.prototype.hasNext = function() {};
@@ -4444,7 +4444,7 @@ Cursor.prototype.hasNext = function() {};
 /**
  * Boolean value that reports whether there is an item before the current cursor position.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Cursor.prototype.hasPrevious = function() {};
@@ -4455,7 +4455,7 @@ Cursor.prototype.hasPrevious = function() {};
  *
  * @since API version 1
  */
-com.bitwig.extension.controller.api.CursorNavigationMode = {
+CursorNavigationMode = {
 	NESTED: 0,
 	FLAT: 1,
 	GUI: 2,
@@ -4474,7 +4474,7 @@ CursorRemoteControlsPage.prototype.constructor = CursorRemoteControlsPage;
 /**
  * Value that reports the names of the devices parameter pages.
  *
- * @return {com.bitwig.extension.controller.api.StringArrayValue}
+ * @return {StringArrayValue}
  */
 CursorRemoteControlsPage.prototype.pageNames = function() {};
 
@@ -4523,7 +4523,7 @@ CursorRemoteControlsPage.prototype.selectPreviousPageMatching = function(express
 /**
  * Value that reports the currently selected parameter page index.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 2
  */
 CursorRemoteControlsPage.prototype.selectedPageIndex = function() {};
@@ -4531,7 +4531,7 @@ CursorRemoteControlsPage.prototype.selectedPageIndex = function() {};
 /**
  * Value that represents the number of pages.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 7
  */
 CursorRemoteControlsPage.prototype.pageCount = function() {};
@@ -4570,13 +4570,13 @@ CursorTrack.prototype.selectFirstChild = function() {};
  * within the current nesting level, or over a flat list of either all tracks or only the expanded tracks.
  * Default is CursorNavigationMode.FLAT.
  *
- * @param {com.bitwig.extension.controller.api.CursorNavigationMode} mode
+ * @param {CursorNavigationMode} mode
  * @since API version 1
  */
 CursorTrack.prototype.setCursorNavigationMode = function(mode) {};
 
 /**
- * @return {com.bitwig.extension.controller.api.PinnableCursorDevice}
+ * @return {PinnableCursorDevice}
  */
 CursorTrack.prototype.createCursorDevice = function() {};
 
@@ -4592,7 +4592,7 @@ CursorTrack.prototype.createCursorDevice = function() {};
           the number of sends that are simultaneously accessible in nested channels.
  * @param followMode
           Mode that defines how this cursor should follow devices.
- * @return {com.bitwig.extension.controller.api.PinnableCursorDevice}
+ * @return {PinnableCursorDevice}
  * @since API version 2
  */
 CursorTrack.prototype.createCursorDevice = function(id, name, numSends, followMode) {};
@@ -4605,7 +4605,7 @@ CursorTrack.prototype.createCursorDevice = function(id, name, numSends, followMo
  *
  * @param {int} gridWidth
  * @param {int} gridHeight
- * @return {com.bitwig.extension.controller.api.PinnableCursorClip}
+ * @return {PinnableCursorClip}
  * @since API version 10
  */
 CursorTrack.prototype.createLauncherCursorClip = function(gridWidth, gridHeight) {};
@@ -4620,7 +4620,7 @@ CursorTrack.prototype.createLauncherCursorClip = function(gridWidth, gridHeight)
  * @param {string} name
  * @param {int} gridWidth
  * @param {int} gridHeight
- * @return {com.bitwig.extension.controller.api.PinnableCursorClip}
+ * @return {PinnableCursorClip}
  * @since API version 10
  */
 CursorTrack.prototype.createLauncherCursorClip = function(id, name, gridWidth, gridHeight) {};
@@ -4674,7 +4674,7 @@ DeviceBank.prototype.constructor = DeviceBank;
  * Returns the object that was used to instantiate this device bank. Possible device chain instances are
  * tracks, device layers, drums pads, or FX slots.
  *
- * @return {com.bitwig.extension.controller.api.DeviceChain} the requested device chain object
+ * @return {DeviceChain} the requested device chain object
  * @since API version 1
  */
 DeviceBank.prototype.getDeviceChain = function() {};
@@ -4685,7 +4685,7 @@ DeviceBank.prototype.getDeviceChain = function() {};
  * @param indexInBank
           the device index within this bank, not the position within the device chain. Must be in the
           range [0..sizeOfBank-1].
- * @return {com.bitwig.extension.controller.api.Device} the requested device object
+ * @return {Device} the requested device object
  * @since API version 1
  */
 DeviceBank.prototype.getDevice = function(indexInBank) {};
@@ -4751,7 +4751,7 @@ DeviceChain.prototype.selectInEditor = function() {};
  * Value that reports the name of the device chain, such as the track name or the drum pad
  * name.
  *
- * @return {com.bitwig.extension.controller.api.SettableStringValue}
+ * @return {SettableStringValue}
  * @since API version 2
  */
 DeviceChain.prototype.name = function() {};
@@ -4770,7 +4770,7 @@ DeviceChain.prototype.addIsSelectedInEditorObserver = function(callback) {};
  *
  * @param numDevices
           the number of devices should be accessible simultaneously
- * @return {com.bitwig.extension.controller.api.DeviceBank} the requested device bank object
+ * @return {DeviceBank} the requested device bank object
 @since API version 1
  */
 DeviceChain.prototype.createDeviceBank = function(numDevices) {};
@@ -4783,7 +4783,7 @@ DeviceChain.prototype.createDeviceBank = function(numDevices) {};
           the size of the window used to navigate the filter column entries.
  * @param numResultsColumnEntries
           the size of the window used to navigate the results column entries.
- * @return {com.bitwig.extension.controller.api.Browser} the requested device browser object.
+ * @return {Browser} the requested device browser object.
  * @since API version 1
  */
 DeviceChain.prototype.createDeviceBrowser = function(numFilterColumnEntries, numResultsColumnEntries) {};
@@ -4791,7 +4791,7 @@ DeviceChain.prototype.createDeviceBrowser = function(numFilterColumnEntries, num
 /**
  * {@link InsertionPoint} that can be used to insert at the start of the device chain.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 DeviceChain.prototype.startOfDeviceChainInsertionPoint = function() {};
@@ -4799,7 +4799,7 @@ DeviceChain.prototype.startOfDeviceChainInsertionPoint = function() {};
 /**
  * {@link InsertionPoint} that can be used to insert at the end of the device chain.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 DeviceChain.prototype.endOfDeviceChainInsertionPoint = function() {};
@@ -4819,7 +4819,7 @@ Device.prototype.constructor = Device;
  * Returns a representation of the device chain that contains this device. Possible device chain instances
  * are tracks, device layers, drums pads, or FX slots.
  *
- * @return {com.bitwig.extension.controller.api.DeviceChain} the requested device chain object
+ * @return {DeviceChain} the requested device chain object
  * @since API version 5
  */
 Device.prototype.deviceChain = function() {};
@@ -4827,7 +4827,7 @@ Device.prototype.deviceChain = function() {};
 /**
  * Value that reports the position of the device within the parent device chain.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 Device.prototype.position = function() {};
@@ -4835,7 +4835,7 @@ Device.prototype.position = function() {};
 /**
  * Returns an object that provides access to the open state of plugin windows.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the open state of the editor window, in case the device
+ * @return {SettableBooleanValue} a boolean value object that represents the open state of the editor window, in case the device
         features a custom editor window (such as plugins).
  * @since API version 1
  */
@@ -4844,7 +4844,7 @@ Device.prototype.isWindowOpen = function() {};
 /**
  * Returns an object that provides access to the expanded state of the device.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the expanded state of the device.
+ * @return {SettableBooleanValue} a boolean value object that represents the expanded state of the device.
  * @since API version 1
  */
 Device.prototype.isExpanded = function() {};
@@ -4852,7 +4852,7 @@ Device.prototype.isExpanded = function() {};
 /**
  * Returns an object that provides access to the visibility of the device remote controls section.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the remote controls section visibility.
+ * @return {SettableBooleanValue} a boolean value object that represents the remote controls section visibility.
  * @since API version 2
  */
 Device.prototype.isRemoteControlsSectionVisible = function() {};
@@ -4863,7 +4863,7 @@ Device.prototype.isRemoteControlsSectionVisible = function() {};
  *
  * @param parameterCount
           The number of parameters the remote controls should contain
- * @return {com.bitwig.extension.controller.api.CursorRemoteControlsPage}
+ * @return {CursorRemoteControlsPage}
  * @since API version 2
  */
 Device.prototype.createCursorRemoteControlsPage = function(parameterCount) {};
@@ -4884,7 +4884,7 @@ Device.prototype.createCursorRemoteControlsPage = function(parameterCount) {};
           An expression used to match pages that the user can navigate through. For now this can only be
           the name of a single tag the pages should contain (e.g "drawbars", "dyn", "env", "eq",
           "filter", "fx", "lfo", "mixer", "osc", "overview", "perf").
- * @return {com.bitwig.extension.controller.api.CursorRemoteControlsPage}
+ * @return {CursorRemoteControlsPage}
  * @since API version 2
  */
 Device.prototype.createCursorRemoteControlsPage = function(name, parameterCount, filterExpression) {};
@@ -4899,7 +4899,7 @@ Device.prototype.selectInEditor = function() {};
 /**
  * Value that reports if the device is a plugin.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Device.prototype.isPlugin = function() {};
@@ -4953,7 +4953,7 @@ Device.prototype.setParameterPage = function(page) {};
           the size of the window used to navigate the filter column entries.
  * @param numResultsColumnEntries
           the size of the window used to navigate the results column entries.
- * @return {com.bitwig.extension.controller.api.Browser} the requested device browser object.
+ * @return {Browser} the requested device browser object.
  * @since API version 1
  */
 Device.prototype.createDeviceBrowser = function(numFilterColumnEntries, numResultsColumnEntries) {};
@@ -4961,7 +4961,7 @@ Device.prototype.createDeviceBrowser = function(numFilterColumnEntries, numResul
 /**
  * Value that reports the name of the device.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Device.prototype.name = function() {};
@@ -4969,7 +4969,7 @@ Device.prototype.name = function() {};
 /**
  * Value that reports the last loaded preset name.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Device.prototype.presetName = function() {};
@@ -4977,7 +4977,7 @@ Device.prototype.presetName = function() {};
 /**
  * Value that reports the current preset category name.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Device.prototype.presetCategory = function() {};
@@ -4985,7 +4985,7 @@ Device.prototype.presetCategory = function() {};
 /**
  * Value that reports the current preset creator name.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Device.prototype.presetCreator = function() {};
@@ -4993,7 +4993,7 @@ Device.prototype.presetCreator = function() {};
 /**
  * Value that reports if the device is enabled.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Device.prototype.isEnabled = function() {};
@@ -5002,7 +5002,7 @@ Device.prototype.isEnabled = function() {};
  * Indicates if the device has nested device chain slots. Use {@link #slotNames()} to get a list of
  * available slot names, and navigate to devices in those slots using the {@link CursorDevice} interface.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a value object that indicates if the device has nested device chains in FX slots.
+ * @return {BooleanValue} a value object that indicates if the device has nested device chains in FX slots.
  * @since API version 1
  */
 Device.prototype.hasSlots = function() {};
@@ -5010,7 +5010,7 @@ Device.prototype.hasSlots = function() {};
 /**
  * Value of the list of available FX slots in this device.
  *
- * @return {com.bitwig.extension.controller.api.StringArrayValue}
+ * @return {StringArrayValue}
  * @since API version 2
  */
 Device.prototype.slotNames = function() {};
@@ -5019,7 +5019,7 @@ Device.prototype.slotNames = function() {};
  * Returns an object that represents the selected device slot as shown in the user interface, and that
  * provides access to the contents of slot's device chain.
  *
- * @return {com.bitwig.extension.controller.api.DeviceSlot} the requested slot cursor object
+ * @return {DeviceSlot} the requested slot cursor object
  * @since API version 1
  */
 Device.prototype.getCursorSlot = function() {};
@@ -5027,7 +5027,7 @@ Device.prototype.getCursorSlot = function() {};
 /**
  * Indicates if the device is contained by another device.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a value object that indicates if the device is nested
+ * @return {BooleanValue} a value object that indicates if the device is nested
  * @since API version 1
  */
 Device.prototype.isNested = function() {};
@@ -5035,7 +5035,7 @@ Device.prototype.isNested = function() {};
 /**
  * Indicates if the device supports nested layers.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a value object that indicates if the device supports nested layers.
+ * @return {BooleanValue} a value object that indicates if the device supports nested layers.
  * @since API version 1
  */
 Device.prototype.hasLayers = function() {};
@@ -5043,7 +5043,7 @@ Device.prototype.hasLayers = function() {};
 /**
  * Indicates if the device has individual device chains for each note value.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a value object that indicates if the device has individual device chains for each note value.
+ * @return {BooleanValue} a value object that indicates if the device has individual device chains for each note value.
  * @since API version 1
  */
 Device.prototype.hasDrumPads = function() {};
@@ -5059,7 +5059,7 @@ Device.prototype.hasDrumPads = function() {};
  *
  * @param numChannels
           the number of channels that the device layer bank should be configured with
- * @return {com.bitwig.extension.controller.api.DeviceLayerBank} a device layer bank object configured with the desired number of channels
+ * @return {DeviceLayerBank} a device layer bank object configured with the desired number of channels
  * @since API version 1
  */
 Device.prototype.createLayerBank = function(numChannels) {};
@@ -5069,7 +5069,7 @@ Device.prototype.createLayerBank = function(numChannels) {};
  *
  * @param numPads
           the number of channels that the drum pad bank should be configured with
- * @return {com.bitwig.extension.controller.api.DrumPadBank} a drum pad bank object configured with the desired number of pads
+ * @return {DrumPadBank} a drum pad bank object configured with the desired number of pads
  * @since API version 1
  */
 Device.prototype.createDrumPadBank = function(numPads) {};
@@ -5080,7 +5080,7 @@ Device.prototype.createDrumPadBank = function(numPads) {};
  * 
  * This is the selected layer from the user interface.
  *
- * @return {com.bitwig.extension.controller.api.CursorDeviceLayer} a cursor device layer instance
+ * @return {CursorDeviceLayer} a cursor device layer instance
  * @since API version 1
  */
 Device.prototype.createCursorLayer = function() {};
@@ -5093,7 +5093,7 @@ Device.prototype.createCursorLayer = function() {};
  * 
  * If you want to have access to all the chains, use {@link #createLayerBank(int)}.
  *
- * @return {com.bitwig.extension.controller.api.ChainSelector} a chain selector instance
+ * @return {ChainSelector} a chain selector instance
  * @since API version 6
  */
 Device.prototype.createChainSelector = function() {};
@@ -5130,7 +5130,7 @@ Device.prototype.addDirectParameterNameObserver = function(maxChars, callback) {
           maximum length of the string sent to the observer.
  * @param callback
           function with the signature (String ID, String valueDisplay)
- * @return {com.bitwig.extension.controller.api.DirectParameterValueDisplayObserver} an observer object that can be used to enable or disable actual observing for certain
+ * @return {DirectParameterValueDisplayObserver} an observer object that can be used to enable or disable actual observing for certain
         parameters.
  * @since API version 1
  */
@@ -5178,7 +5178,7 @@ Device.prototype.incDirectParameterValueNormalized = function(id, increment, res
  * Value that reports the file name of the currently loaded sample, in case the device is a sample
  * container device.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Device.prototype.sampleName = function() {};
@@ -5189,7 +5189,7 @@ Device.prototype.sampleName = function() {};
  *
  * @param numDevices
           the number of devices that are simultaneously accessible
- * @return {com.bitwig.extension.controller.api.DeviceBank} the requested device bank object
+ * @return {DeviceBank} the requested device bank object
 @since API version 1
  */
 Device.prototype.createSiblingsDeviceBank = function(numDevices) {};
@@ -5197,7 +5197,7 @@ Device.prototype.createSiblingsDeviceBank = function(numDevices) {};
 /**
  * {@link InsertionPoint} that can be used for inserting after this device.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 Device.prototype.afterDeviceInsertionPoint = function() {};
@@ -5205,7 +5205,7 @@ Device.prototype.afterDeviceInsertionPoint = function() {};
 /**
  * {@link InsertionPoint} that can be used for inserting before this device.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 Device.prototype.beforeDeviceInsertionPoint = function() {};
@@ -5213,7 +5213,7 @@ Device.prototype.beforeDeviceInsertionPoint = function() {};
 /**
  * {@link InsertionPoint} that can be used for replacing this device.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 Device.prototype.replaceDeviceInsertionPoint = function() {};
@@ -5406,7 +5406,7 @@ DrumPadBank.prototype.clearSoloedPads = function() {};
 /**
  * True if there is one or many muted pads.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 DrumPadBank.prototype.hasMutedPads = function() {};
@@ -5414,7 +5414,7 @@ DrumPadBank.prototype.hasMutedPads = function() {};
 /**
  * True if there is one or many soloed pads.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 DrumPadBank.prototype.hasSoloedPads = function() {};
@@ -5434,7 +5434,7 @@ DrumPad.prototype.constructor = DrumPad;
 /**
  * {@link InsertionPoint} that can be used to insert content in this drum pad.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 DrumPad.prototype.insertionPoint = function() {};
@@ -5643,42 +5643,42 @@ FontFace.prototype.getName = function() {};
 function FontOptions() {}
 
 /**
- * @return {com.bitwig.extension.api.graphics.GraphicsOutput.AntialiasMode}
+ * @return {AntialiasMode}
  */
 FontOptions.prototype.getAntialiasMode = function() {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.AntialiasMode} mode
+ * @param {AntialiasMode} mode
  */
 FontOptions.prototype.setAntialiasMode = function(mode) {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.GraphicsOutput.SubPixelOrder}
+ * @return {SubPixelOrder}
  */
 FontOptions.prototype.getSubPixelOrder = function() {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.SubPixelOrder} subPixelOrder
+ * @param {SubPixelOrder} subPixelOrder
  */
 FontOptions.prototype.setSubPixelOrder = function(subPixelOrder) {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.GraphicsOutput.HintStyle}
+ * @return {HintStyle}
  */
 FontOptions.prototype.getHintStyle = function() {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.HintStyle} hintStyle
+ * @param {HintStyle} hintStyle
  */
 FontOptions.prototype.setHintStyle = function(hintStyle) {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.GraphicsOutput.HintMetrics}
+ * @return {HintMetrics}
  */
 FontOptions.prototype.getHintMetrics = function() {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.HintMetrics} hintMetrics
+ * @param {HintMetrics} hintMetrics
  */
 FontOptions.prototype.setHintMetrics = function(hintMetrics) {};
 /* API Version - 3.1.2 */
@@ -5697,7 +5697,7 @@ GradientPattern.prototype.constructor = GradientPattern;
 
 /**
  * @param {double} offset
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 GradientPattern.prototype.addColorStop = function(offset, color) {};
 
@@ -5764,17 +5764,17 @@ GraphicsOutput.prototype.newPath = function() {};
 GraphicsOutput.prototype.newSubPath = function() {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.Path}
+ * @return {Path}
  */
 GraphicsOutput.prototype.copyPath = function() {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.Path}
+ * @return {Path}
  */
 GraphicsOutput.prototype.copyPathFlat = function() {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.Path} path
+ * @param {Path} path
  */
 GraphicsOutput.prototype.appendPath = function(path) {};
 
@@ -5865,7 +5865,7 @@ GraphicsOutput.prototype.paint = function() {};
 GraphicsOutput.prototype.paintWithAlpha = function(alpha) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.Image} image
+ * @param {Image} image
  * @param {double} x
  * @param {double} y
  */
@@ -5895,17 +5895,17 @@ GraphicsOutput.prototype.setColor = function(red, green, blue) {};
 GraphicsOutput.prototype.setColor = function(red, green, blue, alpha) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 GraphicsOutput.prototype.setColor = function(color) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.Pattern} pattern
+ * @param {Pattern} pattern
  */
 GraphicsOutput.prototype.setPattern = function(pattern) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.AntialiasMode} antialiasMode
+ * @param {AntialiasMode} antialiasMode
  */
 GraphicsOutput.prototype.setAntialias = function(antialiasMode) {};
 
@@ -5926,17 +5926,17 @@ GraphicsOutput.prototype.setDash = function(dashes, offset) {};
 GraphicsOutput.prototype.setDash = function(dashes) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.FillRule} rule
+ * @param {FillRule} rule
  */
 GraphicsOutput.prototype.setFillRule = function(rule) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.LineCap} lineCap
+ * @param {LineCap} lineCap
  */
 GraphicsOutput.prototype.setLineCap = function(lineCap) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.LineJoin} lineJoin
+ * @param {LineJoin} lineJoin
  */
 GraphicsOutput.prototype.setLineJoin = function(lineJoin) {};
 
@@ -5946,7 +5946,7 @@ GraphicsOutput.prototype.setLineJoin = function(lineJoin) {};
 GraphicsOutput.prototype.setMiterLimit = function(limit) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput.Operator} operator
+ * @param {Operator} operator
  */
 GraphicsOutput.prototype.setOperator = function(operator) {};
 
@@ -5956,7 +5956,7 @@ GraphicsOutput.prototype.setOperator = function(operator) {};
 GraphicsOutput.prototype.setTolerance = function(tolerance) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.Image} image
+ * @param {Image} image
  * @param {double} x
  * @param {double} y
  */
@@ -5967,12 +5967,12 @@ GraphicsOutput.prototype.drawImage = function(image, x, y) {};
  * @param {double} y1
  * @param {double} x2
  * @param {double} y2
- * @return {com.bitwig.extension.api.graphics.GradientPattern}
+ * @return {GradientPattern}
  */
 GraphicsOutput.prototype.createLinearGradient = function(x1, y1, x2, y2) {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.MeshPattern}
+ * @return {MeshPattern}
  */
 GraphicsOutput.prototype.createMeshGradient = function() {};
 
@@ -5987,35 +5987,35 @@ GraphicsOutput.prototype.showText = function(text) {};
 GraphicsOutput.prototype.setFontSize = function(fontSize) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.FontFace} fontFace
+ * @param {FontFace} fontFace
  */
 GraphicsOutput.prototype.setFontFace = function(fontFace) {};
 
 /**
- * @param {com.bitwig.extension.api.graphics.FontOptions} fontOptions
+ * @param {FontOptions} fontOptions
  */
 GraphicsOutput.prototype.setFontOptions = function(fontOptions) {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.FontExtents}
+ * @return {FontExtents}
  */
 GraphicsOutput.prototype.getFontExtents = function() {};
 
 /**
  * @param {string} text
- * @return {com.bitwig.extension.api.graphics.TextExtents}
+ * @return {TextExtents}
  */
 GraphicsOutput.prototype.getTextExtents = function(text) {};
 
 
-com.bitwig.extension.api.graphics.GraphicsOutput.AntialiasMode = {
+AntialiasMode = {
 	DEFAULT: 0,
 	OFF: 1,
 	GOOD: 2,
 	BEST: 3,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.SubPixelOrder = {
+SubPixelOrder = {
 	DEFAULT: 0,
 	RGB: 1,
 	BGR: 2,
@@ -6023,7 +6023,7 @@ com.bitwig.extension.api.graphics.GraphicsOutput.SubPixelOrder = {
 	VBGR: 4,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.HintStyle = {
+HintStyle = {
 	DEFAULT: 0,
 	NONE: 1,
 	SLIGHT: 2,
@@ -6031,30 +6031,30 @@ com.bitwig.extension.api.graphics.GraphicsOutput.HintStyle = {
 	FULL: 4,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.HintMetrics = {
+HintMetrics = {
 	DEFAULT: 0,
 	ON: 1,
 	OFF: 2,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.FillRule = {
+FillRule = {
 	WINDING: 0,
 	EVEN_ODD: 1,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.LineCap = {
+LineCap = {
 	BUTT: 0,
 	LINE: 1,
 	SQUARE: 2,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.LineJoin = {
+LineJoin = {
 	MITER: 0,
 	ROUND: 1,
 	BEVEL: 2,
 };
 
-com.bitwig.extension.api.graphics.GraphicsOutput.Operator = {
+Operator = {
 	CLEAR: 0,
 	SOURCE: 1,
 	OVER: 2,
@@ -6096,7 +6096,7 @@ function Groove() {}
 /**
  * Returns the enabled state of the groove.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an object that provides access to the groove on/off setting
+ * @return {Parameter} an object that provides access to the groove on/off setting
  * @since API version 1
  */
 Groove.prototype.getEnabled = function() {};
@@ -6104,7 +6104,7 @@ Groove.prototype.getEnabled = function() {};
 /**
  * Returns the object that represents the shuffle amount in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an ranged value object that provides access to the shuffle amount
+ * @return {Parameter} an ranged value object that provides access to the shuffle amount
  * @since API version 1
  */
 Groove.prototype.getShuffleAmount = function() {};
@@ -6112,7 +6112,7 @@ Groove.prototype.getShuffleAmount = function() {};
 /**
  * Returns the object that represents the shuffle rate in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an ranged value object that provides access to the shuffle rate
+ * @return {Parameter} an ranged value object that provides access to the shuffle rate
  * @since API version 1
  */
 Groove.prototype.getShuffleRate = function() {};
@@ -6120,7 +6120,7 @@ Groove.prototype.getShuffleRate = function() {};
 /**
  * Returns the object that represents the accent amount in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an ranged value object that provides access to the accent amount
+ * @return {Parameter} an ranged value object that provides access to the accent amount
  * @since API version 1
  */
 Groove.prototype.getAccentAmount = function() {};
@@ -6128,7 +6128,7 @@ Groove.prototype.getAccentAmount = function() {};
 /**
  * Returns the object that represents the accent rate in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an ranged value object that provides access to the accent rate
+ * @return {Parameter} an ranged value object that provides access to the accent rate
  * @since API version 1
  */
 Groove.prototype.getAccentRate = function() {};
@@ -6136,7 +6136,7 @@ Groove.prototype.getAccentRate = function() {};
 /**
  * Returns the object that represents the accent phase in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an ranged value object that provides access to the accent phase
+ * @return {Parameter} an ranged value object that provides access to the accent phase
  * @since API version 1
  */
 Groove.prototype.getAccentPhase = function() {};
@@ -6159,8 +6159,8 @@ HardwareActionBindable.prototype.constructor = HardwareActionBindable;
  * When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
  * it.
  *
- * @param {com.bitwig.extension.controller.api.HardwareAction} action
- * @return {com.bitwig.extension.controller.api.HardwareActionBinding}
+ * @param {HardwareAction} action
+ * @return {HardwareActionBinding}
  */
 HardwareActionBindable.prototype.addBinding = function(action) {};
 
@@ -6197,7 +6197,7 @@ HardwareAction.prototype.constructor = HardwareAction;
 /**
  * Sets the {@link HardwareActionMatcher} that is used to recognize when this action happens.
  *
- * @param {com.bitwig.extension.controller.api.HardwareActionMatcher} actionMatcher
+ * @param {HardwareActionMatcher} actionMatcher
  */
 HardwareAction.prototype.setActionMatcher = function(actionMatcher) {};
 
@@ -6210,7 +6210,7 @@ HardwareAction.prototype.setActionMatcher = function(actionMatcher) {};
  * {@link ControllerHost#createAction(java.util.function.DoubleConsumer, java.util.function.Supplier)} and
  * then binding the created action to this {@link HardwareAction}.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} actionMatcher
+ * @param {AbsoluteHardwareValueMatcher} actionMatcher
  */
 HardwareAction.prototype.setPressureActionMatcher = function(actionMatcher) {};
 
@@ -6278,7 +6278,7 @@ HardwareBindingSource.prototype.canBindTo = function(target) {};
  * Binds this source to the supplied target and returns the created binding. This can only be called if the
  * {@link #canBindTo(Object)} returns true.
  *
- * @param {com.bitwig.extension.controller.api.HardwareBindable} target
+ * @param {HardwareBindable} target
  * @return {HardwareBindingType}
  */
 HardwareBindingSource.prototype.addBinding = function(target) {};
@@ -6294,7 +6294,7 @@ HardwareBindingSource.prototype.clearBindings = function() {};
  * This is a convenience method that is equivalent to calling {@link #clearBindings()} and the
  * {@link #addBinding(HardwareBindable)}
  *
- * @param {com.bitwig.extension.controller.api.HardwareBindable} target
+ * @param {HardwareBindable} target
  * @return {HardwareBindingType}
  */
 HardwareBindingSource.prototype.setBinding = function(target) {};
@@ -6364,28 +6364,28 @@ HardwareButton.prototype.constructor = HardwareButton;
 /**
  * Action that happens when the user presses the button.
  *
- * @return {com.bitwig.extension.controller.api.HardwareAction}
+ * @return {HardwareAction}
  */
 HardwareButton.prototype.pressedAction = function() {};
 
 /**
  * Action that happens when the user releases the button.
  *
- * @return {com.bitwig.extension.controller.api.HardwareAction}
+ * @return {HardwareAction}
  */
 HardwareButton.prototype.releasedAction = function() {};
 
 /**
  * Button state
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  */
 HardwareButton.prototype.isPressed = function() {};
 
 /**
  * Sets the optional control that represents the aftertouch value for this button.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareControl} control
+ * @param {AbsoluteHardwareControl} control
  */
 HardwareButton.prototype.setAftertouchControl = function(control) {};
 
@@ -6410,40 +6410,40 @@ HardwareControl.prototype.constructor = HardwareControl;
 /**
  * Action that happens when the user touches this control.
  *
- * @return {com.bitwig.extension.controller.api.HardwareAction}
+ * @return {HardwareAction}
  */
 HardwareControl.prototype.beginTouchAction = function() {};
 
 /**
  * Action that happens when the user stops touching this control.
  *
- * @return {com.bitwig.extension.controller.api.HardwareAction}
+ * @return {HardwareAction}
  */
 HardwareControl.prototype.endTouchAction = function() {};
 
 /**
  * Value that indicates if this control is being touched or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  */
 HardwareControl.prototype.isBeingTouched = function() {};
 
 /**
  * Optional light that is in the background of this control.
  *
- * @return {com.bitwig.extension.controller.api.HardwareLight}
+ * @return {HardwareLight}
  */
 HardwareControl.prototype.backgroundLight = function() {};
 
 /**
  * Sets the optional light that is in the background of this control.
  *
- * @param {com.bitwig.extension.controller.api.HardwareLight} light
+ * @param {HardwareLight} light
  */
 HardwareControl.prototype.setBackgroundLight = function(light) {};
 /* API Version - 3.1.2 */
 
-com.bitwig.extension.controller.api.HardwareControlType = {
+HardwareControlType = {
 	KNOB: 0,
 	SLIDER: 1,
 	ENCODER: 2,
@@ -6462,7 +6462,7 @@ function HardwareDevice() {}
  * The {@link HardwareDeviceMatcher} that was provided by the controller for identifying this hardware
  * device in {@link ControllerExtensionDefinition#listHardwareDevices(java.util.List)}.
  *
- * @return {com.bitwig.extension.controller.HardwareDeviceMatcher}
+ * @return {HardwareDeviceMatcher}
  */
 HardwareDevice.prototype.deviceMatcher = function() {};
 /* API Version - 3.1.2 */
@@ -6499,7 +6499,7 @@ function HardwareDeviceMatcherList() {}
  * For each entry added to this list the user will see a device chooser that lets them select an
  * appropriate device. The information added here is also used for auto detection purposes.
  *
- * @param {com.bitwig.extension.controller.HardwareDeviceMatcher} deviceMatchers
+ * @param {HardwareDeviceMatcher} deviceMatchers
  */
 HardwareDeviceMatcherList.prototype.add = function(/*...*/deviceMatchers) {};
 
@@ -6512,12 +6512,12 @@ HardwareDeviceMatcherList.prototype.getCount = function() {};
 
 /**
  * @param {int} index
- * @return {com.bitwig.extension.controller.HardwareDeviceMatcher[]}
+ * @return {HardwareDeviceMatcher[]}
  */
 HardwareDeviceMatcherList.prototype.getHardwareDeviceMatchersAt = function(index) {};
 
 /**
- * @return {java.util.List<com.bitwig.extension.controller.HardwareDeviceMatcher[]>}
+ * @return {java.util.List<HardwareDeviceMatcher[]>}
  */
 HardwareDeviceMatcherList.prototype.getList = function() {};
 /* API Version - 3.1.2 */
@@ -6554,26 +6554,26 @@ HardwareElement.prototype.setLabel = function(label) {};
 /**
  * The color of the label.
  *
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 HardwareElement.prototype.getLabelColor = function() {};
 
 /**
  * Sets the color of the label.
  *
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 HardwareElement.prototype.setLabelColor = function(color) {};
 
 /**
  * {@link RelativePosition} that defines where the label is.
  *
- * @return {com.bitwig.extension.controller.api.RelativePosition}
+ * @return {RelativePosition}
  */
 HardwareElement.prototype.getLabelPosition = function() {};
 
 /**
- * @param {com.bitwig.extension.controller.api.RelativePosition} position
+ * @param {RelativePosition} position
  */
 HardwareElement.prototype.setLabelPosition = function(position) {};
 
@@ -6643,41 +6643,41 @@ HardwareLight.prototype.constructor = HardwareLight;
 function HardwareLightVisualState() {}
 
 /**
- * @param {com.bitwig.extension.api.Color} lightColor
- * @return {com.bitwig.extension.api.Color}
+ * @param {Color} lightColor
+ * @return {Color}
  */
 HardwareLightVisualState.prototype.defaultLabelColorForLightColor = function(lightColor) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
- * @return {com.bitwig.extension.controller.api.HardwareLightVisualState}
+ * @param {Color} color
+ * @return {HardwareLightVisualState}
  */
 HardwareLightVisualState.prototype.createForColor = function(color) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
- * @param {com.bitwig.extension.api.Color} labelColor
- * @return {com.bitwig.extension.controller.api.HardwareLightVisualState}
+ * @param {Color} color
+ * @param {Color} labelColor
+ * @return {HardwareLightVisualState}
  */
 HardwareLightVisualState.prototype.createForColor = function(color, labelColor) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} onColor
- * @param {com.bitwig.extension.api.Color} offColor
+ * @param {Color} onColor
+ * @param {Color} offColor
  * @param {double} onBlinkTimeInSec
  * @param {double} offBlinkTimeInSec
- * @return {com.bitwig.extension.controller.api.HardwareLightVisualState}
+ * @return {HardwareLightVisualState}
  */
 HardwareLightVisualState.prototype.createBlinking = function(onColor, offColor, onBlinkTimeInSec, offBlinkTimeInSec) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} onColor
- * @param {com.bitwig.extension.api.Color} offColor
- * @param {com.bitwig.extension.api.Color} labelOnColor
- * @param {com.bitwig.extension.api.Color} labelOffColor
+ * @param {Color} onColor
+ * @param {Color} offColor
+ * @param {Color} labelOnColor
+ * @param {Color} labelOffColor
  * @param {double} onBlinkTimeInSec
  * @param {double} offBlinkTimeInSec
- * @return {com.bitwig.extension.controller.api.HardwareLightVisualState}
+ * @return {HardwareLightVisualState}
  */
 HardwareLightVisualState.prototype.createBlinking = function(onColor, offColor, labelOnColor, labelOffColor, onBlinkTimeInSec, offBlinkTimeInSec) {};
 
@@ -6687,12 +6687,12 @@ HardwareLightVisualState.prototype.createBlinking = function(onColor, offColor, 
 HardwareLightVisualState.prototype.isBlinking = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 HardwareLightVisualState.prototype.getColor = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 HardwareLightVisualState.prototype.getBlinkOffColor = function() {};
 
@@ -6707,12 +6707,12 @@ HardwareLightVisualState.prototype.getOffBlinkTime = function() {};
 HardwareLightVisualState.prototype.getOnBlinkTime = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 HardwareLightVisualState.prototype.getLabelColor = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 HardwareLightVisualState.prototype.getLabelBlinkOffColor = function() {};
 /* API Version - 3.1.2 */
@@ -6751,7 +6751,7 @@ HardwarePixelDisplay.prototype.constructor = HardwarePixelDisplay;
 /**
  * The {@link Bitmap} that contains the contents of this display.
  *
- * @return {com.bitwig.extension.api.graphics.Bitmap}
+ * @return {Bitmap}
  */
 HardwarePixelDisplay.prototype.bitmap = function() {};
 /* API Version - 3.1.2 */
@@ -6832,7 +6832,7 @@ function HardwareSurface() {}
  *
  * @param id
           A unique string that identifies this control.
- * @return {com.bitwig.extension.controller.api.HardwareSlider}
+ * @return {HardwareSlider}
  * @since API version 10
  */
 HardwareSurface.prototype.createHardwareSlider = function(id) {};
@@ -6843,7 +6843,7 @@ HardwareSurface.prototype.createHardwareSlider = function(id) {};
  *
  * @param id
           A unique string that identifies this control.
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareKnob}
+ * @return {AbsoluteHardwareKnob}
  * @since API version 10
  */
 HardwareSurface.prototype.createAbsoluteHardwareKnob = function(id) {};
@@ -6854,7 +6854,7 @@ HardwareSurface.prototype.createAbsoluteHardwareKnob = function(id) {};
  *
  * @param id
           A unique string that identifies this control.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareKnob}
+ * @return {RelativeHardwareKnob}
  * @since API version 10
  */
 HardwareSurface.prototype.createRelativeHardwareKnob = function(id) {};
@@ -6864,7 +6864,7 @@ HardwareSurface.prototype.createRelativeHardwareKnob = function(id) {};
  * @param {int} numKeys
  * @param {int} octave
  * @param {int} startKeyInOctave
- * @return {com.bitwig.extension.controller.api.PianoKeyboard}
+ * @return {PianoKeyboard}
  */
 HardwareSurface.prototype.createPianoKeyboard = function(id, numKeys, octave, startKeyInOctave) {};
 
@@ -6873,7 +6873,7 @@ HardwareSurface.prototype.createPianoKeyboard = function(id, numKeys, octave, st
  *
  * @param id
           A unique string that identifies this control.
- * @return {com.bitwig.extension.controller.api.HardwareButton}
+ * @return {HardwareButton}
  * @since API version 10
  */
 HardwareSurface.prototype.createHardwareButton = function(id) {};
@@ -6882,7 +6882,7 @@ HardwareSurface.prototype.createHardwareButton = function(id) {};
  * Creates a {@link OnOffHardwareLight} that represents a physical light on a controller
  *
  * @param {string} id
- * @return {com.bitwig.extension.controller.api.OnOffHardwareLight}
+ * @return {OnOffHardwareLight}
  * @since API version 10
  */
 HardwareSurface.prototype.createOnOffHardwareLight = function(id) {};
@@ -6891,7 +6891,7 @@ HardwareSurface.prototype.createOnOffHardwareLight = function(id) {};
  * Creates a {@link MultiStateHardwareLight} that represents a physical light on a controller
  *
  * @param {string} id
- * @return {com.bitwig.extension.controller.api.MultiStateHardwareLight}
+ * @return {MultiStateHardwareLight}
  * @since API version 10
  */
 HardwareSurface.prototype.createMultiStateHardwareLight = function(id) {};
@@ -6901,7 +6901,7 @@ HardwareSurface.prototype.createMultiStateHardwareLight = function(id) {};
  *
  * @param {string} id
  * @param {int} numLines
- * @return {com.bitwig.extension.controller.api.HardwareTextDisplay}
+ * @return {HardwareTextDisplay}
  * @since API version 10
  */
 HardwareSurface.prototype.createHardwareTextDisplay = function(id, numLines) {};
@@ -6911,8 +6911,8 @@ HardwareSurface.prototype.createHardwareTextDisplay = function(id, numLines) {};
  * controller.
  *
  * @param {string} id
- * @param {com.bitwig.extension.api.graphics.Bitmap} bitmap
- * @return {com.bitwig.extension.controller.api.HardwarePixelDisplay}
+ * @param {Bitmap} bitmap
+ * @return {HardwarePixelDisplay}
  * @since API version 10
  */
 HardwareSurface.prototype.createHardwarePixelDisplay = function(id, bitmap) {};
@@ -6949,7 +6949,7 @@ HardwareSurface.prototype.invalidateHardwareOutputState = function() {};
 /**
  * A list of all the {@link HardwareControl}s that have been created on this {@link HardwareSurface}.
  *
- * @return {java.util.List<? extends com.bitwig.extension.controller.api.HardwareControl>}
+ * @return {java.util.List<? extends HardwareControl>}
  */
 HardwareSurface.prototype.hardwareControls = function() {};
 
@@ -6957,14 +6957,14 @@ HardwareSurface.prototype.hardwareControls = function() {};
  * Finds the {@link HardwareElement} that has the supplied id or null if not found.
  *
  * @param {string} id
- * @return {com.bitwig.extension.controller.api.HardwareElement}
+ * @return {HardwareElement}
  */
 HardwareSurface.prototype.hardwareElementWithId = function(id) {};
 
 /**
  * List of all {@link HardwareElement}s on this {@link HardwareSurface}.
  *
- * @return {java.util.List<? extends com.bitwig.extension.controller.api.HardwareOutputElement>}
+ * @return {java.util.List<? extends HardwareOutputElement>}
  */
 HardwareSurface.prototype.hardwareOutputElements = function() {};
 /* API Version - 3.1.2 */
@@ -6983,7 +6983,7 @@ HardwareTextDisplay.prototype.constructor = HardwareTextDisplay;
  * The line at the supplied line index.
  *
  * @param {int} line
- * @return {com.bitwig.extension.controller.api.HardwareTextDisplayLine}
+ * @return {HardwareTextDisplayLine}
  */
 HardwareTextDisplay.prototype.line = function(line) {};
 /* API Version - 3.1.2 */
@@ -6998,21 +6998,21 @@ function HardwareTextDisplayLine() {}
 /**
  * Property that defines the current text shown.
  *
- * @return {com.bitwig.extension.controller.api.StringHardwareProperty}
+ * @return {StringHardwareProperty}
  */
 HardwareTextDisplayLine.prototype.text = function() {};
 
 /**
  * Property that defines the background color of this line.
  *
- * @return {com.bitwig.extension.controller.api.ColorHardwareProperty}
+ * @return {ColorHardwareProperty}
  */
 HardwareTextDisplayLine.prototype.backgroundColor = function() {};
 
 /**
  * Property that defines the text color of this line.
  *
- * @return {com.bitwig.extension.controller.api.ColorHardwareProperty}
+ * @return {ColorHardwareProperty}
  */
 HardwareTextDisplayLine.prototype.textColor = function() {};
 /* API Version - 3.1.2 */
@@ -7063,7 +7063,7 @@ Host.prototype.getHostVersion = function() {};
 /**
  * The platform type that this host is running on.
  *
- * @return {com.bitwig.extension.api.PlatformType}
+ * @return {PlatformType}
  */
 Host.prototype.getPlatformType = function() {};
 
@@ -7078,7 +7078,7 @@ Host.prototype.setErrorReportingEMail = function(address) {};
 /**
  * Gets the OpenSoundControl module.
  *
- * @return {com.bitwig.extension.api.opensoundcontrol.OscModule}
+ * @return {OscModule}
  * @since API version 5
  */
 Host.prototype.getOscModule = function() {};
@@ -7087,7 +7087,7 @@ Host.prototype.getOscModule = function() {};
  * Allocates some memory that will be automatically freed once the extension exits.
  *
  * @param {int} size
- * @return {com.bitwig.extension.api.MemoryBlock}
+ * @return {MemoryBlock}
  * @since API version 7
  */
 Host.prototype.allocateMemoryBlock = function(size) {};
@@ -7098,8 +7098,8 @@ Host.prototype.allocateMemoryBlock = function(size) {};
  *
  * @param {int} width
  * @param {int} height
- * @param {com.bitwig.extension.api.graphics.BitmapFormat} format
- * @return {com.bitwig.extension.api.graphics.Bitmap}
+ * @param {BitmapFormat} format
+ * @return {Bitmap}
  * @since API version 7
  */
 Host.prototype.createBitmap = function(width, height, format) {};
@@ -7109,7 +7109,7 @@ Host.prototype.createBitmap = function(width, height, format) {};
  * The memory used by this font is guaranteed to be freed once this extension exits.
  *
  * @param {string} path
- * @return {com.bitwig.extension.api.graphics.FontFace}
+ * @return {FontFace}
  * @since API version 7
  */
 Host.prototype.loadFontFace = function(path) {};
@@ -7119,7 +7119,7 @@ Host.prototype.loadFontFace = function(path) {};
  * This object is used to configure how the GraphicOutput will display text.
  * The memory used by this object is guaranteed to be freed once this extension exits.
  *
- * @return {com.bitwig.extension.api.graphics.FontOptions}
+ * @return {FontOptions}
  * @since API version 7
  */
 Host.prototype.createFontOptions = function() {};
@@ -7129,7 +7129,7 @@ Host.prototype.createFontOptions = function() {};
  * The memory used by this image is guaranteed to be freed once this extension exits.
  *
  * @param {string} path
- * @return {com.bitwig.extension.api.graphics.Image}
+ * @return {Image}
  * @since API version 7
  */
 Host.prototype.loadPNG = function(path) {};
@@ -7140,7 +7140,7 @@ Host.prototype.loadPNG = function(path) {};
  *
  * @param {string} path
  * @param {double} scale
- * @return {com.bitwig.extension.api.graphics.Image}
+ * @return {Image}
  * @since API version 7
  */
 Host.prototype.loadSVG = function(path, scale) {};
@@ -7252,7 +7252,7 @@ InputPipe.prototype.readAsync = function(data, callback, timeoutInMs) {};
  * Requests to read some data from this pipe in a synchronous way (the caller is blocked until the transfer
  * completes).
  *
- * @param {com.bitwig.extension.api.MemoryBlock} data
+ * @param {MemoryBlock} data
  * @param {int} timeoutInMs
  * @return {int} The number of bytes that was read.
  */
@@ -7272,14 +7272,14 @@ function InsertionPoint() {}
  * Copies the supplied tracks to this insertion point. If it's not possible to do so then this does
  * nothing.
  *
- * @param {com.bitwig.extension.controller.api.Track} tracks
+ * @param {Track} tracks
  */
 InsertionPoint.prototype.copyTracks = function(/*...*/tracks) {};
 
 /**
  * Moves the supplied tracks to this insertion point. If it's not possible to do so then this does nothing.
  *
- * @param {com.bitwig.extension.controller.api.Track} tracks
+ * @param {Track} tracks
  */
 InsertionPoint.prototype.moveTracks = function(/*...*/tracks) {};
 
@@ -7287,7 +7287,7 @@ InsertionPoint.prototype.moveTracks = function(/*...*/tracks) {};
  * Copies the supplied devices to this insertion point. If it's not possible to do so then this does
  * nothing.
  *
- * @param {com.bitwig.extension.controller.api.Device} devices
+ * @param {Device} devices
  */
 InsertionPoint.prototype.copyDevices = function(/*...*/devices) {};
 
@@ -7295,7 +7295,7 @@ InsertionPoint.prototype.copyDevices = function(/*...*/devices) {};
  * Moves the supplied devices to this insertion point. If it's not possible to do so then this does
  * nothing.
  *
- * @param {com.bitwig.extension.controller.api.Device} devices
+ * @param {Device} devices
  */
 InsertionPoint.prototype.moveDevices = function(/*...*/devices) {};
 
@@ -7303,7 +7303,7 @@ InsertionPoint.prototype.moveDevices = function(/*...*/devices) {};
  * Copies the supplied slots or scenes to this insertion point. If it's not possible to do so then this
  * does nothing.
  *
- * @param {com.bitwig.extension.controller.api.ClipLauncherSlotOrScene} clipLauncherSlotOrScenes
+ * @param {ClipLauncherSlotOrScene} clipLauncherSlotOrScenes
  */
 InsertionPoint.prototype.copySlotsOrScenes = function(/*...*/clipLauncherSlotOrScenes) {};
 
@@ -7311,7 +7311,7 @@ InsertionPoint.prototype.copySlotsOrScenes = function(/*...*/clipLauncherSlotOrS
  * Moves the supplied slots or scenes to this insertion point. If it's not possible to do so then this does
  * nothing.
  *
- * @param {com.bitwig.extension.controller.api.ClipLauncherSlotOrScene} clipLauncherSlotOrScenes
+ * @param {ClipLauncherSlotOrScene} clipLauncherSlotOrScenes
  */
 InsertionPoint.prototype.moveSlotsOrScenes = function(/*...*/clipLauncherSlotOrScenes) {};
 
@@ -7454,7 +7454,7 @@ function InternalHardwareLightState() {}
 /**
  * The visual state of this light (used by Bitwig Studio to visualize the light when needed).
  *
- * @return {com.bitwig.extension.controller.api.HardwareLightVisualState}
+ * @return {HardwareLightVisualState}
  */
 InternalHardwareLightState.prototype.getVisualState = function() {};
 
@@ -7693,7 +7693,7 @@ MidiIn.prototype.setSysexCallback = function(callback) {};
 
           If multiple note input match the same MIDI event then they'll all receive the MIDI event, and
           if one of them does not consume events then the events wont' be consumed.
- * @return {com.bitwig.extension.controller.api.NoteInput} the object representing the requested note input
+ * @return {NoteInput} the object representing the requested note input
  * @since API version 1
  */
 MidiIn.prototype.createNoteInput = function(name, /*...*/masks) {};
@@ -7703,7 +7703,7 @@ MidiIn.prototype.createNoteInput = function(name, /*...*/masks) {};
  *
  * @param {int} channel
  * @param {int} controlNumber
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createAbsoluteCCValueMatcher = function(channel, controlNumber) {};
@@ -7713,7 +7713,7 @@ MidiIn.prototype.createAbsoluteCCValueMatcher = function(channel, controlNumber)
  *
  * @param {int} channel
  * @param {int} note
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createPolyAftertouchValueMatcher = function(channel, note) {};
@@ -7724,7 +7724,7 @@ MidiIn.prototype.createPolyAftertouchValueMatcher = function(channel, note) {};
  * @param {int} channel
  * @param {int} controlNumber
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBitCCValueMatcher = function(channel, controlNumber, valueAmountForOneFullRotation) {};
@@ -7735,7 +7735,7 @@ MidiIn.prototype.createRelativeSignedBitCCValueMatcher = function(channel, contr
  * @param {int} channel
  * @param {int} controlNumber
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBit2CCValueMatcher = function(channel, controlNumber, valueAmountForOneFullRotation) {};
@@ -7746,7 +7746,7 @@ MidiIn.prototype.createRelativeSignedBit2CCValueMatcher = function(channel, cont
  * @param {int} channel
  * @param {int} controlNumber
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeBinOffsetCCValueMatcher = function(channel, controlNumber, valueAmountForOneFullRotation) {};
@@ -7757,7 +7757,7 @@ MidiIn.prototype.createRelativeBinOffsetCCValueMatcher = function(channel, contr
  * @param {int} channel
  * @param {int} controlNumber
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelative2sComplementCCValueMatcher = function(channel, controlNumber, valueAmountForOneFullRotation) {};
@@ -7766,7 +7766,7 @@ MidiIn.prototype.createRelative2sComplementCCValueMatcher = function(channel, co
  * Create a matcher that matches the absolute value of a MIDI pitch bend message.
  *
  * @param {int} channel
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createAbsolutePitchBendValueMatcher = function(channel) {};
@@ -7778,10 +7778,10 @@ MidiIn.prototype.createAbsolutePitchBendValueMatcher = function(channel) {};
  * This can be used to get a much higher precision value that a single MIDI event would allow. Some
  * controllers for example will send 2 CC events for a single value.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} firstValueMatcher
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} secondValueMatcher
+ * @param {AbsoluteHardwareValueMatcher} firstValueMatcher
+ * @param {AbsoluteHardwareValueMatcher} secondValueMatcher
  * @param {boolean} areMostSignificantBitsInSecondEvent
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createSequencedValueMatcher = function(firstValueMatcher, secondValueMatcher, areMostSignificantBitsInSecondEvent) {};
@@ -7796,7 +7796,7 @@ MidiIn.prototype.createSequencedValueMatcher = function(firstValueMatcher, secon
           Expression that determines the value once an event has been matched.
  * @param valueBitCount
           The number of bits that are relevant from the value extracted by the valueExpression.
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createAbsoluteValueMatcher = function(eventExpression, valueExpression, valueBitCount) {};
@@ -7808,7 +7808,7 @@ MidiIn.prototype.createAbsoluteValueMatcher = function(eventExpression, valueExp
           Expression that must be true in order to extract the value.
  * @param relativeAdjustment
           The amount of relative adjustment that should be applied
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeValueMatcher = function(eventExpression, relativeAdjustment) {};
@@ -7829,7 +7829,7 @@ MidiIn.prototype.createRelativeValueMatcher = function(eventExpression, relative
           127 meant it had been rotated to the right by a full rotation then you would pass 127 here.
           This ensures that {@link RelativeHardwareControl}s have similar sensitivity to each other and
           can be mapped and behave in a very similar way to {@link AbsoluteHardwareControl}s.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBitValueMatcher = function(eventExpression, valueExpression, valueBitCount, valueAmountForOneFullRotation) {};
@@ -7846,7 +7846,7 @@ MidiIn.prototype.createRelativeSignedBitValueMatcher = function(eventExpression,
           127 meant it had been rotated to the right by a full rotation then you would pass 127 here.
           This ensures that {@link RelativeHardwareControl}s have similar sensitivity to each other and
           can be mapped and behave in a very similar way to {@link AbsoluteHardwareControl}s.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBitValueMatcher = function(valueMatcher, valueAmountForOneFullRotation) {};
@@ -7867,7 +7867,7 @@ MidiIn.prototype.createRelativeSignedBitValueMatcher = function(valueMatcher, va
           127 meant it had been rotated to the right by a full rotation then you would pass 127 here.
           This ensures that {@link RelativeHardwareControl}s have similar sensitivity to each other and
           can be mapped and behave in a very similar way to {@link AbsoluteHardwareControl}s.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBit2ValueMatcher = function(eventExpression, valueExpression, valueBitCount, valueAmountForOneFullRotation) {};
@@ -7876,9 +7876,9 @@ MidiIn.prototype.createRelativeSignedBit2ValueMatcher = function(eventExpression
  * Creates a matcher that converts a value matched by an {@link AbsoluteHardwareValueMatcher} to a relative
  * value using signed bit 2.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} valueMatcher
+ * @param {AbsoluteHardwareValueMatcher} valueMatcher
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeSignedBit2ValueMatcher = function(valueMatcher, valueAmountForOneFullRotation) {};
@@ -7899,7 +7899,7 @@ MidiIn.prototype.createRelativeSignedBit2ValueMatcher = function(valueMatcher, v
           127 meant it had been rotated to the right by a full rotation then you would pass 127 here.
           This ensures that {@link RelativeHardwareControl}s have similar sensitivity to each other and
           can be mapped and behave in a very similar way to {@link AbsoluteHardwareControl}s.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeBinOffsetValueMatcher = function(eventExpression, valueExpression, valueBitCount, valueAmountForOneFullRotation) {};
@@ -7908,9 +7908,9 @@ MidiIn.prototype.createRelativeBinOffsetValueMatcher = function(eventExpression,
  * Creates a matcher that converts a value matched by an {@link AbsoluteHardwareValueMatcher} to a relative
  * value using bin offset.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} valueMatcher
+ * @param {AbsoluteHardwareValueMatcher} valueMatcher
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelativeBinOffsetValueMatcher = function(valueMatcher, valueAmountForOneFullRotation) {};
@@ -7931,7 +7931,7 @@ MidiIn.prototype.createRelativeBinOffsetValueMatcher = function(valueMatcher, va
           127 meant it had been rotated to the right by a full rotation then you would pass 127 here.
           This ensures that {@link RelativeHardwareControl}s have similar sensitivity to each other and
           can be mapped and behave in a very similar way to {@link AbsoluteHardwareControl}s.
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelative2sComplementValueMatcher = function(eventExpression, valueExpression, valueBitCount, valueAmountForOneFullRotation) {};
@@ -7940,9 +7940,9 @@ MidiIn.prototype.createRelative2sComplementValueMatcher = function(eventExpressi
  * Creates a matcher that converts a value matched by an {@link AbsoluteHardwareValueMatcher} to a relative
  * value using 2s complement.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} valueMatcher
+ * @param {AbsoluteHardwareValueMatcher} valueMatcher
  * @param {int} valueAmountForOneFullRotation
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createRelative2sComplementValueMatcher = function(valueMatcher, valueAmountForOneFullRotation) {};
@@ -7953,7 +7953,7 @@ MidiIn.prototype.createRelative2sComplementValueMatcher = function(valueMatcher,
  * @param {int} channel
  * @param {int} controlNumber
  * @param {int} value
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @return {HardwareActionMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createCCActionMatcher = function(channel, controlNumber, value) {};
@@ -7963,7 +7963,7 @@ MidiIn.prototype.createCCActionMatcher = function(channel, controlNumber, value)
  *
  * @param {int} channel
  * @param {int} controlNumber
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @return {HardwareActionMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createCCActionMatcher = function(channel, controlNumber) {};
@@ -7973,7 +7973,7 @@ MidiIn.prototype.createCCActionMatcher = function(channel, controlNumber) {};
  *
  * @param {int} channel
  * @param {int} note
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @return {HardwareActionMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createNoteOnActionMatcher = function(channel, note) {};
@@ -7983,7 +7983,7 @@ MidiIn.prototype.createNoteOnActionMatcher = function(channel, note) {};
  *
  * @param {int} channel
  * @param {int} note
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createNoteOnVelocityValueMatcher = function(channel, note) {};
@@ -7993,7 +7993,7 @@ MidiIn.prototype.createNoteOnVelocityValueMatcher = function(channel, note) {};
  *
  * @param {int} channel
  * @param {int} note
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createNoteOffVelocityValueMatcher = function(channel, note) {};
@@ -8003,7 +8003,7 @@ MidiIn.prototype.createNoteOffVelocityValueMatcher = function(channel, note) {};
  *
  * @param {int} channel
  * @param {int} note
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @return {HardwareActionMatcher}
  * @since API version 10
  */
 MidiIn.prototype.createNoteOffActionMatcher = function(channel, note) {};
@@ -8014,7 +8014,7 @@ MidiIn.prototype.createNoteOffActionMatcher = function(channel, note) {};
  *
  * @param expression
           Expression returns true if the event matches
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @return {HardwareActionMatcher}
  */
 MidiIn.prototype.createActionMatcher = function(expression) {};
 /* API Version - 3.1.2 */
@@ -8072,7 +8072,7 @@ function Mixer() {}
  * registered on the returned object for receiving notifications when the meter section switches between
  * shown and hidden state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the meter section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the meter section visibility
  * @since API version 1
  */
 Mixer.prototype.isMeterSectionVisible = function() {};
@@ -8082,7 +8082,7 @@ Mixer.prototype.isMeterSectionVisible = function() {};
  * on the returned object for receiving notifications when the io section switches between shown and hidden
  * state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the io section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the io section visibility
  * @since API version 1
  */
 Mixer.prototype.isIoSectionVisible = function() {};
@@ -8092,7 +8092,7 @@ Mixer.prototype.isIoSectionVisible = function() {};
  * registered on the returned object for receiving notifications when the sends section switches between
  * shown and hidden state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the sends section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the sends section visibility
  * @since API version 1
  */
 Mixer.prototype.isSendSectionVisible = function() {};
@@ -8102,7 +8102,7 @@ Mixer.prototype.isSendSectionVisible = function() {};
  * registered on the returned object for receiving notifications when the clip launcher section switches
  * between shown and hidden state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the clip launcher section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the clip launcher section visibility
  * @since API version 1
  */
 Mixer.prototype.isClipLauncherSectionVisible = function() {};
@@ -8112,7 +8112,7 @@ Mixer.prototype.isClipLauncherSectionVisible = function() {};
  * registered on the returned object for receiving notifications when the devices section switches between
  * shown and hidden state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the devices section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the devices section visibility
  * @since API version 1
  */
 Mixer.prototype.isDeviceSectionVisible = function() {};
@@ -8122,7 +8122,7 @@ Mixer.prototype.isDeviceSectionVisible = function() {};
  * registered on the returned object for receiving notifications when the cross-fade section switches
  * between shown and hidden state.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object that represents the cross-fade section visibility
+ * @return {SettableBooleanValue} a boolean value object that represents the cross-fade section visibility
  * @since API version 1
  */
 Mixer.prototype.isCrossFadeSectionVisible = function() {};
@@ -8138,7 +8138,7 @@ function ModulationSource() {}
 /**
  * Value which reports when the modulation source is in mapping mode.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ModulationSource.prototype.isMapping = function() {};
@@ -8153,7 +8153,7 @@ ModulationSource.prototype.toggleIsMapping = function() {};
 /**
  * Value the reports the name of the modulation source.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 ModulationSource.prototype.name = function() {};
@@ -8161,7 +8161,7 @@ ModulationSource.prototype.name = function() {};
 /**
  * Value which reports if the modulation source is mapped to any destination(s).
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 ModulationSource.prototype.isMapped = function() {};
@@ -8183,7 +8183,7 @@ MultiStateHardwareLight.prototype.constructor = MultiStateHardwareLight;
  * Value that represents the current state of this light as an integer. The interpretation of this value is
  * entirely up to the implementation.
  *
- * @return {com.bitwig.extension.controller.api.ObjectHardwareProperty<com.bitwig.extension.controller.api.InternalHardwareLightState>}
+ * @return {ObjectHardwareProperty<InternalHardwareLightState>}
  */
 MultiStateHardwareLight.prototype.state = function() {};
 
@@ -8192,7 +8192,7 @@ MultiStateHardwareLight.prototype.state = function() {};
  * color. Once this function has been provided it is possible to then use the convenient
  * {@link #setColor(Color)} and {@link #setColorSupplier(Supplier)} methods.
  *
- * @param {java.util.function.Function<com.bitwig.extension.api.Color,com.bitwig.extension.controller.api.InternalHardwareLightState>} function
+ * @param {java.util.function.Function<Color,InternalHardwareLightState>} function
  */
 MultiStateHardwareLight.prototype.setColorToStateFunction = function(function) {};
 
@@ -8200,7 +8200,7 @@ MultiStateHardwareLight.prototype.setColorToStateFunction = function(function) {
  * Tries to set this light's state to be the best state to represent the supplied {@link Color}. For this
  * to be used you must first call {@link #setColorToStateFunction(IntFunction)}.
  *
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 MultiStateHardwareLight.prototype.setColor = function(color) {};
 
@@ -8208,13 +8208,13 @@ MultiStateHardwareLight.prototype.setColor = function(color) {};
  * Tries to set this light's state to be the best state to represent the value supplied by the
  * {@link Supplier}. For this to be used you must first call {@link #setColorToStateFunction(IntFunction)}.
  *
- * @param {java.util.function.Supplier<com.bitwig.extension.api.Color>} colorSupplier
+ * @param {java.util.function.Supplier<Color>} colorSupplier
  */
 MultiStateHardwareLight.prototype.setColorSupplier = function(colorSupplier) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
- * @return {com.bitwig.extension.controller.api.InternalHardwareLightState}
+ * @param {Color} color
+ * @return {InternalHardwareLightState}
  */
 MultiStateHardwareLight.prototype.getBestLightStateForColor = function(color) {};
 /* API Version - 3.1.2 */
@@ -8328,7 +8328,7 @@ NoteInput.prototype.sendRawMidiEvent = function(status, data0, data1) {};
 /**
  * Creates a proxy object to the NoteInput's NoteLatch component.
  *
- * @return {com.bitwig.extension.controller.api.NoteLatch}
+ * @return {NoteLatch}
  * @since API version 10
  */
 NoteInput.prototype.noteLatch = function() {};
@@ -8336,7 +8336,7 @@ NoteInput.prototype.noteLatch = function() {};
 /**
  * Creates a proxy object to the NoteInput's Arpeggiator component.
  *
- * @return {com.bitwig.extension.controller.api.Arpeggiator}
+ * @return {Arpeggiator}
  * @since API version 10
  */
 NoteInput.prototype.arpeggiator = function() {};
@@ -8344,7 +8344,7 @@ NoteInput.prototype.arpeggiator = function() {};
 /**
  * Should this note input be included in the "All Inputs" note source?
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 NoteInput.prototype.includeInAllInputs = function() {};
@@ -8356,7 +8356,7 @@ NoteInput.prototype.includeInAllInputs = function() {};
  *
  * @since API version 1
  */
-com.bitwig.extension.controller.api.NoteInput.NoteExpression = {
+NoteExpression = {
 	NONE: 0,
 	PITCH_DOWN: 1,
 	PITCH_UP: 2,
@@ -8379,7 +8379,7 @@ function NoteLane() {}
  * Value which represents the id of this lane. is either the note pitch represented by this lane, or in
  * case of audio a lane index (currently always 0 in that case).
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 NoteLane.prototype.noteLaneId = function() {};
@@ -8388,7 +8388,7 @@ NoteLane.prototype.noteLaneId = function() {};
  * Value  that reports the name of the note lane. Typically the name of a note lane is
  * either equal to the title of an associated drum pad, or reflects the pitch of the note, e.g. "C#3".
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  */
 NoteLane.prototype.name = function() {};
 
@@ -8396,7 +8396,7 @@ NoteLane.prototype.name = function() {};
  * Value the color of the note lane. By default the reported color will be the
  * track color, or in case an associated drum pad has a custom color it will be the color of that pad
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  */
 NoteLane.prototype.color = function() {};
 
@@ -8423,7 +8423,7 @@ NoteLatch.prototype.constructor = NoteLatch;
 /**
  * Returns an object to enable or disable the note latch component.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 NoteLatch.prototype.isEnabled = function() {};
@@ -8435,7 +8435,7 @@ NoteLatch.prototype.isEnabled = function() {};
  *  - toggle
  *  - velocity
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 10
  */
 NoteLatch.prototype.mode = function() {};
@@ -8443,7 +8443,7 @@ NoteLatch.prototype.mode = function() {};
 /**
  * Only one note at a time.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 NoteLatch.prototype.mono = function() {};
@@ -8451,7 +8451,7 @@ NoteLatch.prototype.mono = function() {};
 /**
  * The velocity threshold used by the velocity latch mode.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 10
  */
 NoteLatch.prototype.velocityThreshold = function() {};
@@ -8459,7 +8459,7 @@ NoteLatch.prototype.velocityThreshold = function() {};
 /**
  * How many notes are being latched.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 10
  */
 NoteLatch.prototype.activeNotes = function() {};
@@ -8491,7 +8491,7 @@ NoteStepChangedCallback.prototype = new Callback();
 NoteStepChangedCallback.prototype.constructor = NoteStepChangedCallback;
 
 /**
- * @param {com.bitwig.extension.controller.api.NoteStep} noteStep
+ * @param {NoteStep} noteStep
  */
 NoteStepChangedCallback.prototype.noteStepChanged = function(noteStep) {};
 /* API Version - 3.1.2 */
@@ -8522,7 +8522,7 @@ NoteStep.prototype.y = function() {};
 NoteStep.prototype.channel = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.NoteStep.State} the state of the step, it lets you know if a note starts.
+ * @return {State} the state of the step, it lets you know if a note starts.
  * @since API version 10
  */
 NoteStep.prototype.state = function() {};
@@ -8648,7 +8648,7 @@ NoteStep.prototype.isIsSelected = function() {};
 /**
  * @since API version 10
  */
-com.bitwig.extension.controller.api.NoteStep.State = {
+State = {
 	Empty: 0,
 	NoteOn: 1,
 	NoteSustain: 2,
@@ -8678,7 +8678,7 @@ function NotificationSettings() {}
  * will be shown in the Bitwig Studio user interface. If user notifications are enabled, all automatic
  * notifications will be shown that are enabled using the methods of this interface.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 1
  */
 NotificationSettings.prototype.getUserNotificationsEnabled = function() {};
@@ -8862,7 +8862,7 @@ ObjectProxy.prototype.constructor = ObjectProxy;
 /**
  * Returns a value object that indicates if the object being proxied exists, or if it has content.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  */
 ObjectProxy.prototype.exists = function() {};
 
@@ -8870,8 +8870,8 @@ ObjectProxy.prototype.exists = function() {};
  * Creates a {@link BooleanValue} that determines this proxy is considered equal to another proxy. For this
  * to be the case both proxies need to be proxying the same target object.
  *
- * @param {com.bitwig.extension.controller.api.ObjectProxy} other
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @param {ObjectProxy} other
+ * @return {BooleanValue}
  * @since API version 3
  */
 ObjectProxy.prototype.createEqualsValue = function(other) {};
@@ -8901,32 +8901,32 @@ OnOffHardwareLight.prototype.constructor = OnOffHardwareLight;
 /**
  * Property that determines if this light is on or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanHardwareProperty}
+ * @return {BooleanHardwareProperty}
  */
 OnOffHardwareLight.prototype.isOn = function() {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 OnOffHardwareLight.prototype.setOnColor = function(color) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 OnOffHardwareLight.prototype.setOffColor = function(color) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.HardwareLightVisualState} state
+ * @param {HardwareLightVisualState} state
  */
 OnOffHardwareLight.prototype.setOnVisualState = function(state) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.HardwareLightVisualState} state
+ * @param {HardwareLightVisualState} state
  */
 OnOffHardwareLight.prototype.setOffVisualState = function(state) {};
 
 /**
- * @param {java.util.function.Function<java.lang.Boolean,com.bitwig.extension.controller.api.HardwareLightVisualState>} function
+ * @param {java.util.function.Function<java.lang.Boolean,HardwareLightVisualState>} function
  */
 OnOffHardwareLight.prototype.setStateToVisualStateFuncation = function(function) {};
 /* API Version - 3.1.2 */
@@ -8957,14 +8957,14 @@ OscAddressSpace.prototype.registerObjectMethods = function(addressPrefix, object
  * @param {string} address The address to register the method at
  * @param {string} typeTagPattern The globing pattern used to match the type tag. Pass "*" to match anything.
  * @param {string} desc The method description.
- * @param {com.bitwig.extension.api.opensoundcontrol.OscMethodCallback} callback The OSC Method call handler.
+ * @param {OscMethodCallback} callback The OSC Method call handler.
  */
 OscAddressSpace.prototype.registerMethod = function(address, typeTagPattern, desc, callback) {};
 
 /**
  * This method will be called if no registered OscMethod could handle incoming OscPacket.
  *
- * @param {com.bitwig.extension.api.opensoundcontrol.OscMethodCallback} callback
+ * @param {OscMethodCallback} callback
  */
 OscAddressSpace.prototype.registerDefaultMethod = function(callback) {};
 
@@ -9001,7 +9001,7 @@ OscBundle.prototype.constructor = OscBundle;
 OscBundle.prototype.getNanoseconds = function() {};
 
 /**
- * @return {java.util.List<com.bitwig.extension.api.opensoundcontrol.OscPacket>}
+ * @return {java.util.List<OscPacket>}
  */
 OscBundle.prototype.getPackets = function() {};
 /* API Version - 3.1.2 */
@@ -9129,8 +9129,8 @@ OscMessage.prototype.getBoolean = function(index) {};
 function OscMethodCallback() {}
 
 /**
- * @param {com.bitwig.extension.api.opensoundcontrol.OscConnection} source
- * @param {com.bitwig.extension.api.opensoundcontrol.OscMessage} message
+ * @param {OscConnection} source
+ * @param {OscMessage} message
  */
 OscMethodCallback.prototype.handle = function(source, message) {};
 /* API Version - 3.1.2 */
@@ -9171,7 +9171,7 @@ function OscModule() {}
  * In short the OscAddressSpace dispatches the incoming messages to services.
  * An OscAddressSpace is an OscService.
  *
- * @return {com.bitwig.extension.api.opensoundcontrol.OscAddressSpace}
+ * @return {OscAddressSpace}
  * @since API version 5
  */
 OscModule.prototype.createAddressSpace = function() {};
@@ -9180,7 +9180,7 @@ OscModule.prototype.createAddressSpace = function() {};
  * Creates a new OSC Server.
  *
  * @param {int} port
- * @param {com.bitwig.extension.api.opensoundcontrol.OscAddressSpace} addressSpace
+ * @param {OscAddressSpace} addressSpace
  * @since API version 5
  */
 OscModule.prototype.createUdpServer = function(port, addressSpace) {};
@@ -9191,8 +9191,8 @@ OscModule.prototype.createUdpServer = function(port, addressSpace) {};
  * Use this method if the port is not known during the initialization (coming from a setting)
  * or if the port number can change at runtime.
  *
- * @param {com.bitwig.extension.api.opensoundcontrol.OscAddressSpace} addressSpace Use {@link #createAddressSpace()}
- * @return {com.bitwig.extension.api.opensoundcontrol.OscServer} a new OscServer
+ * @param {OscAddressSpace} addressSpace Use {@link #createAddressSpace()}
+ * @return {OscServer} a new OscServer
  * @since API version 10
  */
 OscModule.prototype.createUdpServer = function(addressSpace) {};
@@ -9202,8 +9202,8 @@ OscModule.prototype.createUdpServer = function(addressSpace) {};
  *
  * @param {string} host
  * @param {int} port
- * @param {com.bitwig.extension.api.opensoundcontrol.OscAddressSpace} addressSpace
- * @return {com.bitwig.extension.api.opensoundcontrol.OscConnection} a new OscConnection
+ * @param {OscAddressSpace} addressSpace
+ * @return {OscConnection} a new OscConnection
  * @since API version 5
  */
 OscModule.prototype.connectToUdpServer = function(host, port, addressSpace) {};
@@ -9228,7 +9228,7 @@ function OscPacket() {}
  * If the message was part of a bundle, get a pointer back to it.
  * If not, this methods returns null.
  *
- * @return {com.bitwig.extension.api.opensoundcontrol.OscBundle}
+ * @return {OscBundle}
  */
 OscPacket.prototype.getParentBundle = function() {};
 /* API Version - 3.1.2 */
@@ -9276,7 +9276,7 @@ OutputPipe.prototype.constructor = OutputPipe;
 OutputPipe.prototype.writeAsync = function(data, callback, timeoutInMs) {};
 
 /**
- * @param {com.bitwig.extension.api.MemoryBlock} data
+ * @param {MemoryBlock} data
  * @param {int} timeoutInMs
  * @return {int}
  */
@@ -9303,7 +9303,7 @@ ParameterBank.prototype.getParameterCount = function() {};
  *
  * @param indexInBank
           the parameter index within this bank. Must be in the range [0..getParameterCount()-1].
- * @return {com.bitwig.extension.controller.api.Parameter} the requested parameter
+ * @return {Parameter} the requested parameter
  * @since API version 2
  */
 ParameterBank.prototype.getParameter = function(indexInBank) {};
@@ -9311,7 +9311,7 @@ ParameterBank.prototype.getParameter = function(indexInBank) {};
 /**
  * Informs the application how to display the controls during the on screen notification.
  *
- * @param {com.bitwig.extension.controller.api.HardwareControlType} type which kind of hardware control is used for this bank (knobs/encoders/sliders)
+ * @param {HardwareControlType} type which kind of hardware control is used for this bank (knobs/encoders/sliders)
  * @param {int} columns How wide this section is in terms of layout (4/8/9)
  * @since API version 7
  */
@@ -9332,7 +9332,7 @@ Parameter.prototype.constructor = Parameter;
 /**
  * Gets the current value of this parameter.
  *
- * @return {com.bitwig.extension.controller.api.SettableRangedValue}
+ * @return {SettableRangedValue}
  * @since API version 2
  */
 Parameter.prototype.value = function() {};
@@ -9340,7 +9340,7 @@ Parameter.prototype.value = function() {};
 /**
  * Gets the modulated value of this parameter.
  *
- * @return {com.bitwig.extension.controller.api.RangedValue}
+ * @return {RangedValue}
  * @since API version 2
  */
 Parameter.prototype.modulatedValue = function() {};
@@ -9348,7 +9348,7 @@ Parameter.prototype.modulatedValue = function() {};
 /**
  * The name of the parameter.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Parameter.prototype.name = function() {};
@@ -9423,7 +9423,7 @@ PianoKeyboard.prototype.constructor = PianoKeyboard;
  * The {@link MidiIn} where this piano keyboard would send key presses. If set this allows the simulator
  * for the hardware to simulate the note input.
  *
- * @param {com.bitwig.extension.controller.api.MidiIn} midiIn
+ * @param {MidiIn} midiIn
  */
 PianoKeyboard.prototype.setMidiIn = function(midiIn) {};
 
@@ -9480,7 +9480,7 @@ PinnableCursor.prototype.constructor = PinnableCursor;
  * Determines if this cursor is currently pinned or not. If the cursor is pinned then it won't follow the
  * selection the user makes in the application.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 PinnableCursor.prototype.isPinned = function() {};
@@ -9495,13 +9495,13 @@ PinnableCursor.prototype.isPinned = function() {};
  * A controller defines which pipes it wants to establish for communication using a
  * {@link HardwareDeviceMatcher}.
  *
- * @see ControllerExtensionDefinition#listHardwareDevices(com.bitwig.extension.controller.HardwareDeviceMatcherList)
+ * @see ControllerExtensionDefinition#listHardwareDevices(HardwareDeviceMatcherList)
  * @since API version 7
  */
 function Pipe() {}
 /* API Version - 3.1.2 */
 
-com.bitwig.extension.api.PlatformType = {
+PlatformType = {
 	WINDOWS: 0,
 	LINUX: 1,
 	MAC: 2,
@@ -9553,7 +9553,7 @@ PopupBrowser.prototype.constructor = PopupBrowser;
 /**
  * The title of the popup browser.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 PopupBrowser.prototype.title = function() {};
@@ -9564,7 +9564,7 @@ PopupBrowser.prototype.title = function() {};
  * 
  * (e.g "Device", "Preset", "Sample" etc.)
  *
- * @return {com.bitwig.extension.controller.api.StringArrayValue}
+ * @return {StringArrayValue}
  * @since API version 2
  */
 PopupBrowser.prototype.contentTypeNames = function() {};
@@ -9572,7 +9572,7 @@ PopupBrowser.prototype.contentTypeNames = function() {};
 /**
  * Value that represents the selected content type.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 PopupBrowser.prototype.selectedContentTypeName = function() {};
@@ -9580,7 +9580,7 @@ PopupBrowser.prototype.selectedContentTypeName = function() {};
 /**
  * Value that represents the index of the selected content type within the content types supported.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 2
  */
 PopupBrowser.prototype.selectedContentTypeIndex = function() {};
@@ -9588,7 +9588,7 @@ PopupBrowser.prototype.selectedContentTypeIndex = function() {};
 /**
  * The smart collections column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.smartCollectionColumn = function() {};
@@ -9596,7 +9596,7 @@ PopupBrowser.prototype.smartCollectionColumn = function() {};
 /**
  * The location column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.locationColumn = function() {};
@@ -9604,7 +9604,7 @@ PopupBrowser.prototype.locationColumn = function() {};
 /**
  * The device column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.deviceColumn = function() {};
@@ -9612,7 +9612,7 @@ PopupBrowser.prototype.deviceColumn = function() {};
 /**
  * The category column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.categoryColumn = function() {};
@@ -9620,7 +9620,7 @@ PopupBrowser.prototype.categoryColumn = function() {};
 /**
  * The tag column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.tagColumn = function() {};
@@ -9628,7 +9628,7 @@ PopupBrowser.prototype.tagColumn = function() {};
 /**
  * The device type column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.deviceTypeColumn = function() {};
@@ -9636,7 +9636,7 @@ PopupBrowser.prototype.deviceTypeColumn = function() {};
 /**
  * The file type column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.fileTypeColumn = function() {};
@@ -9644,7 +9644,7 @@ PopupBrowser.prototype.fileTypeColumn = function() {};
 /**
  * The creator column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.creatorColumn = function() {};
@@ -9652,7 +9652,7 @@ PopupBrowser.prototype.creatorColumn = function() {};
 /**
  * Column that represents the results of the search.
  *
- * @return {com.bitwig.extension.controller.api.BrowserResultsColumn}
+ * @return {BrowserResultsColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.resultsColumn = function() {};
@@ -9660,7 +9660,7 @@ PopupBrowser.prototype.resultsColumn = function() {};
 /**
  * Value that indicates if the browser is able to audition material in place while browsing.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 PopupBrowser.prototype.canAudition = function() {};
@@ -9668,7 +9668,7 @@ PopupBrowser.prototype.canAudition = function() {};
 /**
  * Value that decides if the browser is currently auditioning material in place while browsing or not.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 PopupBrowser.prototype.shouldAudition = function() {};
@@ -9709,7 +9709,7 @@ PopupBrowser.prototype.selectLastFile = function() {};
 PopupBrowser.prototype.cancel = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 PopupBrowser.prototype.cancelAction = function() {};
 
@@ -9721,7 +9721,7 @@ PopupBrowser.prototype.cancelAction = function() {};
 PopupBrowser.prototype.commit = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 PopupBrowser.prototype.commitAction = function() {};
 /* API Version - 3.1.2 */
@@ -9753,7 +9753,7 @@ Project.prototype.constructor = Project;
 /**
  * Returns an object that represents the root track group of the active Bitwig Studio project.
  *
- * @return {com.bitwig.extension.controller.api.Track} the root track group of the currently active project
+ * @return {Track} the root track group of the currently active project
  * @since API version 1
  */
 Project.prototype.getRootTrackGroup = function() {};
@@ -9762,7 +9762,7 @@ Project.prototype.getRootTrackGroup = function() {};
  * Returns an object that represents the top level track group as shown in the arranger/mixer of the active
  * Bitwig Studio project.
  *
- * @return {com.bitwig.extension.controller.api.Track} the shown top level track group of the currently active project
+ * @return {Track} the shown top level track group of the currently active project
  * @since API version 1
  */
 Project.prototype.getShownTopLevelTrackGroup = function() {};
@@ -9778,7 +9778,7 @@ Project.prototype.createSceneFromPlayingLauncherClips = function() {};
 /**
  * The volume used for cue output.
  *
- * @return {com.bitwig.extension.controller.api.Parameter}
+ * @return {Parameter}
  * @since API version 10
  */
 Project.prototype.cueVolume = function() {};
@@ -9786,7 +9786,7 @@ Project.prototype.cueVolume = function() {};
 /**
  * Mix between cue bus and the studio bus (master).
  *
- * @return {com.bitwig.extension.controller.api.Parameter}
+ * @return {Parameter}
  * @since API version 10
  */
 Project.prototype.cueMix = function() {};
@@ -9799,7 +9799,7 @@ Project.prototype.cueMix = function() {};
 Project.prototype.unsoloAll = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  */
 Project.prototype.hasSoloedTracks = function() {};
 
@@ -9813,7 +9813,7 @@ Project.prototype.unmuteAll = function() {};
 /**
  * Value that indicates if the project has muted tracks or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 Project.prototype.hasMutedTracks = function() {};
@@ -9828,7 +9828,7 @@ Project.prototype.unarmAll = function() {};
 /**
  * Value that indicates if the project has armed tracks or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 Project.prototype.hasArmedTracks = function() {};
@@ -9868,7 +9868,7 @@ RangedValue.prototype.getAsDouble = function() {};
 /**
  * Value that represents a formatted text representation of the value whenever the value changes.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 RangedValue.prototype.displayedValue = function() {};
@@ -9913,8 +9913,8 @@ RelativeHardwarControlBindable.prototype.constructor = RelativeHardwarControlBin
  * When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
  * it.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @param {RelativeHardwareControl} hardwareControl
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwarControlBindable.prototype.addBinding = function(hardwareControl) {};
 
@@ -9925,9 +9925,9 @@ RelativeHardwarControlBindable.prototype.addBinding = function(hardwareControl) 
  * When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
  * it.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
+ * @param {RelativeHardwareControl} hardwareControl
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwarControlBindable.prototype.addBindingWithSensitivity = function(hardwareControl, sensitivity) {};
 /* API Version - 3.1.2 */
@@ -9978,25 +9978,25 @@ RelativeHardwareControl.prototype.setSensitivity = function(sensitivity) {};
  * Sets the {@link RelativeHardwareValueMatcher} that can be used to detect when the user adjusts the
  * hardware control's value.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher} matcher
+ * @param {RelativeHardwareValueMatcher} matcher
  */
 RelativeHardwareControl.prototype.setAdjustValueMatcher = function(matcher) {};
 
 /**
  * Adds a binding to the supplied target with the supplied sensitivity.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwarControlBindable} target
+ * @param {RelativeHardwarControlBindable} target
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.addBindingWithSensitivity = function(target, sensitivity) {};
 
 /**
  * Makes sure there is a single binding to the supplied target with the supplied sensitivity.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwarControlBindable} target
+ * @param {RelativeHardwarControlBindable} target
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.setBindingWithSensitivity = function(target, sensitivity) {};
 
@@ -10004,10 +10004,10 @@ RelativeHardwareControl.prototype.setBindingWithSensitivity = function(target, s
  * Adds a binding to the supplied target that does not adjust the target outside of the supplied min and
  * max normalized range.
  *
- * @param {com.bitwig.extension.controller.api.SettableRangedValue} target
+ * @param {SettableRangedValue} target
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.addBindingWithRange = function(target, minNormalizedValue, maxNormalizedValue) {};
 
@@ -10015,10 +10015,10 @@ RelativeHardwareControl.prototype.addBindingWithRange = function(target, minNorm
  * Makes sure there is single binding to the supplied target that does not adjust the target outside of the
  * supplied min and max normalized range.
  *
- * @param {com.bitwig.extension.controller.api.SettableRangedValue} target
+ * @param {SettableRangedValue} target
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.setBindingWithRange = function(target, minNormalizedValue, maxNormalizedValue) {};
 
@@ -10026,11 +10026,11 @@ RelativeHardwareControl.prototype.setBindingWithRange = function(target, minNorm
  * Adds a binding to the supplied target that does not adjust the target outside of the supplied min and
  * max normalized range and is adjusted with the supplied sensitivity.
  *
- * @param {com.bitwig.extension.controller.api.SettableRangedValue} target
+ * @param {SettableRangedValue} target
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.addBindingWithRangeAndSensitivity = function(target, minNormalizedValue, maxNormalizedValue, sensitivity) {};
 
@@ -10038,11 +10038,11 @@ RelativeHardwareControl.prototype.addBindingWithRangeAndSensitivity = function(t
  * Makes sure there is a single binding to the supplied target that does not adjust the target outside of
  * the supplied min and max normalized range and is adjusted with the supplied sensitivity.
  *
- * @param {com.bitwig.extension.controller.api.SettableRangedValue} target
+ * @param {SettableRangedValue} target
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 RelativeHardwareControl.prototype.setBindingWithRangeAndSensitivity = function(target, minNormalizedValue, maxNormalizedValue, sensitivity) {};
 
@@ -10108,7 +10108,7 @@ RelativeHardwareValueMatcher.prototype.constructor = RelativeHardwareValueMatche
  *
  * @since API version 10
  */
-com.bitwig.extension.controller.api.RelativePosition = {
+RelativePosition = {
 	ABOVE: 0,
 	BELOW: 1,
 	LEFT: 2,
@@ -10177,7 +10177,7 @@ RemoteControl.prototype = new Parameter();
 RemoteControl.prototype.constructor = RemoteControl;
 
 /**
- * @return {com.bitwig.extension.controller.api.SettableStringValue}
+ * @return {SettableStringValue}
  */
 RemoteControl.prototype.name = function() {};
 /* API Version - 3.1.2 */
@@ -10194,12 +10194,12 @@ RemoteControlsPage.prototype.constructor = RemoteControlsPage;
 
 /**
  * @param {int} indexInBank
- * @return {com.bitwig.extension.controller.api.RemoteControl}
+ * @return {RemoteControl}
  */
 RemoteControlsPage.prototype.getParameter = function(indexInBank) {};
 
 /**
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  */
 RemoteControlsPage.prototype.getName = function() {};
 /* API Version - 3.1.2 */
@@ -10242,7 +10242,7 @@ RemoteSocket.prototype.getPort = function() {};
 function Renderer() {}
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput} gc
+ * @param {GraphicsOutput} gc
  */
 Renderer.prototype.render = function(gc) {};
 /* API Version - 3.1.2 */
@@ -10255,9 +10255,9 @@ Renderer.prototype.render = function(gc) {};
  * the list of underlying scenes.
  * 
  * To receive an instance of scene bank call
- * {@link com.bitwig.extension.controller.api.ControllerHost#createSceneBank}.
+ * {@link ControllerHost#createSceneBank}.
  *
- * @see {@link com.bitwig.extension.controller.api.ControllerHost#createSceneBank}
+ * @see {@link ControllerHost#createSceneBank}
  * @since API version 1
  */
 function SceneBank() {}
@@ -10271,7 +10271,7 @@ SceneBank.prototype.constructor = SceneBank;
  * @param indexInBank
           the scene index within this bank, not the index within the list of all Bitwig Studio scenes.
           Must be in the range [0..sizeOfBank-1].
- * @return {com.bitwig.extension.controller.api.Scene} the requested scene object
+ * @return {Scene} the requested scene object
  * @since API version 1
  */
 SceneBank.prototype.getScene = function(indexInBank) {};
@@ -10310,7 +10310,7 @@ Scene.prototype.constructor = Scene;
 /**
  * Returns an object that provides access to the name of the scene.
  *
- * @return {com.bitwig.extension.controller.api.SettableStringValue} a string value object that represents the scene name.
+ * @return {SettableStringValue} a string value object that represents the scene name.
  * @since API version 2
  */
 Scene.prototype.name = function() {};
@@ -10318,7 +10318,7 @@ Scene.prototype.name = function() {};
 /**
  * Value that reports the number of clips in the scene.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 Scene.prototype.clipCount = function() {};
@@ -10360,7 +10360,7 @@ Scrollable.prototype.constructor = Scrollable;
 /**
  * Value that reports the current scroll position.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 2
  */
 Scrollable.prototype.scrollPosition = function() {};
@@ -10389,7 +10389,7 @@ Scrollable.prototype.scrollBy = function(amount) {};
 Scrollable.prototype.scrollForwards = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Scrollable.prototype.scrollForwardsAction = function() {};
 
@@ -10401,7 +10401,7 @@ Scrollable.prototype.scrollForwardsAction = function() {};
 Scrollable.prototype.scrollBackwards = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Scrollable.prototype.scrollBackwardsAction = function() {};
 
@@ -10421,7 +10421,7 @@ Scrollable.prototype.scrollByPages = function(amount) {};
 Scrollable.prototype.scrollPageForwards = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Scrollable.prototype.scrollPageForwardsAction = function() {};
 
@@ -10433,14 +10433,14 @@ Scrollable.prototype.scrollPageForwardsAction = function() {};
 Scrollable.prototype.scrollPageBackwards = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Scrollable.prototype.scrollPageBackwardsAction = function() {};
 
 /**
  * Value that reports if it is possible to scroll the bank backwards or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Scrollable.prototype.canScrollBackwards = function() {};
@@ -10448,7 +10448,7 @@ Scrollable.prototype.canScrollBackwards = function() {};
 /**
  * Value that reports if it is possible to scroll the bank forwards or not.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Scrollable.prototype.canScrollForwards = function() {};
@@ -10468,7 +10468,7 @@ Send.prototype.constructor = Send;
 /**
  * Value that reports the color of the channel that this send sends to.
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  * @since API version 2
  */
 Send.prototype.sendChannelColor = function() {};
@@ -10476,7 +10476,7 @@ Send.prototype.sendChannelColor = function() {};
 /**
  * Value that reports if the send happens before or after the fader.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 Send.prototype.isPreFader = function() {};
@@ -10485,7 +10485,7 @@ Send.prototype.isPreFader = function() {};
  * Define how the send will happen.
  * Possible values: AUTO, PRE, POST.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 10
  */
 Send.prototype.sendMode = function() {};
@@ -10500,7 +10500,7 @@ SettableBeatTimeValue.prototype.constructor = SettableBeatTimeValue;
  * Stepper that steps through beat values. This can be used as a target for a
  * {@link RelativeHardwareControl}.
  *
- * @return {com.bitwig.extension.controller.api.RelativeHardwarControlBindable}
+ * @return {RelativeHardwarControlBindable}
  * @since API version 10
  */
 SettableBeatTimeValue.prototype.beatStepper = function() {};
@@ -10534,17 +10534,17 @@ SettableBooleanValue.prototype.set = function(value) {};
 SettableBooleanValue.prototype.toggle = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 SettableBooleanValue.prototype.toggleAction = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 SettableBooleanValue.prototype.setToTrueAction = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 SettableBooleanValue.prototype.setToFalseAction = function() {};
 /* API Version - 3.1.2 */
@@ -10740,46 +10740,46 @@ SettableRangedValue.prototype.setRaw = function(value) {};
 SettableRangedValue.prototype.incRaw = function(delta) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareControl} hardwareControl
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareControlBinding}
+ * @param {AbsoluteHardwareControl} hardwareControl
+ * @return {AbsoluteHardwareControlBinding}
  */
 SettableRangedValue.prototype.addBinding = function(hardwareControl) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareControl} hardwareControl
+ * @param {AbsoluteHardwareControl} hardwareControl
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareControlBinding}
+ * @return {AbsoluteHardwareControlBinding}
  */
 SettableRangedValue.prototype.addBindingWithRange = function(hardwareControl, minNormalizedValue, maxNormalizedValue) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlToRangedValueBinding}
+ * @param {RelativeHardwareControl} hardwareControl
+ * @return {RelativeHardwareControlToRangedValueBinding}
  */
 SettableRangedValue.prototype.addBinding = function(hardwareControl) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
+ * @param {RelativeHardwareControl} hardwareControl
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlBinding}
+ * @return {RelativeHardwareControlBinding}
  */
 SettableRangedValue.prototype.addBindingWithRange = function(hardwareControl, minNormalizedValue, maxNormalizedValue) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
+ * @param {RelativeHardwareControl} hardwareControl
  * @param {double} minNormalizedValue
  * @param {double} maxNormalizedValue
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlToRangedValueBinding}
+ * @return {RelativeHardwareControlToRangedValueBinding}
  */
 SettableRangedValue.prototype.addBindingWithRangeAndSensitivity = function(hardwareControl, minNormalizedValue, maxNormalizedValue, sensitivity) {};
 
 /**
- * @param {com.bitwig.extension.controller.api.RelativeHardwareControl} hardwareControl
+ * @param {RelativeHardwareControl} hardwareControl
  * @param {double} sensitivity
- * @return {com.bitwig.extension.controller.api.RelativeHardwareControlToRangedValueBinding}
+ * @return {RelativeHardwareControlToRangedValueBinding}
  */
 SettableRangedValue.prototype.addBindingWithSensitivity = function(hardwareControl, sensitivity) {};
 /* API Version - 3.1.2 */
@@ -10891,7 +10891,7 @@ function Settings() {}
           the name of the category, may not be `null`
  * @param action
           the action string as displayed on the related Bitwig Studio button, must not be `null`
- * @return {com.bitwig.extension.controller.api.Signal} the object that encapsulates the requested signal
+ * @return {Signal} the object that encapsulates the requested signal
  * @since API version 1
  */
 Settings.prototype.getSignalSetting = function(label, category, action) {};
@@ -10913,7 +10913,7 @@ Settings.prototype.getSignalSetting = function(label, category, action) {};
           the string that should be used to display the unit of the number
  * @param initialValue
           the initial numeric value of the setting
- * @return {com.bitwig.extension.controller.api.SettableRangedValue} the object that encapsulates the requested numeric setting
+ * @return {SettableRangedValue} the object that encapsulates the requested numeric setting
  * @since API version 1
  */
 Settings.prototype.getNumberSetting = function(label, category, minValue, maxValue, stepResolution, unit, initialValue) {};
@@ -10930,7 +10930,7 @@ Settings.prototype.getNumberSetting = function(label, category, minValue, maxVal
           the string array that defines the allowed options for the button group or chooser
  * @param initialValue
           the initial string value, must be one of the items specified with the option argument
- * @return {com.bitwig.extension.controller.api.SettableEnumValue} the object that encapsulates the requested enum setting
+ * @return {SettableEnumValue} the object that encapsulates the requested enum setting
  * @since API version 1
  */
 Settings.prototype.getEnumSetting = function(label, category, options, initialValue) {};
@@ -10946,7 +10946,7 @@ Settings.prototype.getEnumSetting = function(label, category, options, initialVa
           the maximum number of character used for the text value
  * @param initialText
           the initial text value of the setting
- * @return {com.bitwig.extension.controller.api.SettableStringValue} the object that encapsulates the requested string setting
+ * @return {SettableStringValue} the object that encapsulates the requested string setting
  * @since API version 1
  */
 Settings.prototype.getStringSetting = function(label, category, numChars, initialText) {};
@@ -10960,7 +10960,7 @@ Settings.prototype.getStringSetting = function(label, category, numChars, initia
           the name of the category, may not be `null`
  * @param initialColor
           the initial color value of the setting
- * @return {com.bitwig.extension.controller.api.SettableColorValue} the object that encapsulates the requested string setting
+ * @return {SettableColorValue} the object that encapsulates the requested string setting
  * @since API version 5
  */
 Settings.prototype.getColorSetting = function(label, category, initialColor) {};
@@ -10974,7 +10974,7 @@ Settings.prototype.getColorSetting = function(label, category, initialColor) {};
           the name of the category, may not be `null`
  * @param initialValue
           the initial color value of the setting
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} the object that encapsulates the requested string setting
+ * @return {SettableBooleanValue} the object that encapsulates the requested string setting
  * @since API version 7
  */
 Settings.prototype.getBooleanSetting = function(label, category, initialValue) {};
@@ -11147,7 +11147,7 @@ SourceSelector.prototype.constructor = SourceSelector;
 /**
  * Returns an object that indicates if the source selector has note inputs enabled.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a boolean value object
+ * @return {BooleanValue} a boolean value object
  * @since API version 5
  */
 SourceSelector.prototype.hasNoteInputSelected = function() {};
@@ -11155,7 +11155,7 @@ SourceSelector.prototype.hasNoteInputSelected = function() {};
 /**
  * Returns an object that indicates if the source selector has audio inputs enabled.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue} a boolean value object
+ * @return {BooleanValue} a boolean value object
  * @since API version 5
  */
 SourceSelector.prototype.hasAudioInputSelected = function() {};
@@ -11328,32 +11328,32 @@ function SysexBuilder() {}
 
 /**
  * @param {string} hexString
- * @return {com.bitwig.extension.api.util.midi.SysexBuilder}
+ * @return {SysexBuilder}
  */
 SysexBuilder.prototype.fromHex = function(hexString) {};
 
 /**
  * @param {int} value
- * @return {com.bitwig.extension.api.util.midi.SysexBuilder}
+ * @return {SysexBuilder}
  */
 SysexBuilder.prototype.addByte = function(value) {};
 
 /**
  * @param {string} string
  * @param {int} length
- * @return {com.bitwig.extension.api.util.midi.SysexBuilder}
+ * @return {SysexBuilder}
  */
 SysexBuilder.prototype.addString = function(string, length) {};
 
 /**
  * @param {byte[]} bytes
- * @return {com.bitwig.extension.api.util.midi.SysexBuilder}
+ * @return {SysexBuilder}
  */
 SysexBuilder.prototype.add = function(bytes) {};
 
 /**
  * @param {string} hex
- * @return {com.bitwig.extension.api.util.midi.SysexBuilder}
+ * @return {SysexBuilder}
  */
 SysexBuilder.prototype.addHex = function(hex) {};
 
@@ -11462,7 +11462,7 @@ TimeSignatureValue.prototype.set = function(name) {};
 /**
  * Returns an object that provides access to the time signature numerator.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue} an integer value object that represents the time signature numerator.
+ * @return {SettableIntegerValue} an integer value object that represents the time signature numerator.
  * @since API version 5
  */
 TimeSignatureValue.prototype.numerator = function() {};
@@ -11470,7 +11470,7 @@ TimeSignatureValue.prototype.numerator = function() {};
 /**
  * Returns an object that provides access to the time signature denominator.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue} an integer value object that represents the time signature denominator.
+ * @return {SettableIntegerValue} an integer value object that represents the time signature denominator.
  * @since API version 5
  */
 TimeSignatureValue.prototype.denominator = function() {};
@@ -11478,7 +11478,7 @@ TimeSignatureValue.prototype.denominator = function() {};
 /**
  * Returns an object that provides access to the time signature tick subdivisions.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue} an integer value object that represents the time signature ticks.
+ * @return {SettableIntegerValue} an integer value object that represents the time signature ticks.
  * @since API version 5
  */
 TimeSignatureValue.prototype.ticks = function() {};
@@ -11507,7 +11507,7 @@ TrackBank.prototype.constructor = TrackBank;
 /**
  * {@link SceneBank} that represents a view on the scenes in this {@link TrackBank}.
  *
- * @return {com.bitwig.extension.controller.api.SceneBank}
+ * @return {SceneBank}
  * @since API version 2
  */
 TrackBank.prototype.sceneBank = function() {};
@@ -11559,7 +11559,7 @@ Track.prototype.constructor = Track;
 /**
  * Value that reports the position of the track within the list of Bitwig Studio tracks.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 Track.prototype.position = function() {};
@@ -11567,7 +11567,7 @@ Track.prototype.position = function() {};
 /**
  * Returns an object that can be used to access the clip launcher slots of the track.
  *
- * @return {com.bitwig.extension.controller.api.ClipLauncherSlotBank} an object that represents the clip launcher slots of the track
+ * @return {ClipLauncherSlotBank} an object that represents the clip launcher slots of the track
  * @since API version 2
  */
 Track.prototype.clipLauncherSlotBank = function() {};
@@ -11575,7 +11575,7 @@ Track.prototype.clipLauncherSlotBank = function() {};
 /**
  * Returns an object that provides access to the arm state of the track.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 5
  */
 Track.prototype.arm = function() {};
@@ -11583,7 +11583,7 @@ Track.prototype.arm = function() {};
 /**
  * Returns an object that provides access to the monitoring state of the track.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 5
  */
 Track.prototype.monitor = function() {};
@@ -11591,7 +11591,7 @@ Track.prototype.monitor = function() {};
 /**
  * Returns an object that provides access to the auto-monitoring state of the track.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 5
  */
 Track.prototype.autoMonitor = function() {};
@@ -11599,7 +11599,7 @@ Track.prototype.autoMonitor = function() {};
 /**
  * Returns an object that provides access to the cross-fade mode of the track.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue} an enum value object that has three possible states: "A", "B", or "AB"
+ * @return {SettableEnumValue} an enum value object that has three possible states: "A", "B", or "AB"
  * @since API version 5
  */
 Track.prototype.crossFadeMode = function() {};
@@ -11608,7 +11608,7 @@ Track.prototype.crossFadeMode = function() {};
  * Value that reports if this track is currently stopped. When a track is stopped it is not playing content
  * from the arranger or clip launcher.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Track.prototype.isStopped = function() {};
@@ -11616,7 +11616,7 @@ Track.prototype.isStopped = function() {};
 /**
  * Value that reports if the clip launcher slots are queued for stop.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Track.prototype.isQueuedForStop = function() {};
@@ -11625,7 +11625,7 @@ Track.prototype.isQueuedForStop = function() {};
  * Returns the source selector for the track, which is shown in the IO section of the track in Bitwig
  * Studio and lists either note or audio sources or both depending on the track type.
  *
- * @return {com.bitwig.extension.controller.api.SourceSelector} a source selector object
+ * @return {SourceSelector} a source selector object
  * @since API version 5
  */
 Track.prototype.sourceSelector = function() {};
@@ -11640,7 +11640,7 @@ Track.prototype.stop = function() {};
 /**
  * Action to call {@link #stop()}.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Track.prototype.stopAction = function() {};
@@ -11723,7 +11723,7 @@ Track.prototype.sendMidi = function(status, data1, data2) {};
  * Value that reports the track type. Possible reported track types are `Group`, `Instrument`, `Audio`,
  * `Hybrid`, `Effect` or `Master`.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Track.prototype.trackType = function() {};
@@ -11731,7 +11731,7 @@ Track.prototype.trackType = function() {};
 /**
  * Value that reports if the track may contain child tracks, which is the case for group tracks.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Track.prototype.isGroup = function() {};
@@ -11740,7 +11740,7 @@ Track.prototype.isGroup = function() {};
  * If the track is an effect track, returns an object that indicates if the effect track is configured
  * as pre-fader.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 Track.prototype.getIsPreFader = function() {};
@@ -11748,7 +11748,7 @@ Track.prototype.getIsPreFader = function() {};
 /**
  * Returns an object that indicates if the track may contain notes.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 5
  */
 Track.prototype.canHoldNoteData = function() {};
@@ -11756,7 +11756,7 @@ Track.prototype.canHoldNoteData = function() {};
 /**
  * Returns an object that indicates if the track may contain audio events.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 5
  */
 Track.prototype.canHoldAudioData = function() {};
@@ -11765,7 +11765,7 @@ Track.prototype.canHoldAudioData = function() {};
  * Returns an object that provides access to the cursor item of the track's device selection as shown in
  * the Bitwig Studio user interface.
  *
- * @return {com.bitwig.extension.controller.api.CursorDevice} the requested device selection cursor object
+ * @return {CursorDevice} the requested device selection cursor object
 @since API version 1
  */
 Track.prototype.createCursorDevice = function() {};
@@ -11779,7 +11779,7 @@ Track.prototype.createCursorDevice = function() {};
           the name of the custom device selection cursor, for example "Primary", or `null` to refer to
           the device selection cursor in the arranger cursor track as shown in the Bitwig Studio user
           interface.
- * @return {com.bitwig.extension.controller.api.CursorDevice} the requested device selection cursor object
+ * @return {CursorDevice} the requested device selection cursor object
 @see Track#createCursorDevice
  * @since API version 1
  */
@@ -11796,7 +11796,7 @@ Track.prototype.createCursorDevice = function(name) {};
           interface.
  * @param numSends
           the number of sends that are simultaneously accessible in nested channels.
- * @return {com.bitwig.extension.controller.api.CursorDevice} the requested device selection cursor object
+ * @return {CursorDevice} the requested device selection cursor object
 @see Track#createCursorDevice
  * @since API version 1
  */
@@ -11829,7 +11829,7 @@ Track.prototype.createCursorDevice = function(name, numSends) {};
  * @param hasFlatTrackList
           specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 Track.prototype.createTrackBank = function(numTracks, numSends, numScenes, hasFlatTrackList) {};
@@ -11849,7 +11849,7 @@ Track.prototype.createTrackBank = function(numTracks, numSends, numScenes, hasFl
  * @param hasFlatTrackList
           specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 Track.prototype.createMainTrackBank = function(numTracks, numSends, numScenes, hasFlatTrackList) {};
@@ -11867,7 +11867,7 @@ Track.prototype.createMainTrackBank = function(numTracks, numSends, numScenes, h
  * @param hasFlatTrackList
           specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 Track.prototype.createEffectTrackBank = function(numTracks, numScenes, hasFlatTrackList) {};
@@ -11878,7 +11878,7 @@ Track.prototype.createEffectTrackBank = function(numTracks, numScenes, hasFlatTr
  *
  * @param numScenes
           the number of scenes for bank-wise navigation of the master tracks clip launcher slots.
- * @return {com.bitwig.extension.controller.api.MasterTrack} an object representing the master track of the connected track group.
+ * @return {MasterTrack} an object representing the master track of the connected track group.
  * @since API version 1
  */
 Track.prototype.createMasterTrack = function(numScenes) {};
@@ -11897,7 +11897,7 @@ Track.prototype.createMasterTrack = function(numScenes) {};
           specifies whether effect tracks should be included
  * @param shouldIncludeMasterTrack
           specifies whether the master should be included
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of sibling tracks
+ * @return {TrackBank} an object for bank-wise navigation of sibling tracks
  * @since API version 1
  */
 Track.prototype.createSiblingsTrackBank = function(numTracks, numSends, numScenes, shouldIncludeEffectTracks, shouldIncludeMasterTrack) {};
@@ -11905,7 +11905,7 @@ Track.prototype.createSiblingsTrackBank = function(numTracks, numSends, numScene
 /**
  * {@link InsertionPoint} that can be used to insert after this track.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 Track.prototype.afterTrackInsertionPoint = function() {};
@@ -11913,7 +11913,7 @@ Track.prototype.afterTrackInsertionPoint = function() {};
 /**
  * {@link InsertionPoint} that can be used to insert after this track.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 Track.prototype.beforeTrackInsertionPoint = function() {};
@@ -11923,7 +11923,7 @@ Track.prototype.beforeTrackInsertionPoint = function() {};
  *
  * @param {int} numSends
  * @param {int} numScenes
- * @return {com.bitwig.extension.controller.api.Track}
+ * @return {Track}
  * @since API version 10
  */
 Track.prototype.createParentTrack = function(numSends, numScenes) {};
@@ -11931,14 +11931,14 @@ Track.prototype.createParentTrack = function(numSends, numScenes) {};
 /**
  * Routes the given noteInput directly to the track regardless of monitoring.
  *
- * @param {com.bitwig.extension.controller.api.NoteInput} noteInput
+ * @param {NoteInput} noteInput
  */
 Track.prototype.addNoteSource = function(noteInput) {};
 
 /**
  * Removes a routing operated by {@link #addNoteSource(NoteInput)}
  *
- * @param {com.bitwig.extension.controller.api.NoteInput} noteInput
+ * @param {NoteInput} noteInput
  */
 Track.prototype.removeNoteSource = function(noteInput) {};
 
@@ -12010,7 +12010,7 @@ Transport.prototype.continuePlayback = function() {};
 /**
  * Action that can be used to play the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.playAction = function() {};
@@ -12018,7 +12018,7 @@ Transport.prototype.playAction = function() {};
 /**
  * Action that can be used to continue the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.continuePlaybackAction = function() {};
@@ -12033,7 +12033,7 @@ Transport.prototype.stop = function() {};
 /**
  * Action that can be used to stop the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.stopAction = function() {};
@@ -12056,7 +12056,7 @@ Transport.prototype.restart = function() {};
 /**
  * Action that can be used to restart the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.restartAction = function() {};
@@ -12071,7 +12071,7 @@ Transport.prototype.record = function() {};
 /**
  * Action that can be used to start recording
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.recordAction = function() {};
@@ -12086,7 +12086,7 @@ Transport.prototype.rewind = function() {};
 /**
  * Action that can be used to rewind the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.rewindAction = function() {};
@@ -12101,7 +12101,7 @@ Transport.prototype.fastForward = function() {};
 /**
  * Action that can be used to fast forward the transport.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.fastForwardAction = function() {};
@@ -12117,7 +12117,7 @@ Transport.prototype.tapTempo = function() {};
 /**
  * Action that can be used to tap the tempo.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Transport.prototype.tapTempoAction = function() {};
@@ -12125,7 +12125,7 @@ Transport.prototype.tapTempoAction = function() {};
 /**
  * Value that reports if the Bitwig Studio transport is playing.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isPlaying = function() {};
@@ -12133,7 +12133,7 @@ Transport.prototype.isPlaying = function() {};
 /**
  * Value that reports if the Bitwig Studio transport is recording.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isArrangerRecordEnabled = function() {};
@@ -12141,7 +12141,7 @@ Transport.prototype.isArrangerRecordEnabled = function() {};
 /**
  * Value that reports if overdubbing is enabled in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isArrangerOverdubEnabled = function() {};
@@ -12149,7 +12149,7 @@ Transport.prototype.isArrangerOverdubEnabled = function() {};
 /**
  * Value reports if clip launcher overdubbing is enabled in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isClipLauncherOverdubEnabled = function() {};
@@ -12158,7 +12158,7 @@ Transport.prototype.isClipLauncherOverdubEnabled = function() {};
  * Value that reports the current automation write mode. Possible values are `"latch"`, `"touch"` or
  * `"write"`.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 2
  */
 Transport.prototype.automationWriteMode = function() {};
@@ -12166,7 +12166,7 @@ Transport.prototype.automationWriteMode = function() {};
 /**
  * Value that reports if automation write is currently enabled for the arranger.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isArrangerAutomationWriteEnabled = function() {};
@@ -12174,7 +12174,7 @@ Transport.prototype.isArrangerAutomationWriteEnabled = function() {};
 /**
  * Value that reports if automation write is currently enabled on the clip launcher.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isClipLauncherAutomationWriteEnabled = function() {};
@@ -12182,7 +12182,7 @@ Transport.prototype.isClipLauncherAutomationWriteEnabled = function() {};
 /**
  * Value that indicates if automation override is currently on.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Transport.prototype.isAutomationOverrideActive = function() {};
@@ -12190,7 +12190,7 @@ Transport.prototype.isAutomationOverrideActive = function() {};
 /**
  * Value that indicates if the loop is currently active or not.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isArrangerLoopEnabled = function() {};
@@ -12198,7 +12198,7 @@ Transport.prototype.isArrangerLoopEnabled = function() {};
 /**
  * Value that reports if punch-in is enabled in the Bitwig Studio transport.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isPunchInEnabled = function() {};
@@ -12206,7 +12206,7 @@ Transport.prototype.isPunchInEnabled = function() {};
 /**
  * Value that reports if punch-in is enabled in the Bitwig Studio transport.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isPunchOutEnabled = function() {};
@@ -12214,7 +12214,7 @@ Transport.prototype.isPunchOutEnabled = function() {};
 /**
  * Value that reports if the metronome is enabled in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isMetronomeEnabled = function() {};
@@ -12222,7 +12222,7 @@ Transport.prototype.isMetronomeEnabled = function() {};
 /**
  * Value that reports if the metronome has tick playback enabled.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isMetronomeTickPlaybackEnabled = function() {};
@@ -12230,7 +12230,7 @@ Transport.prototype.isMetronomeTickPlaybackEnabled = function() {};
 /**
  * Value that reports the metronome volume.
  *
- * @return {com.bitwig.extension.controller.api.SettableRangedValue}
+ * @return {SettableRangedValue}
  * @since API version 2
  */
 Transport.prototype.metronomeVolume = function() {};
@@ -12238,7 +12238,7 @@ Transport.prototype.metronomeVolume = function() {};
 /**
  * Value that reports if the metronome is audible during pre-roll.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 Transport.prototype.isMetronomeAudibleDuringPreRoll = function() {};
@@ -12247,7 +12247,7 @@ Transport.prototype.isMetronomeAudibleDuringPreRoll = function() {};
  * Value that reports the current pre-roll setting. Possible values are `"none"`, `"one_bar"`,
  * `"two_bars"`, or `"four_bars"`.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 2
  */
 Transport.prototype.preRoll = function() {};
@@ -12290,7 +12290,7 @@ Transport.prototype.returnToArrangement = function() {};
 /**
  * Returns an object that provides access to the project tempo.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} the requested tempo value object
+ * @return {Parameter} the requested tempo value object
  * @since API version 1
  */
 Transport.prototype.tempo = function() {};
@@ -12310,7 +12310,7 @@ Transport.prototype.increaseTempo = function(amount, range) {};
 /**
  * Returns an object that provides access to the transport position in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} a beat time object that represents the transport position
+ * @return {SettableBeatTimeValue} a beat time object that represents the transport position
  * @since API version 1
  */
 Transport.prototype.getPosition = function() {};
@@ -12318,7 +12318,7 @@ Transport.prototype.getPosition = function() {};
 /**
  * Returns an object that provides access to the current transport position.
  *
- * @return {com.bitwig.extension.controller.api.BeatTimeValue} beat-time value
+ * @return {BeatTimeValue} beat-time value
  * @since API version 10
  */
 Transport.prototype.playPosition = function() {};
@@ -12326,7 +12326,7 @@ Transport.prototype.playPosition = function() {};
 /**
  * Returns an object that provides access to the current transport position in seconds.
  *
- * @return {com.bitwig.extension.controller.api.DoubleValue} value (seconds)
+ * @return {DoubleValue} value (seconds)
  * @since API version 10
  */
 Transport.prototype.playPositionInSeconds = function() {};
@@ -12334,7 +12334,7 @@ Transport.prototype.playPositionInSeconds = function() {};
 /**
  * Returns an object that provides access to the transport's play-start position. (blue triangle)
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} beat-time value
+ * @return {SettableBeatTimeValue} beat-time value
  * @since API version 10
  */
 Transport.prototype.playStartPosition = function() {};
@@ -12342,7 +12342,7 @@ Transport.prototype.playStartPosition = function() {};
 /**
  * Returns an object that provides access to the transport's play-start position in seconds. (blue triangle)
  *
- * @return {com.bitwig.extension.controller.api.SettableDoubleValue} value (seconds)
+ * @return {SettableDoubleValue} value (seconds)
  * @since API version 10
  */
 Transport.prototype.playStartPositionInSeconds = function() {};
@@ -12355,7 +12355,7 @@ Transport.prototype.playStartPositionInSeconds = function() {};
 Transport.prototype.launchFromPlayStartPosition = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Transport.prototype.launchFromPlayStartPositionAction = function() {};
 
@@ -12367,7 +12367,7 @@ Transport.prototype.launchFromPlayStartPositionAction = function() {};
 Transport.prototype.jumpToPlayStartPosition = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Transport.prototype.jumpToPlayStartPositionAction = function() {};
 
@@ -12379,7 +12379,7 @@ Transport.prototype.jumpToPlayStartPositionAction = function() {};
 Transport.prototype.jumpToPreviousCueMarker = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Transport.prototype.jumpToPreviousCueMarkerAction = function() {};
 
@@ -12391,7 +12391,7 @@ Transport.prototype.jumpToPreviousCueMarkerAction = function() {};
 Transport.prototype.jumpToNextCueMarker = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 Transport.prototype.jumpToNextCueMarkerAction = function() {};
 
@@ -12421,7 +12421,7 @@ Transport.prototype.incPosition = function(beats, snap) {};
 /**
  * Returns an object that provides access to the punch-in position in the Bitwig Studio transport.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} a beat time object that represents the punch-in position
+ * @return {SettableBeatTimeValue} a beat time object that represents the punch-in position
  * @since API version 1
  */
 Transport.prototype.getInPosition = function() {};
@@ -12429,7 +12429,7 @@ Transport.prototype.getInPosition = function() {};
 /**
  * Returns an object that provides access to the punch-out position in the Bitwig Studio transport.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} a beat time object that represents the punch-out position
+ * @return {SettableBeatTimeValue} a beat time object that represents the punch-out position
  * @since API version 1
  */
 Transport.prototype.getOutPosition = function() {};
@@ -12438,7 +12438,7 @@ Transport.prototype.getOutPosition = function() {};
  * Returns an object that provides access to the cross-fader, used for mixing between A/B-channels as
  * specified on the Bitwig Studio tracks.
  *
- * @return {com.bitwig.extension.controller.api.Parameter}
+ * @return {Parameter}
  * @since API version 5
  */
 Transport.prototype.crossfade = function() {};
@@ -12446,7 +12446,7 @@ Transport.prototype.crossfade = function() {};
 /**
  * Returns an object that provides access to the transport time signature.
  *
- * @return {com.bitwig.extension.controller.api.TimeSignatureValue} the time signature value object that represents the transport time signature.
+ * @return {TimeSignatureValue} the time signature value object that represents the transport time signature.
  * @since API version 5
  */
 Transport.prototype.timeSignature = function() {};
@@ -12456,7 +12456,7 @@ Transport.prototype.timeSignature = function() {};
  * `"play_recorded"`, `"record_next_free_slot"`, `"stop"`, `"return_to_arrangement"`,
  * `"return_to_previous_clip"` or `"play_random"`.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 2
  */
 Transport.prototype.clipLauncherPostRecordingAction = function() {};
@@ -12464,7 +12464,7 @@ Transport.prototype.clipLauncherPostRecordingAction = function() {};
 /**
  * Returns an object that provides access to the clip launcher post recording time offset.
  *
- * @return {com.bitwig.extension.controller.api.SettableBeatTimeValue} a beat time object that represents the post recording time offset
+ * @return {SettableBeatTimeValue} a beat time object that represents the post recording time offset
  * @since API version 1
  */
 Transport.prototype.getClipLauncherPostRecordingTimeOffset = function() {};
@@ -12474,7 +12474,7 @@ Transport.prototype.getClipLauncherPostRecordingTimeOffset = function() {};
  * 
  * Possible values are `"none"`, `"8"`, `"4"`, `"2"`, `"1"`, `"1/2"`, `"1/4"`, `"1/8"`, `"1/16"`.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue}
+ * @return {SettableEnumValue}
  * @since API version 8
  */
 Transport.prototype.defaultLaunchQuantization = function() {};
@@ -12483,7 +12483,7 @@ Transport.prototype.defaultLaunchQuantization = function() {};
 function UsbConfigurationMatcher() {}
 
 /**
- * @return {com.bitwig.extension.controller.UsbInterfaceMatcher[]}
+ * @return {UsbInterfaceMatcher[]}
  */
 UsbConfigurationMatcher.prototype.getInterfaceMatchers = function() {};
 /* API Version - 3.1.2 */
@@ -12501,14 +12501,14 @@ UsbDevice.prototype.constructor = UsbDevice;
 /**
  * The {@link UsbDeviceMatcher} that was provided by the controller for identifying this device.
  *
- * @return {com.bitwig.extension.controller.UsbDeviceMatcher}
+ * @return {UsbDeviceMatcher}
  */
 UsbDevice.prototype.deviceMatcher = function() {};
 
 /**
  * The list of {@link UsbInterface}s that have been opened for this device.
  *
- * @return {java.util.List<com.bitwig.extension.controller.api.UsbInterface>}
+ * @return {java.util.List<UsbInterface>}
  */
 UsbDevice.prototype.ifaces = function() {};
 
@@ -12517,7 +12517,7 @@ UsbDevice.prototype.ifaces = function() {};
  * corresponding index in the {@link UsbDeviceMatcher}.
  *
  * @param {int} index
- * @return {com.bitwig.extension.controller.api.UsbInterface}
+ * @return {UsbInterface}
  */
 UsbDevice.prototype.iface = function(index) {};
 /* API Version - 3.1.2 */
@@ -12546,7 +12546,7 @@ UsbDeviceMatcher.prototype.getExpression = function() {};
 /**
  * Object that tries to match a configuration on the device that it can use.
  *
- * @return {com.bitwig.extension.controller.UsbConfigurationMatcher}
+ * @return {UsbConfigurationMatcher}
  */
 UsbDeviceMatcher.prototype.getConfigurationMatcher = function() {};
 /* API Version - 3.1.2 */
@@ -12554,12 +12554,12 @@ UsbDeviceMatcher.prototype.getConfigurationMatcher = function() {};
 function UsbEndpointMatcher() {}
 
 /**
- * @return {com.bitwig.extension.controller.api.UsbTransferDirection}
+ * @return {UsbTransferDirection}
  */
 UsbEndpointMatcher.prototype.getDirection = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.UsbTransferType}
+ * @return {UsbTransferType}
  */
 UsbEndpointMatcher.prototype.getTransferType = function() {};
 /* API Version - 3.1.2 */
@@ -12575,20 +12575,20 @@ function UsbInterface() {}
 /**
  * The {@link UsbInterfaceMatcher} that was provided by the controller for identifying this device.
  *
- * @return {com.bitwig.extension.controller.UsbInterfaceMatcher}
+ * @return {UsbInterfaceMatcher}
  */
 UsbInterface.prototype.interfaceMatcher = function() {};
 
 /**
  * The list of pipes that have been opened for this interface.
  *
- * @return {java.util.List<com.bitwig.extension.controller.api.UsbPipe>}
+ * @return {java.util.List<UsbPipe>}
  */
 UsbInterface.prototype.pipes = function() {};
 
 /**
  * @param {int} index
- * @return {com.bitwig.extension.controller.api.UsbPipe}
+ * @return {UsbPipe}
  */
 UsbInterface.prototype.pipe = function(index) {};
 
@@ -12601,7 +12601,7 @@ UsbInterface.prototype.pipeCount = function() {};
 function UsbInterfaceMatcher() {}
 
 /**
- * @return {com.bitwig.extension.controller.UsbEndpointMatcher[]}
+ * @return {UsbEndpointMatcher[]}
  */
 UsbInterfaceMatcher.prototype.getEndpointMatchers = function() {};
 /* API Version - 3.1.2 */
@@ -12638,7 +12638,7 @@ UsbPipe.prototype.constructor = UsbPipe;
 /**
  * The device this endpoint is on.
  *
- * @return {com.bitwig.extension.controller.api.UsbDevice}
+ * @return {UsbDevice}
  * @since API version 7
  */
 UsbPipe.prototype.device = function() {};
@@ -12647,7 +12647,7 @@ UsbPipe.prototype.device = function() {};
  * The {@link UsbEndpointMatcher} that was provided by the controller for identifying the endpoint to use
  * for communication.
  *
- * @return {com.bitwig.extension.controller.UsbEndpointMatcher}
+ * @return {UsbEndpointMatcher}
  */
 UsbPipe.prototype.endpointMatcher = function() {};
 
@@ -12662,24 +12662,24 @@ UsbPipe.prototype.endpointAddress = function() {};
 /**
  * {@link UsbTransferDirection} for this pipe.
  *
- * @return {com.bitwig.extension.controller.api.UsbTransferDirection}
+ * @return {UsbTransferDirection}
  */
 UsbPipe.prototype.direction = function() {};
 
 /**
  * The {@link UsbTransferType} type that this pipe uses for communicating with the USB device.
  *
- * @return {com.bitwig.extension.controller.api.UsbTransferType}
+ * @return {UsbTransferType}
  */
 UsbPipe.prototype.transferType = function() {};
 /* API Version - 3.1.2 */
 
-com.bitwig.extension.controller.api.UsbTransferDirection = {
+UsbTransferDirection = {
 	IN: 0,
 	OUT: 1,
 	/**
 	 * @param {byte} bEndpointAddress
-	 * @return {com.bitwig.extension.controller.api.UsbTransferDirection}
+	 * @return {UsbTransferDirection}
 	 */
 	UsbTransferDirection.prototype.getForEndpointAddress = function(bEndpointAddress) {};
 
@@ -12690,7 +12690,7 @@ com.bitwig.extension.controller.api.UsbTransferDirection = {
  *
  * @newSince API version 7
  */
-com.bitwig.extension.controller.api.UsbTransferStatus = {
+UsbTransferStatus = {
 	Completed: 0,
 	Error: 1,
 	TimedOut: 2,
@@ -12700,7 +12700,7 @@ com.bitwig.extension.controller.api.UsbTransferStatus = {
 	Overflow: 6,
 };/* API Version - 3.1.2 */
 
-com.bitwig.extension.controller.api.UsbTransferType = {
+UsbTransferType = {
 	BULK: 0,
 	INTERRUPT: 1,
 };/* API Version - 3.1.2 */
@@ -12718,7 +12718,7 @@ function UserControlBank() {}
  *
  * @param index
           the index of the control within the bank
- * @return {com.bitwig.extension.controller.api.Parameter} the requested user control object
+ * @return {Parameter} the requested user control object
  * @since API version 1
  */
 UserControlBank.prototype.getControl = function(index) {};

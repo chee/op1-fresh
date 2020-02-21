@@ -14,7 +14,7 @@ Channel.prototype.constructor = Channel;
 /**
  * Returns an object that represents the activated state of the channel.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} an object that provides access to the channels activated state.
+ * @return {SettableBooleanValue} an object that provides access to the channels activated state.
  * @since API version 1
  */
 Channel.prototype.isActivated = function() {};
@@ -22,7 +22,7 @@ Channel.prototype.isActivated = function() {};
 /**
  * Gets a representation of the channels volume control.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an object that provides access to the channels volume control.
+ * @return {Parameter} an object that provides access to the channels volume control.
  * @since API version 5
  */
 Channel.prototype.volume = function() {};
@@ -30,7 +30,7 @@ Channel.prototype.volume = function() {};
 /**
  * Gets a representation of the channels pan control.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an object that provides access to the channels pan control.
+ * @return {Parameter} an object that provides access to the channels pan control.
  * @since API version 5
  */
 Channel.prototype.pan = function() {};
@@ -38,7 +38,7 @@ Channel.prototype.pan = function() {};
 /**
  * Gets a representation of the channels mute control.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} an object that provides access to the channels mute control.
+ * @return {SettableBooleanValue} an object that provides access to the channels mute control.
  * @since API version 5
  */
 Channel.prototype.mute = function() {};
@@ -46,7 +46,7 @@ Channel.prototype.mute = function() {};
 /**
  * Gets a representation of the channels solo control.
  *
- * @return {com.bitwig.extension.controller.api.SoloValue} an object that provides access to the channels solo control.
+ * @return {SoloValue} an object that provides access to the channels solo control.
  * @since API version 1
  */
 Channel.prototype.solo = function() {};
@@ -54,7 +54,7 @@ Channel.prototype.solo = function() {};
 /**
  * True if the current channel is being muted by an other channel with solo on.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 Channel.prototype.isMutedBySolo = function() {};
@@ -79,7 +79,7 @@ Channel.prototype.addVuMeterObserver = function(range, channel, peak, callback) 
 /**
  * Returns an array of the playing notes.
  *
- * @return {com.bitwig.extension.controller.api.PlayingNoteArrayValue}
+ * @return {PlayingNoteArrayValue}
  * @since API version 2
  */
 Channel.prototype.playingNotes = function() {};
@@ -87,7 +87,7 @@ Channel.prototype.playingNotes = function() {};
 /**
  * Get the color of the channel.
  *
- * @return {com.bitwig.extension.controller.api.SettableColorValue}
+ * @return {SettableColorValue}
  * @since API version 2
  */
 Channel.prototype.color = function() {};
@@ -95,7 +95,7 @@ Channel.prototype.color = function() {};
 /**
  * Gets a {@link SendBank} that can be used to navigate the sends of this channel.
  *
- * @return {com.bitwig.extension.controller.api.SendBank}
+ * @return {SendBank}
  * @since API version 2
  */
 Channel.prototype.sendBank = function() {};

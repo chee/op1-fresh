@@ -6,6 +6,6 @@ ConnectionEstablishedCallback.prototype = new Callback();
 ConnectionEstablishedCallback.prototype.constructor = ConnectionEstablishedCallback;
 
 /**
- * @param {com.bitwig.extension.controller.api.RemoteConnection} connection
+ * @param {RemoteConnection} connection
  */
 ConnectionEstablishedCallback.prototype.connectionEstablished = function(connection) {};

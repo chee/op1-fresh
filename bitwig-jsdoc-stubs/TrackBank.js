@@ -23,7 +23,7 @@ TrackBank.prototype.constructor = TrackBank;
 /**
  * {@link SceneBank} that represents a view on the scenes in this {@link TrackBank}.
  *
- * @return {com.bitwig.extension.controller.api.SceneBank}
+ * @return {SceneBank}
  * @since API version 2
  */
 TrackBank.prototype.sceneBank = function() {};

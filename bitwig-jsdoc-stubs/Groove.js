@@ -10,7 +10,7 @@ function Groove() {}
 /**
  * Returns the enabled state of the groove.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an object that provides access to the groove on/off setting
+ * @return {Parameter} an object that provides access to the groove on/off setting
  * @since API version 1
  */
 Groove.prototype.getEnabled = function() {};
@@ -18,7 +18,7 @@ Groove.prototype.getEnabled = function() {};
 /**
  * Returns the object that represents the shuffle amount in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an ranged value object that provides access to the shuffle amount
+ * @return {Parameter} an ranged value object that provides access to the shuffle amount
  * @since API version 1
  */
 Groove.prototype.getShuffleAmount = function() {};
@@ -26,7 +26,7 @@ Groove.prototype.getShuffleAmount = function() {};
 /**
  * Returns the object that represents the shuffle rate in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an ranged value object that provides access to the shuffle rate
+ * @return {Parameter} an ranged value object that provides access to the shuffle rate
  * @since API version 1
  */
 Groove.prototype.getShuffleRate = function() {};
@@ -34,7 +34,7 @@ Groove.prototype.getShuffleRate = function() {};
 /**
  * Returns the object that represents the accent amount in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an ranged value object that provides access to the accent amount
+ * @return {Parameter} an ranged value object that provides access to the accent amount
  * @since API version 1
  */
 Groove.prototype.getAccentAmount = function() {};
@@ -42,7 +42,7 @@ Groove.prototype.getAccentAmount = function() {};
 /**
  * Returns the object that represents the accent rate in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an ranged value object that provides access to the accent rate
+ * @return {Parameter} an ranged value object that provides access to the accent rate
  * @since API version 1
  */
 Groove.prototype.getAccentRate = function() {};
@@ -50,7 +50,7 @@ Groove.prototype.getAccentRate = function() {};
 /**
  * Returns the object that represents the accent phase in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Parameter} an ranged value object that provides access to the accent phase
+ * @return {Parameter} an ranged value object that provides access to the accent phase
  * @since API version 1
  */
 Groove.prototype.getAccentPhase = function() {};

@@ -21,12 +21,12 @@ Bitmap.prototype.getWidth = function() {};
 Bitmap.prototype.getHeight = function() {};
 
 /**
- * @return {com.bitwig.extension.api.graphics.BitmapFormat}
+ * @return {BitmapFormat}
  */
 Bitmap.prototype.getFormat = function() {};
 
 /**
- * @return {com.bitwig.extension.api.MemoryBlock}
+ * @return {MemoryBlock}
  */
 Bitmap.prototype.getMemoryBlock = function() {};
 
@@ -34,7 +34,7 @@ Bitmap.prototype.getMemoryBlock = function() {};
  * Call this method to start painting the bitmap.
  * This method will take care of disposing allocated patterns during the rendering.
  *
- * @param {com.bitwig.extension.api.graphics.Renderer} renderer
+ * @param {Renderer} renderer
  * @since API version 7
  */
 Bitmap.prototype.render = function(renderer) {};

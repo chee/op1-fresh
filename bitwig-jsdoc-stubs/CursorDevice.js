@@ -14,7 +14,7 @@ CursorDevice.prototype.constructor = CursorDevice;
  * Returns the channel that this cursor device was created on. Currently this will always be a track or
  * cursor track instance.
  *
- * @return {com.bitwig.extension.controller.api.Channel} the track or cursor track object that was used for creation of this cursor device.
+ * @return {Channel} the track or cursor track object that was used for creation of this cursor device.
  * @since API version 5
  */
 CursorDevice.prototype.channel = function() {};

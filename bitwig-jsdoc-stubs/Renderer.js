@@ -9,6 +9,6 @@
 function Renderer() {}
 
 /**
- * @param {com.bitwig.extension.api.graphics.GraphicsOutput} gc
+ * @param {GraphicsOutput} gc
  */
 Renderer.prototype.render = function(gc) {};

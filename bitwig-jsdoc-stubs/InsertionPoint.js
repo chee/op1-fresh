@@ -13,14 +13,14 @@ function InsertionPoint() {}
  * Copies the supplied tracks to this insertion point. If it's not possible to do so then this does
  * nothing.
  *
- * @param {com.bitwig.extension.controller.api.Track} tracks
+ * @param {Track} tracks
  */
 InsertionPoint.prototype.copyTracks = function(/*...*/tracks) {};
 
 /**
  * Moves the supplied tracks to this insertion point. If it's not possible to do so then this does nothing.
  *
- * @param {com.bitwig.extension.controller.api.Track} tracks
+ * @param {Track} tracks
  */
 InsertionPoint.prototype.moveTracks = function(/*...*/tracks) {};
 
@@ -28,7 +28,7 @@ InsertionPoint.prototype.moveTracks = function(/*...*/tracks) {};
  * Copies the supplied devices to this insertion point. If it's not possible to do so then this does
  * nothing.
  *
- * @param {com.bitwig.extension.controller.api.Device} devices
+ * @param {Device} devices
  */
 InsertionPoint.prototype.copyDevices = function(/*...*/devices) {};
 
@@ -36,7 +36,7 @@ InsertionPoint.prototype.copyDevices = function(/*...*/devices) {};
  * Moves the supplied devices to this insertion point. If it's not possible to do so then this does
  * nothing.
  *
- * @param {com.bitwig.extension.controller.api.Device} devices
+ * @param {Device} devices
  */
 InsertionPoint.prototype.moveDevices = function(/*...*/devices) {};
 
@@ -44,7 +44,7 @@ InsertionPoint.prototype.moveDevices = function(/*...*/devices) {};
  * Copies the supplied slots or scenes to this insertion point. If it's not possible to do so then this
  * does nothing.
  *
- * @param {com.bitwig.extension.controller.api.ClipLauncherSlotOrScene} clipLauncherSlotOrScenes
+ * @param {ClipLauncherSlotOrScene} clipLauncherSlotOrScenes
  */
 InsertionPoint.prototype.copySlotsOrScenes = function(/*...*/clipLauncherSlotOrScenes) {};
 
@@ -52,7 +52,7 @@ InsertionPoint.prototype.copySlotsOrScenes = function(/*...*/clipLauncherSlotOrS
  * Moves the supplied slots or scenes to this insertion point. If it's not possible to do so then this does
  * nothing.
  *
- * @param {com.bitwig.extension.controller.api.ClipLauncherSlotOrScene} clipLauncherSlotOrScenes
+ * @param {ClipLauncherSlotOrScene} clipLauncherSlotOrScenes
  */
 InsertionPoint.prototype.moveSlotsOrScenes = function(/*...*/clipLauncherSlotOrScenes) {};
 

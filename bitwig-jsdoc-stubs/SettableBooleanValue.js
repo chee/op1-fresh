@@ -28,16 +28,16 @@ SettableBooleanValue.prototype.set = function(value) {};
 SettableBooleanValue.prototype.toggle = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 SettableBooleanValue.prototype.toggleAction = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 SettableBooleanValue.prototype.setToTrueAction = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 SettableBooleanValue.prototype.setToFalseAction = function() {};

@@ -9,7 +9,7 @@
  * A controller defines which pipes it wants to establish for communication using a
  * {@link HardwareDeviceMatcher}.
  *
- * @see ControllerExtensionDefinition#listHardwareDevices(com.bitwig.extension.controller.HardwareDeviceMatcherList)
+ * @see ControllerExtensionDefinition#listHardwareDevices(HardwareDeviceMatcherList)
  * @since API version 7
  */
 function Pipe() {}

@@ -13,7 +13,7 @@ Scene.prototype.constructor = Scene;
 /**
  * Returns an object that provides access to the name of the scene.
  *
- * @return {com.bitwig.extension.controller.api.SettableStringValue} a string value object that represents the scene name.
+ * @return {SettableStringValue} a string value object that represents the scene name.
  * @since API version 2
  */
 Scene.prototype.name = function() {};
@@ -21,7 +21,7 @@ Scene.prototype.name = function() {};
 /**
  * Value that reports the number of clips in the scene.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 Scene.prototype.clipCount = function() {};

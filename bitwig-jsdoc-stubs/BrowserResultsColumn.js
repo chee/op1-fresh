@@ -13,7 +13,7 @@ BrowserResultsColumn.prototype.constructor = BrowserResultsColumn;
 /**
  * Returns the cursor result item, which can be used to navigate over the list of entries.
  *
- * @return {com.bitwig.extension.controller.api.BrowserResultsItem} the requested filter item object
+ * @return {BrowserResultsItem} the requested filter item object
  * @since API version 1
  */
 BrowserResultsColumn.prototype.createCursorItem = function() {};
@@ -24,6 +24,6 @@ BrowserResultsColumn.prototype.createCursorItem = function() {};
  *
  * @param size
           the number of simultaneously accessible items
- * @return {com.bitwig.extension.controller.api.BrowserResultsItemBank} the requested item bank object
+ * @return {BrowserResultsItemBank} the requested item bank object
  */
 BrowserResultsColumn.prototype.createItemBank = function(size) {};

@@ -11,6 +11,6 @@ RemoteControl.prototype = new Parameter();
 RemoteControl.prototype.constructor = RemoteControl;
 
 /**
- * @return {com.bitwig.extension.controller.api.SettableStringValue}
+ * @return {SettableStringValue}
  */
 RemoteControl.prototype.name = function() {};

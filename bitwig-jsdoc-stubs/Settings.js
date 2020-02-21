@@ -17,7 +17,7 @@ function Settings() {}
           the name of the category, may not be `null`
  * @param action
           the action string as displayed on the related Bitwig Studio button, must not be `null`
- * @return {com.bitwig.extension.controller.api.Signal} the object that encapsulates the requested signal
+ * @return {Signal} the object that encapsulates the requested signal
  * @since API version 1
  */
 Settings.prototype.getSignalSetting = function(label, category, action) {};
@@ -39,7 +39,7 @@ Settings.prototype.getSignalSetting = function(label, category, action) {};
           the string that should be used to display the unit of the number
  * @param initialValue
           the initial numeric value of the setting
- * @return {com.bitwig.extension.controller.api.SettableRangedValue} the object that encapsulates the requested numeric setting
+ * @return {SettableRangedValue} the object that encapsulates the requested numeric setting
  * @since API version 1
  */
 Settings.prototype.getNumberSetting = function(label, category, minValue, maxValue, stepResolution, unit, initialValue) {};
@@ -56,7 +56,7 @@ Settings.prototype.getNumberSetting = function(label, category, minValue, maxVal
           the string array that defines the allowed options for the button group or chooser
  * @param initialValue
           the initial string value, must be one of the items specified with the option argument
- * @return {com.bitwig.extension.controller.api.SettableEnumValue} the object that encapsulates the requested enum setting
+ * @return {SettableEnumValue} the object that encapsulates the requested enum setting
  * @since API version 1
  */
 Settings.prototype.getEnumSetting = function(label, category, options, initialValue) {};
@@ -72,7 +72,7 @@ Settings.prototype.getEnumSetting = function(label, category, options, initialVa
           the maximum number of character used for the text value
  * @param initialText
           the initial text value of the setting
- * @return {com.bitwig.extension.controller.api.SettableStringValue} the object that encapsulates the requested string setting
+ * @return {SettableStringValue} the object that encapsulates the requested string setting
  * @since API version 1
  */
 Settings.prototype.getStringSetting = function(label, category, numChars, initialText) {};
@@ -86,7 +86,7 @@ Settings.prototype.getStringSetting = function(label, category, numChars, initia
           the name of the category, may not be `null`
  * @param initialColor
           the initial color value of the setting
- * @return {com.bitwig.extension.controller.api.SettableColorValue} the object that encapsulates the requested string setting
+ * @return {SettableColorValue} the object that encapsulates the requested string setting
  * @since API version 5
  */
 Settings.prototype.getColorSetting = function(label, category, initialColor) {};
@@ -100,7 +100,7 @@ Settings.prototype.getColorSetting = function(label, category, initialColor) {};
           the name of the category, may not be `null`
  * @param initialValue
           the initial color value of the setting
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} the object that encapsulates the requested string setting
+ * @return {SettableBooleanValue} the object that encapsulates the requested string setting
  * @since API version 7
  */
 Settings.prototype.getBooleanSetting = function(label, category, initialValue) {};

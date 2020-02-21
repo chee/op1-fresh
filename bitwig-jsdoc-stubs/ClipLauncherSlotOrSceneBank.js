@@ -29,7 +29,7 @@ ClipLauncherSlotOrSceneBank.prototype.stop = function() {};
 /**
  * Action to call {@link #stop()}.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 ClipLauncherSlotOrSceneBank.prototype.stopAction = function() {};

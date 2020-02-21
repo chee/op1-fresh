@@ -13,7 +13,7 @@ PopupBrowser.prototype.constructor = PopupBrowser;
 /**
  * The title of the popup browser.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 PopupBrowser.prototype.title = function() {};
@@ -24,7 +24,7 @@ PopupBrowser.prototype.title = function() {};
  * 
  * (e.g "Device", "Preset", "Sample" etc.)
  *
- * @return {com.bitwig.extension.controller.api.StringArrayValue}
+ * @return {StringArrayValue}
  * @since API version 2
  */
 PopupBrowser.prototype.contentTypeNames = function() {};
@@ -32,7 +32,7 @@ PopupBrowser.prototype.contentTypeNames = function() {};
 /**
  * Value that represents the selected content type.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 PopupBrowser.prototype.selectedContentTypeName = function() {};
@@ -40,7 +40,7 @@ PopupBrowser.prototype.selectedContentTypeName = function() {};
 /**
  * Value that represents the index of the selected content type within the content types supported.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 2
  */
 PopupBrowser.prototype.selectedContentTypeIndex = function() {};
@@ -48,7 +48,7 @@ PopupBrowser.prototype.selectedContentTypeIndex = function() {};
 /**
  * The smart collections column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.smartCollectionColumn = function() {};
@@ -56,7 +56,7 @@ PopupBrowser.prototype.smartCollectionColumn = function() {};
 /**
  * The location column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.locationColumn = function() {};
@@ -64,7 +64,7 @@ PopupBrowser.prototype.locationColumn = function() {};
 /**
  * The device column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.deviceColumn = function() {};
@@ -72,7 +72,7 @@ PopupBrowser.prototype.deviceColumn = function() {};
 /**
  * The category column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.categoryColumn = function() {};
@@ -80,7 +80,7 @@ PopupBrowser.prototype.categoryColumn = function() {};
 /**
  * The tag column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.tagColumn = function() {};
@@ -88,7 +88,7 @@ PopupBrowser.prototype.tagColumn = function() {};
 /**
  * The device type column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.deviceTypeColumn = function() {};
@@ -96,7 +96,7 @@ PopupBrowser.prototype.deviceTypeColumn = function() {};
 /**
  * The file type column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.fileTypeColumn = function() {};
@@ -104,7 +104,7 @@ PopupBrowser.prototype.fileTypeColumn = function() {};
 /**
  * The creator column of the browser.
  *
- * @return {com.bitwig.extension.controller.api.BrowserFilterColumn}
+ * @return {BrowserFilterColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.creatorColumn = function() {};
@@ -112,7 +112,7 @@ PopupBrowser.prototype.creatorColumn = function() {};
 /**
  * Column that represents the results of the search.
  *
- * @return {com.bitwig.extension.controller.api.BrowserResultsColumn}
+ * @return {BrowserResultsColumn}
  * @since API version 2
  */
 PopupBrowser.prototype.resultsColumn = function() {};
@@ -120,7 +120,7 @@ PopupBrowser.prototype.resultsColumn = function() {};
 /**
  * Value that indicates if the browser is able to audition material in place while browsing.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 PopupBrowser.prototype.canAudition = function() {};
@@ -128,7 +128,7 @@ PopupBrowser.prototype.canAudition = function() {};
 /**
  * Value that decides if the browser is currently auditioning material in place while browsing or not.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 2
  */
 PopupBrowser.prototype.shouldAudition = function() {};
@@ -169,7 +169,7 @@ PopupBrowser.prototype.selectLastFile = function() {};
 PopupBrowser.prototype.cancel = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 PopupBrowser.prototype.cancelAction = function() {};
 
@@ -181,6 +181,6 @@ PopupBrowser.prototype.cancelAction = function() {};
 PopupBrowser.prototype.commit = function() {};
 
 /**
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  */
 PopupBrowser.prototype.commitAction = function() {};

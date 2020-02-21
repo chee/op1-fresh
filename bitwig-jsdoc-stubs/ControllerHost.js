@@ -153,7 +153,7 @@ ControllerHost.prototype.defineMidiPorts = function(numInports, numOutports) {};
  *
  * @param index
           the index of the MIDI input port, must be valid.
- * @return {com.bitwig.extension.controller.api.MidiIn} the requested MIDI input port
+ * @return {MidiIn} the requested MIDI input port
  * @since API version 1
  */
 ControllerHost.prototype.getMidiInPort = function(index) {};
@@ -163,7 +163,7 @@ ControllerHost.prototype.getMidiInPort = function(index) {};
  *
  * @param index
           the index of the MIDI output port, must be valid.
- * @return {com.bitwig.extension.controller.api.MidiOut} the requested MIDI output port
+ * @return {MidiOut} the requested MIDI output port
  * @since API version 1
  */
 ControllerHost.prototype.getMidiOutPort = function(index) {};
@@ -174,7 +174,7 @@ ControllerHost.prototype.getMidiOutPort = function(index) {};
  * {@link ControllerExtensionDefinition#listHardwareDevices(java.util.List)}
  *
  * @param {int} index
- * @return {com.bitwig.extension.controller.api.HardwareDevice}
+ * @return {HardwareDevice}
  * @since API version 7
  */
 ControllerHost.prototype.hardwareDevice = function(index) {};
@@ -203,7 +203,7 @@ ControllerHost.prototype.addDeviceNameBasedDiscoveryPair = function(inputs, outp
  * Creates a preferences object that can be used to insert settings into the Controller Preferences panel
  * in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.Preferences} an object that provides access to custom controller preferences
+ * @return {Preferences} an object that provides access to custom controller preferences
  * @since API version 1
  */
 ControllerHost.prototype.getPreferences = function() {};
@@ -212,7 +212,7 @@ ControllerHost.prototype.getPreferences = function() {};
  * Creates a document state object that can be used to insert settings into the Studio I/O Panel in Bitwig
  * Studio.
  *
- * @return {com.bitwig.extension.controller.api.DocumentState} an object that provides access to custom document settings
+ * @return {DocumentState} an object that provides access to custom document settings
  * @since API version 1
  */
 ControllerHost.prototype.getDocumentState = function() {};
@@ -223,7 +223,7 @@ ControllerHost.prototype.getDocumentState = function() {};
  * track or the current device preset was changed on the controller these notifications are shown,
  * depending on your configuration.
  *
- * @return {com.bitwig.extension.controller.api.NotificationSettings} a configuration object used to enable/disable the various automatic notifications supported by
+ * @return {NotificationSettings} a configuration object used to enable/disable the various automatic notifications supported by
         Bitwig Studio
  * @since API version 1
  */
@@ -232,7 +232,7 @@ ControllerHost.prototype.getNotificationSettings = function() {};
 /**
  * Returns an object for controlling various aspects of the currently selected project.
  *
- * @return {com.bitwig.extension.controller.api.Project}
+ * @return {Project}
  * @since API version 1
  */
 ControllerHost.prototype.getProject = function() {};
@@ -242,7 +242,7 @@ ControllerHost.prototype.getProject = function() {};
  * Studio. This function should be called once during initialization of the script if transport access is
  * desired.
  *
- * @return {com.bitwig.extension.controller.api.Transport} an object that represents the `Transport` section in Bitwig Studio.
+ * @return {Transport} an object that represents the `Transport` section in Bitwig Studio.
  * @since API version 1
  */
 ControllerHost.prototype.createTransport = function() {};
@@ -251,7 +251,7 @@ ControllerHost.prototype.createTransport = function() {};
  * Returns an object for controlling and monitoring the `Groove` section in Bitwig Studio. This function
  * should be called once during initialization of the script if groove control is desired.
  *
- * @return {com.bitwig.extension.controller.api.Groove} an object that represents the `Groove` section in Bitwig Studio.
+ * @return {Groove} an object that represents the `Groove` section in Bitwig Studio.
  * @since API version 1
  */
 ControllerHost.prototype.createGroove = function() {};
@@ -261,7 +261,7 @@ ControllerHost.prototype.createGroove = function() {};
  * settings, the list of open projects, and other global settings that are not related to a certain
  * document.
  *
- * @return {com.bitwig.extension.controller.api.Application} an application object.
+ * @return {Application} an application object.
  * @since API version 1
  */
 ControllerHost.prototype.createApplication = function() {};
@@ -270,7 +270,7 @@ ControllerHost.prototype.createApplication = function() {};
  * Returns an object which provides access to the `Arranger` panel of Bitwig Studio. Calling this function
  * is equal to `createArranger(-1)`.
  *
- * @return {com.bitwig.extension.controller.api.Arranger} an arranger object
+ * @return {Arranger} an arranger object
  * @since API version 1
  */
 ControllerHost.prototype.createArranger = function() {};
@@ -281,7 +281,7 @@ ControllerHost.prototype.createArranger = function() {};
  * @param window
           the index of the window where the arranger panel is shown, or -1 in case the first arranger
           panel found on any window should be taken
- * @return {com.bitwig.extension.controller.api.Arranger} an arranger object
+ * @return {Arranger} an arranger object
  * @since API version 1
  */
 ControllerHost.prototype.createArranger = function(window) {};
@@ -290,7 +290,7 @@ ControllerHost.prototype.createArranger = function(window) {};
  * Returns an object which provides access to the `Mixer` panel of Bitwig Studio. Calling this function is
  * equal to `createMixer(-1, null)`.
  *
- * @return {com.bitwig.extension.controller.api.Mixer} a `Mixer` object
+ * @return {Mixer} a `Mixer` object
  * @since API version 1
  */
 ControllerHost.prototype.createMixer = function() {};
@@ -304,7 +304,7 @@ ControllerHost.prototype.createMixer = function() {};
           panel layout in Bitwig Studio should be followed. Empty strings or invalid names are treated
           the same way as `null`. To receive the list of available panel layouts see
           {@link Application#addPanelLayoutObserver}.
- * @return {com.bitwig.extension.controller.api.Mixer} a `Mixer` object
+ * @return {Mixer} a `Mixer` object
  * @since API version 1
  */
 ControllerHost.prototype.createMixer = function(panelLayout) {};
@@ -316,7 +316,7 @@ ControllerHost.prototype.createMixer = function(panelLayout) {};
  * @param window
           the index of the window where the mixer panel is shown, or -1 in case the first mixer panel
           found on any window should be taken
- * @return {com.bitwig.extension.controller.api.Mixer} a `Mixer` object
+ * @return {Mixer} a `Mixer` object
  * @since API version 1
  */
 ControllerHost.prototype.createMixer = function(window) {};
@@ -332,7 +332,7 @@ ControllerHost.prototype.createMixer = function(window) {};
  * @param window
           the index of the window where the mixer panel is shown, or -1 in case the first mixer panel
           found on any window should be taken
- * @return {com.bitwig.extension.controller.api.Mixer} a `Mixer` object
+ * @return {Mixer} a `Mixer` object
  * @since API version 1
  */
 ControllerHost.prototype.createMixer = function(panelLayout, window) {};
@@ -360,7 +360,7 @@ ControllerHost.prototype.createMixer = function(panelLayout, window) {};
           the number of sends spanned by the track bank
  * @param numScenes
           the number of scenes spanned by the track bank
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 ControllerHost.prototype.createTrackBank = function(numTracks, numSends, numScenes) {};
@@ -391,7 +391,7 @@ ControllerHost.prototype.createTrackBank = function(numTracks, numSends, numScen
  * @param hasFlatTrackList
           specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 ControllerHost.prototype.createTrackBank = function(numTracks, numSends, numScenes, hasFlatTrackList) {};
@@ -407,7 +407,7 @@ ControllerHost.prototype.createTrackBank = function(numTracks, numSends, numScen
           the number of sends spanned by the track bank
  * @param numScenes
           the number of scenes spanned by the track bank
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 ControllerHost.prototype.createMainTrackBank = function(numTracks, numSends, numScenes) {};
@@ -421,7 +421,7 @@ ControllerHost.prototype.createMainTrackBank = function(numTracks, numSends, num
           the number of tracks spanned by the track bank
  * @param numScenes
           the number of scenes spanned by the track bank
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 ControllerHost.prototype.createEffectTrackBank = function(numTracks, numScenes) {};
@@ -431,7 +431,7 @@ ControllerHost.prototype.createEffectTrackBank = function(numTracks, numScenes) 
  *
  * @param numScenes
           the number of scenes for bank-wise navigation of the master tracks clip launcher slots.
- * @return {com.bitwig.extension.controller.api.MasterTrack} an object representing the master track.
+ * @return {MasterTrack} an object representing the master track.
  * @since API version 1
  */
 ControllerHost.prototype.createMasterTrack = function(numScenes) {};
@@ -445,7 +445,7 @@ ControllerHost.prototype.createMasterTrack = function(numScenes) {};
  * @param {int} numSends
  * @param {int} numScenes
  * @param {boolean} shouldFollowSelection
- * @return {com.bitwig.extension.controller.api.CursorTrack} an object representing the currently selected arranger track (in the future also multiple
+ * @return {CursorTrack} an object representing the currently selected arranger track (in the future also multiple
         tracks).
  * @since API version 1
  */
@@ -466,7 +466,7 @@ ControllerHost.prototype.createCursorTrack = function(id, name, numSends, numSce
  *
  * @param numScenes
           the number of scenes spanned by the track bank
- * @return {com.bitwig.extension.controller.api.SceneBank} an object for bank-wise navigation of scenes
+ * @return {SceneBank} an object for bank-wise navigation of scenes
  * @since API version 1
  */
 ControllerHost.prototype.createSceneBank = function(numScenes) {};
@@ -479,7 +479,7 @@ ControllerHost.prototype.createSceneBank = function(numScenes) {};
           the number of steps spanned by one page of the note content grid.
  * @param gridHeight
           the number of keys spanned by one page of the note content grid.
- * @return {com.bitwig.extension.controller.api.Clip} an object representing the currently selected cursor clip
+ * @return {Clip} an object representing the currently selected cursor clip
  * @since API version 1
  */
 ControllerHost.prototype.createLauncherCursorClip = function(gridWidth, gridHeight) {};
@@ -492,7 +492,7 @@ ControllerHost.prototype.createLauncherCursorClip = function(gridWidth, gridHeig
           the number of steps spanned by one page of the note content grid.
  * @param gridHeight
           the number of keys spanned by one page of the note content grid.
- * @return {com.bitwig.extension.controller.api.Clip} an object representing the currently selected cursor clip
+ * @return {Clip} an object representing the currently selected cursor clip
  * @since API version 1
  */
 ControllerHost.prototype.createArrangerCursorClip = function(gridWidth, gridHeight) {};
@@ -504,7 +504,7 @@ ControllerHost.prototype.createArrangerCursorClip = function(gridWidth, gridHeig
  *
  * @param numControllers
           the number of controls that are available for free assignments
- * @return {com.bitwig.extension.controller.api.UserControlBank} An object that represents a set of custom user controls.
+ * @return {UserControlBank} An object that represents a set of custom user controls.
  * @since API version 1
  */
 ControllerHost.prototype.createUserControls = function(numControllers) {};
@@ -567,7 +567,7 @@ ControllerHost.prototype.showPopupNotification = function(text) {};
  * @param defaultPort
           the port that should be used for the connection. If the port is already in use, then another
           port will be used. Check {@link RemoteSocket#getPort()} on the returned object to be sure.
- * @return {com.bitwig.extension.controller.api.RemoteSocket} the object that represents the socket
+ * @return {RemoteSocket} the object that represents the socket
  * @since API version 1
  */
 ControllerHost.prototype.createRemoteConnection = function(name, defaultPort) {};
@@ -618,7 +618,7 @@ ControllerHost.prototype.addDatagramPacketObserver = function(name, port, callba
 /**
  * @param {int} numSends
  * @param {int} numScenes
- * @return {com.bitwig.extension.controller.api.CursorTrack}
+ * @return {CursorTrack}
  * @since API version 1
  */
 ControllerHost.prototype.createCursorTrack = function(numSends, numScenes) {};
@@ -626,7 +626,7 @@ ControllerHost.prototype.createCursorTrack = function(numSends, numScenes) {};
 /**
  * Creates a {@link PopupBrowser} that represents the pop-up browser in Bitwig Studio.
  *
- * @return {com.bitwig.extension.controller.api.PopupBrowser}
+ * @return {PopupBrowser}
  * @since API version 2
  */
 ControllerHost.prototype.createPopupBrowser = function() {};
@@ -636,7 +636,7 @@ ControllerHost.prototype.createPopupBrowser = function() {};
  * when asking for a beat time in string format without providing any formatting options. For example by
  * calling {@link BeatTimeStringValue#get()}.
  *
- * @return {com.bitwig.extension.controller.api.BeatTimeFormatter}
+ * @return {BeatTimeFormatter}
  * @since API version 2
  */
 ControllerHost.prototype.defaultBeatTimeFormatter = function() {};
@@ -644,7 +644,7 @@ ControllerHost.prototype.defaultBeatTimeFormatter = function() {};
 /**
  * Sets the {@link BeatTimeFormatter} to use by default for formatting beat times.
  *
- * @param {com.bitwig.extension.controller.api.BeatTimeFormatter} formatter
+ * @param {BeatTimeFormatter} formatter
  * @since API version 2
  */
 ControllerHost.prototype.setDefaultBeatTimeFormatter = function(formatter) {};
@@ -663,7 +663,7 @@ ControllerHost.prototype.setDefaultBeatTimeFormatter = function(formatter) {};
           the number of digits reserved for beat subdivisions
  * @param ticksLen
           the number of digits reserved for ticks
- * @return {com.bitwig.extension.controller.api.BeatTimeFormatter}
+ * @return {BeatTimeFormatter}
  * @since API version 2
  */
 ControllerHost.prototype.createBeatTimeFormatter = function(separator, barsLen, beatsLen, subdivisionLen, ticksLen) {};
@@ -671,7 +671,7 @@ ControllerHost.prototype.createBeatTimeFormatter = function(separator, barsLen, 
 /**
  * Creates a {@link HardwareSurface} that can contain hardware controls.
  *
- * @return {com.bitwig.extension.controller.api.HardwareSurface}
+ * @return {HardwareSurface}
  * @since API version 10
  */
 ControllerHost.prototype.createHardwareSurface = function() {};
@@ -679,9 +679,9 @@ ControllerHost.prototype.createHardwareSurface = function() {};
 /**
  * Creates a {@link HardwareActionMatcher} that is matched by either of the 2 supplied action matchers.
  *
- * @param {com.bitwig.extension.controller.api.HardwareActionMatcher} matcher1
- * @param {com.bitwig.extension.controller.api.HardwareActionMatcher} matcher2
- * @return {com.bitwig.extension.controller.api.HardwareActionMatcher}
+ * @param {HardwareActionMatcher} matcher1
+ * @param {HardwareActionMatcher} matcher2
+ * @return {HardwareActionMatcher}
  * @since API version 10
  */
 ControllerHost.prototype.createOrHardwareActionMatcher = function(matcher1, matcher2) {};
@@ -690,9 +690,9 @@ ControllerHost.prototype.createOrHardwareActionMatcher = function(matcher1, matc
  * Creates a {@link RelativeHardwareValueMatcher} that is matched by either of the 2 supplied action
  * matchers.
  *
- * @param {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher} matcher1
- * @param {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher} matcher2
- * @return {com.bitwig.extension.controller.api.RelativeHardwareValueMatcher}
+ * @param {RelativeHardwareValueMatcher} matcher1
+ * @param {RelativeHardwareValueMatcher} matcher2
+ * @return {RelativeHardwareValueMatcher}
  * @since API version 10
  */
 ControllerHost.prototype.createOrRelativeHardwareValueMatcher = function(matcher1, matcher2) {};
@@ -701,9 +701,9 @@ ControllerHost.prototype.createOrRelativeHardwareValueMatcher = function(matcher
  * Creates a {@link AbsoluteHardwareValueMatcher} that is matched by either of the 2 supplied action
  * matchers.
  *
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} matcher1
- * @param {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher} matcher2
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwareValueMatcher}
+ * @param {AbsoluteHardwareValueMatcher} matcher1
+ * @param {AbsoluteHardwareValueMatcher} matcher2
+ * @return {AbsoluteHardwareValueMatcher}
  * @since API version 10
  */
 ControllerHost.prototype.createOrAbsoluteHardwareValueMatcher = function(matcher1, matcher2) {};
@@ -712,7 +712,7 @@ ControllerHost.prototype.createOrAbsoluteHardwareValueMatcher = function(matcher
  * An object that can be used to generate useful MIDI expression strings which can be used in
  * {@link MidiIn#createActionMatcher(String)} and other related methods.
  *
- * @return {com.bitwig.extension.controller.api.MidiExpressions}
+ * @return {MidiExpressions}
  * @since API version 10
  */
 ControllerHost.prototype.midiExpressions = function() {};
@@ -726,7 +726,7 @@ ControllerHost.prototype.midiExpressions = function() {};
  * @param descriptionProvider
           Provider that can provide a description of what the runnable does (used for showing onscreen
           feedback or help to the user).
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 ControllerHost.prototype.createAction = function(runnable, descriptionProvider) {};
@@ -740,7 +740,7 @@ ControllerHost.prototype.createAction = function(runnable, descriptionProvider) 
  * @param descriptionProvider
           Provider that can provide a description of what the runnable does (used for showing onscreen
           feedback or help to the user).
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 ControllerHost.prototype.createAction = function(actionPressureConsumer, descriptionProvider) {};
@@ -754,7 +754,7 @@ ControllerHost.prototype.createAction = function(actionPressureConsumer, descrip
           The action that should happen when stepping forwards
  * @param stepBackwardsAction
           The action that should happen when stepping backwards
- * @return {com.bitwig.extension.controller.api.RelativeHardwarControlBindable}
+ * @return {RelativeHardwarControlBindable}
  * @since API version 10
  */
 ControllerHost.prototype.createRelativeHardwareControlStepTarget = function(stepForwardsAction, stepBackwardsAction) {};
@@ -766,7 +766,7 @@ ControllerHost.prototype.createRelativeHardwareControlStepTarget = function(step
  * @param adjustmentConsumer
           A consumer that will receive the relative adjustment amount when bound to a
           {@link RelativeHardwareControl}.
- * @return {com.bitwig.extension.controller.api.RelativeHardwarControlBindable}
+ * @return {RelativeHardwarControlBindable}
  * @since API version 10
  */
 ControllerHost.prototype.createRelativeHardwareControlAdjustmentTarget = function(adjustmentConsumer) {};
@@ -778,7 +778,7 @@ ControllerHost.prototype.createRelativeHardwareControlAdjustmentTarget = functio
  * @param adjustmentConsumer
           A consumer that will receive the absolute adjustment amount when bound to an
           {@link AbsoluteHardwareControl}.
- * @return {com.bitwig.extension.controller.api.AbsoluteHardwarControlBindable}
+ * @return {AbsoluteHardwarControlBindable}
  * @since API version 10
  */
 ControllerHost.prototype.createAbsoluteHardwareControlAdjustmentTarget = function(adjustmentConsumer) {};
@@ -787,13 +787,13 @@ ControllerHost.prototype.createAbsoluteHardwareControlAdjustmentTarget = functio
  * It will delete multiple object within one undo step.
  *
  * @param {string} undoName
- * @param {com.bitwig.extension.controller.api.DeleteableObject} objects
+ * @param {DeleteableObject} objects
  */
 ControllerHost.prototype.deleteObjects = function(undoName, /*...*/objects) {};
 
 /**
  * It will delete multiple object within one undo step.
  *
- * @param {com.bitwig.extension.controller.api.DeleteableObject} objects
+ * @param {DeleteableObject} objects
  */
 ControllerHost.prototype.deleteObjects = function(/*...*/objects) {};

@@ -15,7 +15,7 @@ MultiStateHardwareLight.prototype.constructor = MultiStateHardwareLight;
  * Value that represents the current state of this light as an integer. The interpretation of this value is
  * entirely up to the implementation.
  *
- * @return {com.bitwig.extension.controller.api.ObjectHardwareProperty<com.bitwig.extension.controller.api.InternalHardwareLightState>}
+ * @return {ObjectHardwareProperty<InternalHardwareLightState>}
  */
 MultiStateHardwareLight.prototype.state = function() {};
 
@@ -24,7 +24,7 @@ MultiStateHardwareLight.prototype.state = function() {};
  * color. Once this function has been provided it is possible to then use the convenient
  * {@link #setColor(Color)} and {@link #setColorSupplier(Supplier)} methods.
  *
- * @param {java.util.function.Function<com.bitwig.extension.api.Color,com.bitwig.extension.controller.api.InternalHardwareLightState>} function
+ * @param {java.util.function.Function<Color,InternalHardwareLightState>} function
  */
 MultiStateHardwareLight.prototype.setColorToStateFunction = function(function) {};
 
@@ -32,7 +32,7 @@ MultiStateHardwareLight.prototype.setColorToStateFunction = function(function) {
  * Tries to set this light's state to be the best state to represent the supplied {@link Color}. For this
  * to be used you must first call {@link #setColorToStateFunction(IntFunction)}.
  *
- * @param {com.bitwig.extension.api.Color} color
+ * @param {Color} color
  */
 MultiStateHardwareLight.prototype.setColor = function(color) {};
 
@@ -40,12 +40,12 @@ MultiStateHardwareLight.prototype.setColor = function(color) {};
  * Tries to set this light's state to be the best state to represent the value supplied by the
  * {@link Supplier}. For this to be used you must first call {@link #setColorToStateFunction(IntFunction)}.
  *
- * @param {java.util.function.Supplier<com.bitwig.extension.api.Color>} colorSupplier
+ * @param {java.util.function.Supplier<Color>} colorSupplier
  */
 MultiStateHardwareLight.prototype.setColorSupplier = function(colorSupplier) {};
 
 /**
- * @param {com.bitwig.extension.api.Color} color
- * @return {com.bitwig.extension.controller.api.InternalHardwareLightState}
+ * @param {Color} color
+ * @return {InternalHardwareLightState}
  */
 MultiStateHardwareLight.prototype.getBestLightStateForColor = function(color) {};

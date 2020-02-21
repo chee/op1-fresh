@@ -24,6 +24,6 @@ UsbDeviceMatcher.prototype.getExpression = function() {};
 /**
  * Object that tries to match a configuration on the device that it can use.
  *
- * @return {com.bitwig.extension.controller.UsbConfigurationMatcher}
+ * @return {UsbConfigurationMatcher}
  */
 UsbDeviceMatcher.prototype.getConfigurationMatcher = function() {};

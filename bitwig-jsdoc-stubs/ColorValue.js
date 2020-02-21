@@ -38,6 +38,6 @@ ColorValue.prototype.blue = function() {};
 ColorValue.prototype.alpha = function() {};
 
 /**
- * @return {com.bitwig.extension.api.Color}
+ * @return {Color}
  */
 ColorValue.prototype.get = function() {};

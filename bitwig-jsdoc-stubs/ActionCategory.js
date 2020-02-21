@@ -30,7 +30,7 @@ ActionCategory.prototype.getName = function() {};
 /**
  * Lists all actions in this category.
  *
- * @return {com.bitwig.extension.controller.api.Action[]} the array of actions in this category
+ * @return {Action[]} the array of actions in this category
  * @since API version 1
  */
 ActionCategory.prototype.getActions = function() {};

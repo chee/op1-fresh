@@ -5,7 +5,7 @@
  *
  * @since API version 1
  */
-com.bitwig.extension.controller.api.CursorNavigationMode = {
+CursorNavigationMode = {
 	NESTED: 0,
 	FLAT: 1,
 	GUI: 2,

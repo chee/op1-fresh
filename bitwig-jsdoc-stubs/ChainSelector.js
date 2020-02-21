@@ -17,7 +17,7 @@ ChainSelector.prototype.constructor = ChainSelector;
  * In case the chain selector has no chains or the value is not connected to the chain selector,
  * then the value will be 0.
  *
- * @return {com.bitwig.extension.controller.api.SettableIntegerValue}
+ * @return {SettableIntegerValue}
  * @since API version 6
  */
 ChainSelector.prototype.activeChainIndex = function() {};
@@ -25,7 +25,7 @@ ChainSelector.prototype.activeChainIndex = function() {};
 /**
  * The number of chains in the chain selector.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 6
  */
 ChainSelector.prototype.chainCount = function() {};
@@ -33,7 +33,7 @@ ChainSelector.prototype.chainCount = function() {};
 /**
  * The active device layer.
  *
- * @return {com.bitwig.extension.controller.api.DeviceLayer}
+ * @return {DeviceLayer}
  * @since API version 6
  */
 ChainSelector.prototype.activeChain = function() {};

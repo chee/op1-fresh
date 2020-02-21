@@ -5,7 +5,7 @@
  * for by default. The user can still override this on a track by track basis but this defines a default
  * follow mode when the user has not done this.
  */
-com.bitwig.extension.controller.api.CursorDeviceFollowMode = {
+CursorDeviceFollowMode = {
 	/**
 	 * Follows the device selection made by the user in the track.
 	 */

@@ -1,6 +1,6 @@
 /* API Version - 3.1.2 */
 
-com.bitwig.extension.api.graphics.BitmapFormat = {
+BitmapFormat = {
 	/**
 	 * Each pixel is a 32-bit quantity, with alpha in the upper 8 bits, then red, then green, then
  * blue. The 32-bit quantities are stored native-endian. Pre-multiplied alpha is used. (That is,

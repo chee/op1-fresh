@@ -5,7 +5,7 @@
  *
  * @since API version 10
  */
-com.bitwig.extension.controller.api.RelativePosition = {
+RelativePosition = {
 	ABOVE: 0,
 	BELOW: 1,
 	LEFT: 2,

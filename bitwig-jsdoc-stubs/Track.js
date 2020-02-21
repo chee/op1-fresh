@@ -13,7 +13,7 @@ Track.prototype.constructor = Track;
 /**
  * Value that reports the position of the track within the list of Bitwig Studio tracks.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 Track.prototype.position = function() {};
@@ -21,7 +21,7 @@ Track.prototype.position = function() {};
 /**
  * Returns an object that can be used to access the clip launcher slots of the track.
  *
- * @return {com.bitwig.extension.controller.api.ClipLauncherSlotBank} an object that represents the clip launcher slots of the track
+ * @return {ClipLauncherSlotBank} an object that represents the clip launcher slots of the track
  * @since API version 2
  */
 Track.prototype.clipLauncherSlotBank = function() {};
@@ -29,7 +29,7 @@ Track.prototype.clipLauncherSlotBank = function() {};
 /**
  * Returns an object that provides access to the arm state of the track.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 5
  */
 Track.prototype.arm = function() {};
@@ -37,7 +37,7 @@ Track.prototype.arm = function() {};
 /**
  * Returns an object that provides access to the monitoring state of the track.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 5
  */
 Track.prototype.monitor = function() {};
@@ -45,7 +45,7 @@ Track.prototype.monitor = function() {};
 /**
  * Returns an object that provides access to the auto-monitoring state of the track.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 5
  */
 Track.prototype.autoMonitor = function() {};
@@ -53,7 +53,7 @@ Track.prototype.autoMonitor = function() {};
 /**
  * Returns an object that provides access to the cross-fade mode of the track.
  *
- * @return {com.bitwig.extension.controller.api.SettableEnumValue} an enum value object that has three possible states: "A", "B", or "AB"
+ * @return {SettableEnumValue} an enum value object that has three possible states: "A", "B", or "AB"
  * @since API version 5
  */
 Track.prototype.crossFadeMode = function() {};
@@ -62,7 +62,7 @@ Track.prototype.crossFadeMode = function() {};
  * Value that reports if this track is currently stopped. When a track is stopped it is not playing content
  * from the arranger or clip launcher.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Track.prototype.isStopped = function() {};
@@ -70,7 +70,7 @@ Track.prototype.isStopped = function() {};
 /**
  * Value that reports if the clip launcher slots are queued for stop.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Track.prototype.isQueuedForStop = function() {};
@@ -79,7 +79,7 @@ Track.prototype.isQueuedForStop = function() {};
  * Returns the source selector for the track, which is shown in the IO section of the track in Bitwig
  * Studio and lists either note or audio sources or both depending on the track type.
  *
- * @return {com.bitwig.extension.controller.api.SourceSelector} a source selector object
+ * @return {SourceSelector} a source selector object
  * @since API version 5
  */
 Track.prototype.sourceSelector = function() {};
@@ -94,7 +94,7 @@ Track.prototype.stop = function() {};
 /**
  * Action to call {@link #stop()}.
  *
- * @return {com.bitwig.extension.controller.api.HardwareActionBindable}
+ * @return {HardwareActionBindable}
  * @since API version 10
  */
 Track.prototype.stopAction = function() {};
@@ -177,7 +177,7 @@ Track.prototype.sendMidi = function(status, data1, data2) {};
  * Value that reports the track type. Possible reported track types are `Group`, `Instrument`, `Audio`,
  * `Hybrid`, `Effect` or `Master`.
  *
- * @return {com.bitwig.extension.controller.api.StringValue}
+ * @return {StringValue}
  * @since API version 2
  */
 Track.prototype.trackType = function() {};
@@ -185,7 +185,7 @@ Track.prototype.trackType = function() {};
 /**
  * Value that reports if the track may contain child tracks, which is the case for group tracks.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 2
  */
 Track.prototype.isGroup = function() {};
@@ -194,7 +194,7 @@ Track.prototype.isGroup = function() {};
  * If the track is an effect track, returns an object that indicates if the effect track is configured
  * as pre-fader.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue}
+ * @return {SettableBooleanValue}
  * @since API version 10
  */
 Track.prototype.getIsPreFader = function() {};
@@ -202,7 +202,7 @@ Track.prototype.getIsPreFader = function() {};
 /**
  * Returns an object that indicates if the track may contain notes.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 5
  */
 Track.prototype.canHoldNoteData = function() {};
@@ -210,7 +210,7 @@ Track.prototype.canHoldNoteData = function() {};
 /**
  * Returns an object that indicates if the track may contain audio events.
  *
- * @return {com.bitwig.extension.controller.api.SettableBooleanValue} a boolean value object
+ * @return {SettableBooleanValue} a boolean value object
  * @since API version 5
  */
 Track.prototype.canHoldAudioData = function() {};
@@ -219,7 +219,7 @@ Track.prototype.canHoldAudioData = function() {};
  * Returns an object that provides access to the cursor item of the track's device selection as shown in
  * the Bitwig Studio user interface.
  *
- * @return {com.bitwig.extension.controller.api.CursorDevice} the requested device selection cursor object
+ * @return {CursorDevice} the requested device selection cursor object
 @since API version 1
  */
 Track.prototype.createCursorDevice = function() {};
@@ -233,7 +233,7 @@ Track.prototype.createCursorDevice = function() {};
           the name of the custom device selection cursor, for example "Primary", or `null` to refer to
           the device selection cursor in the arranger cursor track as shown in the Bitwig Studio user
           interface.
- * @return {com.bitwig.extension.controller.api.CursorDevice} the requested device selection cursor object
+ * @return {CursorDevice} the requested device selection cursor object
 @see Track#createCursorDevice
  * @since API version 1
  */
@@ -250,7 +250,7 @@ Track.prototype.createCursorDevice = function(name) {};
           interface.
  * @param numSends
           the number of sends that are simultaneously accessible in nested channels.
- * @return {com.bitwig.extension.controller.api.CursorDevice} the requested device selection cursor object
+ * @return {CursorDevice} the requested device selection cursor object
 @see Track#createCursorDevice
  * @since API version 1
  */
@@ -283,7 +283,7 @@ Track.prototype.createCursorDevice = function(name, numSends) {};
  * @param hasFlatTrackList
           specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 Track.prototype.createTrackBank = function(numTracks, numSends, numScenes, hasFlatTrackList) {};
@@ -303,7 +303,7 @@ Track.prototype.createTrackBank = function(numTracks, numSends, numScenes, hasFl
  * @param hasFlatTrackList
           specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 Track.prototype.createMainTrackBank = function(numTracks, numSends, numScenes, hasFlatTrackList) {};
@@ -321,7 +321,7 @@ Track.prototype.createMainTrackBank = function(numTracks, numSends, numScenes, h
  * @param hasFlatTrackList
           specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
  * @since API version 1
  */
 Track.prototype.createEffectTrackBank = function(numTracks, numScenes, hasFlatTrackList) {};
@@ -332,7 +332,7 @@ Track.prototype.createEffectTrackBank = function(numTracks, numScenes, hasFlatTr
  *
  * @param numScenes
           the number of scenes for bank-wise navigation of the master tracks clip launcher slots.
- * @return {com.bitwig.extension.controller.api.MasterTrack} an object representing the master track of the connected track group.
+ * @return {MasterTrack} an object representing the master track of the connected track group.
  * @since API version 1
  */
 Track.prototype.createMasterTrack = function(numScenes) {};
@@ -351,7 +351,7 @@ Track.prototype.createMasterTrack = function(numScenes) {};
           specifies whether effect tracks should be included
  * @param shouldIncludeMasterTrack
           specifies whether the master should be included
- * @return {com.bitwig.extension.controller.api.TrackBank} an object for bank-wise navigation of sibling tracks
+ * @return {TrackBank} an object for bank-wise navigation of sibling tracks
  * @since API version 1
  */
 Track.prototype.createSiblingsTrackBank = function(numTracks, numSends, numScenes, shouldIncludeEffectTracks, shouldIncludeMasterTrack) {};
@@ -359,7 +359,7 @@ Track.prototype.createSiblingsTrackBank = function(numTracks, numSends, numScene
 /**
  * {@link InsertionPoint} that can be used to insert after this track.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 Track.prototype.afterTrackInsertionPoint = function() {};
@@ -367,7 +367,7 @@ Track.prototype.afterTrackInsertionPoint = function() {};
 /**
  * {@link InsertionPoint} that can be used to insert after this track.
  *
- * @return {com.bitwig.extension.controller.api.InsertionPoint}
+ * @return {InsertionPoint}
  * @since API version 7
  */
 Track.prototype.beforeTrackInsertionPoint = function() {};
@@ -377,7 +377,7 @@ Track.prototype.beforeTrackInsertionPoint = function() {};
  *
  * @param {int} numSends
  * @param {int} numScenes
- * @return {com.bitwig.extension.controller.api.Track}
+ * @return {Track}
  * @since API version 10
  */
 Track.prototype.createParentTrack = function(numSends, numScenes) {};
@@ -385,14 +385,14 @@ Track.prototype.createParentTrack = function(numSends, numScenes) {};
 /**
  * Routes the given noteInput directly to the track regardless of monitoring.
  *
- * @param {com.bitwig.extension.controller.api.NoteInput} noteInput
+ * @param {NoteInput} noteInput
  */
 Track.prototype.addNoteSource = function(noteInput) {};
 
 /**
  * Removes a routing operated by {@link #addNoteSource(NoteInput)}
  *
- * @param {com.bitwig.extension.controller.api.NoteInput} noteInput
+ * @param {NoteInput} noteInput
  */
 Track.prototype.removeNoteSource = function(noteInput) {};
 

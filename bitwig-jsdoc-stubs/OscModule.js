@@ -13,7 +13,7 @@ function OscModule() {}
  * In short the OscAddressSpace dispatches the incoming messages to services.
  * An OscAddressSpace is an OscService.
  *
- * @return {com.bitwig.extension.api.opensoundcontrol.OscAddressSpace}
+ * @return {OscAddressSpace}
  * @since API version 5
  */
 OscModule.prototype.createAddressSpace = function() {};
@@ -22,7 +22,7 @@ OscModule.prototype.createAddressSpace = function() {};
  * Creates a new OSC Server.
  *
  * @param {int} port
- * @param {com.bitwig.extension.api.opensoundcontrol.OscAddressSpace} addressSpace
+ * @param {OscAddressSpace} addressSpace
  * @since API version 5
  */
 OscModule.prototype.createUdpServer = function(port, addressSpace) {};
@@ -33,8 +33,8 @@ OscModule.prototype.createUdpServer = function(port, addressSpace) {};
  * Use this method if the port is not known during the initialization (coming from a setting)
  * or if the port number can change at runtime.
  *
- * @param {com.bitwig.extension.api.opensoundcontrol.OscAddressSpace} addressSpace Use {@link #createAddressSpace()}
- * @return {com.bitwig.extension.api.opensoundcontrol.OscServer} a new OscServer
+ * @param {OscAddressSpace} addressSpace Use {@link #createAddressSpace()}
+ * @return {OscServer} a new OscServer
  * @since API version 10
  */
 OscModule.prototype.createUdpServer = function(addressSpace) {};
@@ -44,8 +44,8 @@ OscModule.prototype.createUdpServer = function(addressSpace) {};
  *
  * @param {string} host
  * @param {int} port
- * @param {com.bitwig.extension.api.opensoundcontrol.OscAddressSpace} addressSpace
- * @return {com.bitwig.extension.api.opensoundcontrol.OscConnection} a new OscConnection
+ * @param {OscAddressSpace} addressSpace
+ * @return {OscConnection} a new OscConnection
  * @since API version 5
  */
 OscModule.prototype.connectToUdpServer = function(host, port, addressSpace) {};

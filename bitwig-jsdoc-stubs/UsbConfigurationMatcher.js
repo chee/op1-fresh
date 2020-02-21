@@ -3,6 +3,6 @@
 function UsbConfigurationMatcher() {}
 
 /**
- * @return {com.bitwig.extension.controller.UsbInterfaceMatcher[]}
+ * @return {UsbInterfaceMatcher[]}
  */
 UsbConfigurationMatcher.prototype.getInterfaceMatchers = function() {};

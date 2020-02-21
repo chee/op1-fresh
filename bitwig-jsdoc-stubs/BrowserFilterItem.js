@@ -13,7 +13,7 @@ BrowserFilterItem.prototype.constructor = BrowserFilterItem;
 /**
  * Value that reports the hit count of the filter item.
  *
- * @return {com.bitwig.extension.controller.api.IntegerValue}
+ * @return {IntegerValue}
  * @since API version 2
  */
 BrowserFilterItem.prototype.hitCount = function() {};

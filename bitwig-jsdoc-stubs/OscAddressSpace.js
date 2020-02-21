@@ -26,14 +26,14 @@ OscAddressSpace.prototype.registerObjectMethods = function(addressPrefix, object
  * @param {string} address The address to register the method at
  * @param {string} typeTagPattern The globing pattern used to match the type tag. Pass "*" to match anything.
  * @param {string} desc The method description.
- * @param {com.bitwig.extension.api.opensoundcontrol.OscMethodCallback} callback The OSC Method call handler.
+ * @param {OscMethodCallback} callback The OSC Method call handler.
  */
 OscAddressSpace.prototype.registerMethod = function(address, typeTagPattern, desc, callback) {};
 
 /**
  * This method will be called if no registered OscMethod could handle incoming OscPacket.
  *
- * @param {com.bitwig.extension.api.opensoundcontrol.OscMethodCallback} callback
+ * @param {OscMethodCallback} callback
  */
 OscAddressSpace.prototype.registerDefaultMethod = function(callback) {};
 

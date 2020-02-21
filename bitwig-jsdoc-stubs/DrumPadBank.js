@@ -45,7 +45,7 @@ DrumPadBank.prototype.clearSoloedPads = function() {};
 /**
  * True if there is one or many muted pads.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 DrumPadBank.prototype.hasMutedPads = function() {};
@@ -53,7 +53,7 @@ DrumPadBank.prototype.hasMutedPads = function() {};
 /**
  * True if there is one or many soloed pads.
  *
- * @return {com.bitwig.extension.controller.api.BooleanValue}
+ * @return {BooleanValue}
  * @since API version 10
  */
 DrumPadBank.prototype.hasSoloedPads = function() {};
