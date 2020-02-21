@@ -1,6 +1,7 @@
 "use strict";
 var _a;
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
+// declare var errorln: ControllerHost["errorln"]
 loadAPI(10);
 // Remove this if you want to be able to use deprecated methods without causing script to stop.
 // This is useful during development.
@@ -15,11 +16,11 @@ var op1 = {
         disable: "f0 00 20 76 00 01 00 f7",
         text: {
             start: "f0 0 20 76 00 03",
-            end: "f7"
+            end: "f7",
         },
         color: {
-            start: "f0 0 20 76 00 04"
-        }
+            start: "f0 0 20 76 00 04",
+        },
     },
     mode: 0,
     cc: {
@@ -74,45 +75,50 @@ var op1 = {
     },
     print: function (text) {
         text = text.trim();
-        var hext = Array.prototype.slice(text).map(function (c) { return c.charCodeAt(0).toString(16).padStart(2, "0"); }).join("");
+        // @ts-ignore
+        var chars = Array.prototype.slice(text);
+        var hext = chars.map(function (c) { return c.charCodeAt(0).toString(16).padStart(2, "0"); }).join("");
         // not sure if this space should be here
         // this.send(`${this.sequences.text.start}${text.length}${hext}${this.sequences.text.end}`)
         this.send(this.sequences.text.start + " " + text.length + hext + this.sequences.text.end);
     }
 };
 host.defineSysexIdentityReply(op1.sequences.id);
-var state = {
-    _subs: new Set(),
-    _shift: false,
-    _metronome: false,
-    _playing: false,
-    subscribe: function (fn) {
-        var _this = this;
-        this._subs.add(fn);
-        return function () { return _this._subs.remove(fn); };
-    },
-    set shift(boolean) {
-        this._shift = boolean;
-        this._subs.forEach(function (fn) { return fn(); });
-    },
-    get shift() {
-        return this._shift;
-    },
-    set metronome(boolean) {
-        this._metronome = boolean;
-        this._subs.forEach(function (fn) { return fn(); });
-    },
-    get metronome() {
-        return this._metronome;
-    },
-    set playing(boolean) {
-        this._playing = boolean;
-        this._subs.forEach(function (fn) { return fn(); });
-    },
-    get playing() {
-        return this._playing;
+function createStore(initialState) {
+    var subs = new Set();
+    var state = {};
+    var store = {};
+    var _loop_1 = function (key) {
+        state[key] = initialState[key];
+        Object.defineProperty(store, key, {
+            enumerable: true,
+            get: function () {
+                return state[key];
+            },
+            set: function (value) {
+                state[key] = value;
+                subs.forEach(function (fn) { return fn(); });
+            }
+        });
+    };
+    for (var key in initialState) {
+        _loop_1(key);
     }
-};
+    Object.defineProperty(store, "subscribe", {
+        enumerable: false,
+        value: function (fn) {
+            subs.add(fn);
+            return function () { return subs.remove(fn); };
+        }
+    });
+    return store;
+}
+var state = createStore({
+    shift: false,
+    metronome: false,
+    playing: false
+});
+init; // shutup typescript
 function init() {
     transport = host.createTransport();
     keyboard = op1.input().createNoteInput("op-1 fresh keyboard", "??????");
@@ -156,8 +162,11 @@ var midiHandlers = (_a = {},
         if (state.shift) {
             cursorTrack.getMute().toggle();
         }
-        else if (state.play) {
+        else if (state.playing) {
             transport.stop();
+        }
+        else {
+            transport.setPosition(0);
         }
     },
     _a[op1.cc.metronome] = function () {
@@ -173,16 +182,16 @@ var midiHandlers = (_a = {},
 function onMidi(status, data1, data2) {
     if (data1 == op1.cc.shift) {
         if (data2 > 0) {
-            store.shift = true;
+            state.shift = true;
         }
         else {
-            store.shift = false;
+            state.shift = false;
         }
     }
     // TODO investigate why this is `data2 > 0`
     if (data2 > 0) {
         var handler = midiHandlers[data1];
-        handler && handler(status, data1, data2);
+        handler && handler( /* status, data1, data2 */);
     }
 }
 // Called when a MIDI sysex message is received on MIDI input port 0.

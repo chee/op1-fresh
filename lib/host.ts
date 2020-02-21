@@ -1,5 +1,29 @@
 import type {Transport} from "./transport"
 import type {MidiIn, MidiOut} from "./midi"
+import type {Application} from "./application"
+
+/** Defines the interface through which an extension can talk to the host application. */
+export interface Host {
+	/** Returns the latest supported API version of the host application. */
+	getHostApiVersion(): number
+	/** Returns the product name of the host application */
+	getHostVendor(): string
+	getHostProduct(): string
+	getHostVersion(): string
+	// getPlatformType(): PlatformType
+	setErrorReportingEMail (address: string): void
+	// getOscModule(): OscModule
+	/**
+	   Allocates some memory that will be automatically freed once the
+	   extension exits.
+	*/
+	// allocateMemoryBlock (size: number): MemoryBlock
+	// createBitmap (width: number, height: number, format: BitmapFormat): Bitmap
+	// loadFontFace (path: string): FontFace
+	// createFontOptions(): FontOptions
+	// loadPNG (path: string): Image
+	// loadSVG (path: string, scale: number): Image
+}
 
 /**
    An interface representing the host application to the script. A singleton
@@ -32,7 +56,7 @@ import type {MidiIn, MidiOut} from "./midi"
    The last group is probably only required in rare cases and can be called any
    time.
 */
-export interface ControllerHost {
+export interface ControllerHost extends Host {
 	/** Restarts this controller. */
 	restart(): void
 	/** Loads the supplied API version into the calling script. */
@@ -51,6 +75,9 @@ export interface ControllerHost {
 	getMidiInPort(index: number): MidiIn
 	getMidiOutPort(index: number): MidiOut
 	defineSysexIdentityReply(reply: string): void
+	println(s: string): void
+	errorln(s: string): void
+	createApplication(): Application
 	// HardwareDevice 	hardwareDevice (int index)
 	// Preferences 	getPreferences ()
 	// DocumentState 	getDocumentState ()
@@ -82,8 +109,6 @@ export interface ControllerHost {
 	// void 	scheduleTask (JSObject callback, Object[] args, long delay)
 	// void 	scheduleTask (Runnable callback, long delay)
 	// void 	requestFlush ()
-	// void 	println (String s)
-	// void 	errorln (String s)
 	// void 	showPopupNotification (String text)
 	// RemoteSocket 	createRemoteConnection (String name, int defaultPort)
 	// void 	connectToRemoteHost (String host, int port, ConnectionEstablishedCallback callback)
