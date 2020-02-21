@@ -1,0 +1,17 @@
+{
+	"name": "op1-bitwig-controller-script",
+	"version": "1.0.0",
+	"description": "op-1 [fresh]",
+	"main": "op-1 [fresh].control.js",
+	"scripts": {
+		"build": "tsc 'op-1 [fresh].control.ts'",
+		"pretest": "npm run-script -s build",
+		"test": "echo ^_^"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://git.snoot.club/chee/op1-fresh"
+	},
+	"author": "chee <chee@snoot.club>",
+	"license": "GPL-3.0+"
+}
