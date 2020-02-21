@@ -1,0 +1,16 @@
+/* API Version - 3.1.2 */
+
+/**
+ * Base class for OscPackets.
+ *
+ * @since API version 5
+ */
+function OscPacket() {}
+
+/**
+ * If the message was part of a bundle, get a pointer back to it.
+ * If not, this methods returns null.
+ *
+ * @return {com.bitwig.extension.api.opensoundcontrol.OscBundle}
+ */
+OscPacket.prototype.getParentBundle = function() {};
