@@ -14,5 +14,6 @@
 		"url": "https://git.snoot.club/chee/op1-fresh"
 	},
 	"author": "chee <chee@snoot.club>",
-	"license": "GPL-3.0+"
+	"license": "GPL-3.0+",
+	"devDependencies": {}
 }
