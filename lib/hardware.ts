@@ -1,5 +1,5 @@
 import type {Color} from "./color"
-import type { BooleanValue } from "./value"
+import type {BooleanValue, SettableRangedValue} from "./value"
 
 export interface HardwareBindingSource<HardwareBindingType> {
 	canBindTo(target: Object): boolean
@@ -37,15 +37,38 @@ export interface HardwareElement {
 	getHeight(): number
 }
 
+export interface HardwareOutputElement extends HardwareElement {
+	/** no idea what a Runnable is */
+	onUpdateHardware(sendStateRunnable: /*Runnable*/ () => void): void
+}
+
+export interface HardwareLight extends HardwareOutputElement {
+
+}
+
 export interface HardwareControl {
 	beginTouchAction(): HardwareAction
 	endTouchAction(): HardwareAction
 	isBeingTouched(): BooleanValue
 	backgroundLight(): HardwareLight
-	setBackgroundLight (HardwareLight light): void
+	setBackgroundLight (light: HardwareLight): void
+}
+
+
+export interface HardwareButton extends HardwareControl {
+	pressedAction(): HardwareAction
+	releasedAction(): HardwareAction
+	isPressed(): BooleanValue
+	setAftertouchControl (control: AbsoluteHardwareControl): void
+	setRoundedCornerRadius (radiusInMM: number): void
 }
 
 export interface ContinuousHardwareControl<HardwareBindingType> extends HardwareBindingSource<HardwareBindingType>, HardwareControl {
+	/**
+	 * An optional button that can be associated with this control when this
+	 * control can also act as a button (e.g by pressing down on it). */
+	hardwareButton(): HardwareButton
+	setHardwareButton (button: HardwareButton): void
 }
 
 export interface HardwareInputMatcher {}
@@ -65,6 +88,29 @@ export interface AbsoluteHardwareControlBinding extends HardwareBindingWithRange
 export interface AbsoluteHardwareControlBindable extends HardwareBindable {
 	addBinding(hardwareControl: AbsoluteHardwareControl): AbsoluteHardwareControlBinding
 	addBindingWithRange(hardwareControl: AbsoluteHardwareControl, minNormalizedValue: number, maxNormalizedValue: number): AbsoluteHardwareControlBinding
+}
+
+export interface HardwareBindingWithSensitivity extends HardwareBinding {
+	setSensitivity(sensitivity: number): void
+}
+
+export interface RelativeHardwareValueMatcher extends ContinuousHardwareValueMatcher {}
+
+export interface RelativeHardwareControlBinding extends HardwareBindingWithSensitivity {}
+
+export interface RelativeHardwareControlToRangedValueBinding extends RelativeHardwareControlBinding, HardwareBindingWithRange {}
+
+export interface RelativeHardwareControl extends ContinuousHardwareControl<RelativeHardwareControlBinding> {
+	setSensitivity (sensitivity: number): void
+	setAdjustValueMatcher (matcher: RelativeHardwareValueMatcher): void
+	addBindingWithSensitivity (target: RelativeHardwareControlBindable, sensitivity: number): RelativeHardwareControlBinding
+	setBindingWithSensitivity (target: RelativeHardwareControlBindable, sensitivity: number): RelativeHardwareControlBinding
+	addBindingWithRange (target: SettableRangedValue, minNormalizedValue: number, maxNormalizedValue: number): RelativeHardwareControlBinding
+	setBindingWithRange (target: SettableRangedValue, minNormalizedValue: number, maxNormalizedValue: number): RelativeHardwareControlBinding
+	addBindingWithRangeAndSensitivity (target: SettableRangedValue, minNormalizedValue: number, maxNormalizedValue: number, sensitivity: number): RelativeHardwareControlBinding
+	setBindingWithRangeAndSensitivity (target: SettableRangedValue, minNormalizedValue: number, maxNormalizedValue: number, sensitivity: number): RelativeHardwareControlBinding
+	getStepSize(): number
+	setStepSize (stepSize: number): void
 }
 
 export interface RelativeHardwareControlBindable extends HardwareBindable {

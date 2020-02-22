@@ -91,3 +91,6 @@ export interface SettableRangedValue extends RangedValue, AbsoluteHardwareContro
 	/** Sets the internal value. */
 	set(value: string[]): void
 }
+
+
+export interface SoloValue extends SettableBooleanValue {}
