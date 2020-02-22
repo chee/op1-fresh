@@ -36,18 +36,18 @@ equivalent to calling {@link #clearBindings()} and then
 }
 
 /** Represents a binding from an {@link AbsoluteHardwareControl} to some target. */
-declare interface AbsoluteHardwareControlBinding {
+declare interface AbsoluteHardwareControlBinding extends HardwareBindingWithRange {
 }
 
 /** Represents a physical hardware knob that inputs an absolute value. */
-declare interface AbsoluteHardwareKnob {
+declare interface AbsoluteHardwareKnob extends AbsoluteHardwareControl {
 }
 
 /** Defines a means of recognizing when an absolute value is input by the user (for example, when moving a
 slider or turning a knob based on some MIDI message). This matcher can then be set on an
 {@link AbsoluteHardwareControl} using
 {@link AbsoluteHardwareControl#setAdjustValueMatcher(AbsoluteHardwareValueMatcher)}. */
-declare interface AbsoluteHardwareValueMatcher {
+declare interface AbsoluteHardwareValueMatcher extends ContinuousHardwareValueMatcher {
 }
 
 /** Instances of this interface represent actions in Bitwig Studio, such as commands that can be launched from
@@ -57,7 +57,7 @@ To receive the list of all actions provided by Bitwig Studio call {@link Applica
 list of actions that belong to a certain category can be queried by calling
 {@link ActionCategory#getActions()}. Access to specific actions is provided in
 {@link Application#getAction(String)}. */
-declare interface Action {
+declare interface Action extends HardwareActionBindable {
 }
 
 /** Instances of this interface are used to categorize actions in Bitwig Studio. The list of action categories
@@ -125,10 +125,113 @@ panel layouts depends on the active display profile. */
 
 		/** the name of the new panel layout*/
 		panelLayout: any, ): void
+
+	createAudioTrack(position: number): void
+	createInstrumentTrack(position: number): void
+	createEffectTrack(position: number): void
+	getActions(): Action[]
+	getAction(id: string): Action
+	getActionCategories(): ActionCategory[]
+	getActionCategory(id: string): ActionCategory
+	activateEngine(): void
+	deactivateEngine(): void
+	hasActiveEngine(): BooleanValue
+	addHasActiveEngineObserver(callable: BooleanValueChangedCallback): void
+	projectName(): StringValue
+	addProjectNameObserver(callback: StringValueChangedCallback, maxChars: number): void
+	nextProject(): void
+	previousProject(): void
+	navigateIntoTrackGroup(track: Track): void
+	navigateToParentTrackGroup(): void
+	undo(): void
+	undoAction(): HardwareActionBindable
+	redo(): void
+	redoAction(): HardwareActionBindable
+	setPanelLayout(panelLayout: string): void
+	nextPanelLayout(): void
+	previousPanelLayout(): void
+	panelLayout(): StringValue
+	addPanelLayoutObserver(callable: StringValueChangedCallback, maxChars: number): void
+	displayProfile(): StringValue
+	addDisplayProfileObserver(callable: StringValueChangedCallback, maxChars: number): void
+	toggleInspector(): void
+	toggleDevices(): void
+	toggleMixer(): void
+	toggleNoteEditor(): void
+	toggleAutomationEditor(): void
+	toggleBrowserVisibility(): void
+	previousSubPanel(): void
+	nextSubPanel(): void
+	arrowKeyLeft(): void
+	arrowKeyRight(): void
+	arrowKeyUp(): void
+	arrowKeyDown(): void
+	enter(): void
+	escape(): void
+	selectAll(): void
+	selectAllAction(): HardwareActionBindable
+	selectNone(): void
+	selectNoneAction(): HardwareActionBindable
+	selectPrevious(): void
+	selectPreviousAction(): HardwareActionBindable
+	selectNext(): void
+	selectNextAction(): HardwareActionBindable
+	selectFirst(): void
+	selectFirstAction(): HardwareActionBindable
+	selectLast(): void
+	selectLastAction(): HardwareActionBindable
+	cut(): void
+	cutAction(): HardwareActionBindable
+	copy(): void
+	copyAction(): HardwareActionBindable
+	paste(): void
+	pasteAction(): HardwareActionBindable
+	duplicate(): void
+	duplicateAction(): HardwareActionBindable
+	remove(): void
+	removeAction(): HardwareActionBindable
+	rename(): void
+	zoomIn(): void
+	zoomInAction(): HardwareActionBindable
+	zoomOut(): void
+	zoomOutAction(): HardwareActionBindable
+	zoomToSelection(): void
+	zoomToSelectionAction(): HardwareActionBindable
+	zoomToSelectionOrAll(): void
+	zoomToSelectionOrAllAction(): HardwareActionBindable
+	zoomToSelectionOrPrevious(): void
+	zoomToSelectionOrPreviousAction(): HardwareActionBindable
+	zoomToFit(): void
+	zoomToFitAction(): HardwareActionBindable
+	focusPanelToLeft(): void
+	focusPanelToRight(): void
+	focusPanelAbove(): void
+	focusPanelBelow(): void
+	toggleFullScreen(): void
+	setPerspective(perspective: string): void
+	nextPerspective(): void
+	previousPerspective(): void
+	addSelectedModeObserver(callable: StringValueChangedCallback, maxChars: number, fallbackText: string): void
+	recordQuantizationGrid(): SettableEnumValue
+	recordQuantizeNoteLength(): SettableBooleanValue
 }
 
 /** Proxy to an arpeggiator component. */
-declare interface Arpeggiator {
+declare interface Arpeggiator extends ObjectProxy {
+	/**
+	 * one of: all, up, up-down, up-then-down, down, down-up, down-then-up,
+	 * flow, random, converge-up, converge-down, diverge-up, diverge-down,
+	 * thumb-up, thumb-down, pinky-up, pinky-down
+	 */
+	mode(): SettableEnumValue
+	octaves(): SettableIntegerValue
+	isEnabled(): SettableBooleanValue
+	isFreeRunning(): SettableBooleanValue
+	shuffle(): SettableBooleanValue
+	rate(): SettableDoubleValue
+	gateLength(): SettableDoubleValue
+	usePressureToVelocity(): SettableBooleanValue
+	releaseNotes(): void
 }
 
 /** An interface representing various commands which can be performed on the Bitwig Studio arranger.<br/>
@@ -139,9 +242,22 @@ declare interface Arranger {
 	/** Returns an object that provides access to a bank of successive cue markers using a window configured with
 the given size, that can be scrolled over the list of markers. */
 	createCueMarkerBank(
-
 		/** the number of simultaneously accessible items*/
-		size: any, ): CueMarkerBank
+		size: number): CueMarkerBank
+
+	isPlaybackFollowEnabled(): SettableBooleanValue
+	hasDoubleRowTrackHeight(): SettableBooleanValue
+	areCueMarkersVisible(): SettableBooleanValue
+	isClipLauncherVisible(): SettableBooleanValue
+	isTimelineVisible(): SettableBooleanValue
+	isIoSectionVisible(): SettableBooleanValue
+	areEffectTracksVisible(): SettableBooleanValue
+	addPlaybackFollowObserver(callback: BooleanValueChangedCallback): void
+	addTrackRowHeightObserver(callback: BooleanValueChangedCallback): void
+	addCueMarkerVisibilityObserver(callback: BooleanValueChangedCallback): void
+	togglePlaybackFollow(): void
+	toggleTrackRowHeight(): void
+	toggleCueMarkerVisibility(): void
 }
 
 /** Callback that is notified when an asynchronous transfer has completed. */
@@ -163,7 +279,7 @@ declare interface AutoDetectionMidiPortNamesList {
 fixed number of items and represent an excerpt of a larger list of items. Various methods are provided for
 scrolling to different sections of the item list. It basically acts like a window moving over the list of
 underlying items. */
-declare interface Bank {
+declare interface Bank extends ObjectProxy, Scrollable {
 
 	/** Sets the size of this bank */
 	setSizeOfBank(
@@ -177,7 +293,6 @@ declare interface Bank {
 
 /** Defines a formatter for a beat time that can convert a beat time to a string for display to the user. */
 declare interface BeatTimeFormatter {
-
 	/** Formats the supplied beat time as a string in the supplied time signature. */
 	formatBeatTime(beatTime: number, isAbsolute: boolean, timeSignatureNumerator: number, timeSignatureDenominator: number, timeSignatureTicks: number, ): string
 }
@@ -185,14 +300,13 @@ declare interface BeatTimeFormatter {
 /** Instances of this interface represent beat time values.
 
 Beat time values are double-precision number representing the number of quarter notes, regardless of time-signature. */
-declare interface BeatTimeValue {
-
+declare interface BeatTimeValue extends DoubleValue {
 	/** Gets the current beat time formatted according to the supplied formatter. */
 	getFormatted(formatter: BeatTimeFormatter, ): string
 }
 
 /** Represents a bitmap image which can be painted via {@link #render(Renderer)}. */
-declare interface Bitmap {
+declare interface Bitmap extends Image {
 
 	/** Call this method to start painting the bitmap.
 This method will take care of disposing allocated patterns during the rendering. */
@@ -209,7 +323,7 @@ This method will take care of disposing allocated patterns during the rendering.
 }
 
 /** Represents an output value shown on some hardware (for example, if an LED is on or off). */
-declare interface BooleanHardwareProperty {
+declare interface BooleanHardwareProperty extends HardwareProperty {
 
 	/** Specifies a callback that should be called with the value that needs to be sent to the hardware. This
 callback is called as a result of calling the {@link HardwareSurface#updateHardware()} method (typically
@@ -223,16 +337,16 @@ from the flush method). */
 	setValueSupplier(supplier: (...args: any[]) => boolean, ): void
 }
 
-declare interface BooleanValue extends Value {
+declare interface BooleanValue extends Value<BooleanValueChangedCallback> {
 	get(): boolean
 }
 
-declare interface BooleanValueChangedCallback {
+declare interface BooleanValueChangedCallback extends ValueChangedCallback {
 	valueChanged(newValue: boolean, ): void
 }
 
 /** Instances of this interface are used to navigate a column in the Bitwig Studio browser. */
-declare interface BrowserColumn {
+declare interface BrowserColumn extends ObjectProxy {
 
 	/** Returns an object that provides access to a bank of successive entries using a window configured with
 the given size, that can be scrolled over the list of entries. */
@@ -243,7 +357,7 @@ the given size, that can be scrolled over the list of entries. */
 }
 
 /** Instances of this interface are used to navigate a filter column in the Bitwig Studio browser. */
-declare interface BrowserFilterColumn {
+declare interface BrowserFilterColumn extends BrowserColumn {
 
 	/** Returns an object that provides access to a bank of successive entries using a window configured with
 the given size, that can be scrolled over the list of entries. */
@@ -254,7 +368,7 @@ the given size, that can be scrolled over the list of entries. */
 }
 
 /** Instances of this interface represent entries in a browser filter column. */
-declare interface BrowserFilterItem {
+declare interface BrowserFilterItem extends BrowserItem {
 }
 
 /** Instances of this interface are used to navigate a filter column in the Bitwig Studio browser. */
@@ -302,7 +416,12 @@ declare interface BrowsingSessionBank {
 /** This interface represents a chain selector device which can be:
 - instrument selector
 - effect selector */
-declare interface ChainSelector {
+declare interface ChainSelector extends {
+	activeChainIndex(): SettableIntegerValue
+	chainCount(): IntegerValue
+	activeChain(): DeviceLayer
+	cycleNext(): void
+	cyclePrevious(): void
 }
 
 /** This interface defines access to the common attributes and operations of channels, such as tracks or nested
@@ -4092,14 +4211,16 @@ declare interface UserControlBank {
 }
 
 /** The common interface that is shared by all value objects in the controller API. */
-declare interface Value {
-
-	/** Registers an observer that reports the current value. */
-	addValueObserver(
-
-		/** a callback function that receives a single parameter*/
-		callback: any, ): void
+export interface Value<ObserverType> {
+	markInterested(): void
+	addValueObserver(callback: ObserverType): void
+	/**
+	 * this is actually only for Integer, but i couldn't figure out how to
+	 * model that in ts
+	 */
+	addValueObserver(callback: ObserverType, valueWhenUnassigned: number): void
 }
+
 
 declare enum CursorDeviceFollowMode {
 	FOLLOW_SELECTION,
