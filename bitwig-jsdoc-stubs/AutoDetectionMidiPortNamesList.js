@@ -9,7 +9,7 @@ function AutoDetectionMidiPortNamesList() {}
 AutoDetectionMidiPortNamesList.prototype.add = function(inputNames, outputNames) {};
 
 /**
- * @return {java.util.List<AutoDetectionMidiPortNames>}
+ * @return {AutoDetectionMidiPortNames[]}
  */
 AutoDetectionMidiPortNamesList.prototype.getPortNames = function() {};
 

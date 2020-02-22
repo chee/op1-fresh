@@ -24,9 +24,9 @@ MultiStateHardwareLight.prototype.state = function() {};
  * color. Once this function has been provided it is possible to then use the convenient
  * {@link #setColor(Color)} and {@link #setColorSupplier(Supplier)} methods.
  *
- * @param {java.util.function.Function<Color,InternalHardwareLightState>} function
+ * @param {java.util.function.Function<Color,InternalHardwareLightState>} fn
  */
-MultiStateHardwareLight.prototype.setColorToStateFunction = function(function) {};
+MultiStateHardwareLight.prototype.setColorToStateFunction = function(fn) {};
 
 /**
  * Tries to set this light's state to be the best state to represent the supplied {@link Color}. For this

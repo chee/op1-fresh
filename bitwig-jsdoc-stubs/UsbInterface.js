@@ -12,7 +12,7 @@ UsbInterface.prototype.interfaceMatcher = function() {};
 /**
  * The list of pipes that have been opened for this interface.
  *
- * @return {java.util.List<UsbPipe>}
+ * @return {UsbPipe[]}
  */
 UsbInterface.prototype.pipes = function() {};
 

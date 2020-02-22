@@ -21,7 +21,7 @@ OscMessage.prototype.getAddressPattern = function() {};
 OscMessage.prototype.getTypeTag = function() {};
 
 /**
- * @return {java.util.List<java.lang.Object>}
+ * @return {java.lang.Object[]}
  */
 OscMessage.prototype.getArguments = function() {};
 

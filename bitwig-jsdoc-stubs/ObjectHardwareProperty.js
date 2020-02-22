@@ -29,7 +29,7 @@ ObjectHardwareProperty.prototype.lastSentValue = function() {};
  * callback is called as a result of calling the {@link HardwareSurface#updateHardware()} method (typically
  * from the flush method).
  *
- * @param {java.util.function.Consumer<? extends T>} sendValueConsumer
+ * @param {java.util.function.Consumer<T>} sendValueConsumer
  */
 ObjectHardwareProperty.prototype.onUpdateHardware = function(sendValueConsumer) {};
 
@@ -43,6 +43,6 @@ ObjectHardwareProperty.prototype.setValue = function(value) {};
 /**
  * Sets the current value from a {@link BooleanSupplier} that supplies the latest value.
  *
- * @param {java.util.function.Supplier<? extends T>} supplier
+ * @param {java.util.function.Supplier<T>} supplier
  */
 ObjectHardwareProperty.prototype.setValueSupplier = function(supplier) {};

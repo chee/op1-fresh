@@ -16,6 +16,6 @@ OscBundle.prototype.constructor = OscBundle;
 OscBundle.prototype.getNanoseconds = function() {};
 
 /**
- * @return {java.util.List<OscPacket>}
+ * @return {OscPacket[]}
  */
 OscBundle.prototype.getPackets = function() {};

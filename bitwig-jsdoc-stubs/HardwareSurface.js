@@ -165,7 +165,7 @@ HardwareSurface.prototype.invalidateHardwareOutputState = function() {};
 /**
  * A list of all the {@link HardwareControl}s that have been created on this {@link HardwareSurface}.
  *
- * @return {java.util.List<? extends HardwareControl>}
+ * @return {HardwareControl[]}
  */
 HardwareSurface.prototype.hardwareControls = function() {};
 
@@ -180,6 +180,6 @@ HardwareSurface.prototype.hardwareElementWithId = function(id) {};
 /**
  * List of all {@link HardwareElement}s on this {@link HardwareSurface}.
  *
- * @return {java.util.List<? extends HardwareOutputElement>}
+ * @return {HardwareOutputElement[]}
  */
 HardwareSurface.prototype.hardwareOutputElements = function() {};

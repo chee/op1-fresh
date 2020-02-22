@@ -20,7 +20,7 @@ UsbDevice.prototype.deviceMatcher = function() {};
 /**
  * The list of {@link UsbInterface}s that have been opened for this device.
  *
- * @return {java.util.List<UsbInterface>}
+ * @return {UsbInterface[]}
  */
 UsbDevice.prototype.ifaces = function() {};
 

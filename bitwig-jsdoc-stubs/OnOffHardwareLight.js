@@ -38,6 +38,6 @@ OnOffHardwareLight.prototype.setOnVisualState = function(state) {};
 OnOffHardwareLight.prototype.setOffVisualState = function(state) {};
 
 /**
- * @param {java.util.function.Function<java.lang.Boolean,HardwareLightVisualState>} function
+ * @param {java.util.function.Function<java.lang.Boolean,HardwareLightVisualState>} fn
  */
-OnOffHardwareLight.prototype.setStateToVisualStateFuncation = function(function) {};
+OnOffHardwareLight.prototype.setStateToVisualStateFuncation = function(fn) {};

@@ -127,3 +127,765 @@ Host.prototype.loadPNG = function(path) {};
  * @since API version 7
  */
 Host.prototype.loadSVG = function(path, scale) {};
+
+/**
+ * Restarts this controller.
+ *
+ * @since API version 7
+ */
+Host.prototype.restart = function() {};
+
+/**
+ * Loads the supplied API version into the calling script. This is only intended to be called from a
+ * controller script. It cannot be called from a Java controller extension.
+ *
+ * @param {int} version
+ */
+Host.prototype.loadAPI = function(version) {};
+
+/**
+ * Call this method to allow your script to use Beta APIs.
+ *
+ * Beta APIs are still on development and might not be available in a future version of Bitwig Studio.
+ *
+ * Turning this flag to true, will flag your extension as being a beta extension which might not work after
+ * updating Bitwig Studio.
+ *
+ * @since API version 7
+ */
+Host.prototype.useBetaApi = function() {};
+
+/**
+ * Determines whether the calling script should fail if it calls a deprecated method based on the API
+ * version that it requested.
+ *
+ * @return {boolean}
+ */
+Host.prototype.shouldFailOnDeprecatedUse = function() {};
+
+/**
+ * Sets whether the calling script should fail if it calls a deprecated method based on the API version
+ * that it requested. This is only intended to be called from a controller script. It cannot be called from
+ * a Java controller extension.
+ *
+ * @param {boolean} value
+ */
+Host.prototype.setShouldFailOnDeprecatedUse = function(value) {};
+
+/**
+ * Loads the script defined by the supplied path. This is only intended to be called from a controller
+ * script. It cannot be called from a Java controller extension.
+ *
+ * @param {string} path
+ */
+Host.prototype.load = function(path) {};
+
+/**
+ * Indicates if the host platform is Windows.
+ *
+ * @return {boolean} `true` if the host platform is Windows, `false` otherwise.
+ * @since API version 1
+ */
+Host.prototype.platformIsWindows = function() {};
+
+/**
+ * Indicates if the host platform is Apple Mac OS X.
+ *
+ * @return {boolean} `true` if the host platform is Mac, `false` otherwise.
+ * @since API version 1
+ */
+Host.prototype.platformIsMac = function() {};
+
+/**
+ * Indicates if the host platform is Linux.
+ *
+ * @return {boolean} `true` if the host platform is Linux, `false` otherwise.
+ * @since API version 1
+ */
+Host.prototype.platformIsLinux = function() {};
+
+/**
+ * Registers a controller script with the given parameters. This function must be called once at the global
+ * scope of the script.
+ *
+ * @param vendor
+          the name of the hardware vendor. Must not be <code>null</code>.
+ * @param name
+          the name of the controller script as listed in the user interface of Bitwig Studio. Must not
+          be <code>null</code>.
+ * @param version
+          the version of the controller script. Must not be <code>null</code>.
+ * @param uuid
+          a universal unique identifier (UUID) string that is used to distinguish one script from
+          another, for example `550e8400-e29b-11d4-a716-446655440000`. Must not be <code>null</code>.
+          For generating random UUID strings several free web tools are available.
+ * @param author
+          the name of the script author
+ * @since API version 1
+ */
+Host.prototype.defineController = function(vendor, name, version, uuid, author) {};
+
+/**
+ * Defines the number of MIDI ports for input and output that the device uses. This method should be called
+ * once in the global scope if the script is supposed to exchange MIDI messages with the device, or if the
+ * script adds entries to the MIDI input/output choosers in Bitwig Studio. After calling this method the
+ * individual port objects can be accessed using {@link #getMidiInPort(int index)} and
+ * {@link #getMidiInPort(int index)}.
+ *
+ * @param numInports
+          the number of input ports
+ * @param numOutports
+          the number of output ports
+ * @since API version 1
+ */
+Host.prototype.defineMidiPorts = function(numInports, numOutports) {};
+
+/**
+ * Returns the MIDI input port with the given index.
+ *
+ * @param index
+          the index of the MIDI input port, must be valid.
+ * @return {MidiIn} the requested MIDI input port
+ * @since API version 1
+ */
+Host.prototype.getMidiInPort = function(index) {};
+
+/**
+ * Returns the MIDI output port with the given index.
+ *
+ * @param index
+          the index of the MIDI output port, must be valid.
+ * @return {MidiOut} the requested MIDI output port
+ * @since API version 1
+ */
+Host.prototype.getMidiOutPort = function(index) {};
+
+/**
+ * Gets the {@link HardwareDevice} at the specified index. This index corresponds to the index of the
+ * {@link HardwareDeviceMatcher} specified in the
+ * {@link ControllerExtensionDefinition#listHardwareDevices(java.util.List)}
+ *
+ * @param {int} index
+ * @return {HardwareDevice}
+ * @since API version 7
+ */
+Host.prototype.hardwareDevice = function(index) {};
+
+/**
+ * Registers patterns which are used to automatically detect hardware devices that can be used with the
+ * script.<br/>
+ *
+ * When the user clicks on the `detect` button in the Bitwig Studio controller preferences dialog, Bitwig
+ * Studio searches for connected controller hardware by comparing the parameters passed into this function
+ * are compared with the port names of the available MIDI drivers. Found controller scripts are
+ * automatically added with their input/output ports configured.<br/>
+ *
+ * Calling this function is optional, but can also be called multiple times in the global script scope in
+ * order to support alternative driver names.
+ *
+ * @param inputs
+          the array of strings used to detect MIDI input ports, must not be `null`.
+ * @param outputs
+          the array of strings used to detect MIDI output ports, must not be `null`.
+ * @since API version 1
+ */
+Host.prototype.addDeviceNameBasedDiscoveryPair = function(inputs, outputs) {};
+
+/**
+ * Creates a preferences object that can be used to insert settings into the Controller Preferences panel
+ * in Bitwig Studio.
+ *
+ * @return {Preferences} an object that provides access to custom controller preferences
+ * @since API version 1
+ */
+Host.prototype.getPreferences = function() {};
+
+/**
+ * Creates a document state object that can be used to insert settings into the Studio I/O Panel in Bitwig
+ * Studio.
+ *
+ * @return {DocumentState} an object that provides access to custom document settings
+ * @since API version 1
+ */
+Host.prototype.getDocumentState = function() {};
+
+/**
+ * Returns an object that is used to configure automatic notifications. Bitwig Studio supports automatic
+ * visual feedback from controllers that shows up as popup notifications. For example when the selected
+ * track or the current device preset was changed on the controller these notifications are shown,
+ * depending on your configuration.
+ *
+ * @return {NotificationSettings} a configuration object used to enable/disable the various automatic notifications supported by
+        Bitwig Studio
+ * @since API version 1
+ */
+Host.prototype.getNotificationSettings = function() {};
+
+/**
+ * Returns an object for controlling various aspects of the currently selected project.
+ *
+ * @return {Project}
+ * @since API version 1
+ */
+Host.prototype.getProject = function() {};
+
+/**
+ * Returns an object for controlling and monitoring the elements of the `Transport` section in Bitwig
+ * Studio. This function should be called once during initialization of the script if transport access is
+ * desired.
+ *
+ * @return {Transport} an object that represents the `Transport` section in Bitwig Studio.
+ * @since API version 1
+ */
+Host.prototype.createTransport = function() {};
+
+/**
+ * Returns an object for controlling and monitoring the `Groove` section in Bitwig Studio. This function
+ * should be called once during initialization of the script if groove control is desired.
+ *
+ * @return {Groove} an object that represents the `Groove` section in Bitwig Studio.
+ * @since API version 1
+ */
+Host.prototype.createGroove = function() {};
+
+/**
+ * Returns an object that provides access to general application functionality, including global view
+ * settings, the list of open projects, and other global settings that are not related to a certain
+ * document.
+ *
+ * @return {Application} an application object.
+ * @since API version 1
+ */
+Host.prototype.createApplication = function() {};
+
+/**
+ * Returns an object which provides access to the `Arranger` panel of Bitwig Studio. Calling this function
+ * is equal to `createArranger(-1)`.
+ *
+ * @return {Arranger} an arranger object
+ * @since API version 1
+ */
+Host.prototype.createArranger = function() {};
+
+/**
+ * Returns an object which provides access to the `Arranger` panel inside the specified window.
+ *
+ * @param window
+          the index of the window where the arranger panel is shown, or -1 in case the first arranger
+          panel found on any window should be taken
+ * @return {Arranger} an arranger object
+ * @since API version 1
+ */
+Host.prototype.createArranger = function(window) {};
+
+/**
+ * Returns an object which provides access to the `Mixer` panel of Bitwig Studio. Calling this function is
+ * equal to `createMixer(-1, null)`.
+ *
+ * @return {Mixer} a `Mixer` object
+ * @since API version 1
+ */
+Host.prototype.createMixer = function() {};
+
+/**
+ * Returns an object which provides access to the `Mixer` panel that belongs to the specified panel layout.
+ * Calling this function is equal to `createMixer(-1, panelLayout)`.
+ *
+ * @param panelLayout
+          the name of the panel layout that contains the mixer panel, or `null` in case the selected
+          panel layout in Bitwig Studio should be followed. Empty strings or invalid names are treated
+          the same way as `null`. To receive the list of available panel layouts see
+          {@link Application#addPanelLayoutObserver}.
+ * @return {Mixer} a `Mixer` object
+ * @since API version 1
+ */
+Host.prototype.createMixer = function(panelLayout) {};
+
+/**
+ * Returns an object which provides access to the `Mixer` panel inside the specified window. Calling this
+ * function is equal to `createMixer(window, null)`.
+ *
+ * @param window
+          the index of the window where the mixer panel is shown, or -1 in case the first mixer panel
+          found on any window should be taken
+ * @return {Mixer} a `Mixer` object
+ * @since API version 1
+ */
+Host.prototype.createMixer = function(window) {};
+
+/**
+ * Returns an object which provides access to the `Mixer` panel that matches the specified parameters.
+ *
+ * @param panelLayout
+          the name of the panel layout that contains the mixer panel, or `null` in case the selected
+          panel layout in Bitwig Studio should be followed. Empty strings or invalid names are treated
+          the same way as `null`. To receive the list of available panel layouts see
+          {@link Application#addPanelLayoutObserver}.
+ * @param window
+          the index of the window where the mixer panel is shown, or -1 in case the first mixer panel
+          found on any window should be taken
+ * @return {Mixer} a `Mixer` object
+ * @since API version 1
+ */
+Host.prototype.createMixer = function(panelLayout, window) {};
+
+/**
+ * Returns a track bank with the given number of tracks, sends and scenes.<br/>
+ *
+ * A track bank can be seen as a fixed-size window onto the list of tracks in the current document
+ * including their sends and scenes, that can be scrolled in order to access different parts of the track
+ * list. For example a track bank configured for 8 tracks can show track 1-8, 2-9, 3-10 and so on.<br/>
+ *
+ * The idea behind the `bank pattern` is that hardware typically is equipped with a fixed amount of channel
+ * strips or controls, for example consider a mixing console with 8 channels, but Bitwig Studio documents
+ * contain a dynamic list of tracks, most likely more tracks than the hardware can control simultaneously.
+ * The track bank returned by this function provides a convenient interface for controlling which tracks
+ * are currently shown on the hardware.<br/>
+ *
+ * Creating a track bank using this method will consider all tracks in the document, including effect
+ * tracks and the master track. Use {@link #createMainTrackBank} or {@link #createEffectTrackBank} in case
+ * you are only interested in tracks of a certain kind.
+ *
+ * @param numTracks
+          the number of tracks spanned by the track bank
+ * @param numSends
+          the number of sends spanned by the track bank
+ * @param numScenes
+          the number of scenes spanned by the track bank
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @since API version 1
+ */
+Host.prototype.createTrackBank = function(numTracks, numSends, numScenes) {};
+
+/**
+ * Returns a track bank with the given number of child tracks, sends and scenes.<br/>
+ *
+ * A track bank can be seen as a fixed-size window onto the list of tracks in the connected track group
+ * including their sends and scenes, that can be scrolled in order to access different parts of the track
+ * list. For example a track bank configured for 8 tracks can show track 1-8, 2-9, 3-10 and so on.<br/>
+ *
+ * The idea behind the `bank pattern` is that hardware typically is equipped with a fixed amount of channel
+ * strips or controls, for example consider a mixing console with 8 channels, but Bitwig Studio documents
+ * contain a dynamic list of tracks, most likely more tracks than the hardware can control simultaneously.
+ * The track bank returned by this function provides a convenient interface for controlling which tracks
+ * are currently shown on the hardware.<br/>
+ *
+ * Creating a track bank using this method will consider all tracks in the document, including effect
+ * tracks and the master track. Use {@link #createMainTrackBank} or {@link #createEffectTrackBank} in case
+ * you are only interested in tracks of a certain kind.
+ *
+ * @param numTracks
+          the number of child tracks spanned by the track bank
+ * @param numSends
+          the number of sends spanned by the track bank
+ * @param numScenes
+          the number of scenes spanned by the track bank
+ * @param hasFlatTrackList
+          specifies whether the track bank should operate on a flat list of all nested child tracks or
+          only on the direct child tracks of the connected group track.
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @since API version 1
+ */
+Host.prototype.createTrackBank = function(numTracks, numSends, numScenes, hasFlatTrackList) {};
+
+/**
+ * Returns a track bank with the given number of tracks, sends and scenes. Only audio tracks, instrument
+ * tracks and hybrid tracks are considered. For more information about track banks and the `bank pattern`
+ * in general, see the documentation for {@link #createTrackBank}.
+ *
+ * @param numTracks
+          the number of tracks spanned by the track bank
+ * @param numSends
+          the number of sends spanned by the track bank
+ * @param numScenes
+          the number of scenes spanned by the track bank
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @since API version 1
+ */
+Host.prototype.createMainTrackBank = function(numTracks, numSends, numScenes) {};
+
+/**
+ * Returns a track bank with the given number of effect tracks and scenes. Only effect tracks are
+ * considered. For more information about track banks and the `bank pattern` in general, see the
+ * documentation for {@link #createTrackBank}.
+ *
+ * @param numTracks
+          the number of tracks spanned by the track bank
+ * @param numScenes
+          the number of scenes spanned by the track bank
+ * @return {TrackBank} an object for bank-wise navigation of tracks, sends and scenes
+ * @since API version 1
+ */
+Host.prototype.createEffectTrackBank = function(numTracks, numScenes) {};
+
+/**
+ * Returns an object that represents the master track of the document.
+ *
+ * @param numScenes
+          the number of scenes for bank-wise navigation of the master tracks clip launcher slots.
+ * @return {MasterTrack} an object representing the master track.
+ * @since API version 1
+ */
+Host.prototype.createMasterTrack = function(numScenes) {};
+
+/**
+ * Returns an object that represents a named cursor track, that is independent from the arranger or mixer
+ * track selection in the user interface of Bitwig Studio.
+ *
+ * @param {string} id
+ * @param {string} name
+ * @param {int} numSends
+ * @param {int} numScenes
+ * @param {boolean} shouldFollowSelection
+ * @return {CursorTrack} an object representing the currently selected arranger track (in the future also multiple
+        tracks).
+ * @since API version 1
+ */
+Host.prototype.createCursorTrack = function(id, name, numSends, numScenes, shouldFollowSelection) {};
+
+/**
+ * Returns a scene bank with the given number of scenes.<br/>
+ *
+ * A scene bank can be seen as a fixed-size window onto the list of scenes in the current document, that
+ * can be scrolled in order to access different parts of the scene list. For example a scene bank
+ * configured for 8 scenes can show scene 1-8, 2-9, 3-10 and so on.<br/>
+ *
+ * The idea behind the `bank pattern` is that hardware typically is equipped with a fixed amount of channel
+ * strips or controls, for example consider a mixing console with 8 channels, but Bitwig Studio documents
+ * contain a dynamic list of scenes, most likely more scenes than the hardware can control simultaneously.
+ * The scene bank returned by this function provides a convenient interface for controlling which scenes
+ * are currently shown on the hardware.<br/>
+ *
+ * @param numScenes
+          the number of scenes spanned by the track bank
+ * @return {SceneBank} an object for bank-wise navigation of scenes
+ * @since API version 1
+ */
+Host.prototype.createSceneBank = function(numScenes) {};
+
+/**
+ * Returns a clip object that represents the cursor of the launcher clip selection. The gridWidth and
+ * gridHeight parameters specify the grid dimensions used to access the note content of the clip.
+ *
+ * @param gridWidth
+          the number of steps spanned by one page of the note content grid.
+ * @param gridHeight
+          the number of keys spanned by one page of the note content grid.
+ * @return {Clip} an object representing the currently selected cursor clip
+ * @since API version 1
+ */
+Host.prototype.createLauncherCursorClip = function(gridWidth, gridHeight) {};
+
+/**
+ * Returns a clip object that represents the cursor of the arranger clip selection. The gridWidth and
+ * gridHeight parameters specify the grid dimensions used to access the note content of the clip.
+ *
+ * @param gridWidth
+          the number of steps spanned by one page of the note content grid.
+ * @param gridHeight
+          the number of keys spanned by one page of the note content grid.
+ * @return {Clip} an object representing the currently selected cursor clip
+ * @since API version 1
+ */
+Host.prototype.createArrangerCursorClip = function(gridWidth, gridHeight) {};
+
+/**
+ * Returns an object that is used to define a bank of custom user controls. These controls are available to
+ * the user for free controller assignments and are typically used when bank-wise navigation is
+ * inconvenient.
+ *
+ * @param numControllers
+          the number of controls that are available for free assignments
+ * @return {UserControlBank} An object that represents a set of custom user controls.
+ * @since API version 1
+ */
+Host.prototype.createUserControls = function(numControllers) {};
+
+/**
+ * Schedules the given callback function for execution after the given delay. For timer applications call
+ * this method once initially and then from within the callback function.
+ *
+ * @param callback
+          the callback function that will be called
+ * @param delay
+          the duration after which the callback function will be called in milliseconds
+ * @since API version 2
+ */
+Host.prototype.scheduleTask = function(callback, delay) {};
+
+/**
+ * Requests that the driver's flush method gets called.
+ *
+ * @since API version 2
+ */
+Host.prototype.requestFlush = function() {};
+
+/**
+ * Prints the given string in the control surface console window. The console window can be opened in the
+ * view menu of Bitwig Studio.
+ *
+ * @param s
+          the string to be printed
+ * @since API version 1
+ */
+Host.prototype.println = function(s) {};
+
+/**
+ * Prints the given string in the control surface console window using a text style that highlights the
+ * string as error. The console window can be opened in the view menu of Bitwig Studio.
+ *
+ * @param s
+          the error string to be printed
+ * @since API version 1
+ */
+Host.prototype.errorln = function(s) {};
+
+/**
+ * Shows a temporary text overlay on top of the application GUI, that will fade-out after a short interval.
+ * If the overlay is already shown, it will get updated with the given text.
+ *
+ * @param text
+          the text to be shown
+ * @since API version 1
+ */
+Host.prototype.showPopupNotification = function(text) {};
+
+/**
+ * Opens a TCP (Transmission Control Protocol) host socket for allowing network connections from other
+ * hardware and software.
+ *
+ * @param name
+          a meaningful name that describes the purpose of this connection.
+ * @param defaultPort
+          the port that should be used for the connection. If the port is already in use, then another
+          port will be used. Check {@link RemoteSocket#getPort()} on the returned object to be sure.
+ * @return {RemoteSocket} the object that represents the socket
+ * @since API version 1
+ */
+Host.prototype.createRemoteConnection = function(name, defaultPort) {};
+
+/**
+ * Connects to a remote TCP (Transmission Control Protocol) socket.
+ *
+ * @param host
+          the host name or IP address to connect to.
+ * @param port
+          the port to connect to
+ * @param callback
+          the callback function that gets called when the connection gets established. A single
+          {@link RemoteConnection} parameter is passed into the callback function.
+ * @since API version 1
+ */
+Host.prototype.connectToRemoteHost = function(host, port, callback) {};
+
+/**
+ * Sends a UDP (User Datagram Protocol) packet with the given data to the specified host.
+ *
+ * @param host
+          the destination host name or IP address
+ * @param port
+          the destination port
+ * @param data
+          the data to be send. When creating a numeric byte array in JavaScript, the byte values must be
+          signed (in the range -128..127).
+ * @since API version 1
+ */
+Host.prototype.sendDatagramPacket = function(host, port, data) {};
+
+/**
+ * Adds an observer for incoming UDP (User Datagram Protocol) packets on the selected port.
+ *
+ * @param name
+          a meaningful name that describes the purpose of this observer.
+ * @param port
+          the port that should be used
+ * @param callback
+          the callback function that gets called when data arrives. The function receives a single
+          parameter that contains the data byte array.
+ * @return {boolean} {@true} if was possible to bind the port, false otherwise
+ * @since API version 1
+ */
+Host.prototype.addDatagramPacketObserver = function(name, port, callback) {};
+
+/**
+ * @param {int} numSends
+ * @param {int} numScenes
+ * @return {CursorTrack}
+ * @since API version 1
+ */
+Host.prototype.createCursorTrack = function(numSends, numScenes) {};
+
+/**
+ * Creates a {@link PopupBrowser} that represents the pop-up browser in Bitwig Studio.
+ *
+ * @return {PopupBrowser}
+ * @since API version 2
+ */
+Host.prototype.createPopupBrowser = function() {};
+
+/**
+ * {@link BeatTimeFormatter} used to format beat times by default. This will be used to format beat times
+ * when asking for a beat time in string format without providing any formatting options. For example by
+ * calling {@link BeatTimeStringValue#get()}.
+ *
+ * @return {BeatTimeFormatter}
+ * @since API version 2
+ */
+Host.prototype.defaultBeatTimeFormatter = function() {};
+
+/**
+ * Sets the {@link BeatTimeFormatter} to use by default for formatting beat times.
+ *
+ * @param {BeatTimeFormatter} formatter
+ * @since API version 2
+ */
+Host.prototype.setDefaultBeatTimeFormatter = function(formatter) {};
+
+/**
+ * Creates a {@link BeatTimeFormatter} that can be used to format beat times.
+ *
+ * @param separator
+          the character used to separate the segments of the formatted beat time, typically ":", "." or
+          "-"
+ * @param barsLen
+          the number of digits reserved for bars
+ * @param beatsLen
+          the number of digits reserved for beats
+ * @param subdivisionLen
+          the number of digits reserved for beat subdivisions
+ * @param ticksLen
+          the number of digits reserved for ticks
+ * @return {BeatTimeFormatter}
+ * @since API version 2
+ */
+Host.prototype.createBeatTimeFormatter = function(separator, barsLen, beatsLen, subdivisionLen, ticksLen) {};
+
+/**
+ * Creates a {@link HardwareSurface} that can contain hardware controls.
+ *
+ * @return {HardwareSurface}
+ * @since API version 10
+ */
+Host.prototype.createHardwareSurface = function() {};
+
+/**
+ * Creates a {@link HardwareActionMatcher} that is matched by either of the 2 supplied action matchers.
+ *
+ * @param {HardwareActionMatcher} matcher1
+ * @param {HardwareActionMatcher} matcher2
+ * @return {HardwareActionMatcher}
+ * @since API version 10
+ */
+Host.prototype.createOrHardwareActionMatcher = function(matcher1, matcher2) {};
+
+/**
+ * Creates a {@link RelativeHardwareValueMatcher} that is matched by either of the 2 supplied action
+ * matchers.
+ *
+ * @param {RelativeHardwareValueMatcher} matcher1
+ * @param {RelativeHardwareValueMatcher} matcher2
+ * @return {RelativeHardwareValueMatcher}
+ * @since API version 10
+ */
+Host.prototype.createOrRelativeHardwareValueMatcher = function(matcher1, matcher2) {};
+
+/**
+ * Creates a {@link AbsoluteHardwareValueMatcher} that is matched by either of the 2 supplied action
+ * matchers.
+ *
+ * @param {AbsoluteHardwareValueMatcher} matcher1
+ * @param {AbsoluteHardwareValueMatcher} matcher2
+ * @return {AbsoluteHardwareValueMatcher}
+ * @since API version 10
+ */
+Host.prototype.createOrAbsoluteHardwareValueMatcher = function(matcher1, matcher2) {};
+
+/**
+ * An object that can be used to generate useful MIDI expression strings which can be used in
+ * {@link MidiIn#createActionMatcher(String)} and other related methods.
+ *
+ * @return {MidiExpressions}
+ * @since API version 10
+ */
+Host.prototype.midiExpressions = function() {};
+
+/**
+ * Creates a {@link HardwareActionBindable} that can be bound to some {@link HardwareAction} (such as a
+ * button press) and when that action occurs the supplied {@link Runnable} will be run
+ *
+ * @param runnable
+          The runnable to be run
+ * @param descriptionProvider
+          Provider that can provide a description of what the runnable does (used for showing onscreen
+          feedback or help to the user).
+ * @return {HardwareActionBindable}
+ * @since API version 10
+ */
+Host.prototype.createAction = function(runnable, descriptionProvider) {};
+
+/**
+ * Creates a {@link HardwareActionBindable} that can be bound to some {@link HardwareAction} (such as a
+ * button press) and when that action occurs the supplied {@link Runnable} will be run
+ *
+ * @param actionPressureConsumer
+          Consumer that will be notified of the pressure of the action
+ * @param descriptionProvider
+          Provider that can provide a description of what the runnable does (used for showing onscreen
+          feedback or help to the user).
+ * @return {HardwareActionBindable}
+ * @since API version 10
+ */
+Host.prototype.createAction = function(actionPressureConsumer, descriptionProvider) {};
+
+/**
+ * Creates a {@link RelativeHardwarControlBindable} that can be used to step forwards or backwards when a
+ * {@link RelativeHardwareControl} is adjusted. A step is defined by the
+ * {@link RelativeHardwareControl#setStepSize(double)}.
+ *
+ * @param stepForwardsAction
+          The action that should happen when stepping forwards
+ * @param stepBackwardsAction
+          The action that should happen when stepping backwards
+ * @return {RelativeHardwarControlBindable}
+ * @since API version 10
+ */
+Host.prototype.createRelativeHardwareControlStepTarget = function(stepForwardsAction, stepBackwardsAction) {};
+
+/**
+ * Creates a {@link RelativeHardwarControlBindable} that can be used to adjust some value in an arbitrary
+ * way.
+ *
+ * @param adjustmentConsumer
+          A consumer that will receive the relative adjustment amount when bound to a
+          {@link RelativeHardwareControl}.
+ * @return {RelativeHardwarControlBindable}
+ * @since API version 10
+ */
+Host.prototype.createRelativeHardwareControlAdjustmentTarget = function(adjustmentConsumer) {};
+
+/**
+ * Creates a {@link AbsoluteHardwarControlBindable} that can be used to adjust some value in an arbitrary
+ * way.
+ *
+ * @param adjustmentConsumer
+          A consumer that will receive the absolute adjustment amount when bound to an
+          {@link AbsoluteHardwareControl}.
+ * @return {AbsoluteHardwarControlBindable}
+ * @since API version 10
+ */
+Host.prototype.createAbsoluteHardwareControlAdjustmentTarget = function(adjustmentConsumer) {};
+
+/**
+ * It will delete multiple object within one undo step.
+ *
+ * @param {string} undoName
+ * @param {DeleteableObject} objects
+ */
+Host.prototype.deleteObjects = function(undoName, /*...*/objects) {};
+
+/**
+ * It will delete multiple object within one undo step.
+ *
+ * @param {DeleteableObject} objects
+ */
+Host.prototype.deleteObjects = function(/*...*/objects) {};
