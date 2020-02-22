@@ -4,10 +4,7 @@
 	"description": "op-1 [fresh]",
 	"main": "op-1 [fresh].control.js",
 	"scripts": {
-		"watch": "npm run-script -s build -- -w",
-		"build": "tsc -t es5 --lib es2015 'op-1 [fresh].control.ts' --outFile 'op-1 [fresh].control.js'",
-		"pretest": "npm run-script -s build",
-		"test": "echo ^_^"
+		"test": "echo open fukin bitwig lol"
 	},
 	"repository": {
 		"type": "git",
