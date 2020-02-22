@@ -26,6 +26,26 @@ declare interface AbsoluteHardwareControl extends ContinuousHardwareControl<Abso
 hardware control's value. */
 	setAdjustValueMatcher(matcher: AbsoluteHardwareValueMatcher, ): void
 
+	/** The current value of this hardware control (0..1) */
+	value(): DoubleValue
+
+	/** The value of the target that this hardware control has been bound to (0..1). */
+	targetValue(): DoubleValue
+
+	/** Can be called from the {@link #targetValue()} changed callback to check if this control is responsible
+for changing the target value or not. */
+	isUpdatingTargetValue(): BooleanValue
+
+	/** Value that indicates if this hardware control has a target value that it changes or not. */
+	hasTargetValue(): BooleanValue
+
+	/** Determines if this hardware control should immediately take over the parameter it is bound to rather
+than respecting the user's current take over mode.
+
+This is useful for motorized sliders for example, where the slider is already at the value of the bound
+parameter. */
+	disableTakeOver(): void
+
 	/** Adds a new binding from this hardware control to the supplied target. */
 	addBindingWithRange(target: AbsoluteHardwarControlBindable, minNormalizedValue: number, maxNormalizedValue: number, ): AbsoluteHardwareControlBinding
 
@@ -58,12 +78,36 @@ list of actions that belong to a certain category can be queried by calling
 {@link ActionCategory#getActions()}. Access to specific actions is provided in
 {@link Application#getAction(String)}. */
 declare interface Action extends HardwareActionBindable {
+
+	/** Returns a string the identifies this action uniquely. */
+	getId(): string
+
+	/** Returns the name of this action. */
+	getName(): string
+
+	/** Returns the category of this action. */
+	getCategory(): ActionCategory
+
+	/** Returns the text that is displayed in menu items associated with this action. */
+	getMenuItemText(): string
+
+	/** Invokes the action. */
+	invoke(): void
 }
 
 /** Instances of this interface are used to categorize actions in Bitwig Studio. The list of action categories
 provided by Bitwig Studio can be queried by calling {@link Application#getActionCategories()}. To receive a
 specific action category call {@link Application#getActionCategory(String)}. */
 declare interface ActionCategory {
+
+	/** Returns a string the identifies this action category uniquely. */
+	getId(): string
+
+	/** Returns the name of this action category. */
+	getName(): string
+
+	/** Lists all actions in this category. */
+	getActions(): Action[]
 }
 
 /** An interface that provides methods for accessing the most common global application commands.<br/>
@@ -102,12 +146,23 @@ declare interface Application {
           parameter value.*/
 		position: any, ): void
 
+	/** Returns a list of actions that the application supports. Actions are commands in Bitwig Studio that are
+typically accessible through menus or keyboard shortcuts.
+
+Please note that many of the commands encapsulated by the reported actions are also accessible through
+other (probably more convenient) interfaces methods of the API. In contrast to that, this method
+provides a more generic way to find available application functionality. */
+	getActions(): Action[]
+
 	/** Returns the action for the given action identifier. For a list of available actions, see
 {@link #getActions()}. */
 	getAction(
 
 		/** the action identifier string, must not be `null`*/
 		id: any, ): Action
+
+	/** Returns a list of action categories that is used by Bitwig Studio to group actions into categories. */
+	getActionCategories(): ActionCategory[]
 
 	/** Returns the action category associated with the given identifier. For a list of available action
 categories, see {@link #getActionCategories()}. */
@@ -116,8 +171,37 @@ categories, see {@link #getActionCategories()}. */
 		/** the category identifier string, must not be `null`*/
 		id: any, ): ActionCategory
 
+	/** Activates the audio engine in Bitwig Studio. */
+	activateEngine(): void
+
+	/** Deactivates the audio engine in Bitwig Studio. */
+	deactivateEngine(): void
+
+	/** Value that reports whether an audio engine is active or not. */
+	hasActiveEngine(): BooleanValue
+
+	/** Value that reports the name of the current project. */
+	projectName(): StringValue
+
+	/** Switches to the next project tab in Bitwig Studio. */
+	nextProject(): void
+
+	/** Switches to the previous project tab in Bitwig Studio. */
+	previousProject(): void
+
 	/** Set BitwigStudio to navigate into the group. */
 	navigateIntoTrackGroup(track: Track, ): void
+
+	/** Set BitwigStudio to navigate into the parent group. */
+	navigateToParentTrackGroup(): void
+
+	/** Sends an undo command to Bitwig Studio. */
+	undo(): void
+	undoAction(): HardwareActionBindable
+
+	/** Sends a redo command to Bitwig Studio. */
+	redo(): void
+	redoAction(): HardwareActionBindable
 
 	/** Switches the Bitwig Studio user interface to the panel layout with the given name. The list of available
 panel layouts depends on the active display profile. */
@@ -126,111 +210,210 @@ panel layouts depends on the active display profile. */
 		/** the name of the new panel layout*/
 		panelLayout: any, ): void
 
-	createAudioTrack(position: number): void
-	createInstrumentTrack(position: number): void
-	createEffectTrack(position: number): void
-	getActions(): Action[]
-	getAction(id: string): Action
-	getActionCategories(): ActionCategory[]
-	getActionCategory(id: string): ActionCategory
-	activateEngine(): void
-	deactivateEngine(): void
-	hasActiveEngine(): BooleanValue
-	addHasActiveEngineObserver(callable: BooleanValueChangedCallback): void
-	projectName(): StringValue
-	addProjectNameObserver(callback: StringValueChangedCallback, maxChars: number): void
-	nextProject(): void
-	previousProject(): void
-	navigateIntoTrackGroup(track: Track): void
-	navigateToParentTrackGroup(): void
-	undo(): void
-	undoAction(): HardwareActionBindable
-	redo(): void
-	redoAction(): HardwareActionBindable
-	setPanelLayout(panelLayout: string): void
+	/** Switches to the next panel layout of the active display profile in Bitwig Studio. */
 	nextPanelLayout(): void
+
+	/** Switches to the previous panel layout of the active display profile in Bitwig Studio. */
 	previousPanelLayout(): void
+
+	/** Value that reports the name of the active panel layout. */
 	panelLayout(): StringValue
-	addPanelLayoutObserver(callable: StringValueChangedCallback, maxChars: number): void
+
+	/** Value that reports the name of the active display profile. */
 	displayProfile(): StringValue
-	addDisplayProfileObserver(callable: StringValueChangedCallback, maxChars: number): void
+
+	/** Toggles the visibility of the inspector panel. */
 	toggleInspector(): void
+
+	/** Toggles the visibility of the device chain panel. */
 	toggleDevices(): void
+
+	/** Toggles the visibility of the mixer panel. */
 	toggleMixer(): void
+
+	/** Toggles the visibility of the note editor panel. */
 	toggleNoteEditor(): void
+
+	/** Toggles the visibility of the automation editor panel. */
 	toggleAutomationEditor(): void
+
+	/** Toggles the visibility of the browser panel. */
 	toggleBrowserVisibility(): void
+
+	/** Shows the previous detail panel (note editor, device, automation). */
 	previousSubPanel(): void
+
+	/** Shows the next detail panel (note editor, device, automation). */
 	nextSubPanel(): void
+
+	/** Equivalent to an Arrow-Left key stroke on the computer keyboard. The concrete functionality depends on
+the current keyboard focus in Bitwig Studio. */
 	arrowKeyLeft(): void
+
+	/** Equivalent to an Arrow-Right key stroke on the computer keyboard. The concrete functionality depends on
+the current keyboard focus in Bitwig Studio. */
 	arrowKeyRight(): void
+
+	/** Equivalent to an Arrow-Up key stroke on the computer keyboard. The concrete functionality depends on the
+current keyboard focus in Bitwig Studio. */
 	arrowKeyUp(): void
+
+	/** Equivalent to an Arrow-Down key stroke on the computer keyboard. The concrete functionality depends on
+the current keyboard focus in Bitwig Studio. */
 	arrowKeyDown(): void
+
+	/** Equivalent to an Enter key stroke on the computer keyboard. The concrete functionality depends on the
+current keyboard focus in Bitwig Studio. */
 	enter(): void
+
+	/** Equivalent to an Escape key stroke on the computer keyboard. The concrete functionality depends on the
+current keyboard focus in Bitwig Studio. */
 	escape(): void
+
+	/** Selects all items according the current selection focus in Bitwig Studio. */
 	selectAll(): void
 	selectAllAction(): HardwareActionBindable
+
+	/** Deselects any items according the current selection focus in Bitwig Studio. */
 	selectNone(): void
 	selectNoneAction(): HardwareActionBindable
+
+	/** Selects the previous item in the current selection. */
 	selectPrevious(): void
 	selectPreviousAction(): HardwareActionBindable
+
+	/** Selects the next item in the current selection. */
 	selectNext(): void
 	selectNextAction(): HardwareActionBindable
+
+	/** Selects the first item in the current selection. */
 	selectFirst(): void
 	selectFirstAction(): HardwareActionBindable
+
+	/** Selects the last item in the current selection. */
 	selectLast(): void
 	selectLastAction(): HardwareActionBindable
+
+	/** Cuts the selected items in Bitwig Studio if applicable. */
 	cut(): void
 	cutAction(): HardwareActionBindable
+
+	/** Copies the selected items in Bitwig Studio to the clipboard if applicable. */
 	copy(): void
 	copyAction(): HardwareActionBindable
+
+	/** Pastes the clipboard contents into the current selection focus in Bitwig Studio if applicable. */
 	paste(): void
 	pasteAction(): HardwareActionBindable
+
+	/** Duplicates the active selection in Bitwig Studio if applicable. */
 	duplicate(): void
 	duplicateAction(): HardwareActionBindable
+
+	/** Deletes the selected items in Bitwig Studio if applicable. Originally this function was called `delete`
+(Bitwig Studio 1.0). But as `delete` is reserved in JavaScript this function got renamed to `remove` in
+Bitwig Studio 1.0.9. */
 	remove(): void
 	removeAction(): HardwareActionBindable
+
+	/** Opens a text input field in Bitwig Studio for renaming the selected item. */
 	rename(): void
+
+	/** Zooms in one step into the currently focused editor of the Bitwig Studio user interface. */
 	zoomIn(): void
 	zoomInAction(): HardwareActionBindable
+
+	/** Zooms out one step in the currently focused editor of the Bitwig Studio user interface. */
 	zoomOut(): void
 	zoomOutAction(): HardwareActionBindable
+
+	/** Adjusts the zoom level of the currently focused editor so that it matches the active selection. */
 	zoomToSelection(): void
 	zoomToSelectionAction(): HardwareActionBindable
+
+	/** Toggles between zoomToSelection and zoomToFit. */
 	zoomToSelectionOrAll(): void
 	zoomToSelectionOrAllAction(): HardwareActionBindable
+
+	/** Toggles between zoomToSelection and the last śet zoom level. */
 	zoomToSelectionOrPrevious(): void
 	zoomToSelectionOrPreviousAction(): HardwareActionBindable
+
+	/** Adjusts the zoom level of the currently focused editor so that all content becomes visible. */
 	zoomToFit(): void
 	zoomToFitAction(): HardwareActionBindable
+
+	/** Moves the panel focus to the panel on the left of the currently focused panel. */
 	focusPanelToLeft(): void
+
+	/** Moves the panel focus to the panel right to the currently focused panel. */
 	focusPanelToRight(): void
+
+	/** Moves the panel focus to the panel above the currently focused panel. */
 	focusPanelAbove(): void
+
+	/** Moves the panel focus to the panel below the currently focused panel. */
 	focusPanelBelow(): void
+
+	/** Toggles between full screen and windowed user interface. */
 	toggleFullScreen(): void
-	setPerspective(perspective: string): void
-	nextPerspective(): void
-	previousPerspective(): void
-	addSelectedModeObserver(callable: StringValueChangedCallback, maxChars: number, fallbackText: string): void
+
+	/** Returns the record quantization grid setting from the preferences.
+Possible values are "OFF", "1/32", "1/16", "1/8", "1/4". */
 	recordQuantizationGrid(): SettableEnumValue
+
+	/** Returns a settable value to choose if the record quantization should quantize note length. */
 	recordQuantizeNoteLength(): SettableBooleanValue
 }
 
 /** Proxy to an arpeggiator component. */
 declare interface Arpeggiator extends ObjectProxy {
-	/**
-	 * one of: all, up, up-down, up-then-down, down, down-up, down-then-up,
-	 * flow, random, converge-up, converge-down, diverge-up, diverge-down,
-	 * thumb-up, thumb-down, pinky-up, pinky-down
-	 */
+
+	/** Returns an object to configure the arpeggiator mode.
+Possible values:
+ - all
+ - up
+ - up-down
+ - up-then-down
+ - down
+ - down-up
+ - down-then-up
+ - flow
+ - random
+ - converge-up
+ - converge-down
+ - diverge-up
+ - diverge-down
+ - thumb-up
+ - thumb-down
+ - pinky-up
+ - pinky-down */
 	mode(): SettableEnumValue
+
+	/** Returns an object to configure the range in octaves.
+The range is between 0 and 8. */
 	octaves(): SettableIntegerValue
+
+	/** Returns an object to enable or disable the note repeat component. */
 	isEnabled(): SettableBooleanValue
+
+	/** If true the arpeggiator will not try to sync to the transport. */
 	isFreeRunning(): SettableBooleanValue
+
+	/** Return an object to configure the note repeat to use shuffle or not. */
 	shuffle(): SettableBooleanValue
+
+	/** Returns an object to configure the note repeat rate in beats. */
 	rate(): SettableDoubleValue
+
+	/** Returns an object to configure the note length, expressed as a ratio of the period.
+Must be between 1/32 and 1. */
 	gateLength(): SettableDoubleValue
+
+	/** Will use the note pressure to determine the velocity of arpeggiated notes. */
 	usePressureToVelocity(): SettableBooleanValue
+
+	/** Release all notes being played. */
 	releaseNotes(): void
 }
 
@@ -239,25 +422,44 @@ declare interface Arpeggiator extends ObjectProxy {
 To receive an instance of the application interface call {@link ControllerHost#createArranger}. */
 declare interface Arranger {
 
+	/** Gets an object that allows to enable/disable arranger playback follow. Observers can be registered on
+the returned object for receiving notifications when the setting switches between on and off. */
+	isPlaybackFollowEnabled(): SettableBooleanValue
+
+	/** Gets an object that allows to control the arranger track height. Observers can be registered on the
+returned object for receiving notifications when the track height changes. */
+	hasDoubleRowTrackHeight(): SettableBooleanValue
+
+	/** Gets an object that allows to show/hide the cue markers in the arranger panel. Observers can be
+registered on the returned object for receiving notifications when the cue marker lane switches between
+shown and hidden. */
+	areCueMarkersVisible(): SettableBooleanValue
+
+	/** Gets an object that allows to show/hide the clip launcher in the arranger panel. Observers can be
+registered on the returned object for receiving notifications when the clip launcher switches between
+shown and hidden. */
+	isClipLauncherVisible(): SettableBooleanValue
+
+	/** Gets an object that allows to show/hide the timeline in the arranger panel. Observers can be registered
+on the returned object for receiving notifications when the timeline switches between shown and hidden. */
+	isTimelineVisible(): SettableBooleanValue
+
+	/** Gets an object that allows to show/hide the track input/output choosers in the arranger panel. Observers
+can be registered on the returned object for receiving notifications when the I/O section switches
+between shown and hidden. */
+	isIoSectionVisible(): SettableBooleanValue
+
+	/** Gets an object that allows to show/hide the effect tracks in the arranger panel. Observers can be
+registered on the returned object for receiving notifications when the effect track section switches
+between shown and hidden. */
+	areEffectTracksVisible(): SettableBooleanValue
+
 	/** Returns an object that provides access to a bank of successive cue markers using a window configured with
 the given size, that can be scrolled over the list of markers. */
 	createCueMarkerBank(
-		/** the number of simultaneously accessible items*/
-		size: number): CueMarkerBank
 
-	isPlaybackFollowEnabled(): SettableBooleanValue
-	hasDoubleRowTrackHeight(): SettableBooleanValue
-	areCueMarkersVisible(): SettableBooleanValue
-	isClipLauncherVisible(): SettableBooleanValue
-	isTimelineVisible(): SettableBooleanValue
-	isIoSectionVisible(): SettableBooleanValue
-	areEffectTracksVisible(): SettableBooleanValue
-	addPlaybackFollowObserver(callback: BooleanValueChangedCallback): void
-	addTrackRowHeightObserver(callback: BooleanValueChangedCallback): void
-	addCueMarkerVisibilityObserver(callback: BooleanValueChangedCallback): void
-	togglePlaybackFollow(): void
-	toggleTrackRowHeight(): void
-	toggleCueMarkerVisibility(): void
+		/** the number of simultaneously accessible items*/
+		size: any, ): CueMarkerBank
 }
 
 /** Callback that is notified when an asynchronous transfer has completed. */
@@ -268,10 +470,14 @@ declare interface AsyncTransferCompledCallback {
 }
 
 declare interface AutoDetectionMidiPortNames {
+	getInputNames(): String[]
+	getOutputNames(): String[]
 }
 
 declare interface AutoDetectionMidiPortNamesList {
 	add(inputNames: String[], outputNames: String[], ): void
+	getPortNames(): AutoDetectionMidiPortNames[]
+	getCount(): number
 	getPortNamesAt(index: number, ): AutoDetectionMidiPortNames
 }
 
@@ -281,6 +487,13 @@ scrolling to different sections of the item list. It basically acts like a windo
 underlying items. */
 declare interface Bank extends ObjectProxy, Scrollable {
 
+	/** The fixed size of this bank.
+This will be initially equal to the capacity of the Bank. */
+	getSizeOfBank(): number
+
+	/** The maximum number of items in the bank which is defined when the bank is initially created. */
+	getCapacityOfBank(): number
+
 	/** Sets the size of this bank */
 	setSizeOfBank(
 
@@ -289,10 +502,19 @@ declare interface Bank extends ObjectProxy, Scrollable {
 
 	/** Gets the item in the bank at the supplied index. The index must be >= 0 and < {@link #getSizeOfBank()}. */
 	getItemAt(index: number, ): ItemType
+
+	/** Value that reports the underlying total item count (not the number of items available in the bank
+window). */
+	itemCount(): IntegerValue
+
+	/** An integer value that defines the location of the cursor that this bank is following. If there is no
+cursor or the cursor is not within the bank then the value is -1. */
+	cursorIndex(): SettableIntegerValue
 }
 
 /** Defines a formatter for a beat time that can convert a beat time to a string for display to the user. */
 declare interface BeatTimeFormatter {
+
 	/** Formats the supplied beat time as a string in the supplied time signature. */
 	formatBeatTime(beatTime: number, isAbsolute: boolean, timeSignatureNumerator: number, timeSignatureDenominator: number, timeSignatureTicks: number, ): string
 }
@@ -301,16 +523,25 @@ declare interface BeatTimeFormatter {
 
 Beat time values are double-precision number representing the number of quarter notes, regardless of time-signature. */
 declare interface BeatTimeValue extends DoubleValue {
-	/** Gets the current beat time formatted according to the supplied formatter. */
-	getFormatted(formatter: BeatTimeFormatter, ): string
+
+	/** Gets the current beat time formatted according to the default beat time formatter. */
+	getFormatted(): string
 }
 
 /** Represents a bitmap image which can be painted via {@link #render(Renderer)}. */
 declare interface Bitmap extends Image {
+	getWidth(): number
+	getHeight(): number
+	getFormat(): BitmapFormat
+	getMemoryBlock(): MemoryBlock
 
 	/** Call this method to start painting the bitmap.
 This method will take care of disposing allocated patterns during the rendering. */
 	render(renderer: Renderer, ): void
+
+	/** Call this method to show a window which displays the bitmap.
+You should see this as a debug utility rather than a Control Surface API feature. */
+	showDisplayWindow(): void
 
 	/** Updates the display window title. */
 	setDisplayWindowTitle(title: string, ): void
@@ -325,6 +556,12 @@ This method will take care of disposing allocated patterns during the rendering.
 /** Represents an output value shown on some hardware (for example, if an LED is on or off). */
 declare interface BooleanHardwareProperty extends HardwareProperty {
 
+	/** Gets the current value. This is the value that should be sent to the hardware to be displayed. */
+	currentValue(): boolean
+
+	/** The value that was last sent to the hardware. */
+	lastSentValue(): boolean
+
 	/** Specifies a callback that should be called with the value that needs to be sent to the hardware. This
 callback is called as a result of calling the {@link HardwareSurface#updateHardware()} method (typically
 from the flush method). */
@@ -338,15 +575,24 @@ from the flush method). */
 }
 
 declare interface BooleanValue extends Value<BooleanValueChangedCallback> {
+
+	/** Gets the current value. */
 	get(): boolean
+	getAsBoolean(): boolean
 }
 
-declare interface BooleanValueChangedCallback extends ValueChangedCallback {
+declare interface BooleanValueChangedCallback {
 	valueChanged(newValue: boolean, ): void
 }
 
 /** Instances of this interface are used to navigate a column in the Bitwig Studio browser. */
-declare interface BrowserColumn extends ObjectProxy {
+declare interface BrowserColumn {
+
+	/** Value that reports the underlying total count of column entries (not the size of the column window). */
+	entryCount(): IntegerValue
+
+	/** Returns the cursor item, which can be used to navigate over the list of entries. */
+	createCursorItem(): BrowserItem
 
 	/** Returns an object that provides access to a bank of successive entries using a window configured with
 the given size, that can be scrolled over the list of entries. */
@@ -359,16 +605,28 @@ the given size, that can be scrolled over the list of entries. */
 /** Instances of this interface are used to navigate a filter column in the Bitwig Studio browser. */
 declare interface BrowserFilterColumn extends BrowserColumn {
 
+	/** Returns the filter item that represents the top-level all/any/everything wildcard item. */
+	getWildcardItem(): BrowserFilterItem
+
+	/** Returns the cursor filter item, which can be used to navigate over the list of entries. */
+	createCursorItem(): BrowserFilterItem
+
 	/** Returns an object that provides access to a bank of successive entries using a window configured with
 the given size, that can be scrolled over the list of entries. */
 	createItemBank(
 
 		/** the number of simultaneously accessible items*/
 		size: any, ): BrowserFilterItemBank
+
+	/** Value that reports the name of the filter column. */
+	name(): StringValue
 }
 
 /** Instances of this interface represent entries in a browser filter column. */
-declare interface BrowserFilterItem extends BrowserItem {
+declare interface BrowserFilterItem {
+
+	/** Value that reports the hit count of the filter item. */
+	hitCount(): IntegerValue
 }
 
 /** Instances of this interface are used to navigate a filter column in the Bitwig Studio browser. */
@@ -377,6 +635,12 @@ declare interface BrowserFilterItemBank {
 
 /** Instances of this interface represent entries in a browser filter column. */
 declare interface BrowserItem {
+
+	/** Value that reports the name of the browser item. */
+	name(): StringValue
+
+	/** Returns an object that provides access to the selected state of the browser item. */
+	isSelected(): SettableBooleanValue
 }
 
 /** Instances of this interface are used to navigate a column in the Bitwig Studio browser. */
@@ -385,6 +649,9 @@ declare interface BrowserItemBank {
 
 /** Instances of this interface are used to navigate a results column in the Bitwig Studio browser. */
 declare interface BrowserResultsColumn {
+
+	/** Returns the cursor result item, which can be used to navigate over the list of entries. */
+	createCursorItem(): BrowserResultsItem
 
 	/** Returns an object that provides access to a bank of successive entries using a window configured with
 the given size, that can be scrolled over the list of entries. */
@@ -406,6 +673,9 @@ declare interface BrowserResultsItemBank {
 browser. The sessions are shown as tabs in the graphical user interface of the browser. */
 declare interface BrowsingSessionBank {
 
+	/** Returns the window size that was used to configure the session bank during creation. */
+	getSize(): number
+
 	/** Returns the browser session for the given index. */
 	getSession(
 
@@ -417,10 +687,24 @@ declare interface BrowsingSessionBank {
 - instrument selector
 - effect selector */
 declare interface ChainSelector extends {
+
+	/** The index of the active chain in the chain selector.
+In case the chain selector has no chains or the value is not connected to the chain selector,
+then the value will be 0. */
 	activeChainIndex(): SettableIntegerValue
+
+	/** The number of chains in the chain selector. */
 	chainCount(): IntegerValue
+
+	/** The active device layer. */
 	activeChain(): DeviceLayer
+
+	/** Cycle to the next chain.
+If the current active chain is the last one, then moves to the first one. */
 	cycleNext(): void
+
+	/** Cycle to the previous chain.
+If the current active chain the first one, then moves to the last one. */
 	cyclePrevious(): void
 }
 
@@ -428,28 +712,67 @@ declare interface ChainSelector extends {
 device channels. */
 declare interface Channel {
 
+	/** Returns an object that represents the activated state of the channel. */
+	isActivated(): SettableBooleanValue
+
+	/** Gets a representation of the channels volume control. */
+	volume(): Parameter
+
+	/** Gets a representation of the channels pan control. */
+	pan(): Parameter
+
+	/** Gets a representation of the channels mute control. */
+	mute(): SettableBooleanValue
+
+	/** Gets a representation of the channels solo control. */
+	solo(): SoloValue
+
+	/** True if the current channel is being muted by an other channel with solo on. */
+	isMutedBySolo(): BooleanValue
+
 	/** Registers an observer for the VU-meter of this track. */
 	addVuMeterObserver(
 
 		/** the number of steps to which the reported values should be scaled. For example a range of 128
           would cause the callback to be called with values between 0 and 127.*/
-		range: any,
+		range: any, 
 
 		/** 0 for left channel, 1 for right channel, -1 for the sum of both*/
-		channel: any,
+		channel: any, 
 
 		/** when `true` the peak value is reported, otherwise the RMS value*/
-		peak: any,
+		peak: any, 
 
 		/** a callback function that takes a single numeric argument. The value is in the range
           [0..range-1].*/
 		callback: any, ): void
+
+	/** Returns an array of the playing notes. */
+	playingNotes(): PlayingNoteArrayValue
+
+	/** Get the color of the channel. */
+	color(): SettableColorValue
+
+	/** Gets a {@link SendBank} that can be used to navigate the sends of this channel. */
+	sendBank(): SendBank
+
+	/** Duplicates the track. */
+	duplicate(): void
+
+	/** Selects the device chain in the Bitwig Studio mixer, in case it is a selectable object. */
+	selectInMixer(): void
 
 	/** Registers an observer that reports if the device chain is selected in Bitwig Studio mixer. */
 	addIsSelectedInMixerObserver(
 
 		/** a callback function that takes a single boolean parameter.*/
 		callback: any, ): void
+
+	/** Tries to scroll the contents of the arrangement editor so that the channel becomes visible. */
+	makeVisibleInArranger(): void
+
+	/** Tries to scroll the contents of the mixer panel so that the channel becomes visible. */
+	makeVisibleInMixer(): void
 }
 
 /** A channel bank provides access to a range of channels in Bitwig Studio, such as tracks or device layers.
@@ -463,6 +786,16 @@ declare interface ChannelBank {
 
 		/** the step size used for scrolling. Default is `1`.*/
 		stepSize: any, ): void
+
+	/** Value that reports if the channel bank can be scrolled further down. */
+	canScrollChannelsUp(): BooleanValue
+
+	/** Value that reports if the channel bank can be scrolled further down. */
+	canScrollChannelsDown(): BooleanValue
+
+	/** Value that reports the underlying total channel count (not the number of channels available in the bank
+window). */
+	channelCount(): IntegerValue
 }
 
 /** An interface that provides access to the contents of a clip in Bitwig Studio.
@@ -480,23 +813,74 @@ Note: This can cause some parts of the grid to represent invalid keys as there i
           0...127.*/
 		key: any, ): void
 
+	/** Scrolls the note grid keys one page up. For example if the note grid is configured to show 12 keys and
+is currently showing keys [36..47], calling this method would scroll the note grid to key range
+[48..59]. */
+	scrollKeysPageUp(): void
+
+	/** Scrolls the note grid keys one page down. For example if the note grid is configured to show 12 keys and
+is currently showing keys [36..47], calling this method would scroll the note grid to key range
+[48..59]. */
+	scrollKeysPageDown(): void
+
+	/** Scrolls the note grid keys one key up. For example if the note grid is configured to show 12 keys and is
+currently showing keys [36..47], calling this method would scroll the note grid to key range [37..48]. */
+	scrollKeysStepUp(): void
+
+	/** Scrolls the note grid keys one key down. For example if the note grid is configured to show 12 keys and
+is currently showing keys [36..47], calling this method would scroll the note grid to key range
+[35..46]. */
+	scrollKeysStepDown(): void
+
 	/** Scroll the note grid so that the given step becomes visible. */
 	scrollToStep(
 
 		/** the step that should become visible*/
 		step: any, ): void
 
+	/** Scrolls the note grid steps one page forward. For example if the note grid is configured to show 16
+steps and is currently showing keys [0..15], calling this method would scroll the note grid to key range
+[16..31]. */
+	scrollStepsPageForward(): void
+
+	/** Scrolls the note grid steps one page backwards. For example if the note grid is configured to show 16
+steps and is currently showing keys [16..31], calling this method would scroll the note grid to key
+range [0..16]. */
+	scrollStepsPageBackwards(): void
+
+	/** Scrolls the note grid steps one step forward. For example if the note grid is configured to show 16
+steps and is currently showing keys [0..15], calling this method would scroll the note grid to key range
+[1..16]. */
+	scrollStepsStepForward(): void
+
+	/** Scrolls the note grid steps one step backwards. For example if the note grid is configured to show 16
+steps and is currently showing keys [1..16], calling this method would scroll the note grid to key range
+[0..15]. */
+	scrollStepsStepBackwards(): void
+
+	/** Value that reports if the note grid keys can be scrolled further up. */
+	canScrollKeysUp(): BooleanValue
+
+	/** Value that reports if the note grid keys can be scrolled further down. */
+	canScrollKeysDown(): BooleanValue
+
+	/** Value that reports if the note grid if the note grid steps can be scrolled backwards. */
+	canScrollStepsBackwards(): BooleanValue
+
+	/** Value that reports if the note grid if the note grid steps can be scrolled forwards. */
+	canScrollStepsForwards(): BooleanValue
+
 	/** Toggles the existence of a note in the note grid cell specified by the given x and y arguments. */
 	toggleStep(
 
 		/** the MIDI channel, between 0 and 15.*/
-		channel: number,
+		channel: number, 
 
 		/** the x position within the note grid, defining the step/time of the target note*/
-		x: any,
+		x: any, 
 
 		/** the y position within the note grid, defining the key of the target note*/
-		y: any,
+		y: any, 
 
 		/** the velocity of the target note in case a new note gets inserted*/
 		insertVelocity: any, ): void
@@ -510,10 +894,10 @@ nothing in case no note exists at the given x-y-coordinates. */
 	clearStep(
 
 		/** MIDI channel, from 0 to 15.*/
-		channel: number,
+		channel: number, 
 
 		/** the x position within the note grid, defining the step/time of the target note*/
-		x: any,
+		x: any, 
 
 		/** the y position within the note grid, defining the key of the target note*/
 		y: any, ): void
@@ -525,23 +909,26 @@ nothing in case no note exists at the given x-y-coordinates. */
 	clearStepsAtY(
 
 		/** MIDI channel, from 0 to 15.*/
-		channel: number,
+		channel: number, 
 
 		/** the y position within the note grid, defining the key of the target note*/
 		y: number, ): void
+
+	/** Removes all notes in the grid. */
+	clearSteps(): void
 
 	/** Selects the note in the grid cell specified by the given x and y arguments, in case there actually is a
 note at the given x-y-coordinates. */
 	selectStepContents(
 
 		/** MIDI channel, from 0 to 15.*/
-		channel: number,
+		channel: number, 
 
 		/** the x position within the note grid, defining the step/time of the target note*/
-		x: any,
+		x: any, 
 
 		/** the y position within the note grid, defining the key of the target note*/
-		y: any,
+		y: any, 
 
 		/** `true` if the existing selection should be cleared, {@false} if the note should be added to
           the current selection.*/
@@ -568,11 +955,44 @@ note at the given x-y-coordinates. */
 		/** A callback function that receives the StepInfo.*/
 		callback: NoteStepChangedCallback, ): void
 
+	/** Value that reports note grid cells as they get played by the sequencer. */
+	playingStep(): IntegerValue
+
 	/** Updates the name of the clip. */
 	setName(
 
 		/** the new clip name*/
 		name: any, ): void
+
+	/** Returns shuffle settings of the clip. */
+	getShuffle(): SettableBooleanValue
+
+	/** Returns accent setting of the clip. */
+	getAccent(): SettableRangedValue
+
+	/** Returns the start of the clip in beat time. */
+	getPlayStart(): SettableBeatTimeValue
+
+	/** Returns the length of the clip in beat time. */
+	getPlayStop(): SettableBeatTimeValue
+
+	/** Returns an object that provides access to the loop enabled state of the clip. */
+	isLoopEnabled(): SettableBooleanValue
+
+	/** Returns the loop start time of the clip in beat time. */
+	getLoopStart(): SettableBeatTimeValue
+
+	/** Returns the loop length of the clip in beat time. */
+	getLoopLength(): SettableBeatTimeValue
+
+	/** Get the color of the clip. */
+	color(): SettableColorValue
+
+	/** Duplicates the clip. */
+	duplicate(): void
+
+	/** Duplicates the content of the clip. */
+	duplicateContent(): void
 
 	/** Transposes all notes in the clip by the given number of semitones. */
 	transpose(
@@ -588,14 +1008,80 @@ the same as before. */
           quantized note start.*/
 		amount: any, ): void
 
+	/** Gets the track that contains the clip. */
+	getTrack(): Track
+
+	/** Setting for the default launch quantization.
+
+Possible values are `"default"`, `"none"`, `"8"`, `"4"`, `"2"`, `"1"`, `"1/2"`, `"1/4"`, `"1/8"`,
+`"1/16"`. */
+	launchQuantization(): SettableEnumValue
+
+	/** Setting "Q to loop" in the inspector. */
+	useLoopStartAsQuantizationReference(): SettableBooleanValue
+
+	/** Setting "Launch Mode" from the inspector.
+Possible values are:
+ - play_with_quantization
+ - continue_immediately
+ - continue_with_quantization */
+	launchMode(): SettableEnumValue
+
 	/** Get step info */
 	getStep(channel: number, x: number, y: number, ): NoteStep
+
+	/** Launches the clip. */
+	launch(): void
+
+	/** Get the clip launcher slot containing the clip. */
+	clipLauncherSlot(): ClipLauncherSlot
 }
 
 declare interface ClipLauncherSlot {
 
+	/** Value that reports whether this slot is selected or not. */
+	isSelected(): BooleanValue
+
+	/** Value that reports whether this slot has content or not. */
+	hasContent(): BooleanValue
+
+	/** Value that reports whether this slot is playing or not. */
+	isPlaying(): BooleanValue
+
+	/** Value that reports whether this slot is queued for playback or not. */
+	isPlaybackQueued(): BooleanValue
+
+	/** Value that reports whether this slot is recording or not. */
+	isRecording(): BooleanValue
+
+	/** Value that reports whether this slot is queued for recording or not. */
+	isRecordingQueued(): BooleanValue
+
+	/** Value that reports whether this slot is queued for recording or not. */
+	isStopQueued(): BooleanValue
+
+	/** Starts browsing for content that can be inserted in this slot in Bitwig Studio's popup browser. */
+	browseToInsertClip(): void
+
+	/** Value that reports the color of this slot. */
+	color(): SettableColorValue
+
+	/** Selects the slot. */
+	select(): void
+	selectAction(): HardwareActionBindable
+
+	/** Start recording a clip. */
+	record(): void
+	recordAction(): HardwareActionBindable
+
+	/** Makes the clip content of the slot visible in the note or audio editor. */
+	showInEditor(): void
+
 	/** Creates an new clip. */
 	createEmptyClip(lengthInBeats: number, ): void
+
+	/** Duplicates the clip. */
+	duplicateClip(): void
 }
 
 /** Instances of this interface represent a scrollable fixed-size window that is connected to a section of the
@@ -709,6 +1195,11 @@ default indications are disabled. */
 
 		/** `true` if visual indications should be enabled, `false` otherwise*/
 		shouldIndicate: any, ): void
+
+	/** Returns an object that can be used to observe and toggle if the slots on a connected track group show
+either scenes launch buttons (for launching the content of the track group) or the clips of the group
+master track. */
+	isMasterTrackContentShownOnTrackGroups(): SettableBooleanValue
 }
 
 declare interface ClipLauncherSlotBankPlaybackStateChangedCallback {
@@ -721,12 +1212,34 @@ recording`. */
 
 declare interface ClipLauncherSlotOrScene {
 
+	/** Returns an object that provides access to the name of the scene. */
+	name(): StringValue
+
+	/** Launches the scene. */
+	launch(): void
+	launchAction(): HardwareActionBindable
+
+	/** Value that reports the position of the scene within the list of Bitwig Studio scenes. */
+	sceneIndex(): IntegerValue
+
+	/** Value that reports the color of this slot. */
+	color(): SettableColorValue
+
 	/** Specifies if the Bitwig Studio clip launcher should indicate which slots and scenes are part of the window. By
 default indications are disabled. */
 	setIndication(
 
 		/** `true` if visual indications should be enabled, `false` otherwise*/
 		shouldIndicate: any, ): void
+
+	/** An {@link InsertionPoint} that is used to replace the contents of this slot or scene. */
+	replaceInsertionPoint(): InsertionPoint
+
+	/** An {@link InsertionPoint} that can be used to insert content in the next scene. */
+	nextSceneInsertionPoint(): InsertionPoint
+
+	/** An {@link InsertionPoint} that can be used to insert content after this slot or scene. */
+	previousSceneInsertionPoint(): InsertionPoint
 }
 
 /** An abstract interface that represents the clip launcher scenes or slots of a single track. */
@@ -737,6 +1250,16 @@ declare interface ClipLauncherSlotOrSceneBank {
 
 		/** the index of the slot that should be launched*/
 		slot: any, ): void
+
+	/** Stops clip launcher playback for the associated track. */
+	stop(): void
+
+	/** Action to call {@link #stop()}. */
+	stopAction(): HardwareActionBindable
+
+	/** Performs a return-to-arrangement operation on the related track, which caused playback to be taken over
+by the arrangement sequencer. */
+	returnToArrangement(): void
 
 	/** Registers an observer that reports the names of the scenes and slots. The slot names reflect the names
 of containing clips. */
@@ -757,10 +1280,27 @@ declare interface Color {
 
 	/** Mixes two colors. */
 	mix(c1: Color, c2: Color, blend: number, ): Color
+	nullColor(): Color
+	blackColor(): Color
+	whiteColor(): Color
+	getRed(): number
+	getGreen(): number
+	getBlue(): number
+	getAlpha(): number
+	getRed255(): number
+	getGreen255(): number
+	getBlue255(): number
+	getAlpha255(): number
 }
 
 /** Represents an output value shown on some hardware (for example, the color of a light). */
 declare interface ColorHardwareProperty {
+
+	/** Gets the current value. This is the value that should be sent to the hardware to be displayed. */
+	currentValue(): Color
+
+	/** The value that was last sent to the hardware. */
+	lastSentValue(): Color
 
 	/** Specifies a callback that should be called with the value that needs to be sent to the hardware. This
 callback is called as a result of calling the {@link HardwareSurface#updateHardware()} method (typically
@@ -775,6 +1315,19 @@ from the flush method). */
 }
 
 declare interface ColorValue {
+
+	/** Gets the red component of the current value. */
+	red(): number
+
+	/** Gets the green component of the current value. */
+	green(): number
+
+	/** Gets the blue component of the current value. */
+	blue(): number
+
+	/** Gets the alpha component of the current value. */
+	alpha(): number
+	get(): Color
 }
 
 declare interface ColorValueChangedCallback {
@@ -793,6 +1346,10 @@ declare interface ConnectionEstablishedCallback {
 relative encoder...). */
 declare interface ContinuousHardwareControl {
 
+	/** An optional button that can be associated with this control when this control can also act as a button
+(e.g by pressing down on it). */
+	hardwareButton(): HardwareButton
+
 	/** Sets an optional button that can be associated with this control when this control can also act as a
 button (e.g by pressing down on it). */
 	setHardwareButton(button: HardwareButton, ): void
@@ -807,10 +1364,35 @@ declare interface ContinuousHardwareValueMatcher {
 declare interface ControllerExtension {
 	getMidiInPort(index: number, ): MidiIn
 	getMidiOutPort(index: number, ): MidiOut
+
+	/** Initializes this controller extension. This will be called once when the extension is started. During initialization the
+extension should call the various create methods available via the {@link ControllerHost} interface in order to
+create objects used to communicate with various parts of the Bitwig Studio application (e.g
+{@link ControllerHost#createCursorTrack(int, int)}. */
+	init(): void
+
+	/** Called once when this controller extension is stopped. */
+	exit(): void
+
+	/** Called when this controller extension should flush any pending updates to the controller. */
+	flush(): void
 }
 
 /** Defines an extension that enabled a controller to work with Bitwig Studio. */
 declare interface ControllerExtensionDefinition {
+	toString(): string
+
+	/** The vendor of the controller that this extension is for. */
+	getHardwareVendor(): string
+
+	/** The model name of the controller that this extension is for. */
+	getHardwareModel(): string
+
+	/** The number of MIDI in ports that this controller extension has. */
+	getNumMidiInPorts(): number
+
+	/** The number of MIDI out ports that this controller extension has. */
+	getNumMidiOutPorts(): number
 
 	/** Obtains a {@link AutoDetectionMidiPortNamesList} that defines the names of the MIDI in and out ports
 that can be used for auto detection of the controller for the supplied platform type. */
@@ -819,6 +1401,7 @@ that can be used for auto detection of the controller for the supplied platform 
 	/** Lists the {@link AutoDetectionMidiPortNames} that defines the names of the MIDI in and out ports that
 can be used for auto detection of the controller for the supplied platform type. */
 	listAutoDetectionMidiPortNames(list: AutoDetectionMidiPortNamesList, platformType: PlatformType, ): void
+	getHardwareDeviceMatcherList(): HardwareDeviceMatcherList
 
 	/** Lists the hardware devices that this controller needs to function. For each device that is listed the
 user will see a chooser in the preferences for this extension that allows them to choose a connected
@@ -847,9 +1430,24 @@ and third group are typically called from the init method of the script or other
 last group is probably only required in rare cases and can be called any time. */
 declare interface ControllerHost {
 
+	/** Restarts this controller. */
+	restart(): void
+
 	/** Loads the supplied API version into the calling script. This is only intended to be called from a
 controller script. It cannot be called from a Java controller extension. */
 	loadAPI(version: number, ): void
+
+	/** Call this method to allow your script to use Beta APIs.
+
+Beta APIs are still on development and might not be available in a future version of Bitwig Studio.
+
+Turning this flag to true, will flag your extension as being a beta extension which might not work after
+updating Bitwig Studio. */
+	useBetaApi(): void
+
+	/** Determines whether the calling script should fail if it calls a deprecated method based on the API
+version that it requested. */
+	shouldFailOnDeprecatedUse(): boolean
 
 	/** Sets whether the calling script should fail if it calls a deprecated method based on the API version
 that it requested. This is only intended to be called from a controller script. It cannot be called from
@@ -860,24 +1458,33 @@ a Java controller extension. */
 script. It cannot be called from a Java controller extension. */
 	load(path: string, ): void
 
+	/** Indicates if the host platform is Windows. */
+	platformIsWindows(): boolean
+
+	/** Indicates if the host platform is Apple Mac OS X. */
+	platformIsMac(): boolean
+
+	/** Indicates if the host platform is Linux. */
+	platformIsLinux(): boolean
+
 	/** Registers a controller script with the given parameters. This function must be called once at the global
 scope of the script. */
 	defineController(
 
 		/** the name of the hardware vendor. Must not be <code>null</code>.*/
-		vendor: any,
+		vendor: any, 
 
 		/** the name of the controller script as listed in the user interface of Bitwig Studio. Must not
           be <code>null</code>.*/
-		name: any,
+		name: any, 
 
 		/** the version of the controller script. Must not be <code>null</code>.*/
-		version: any,
+		version: any, 
 
 		/** a universal unique identifier (UUID) string that is used to distinguish one script from
           another, for example `550e8400-e29b-11d4-a716-446655440000`. Must not be <code>null</code>.
           For generating random UUID strings several free web tools are available.*/
-		uuid: any,
+		uuid: any, 
 
 		/** the name of the script author*/
 		author: any, ): void
@@ -890,7 +1497,7 @@ individual port objects can be accessed using {@link #getMidiInPort(int index)} 
 	defineMidiPorts(
 
 		/** the number of input ports*/
-		numInports: any,
+		numInports: any, 
 
 		/** the number of output ports*/
 		numOutports: any, ): void
@@ -925,10 +1532,41 @@ order to support alternative driver names. */
 	addDeviceNameBasedDiscoveryPair(
 
 		/** the array of strings used to detect MIDI input ports, must not be `null`.*/
-		inputs: any,
+		inputs: any, 
 
 		/** the array of strings used to detect MIDI output ports, must not be `null`.*/
 		outputs: any, ): void
+
+	/** Creates a preferences object that can be used to insert settings into the Controller Preferences panel
+in Bitwig Studio. */
+	getPreferences(): Preferences
+
+	/** Creates a document state object that can be used to insert settings into the Studio I/O Panel in Bitwig
+Studio. */
+	getDocumentState(): DocumentState
+
+	/** Returns an object that is used to configure automatic notifications. Bitwig Studio supports automatic
+visual feedback from controllers that shows up as popup notifications. For example when the selected
+track or the current device preset was changed on the controller these notifications are shown,
+depending on your configuration. */
+	getNotificationSettings(): NotificationSettings
+
+	/** Returns an object for controlling various aspects of the currently selected project. */
+	getProject(): Project
+
+	/** Returns an object for controlling and monitoring the elements of the `Transport` section in Bitwig
+Studio. This function should be called once during initialization of the script if transport access is
+desired. */
+	createTransport(): Transport
+
+	/** Returns an object for controlling and monitoring the `Groove` section in Bitwig Studio. This function
+should be called once during initialization of the script if groove control is desired. */
+	createGroove(): Groove
+
+	/** Returns an object that provides access to general application functionality, including global view
+settings, the list of open projects, and other global settings that are not related to a certain
+document. */
+	createApplication(): Application
 
 	/** Returns an object which provides access to the `Arranger` panel inside the specified window. */
 	createArranger(
@@ -944,7 +1582,7 @@ order to support alternative driver names. */
           panel layout in Bitwig Studio should be followed. Empty strings or invalid names are treated
           the same way as `null`. To receive the list of available panel layouts see
           {@link Application#addPanelLayoutObserver}.*/
-		panelLayout: any,
+		panelLayout: any, 
 
 		/** the index of the window where the mixer panel is shown, or -1 in case the first mixer panel
           found on any window should be taken*/
@@ -968,13 +1606,13 @@ you are only interested in tracks of a certain kind. */
 	createTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: any, 
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: any, 
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: any, 
 
 		/** specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.*/
@@ -986,10 +1624,10 @@ in general, see the documentation for {@link #createTrackBank}. */
 	createMainTrackBank(
 
 		/** the number of tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: any, 
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: any, 
 
 		/** the number of scenes spanned by the track bank*/
 		numScenes: any, ): TrackBank
@@ -1000,7 +1638,7 @@ documentation for {@link #createTrackBank}. */
 	createEffectTrackBank(
 
 		/** the number of tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: any, 
 
 		/** the number of scenes spanned by the track bank*/
 		numScenes: any, ): TrackBank
@@ -1033,7 +1671,7 @@ gridHeight parameters specify the grid dimensions used to access the note conten
 	createLauncherCursorClip(
 
 		/** the number of steps spanned by one page of the note content grid.*/
-		gridWidth: any,
+		gridWidth: any, 
 
 		/** the number of keys spanned by one page of the note content grid.*/
 		gridHeight: any, ): Clip
@@ -1043,7 +1681,7 @@ gridHeight parameters specify the grid dimensions used to access the note conten
 	createArrangerCursorClip(
 
 		/** the number of steps spanned by one page of the note content grid.*/
-		gridWidth: any,
+		gridWidth: any, 
 
 		/** the number of keys spanned by one page of the note content grid.*/
 		gridHeight: any, ): Clip
@@ -1061,10 +1699,13 @@ this method once initially and then from within the callback function. */
 	scheduleTask(
 
 		/** the callback function that will be called*/
-		callback: any,
+		callback: any, 
 
 		/** the duration after which the callback function will be called in milliseconds*/
 		delay: any, ): void
+
+	/** Requests that the driver's flush method gets called. */
+	requestFlush(): void
 
 	/** Prints the given string in the control surface console window. The console window can be opened in the
 view menu of Bitwig Studio. */
@@ -1092,7 +1733,7 @@ hardware and software. */
 	createRemoteConnection(
 
 		/** a meaningful name that describes the purpose of this connection.*/
-		name: any,
+		name: any, 
 
 		/** the port that should be used for the connection. If the port is already in use, then another
           port will be used. Check {@link RemoteSocket#getPort()} on the returned object to be sure.*/
@@ -1102,10 +1743,10 @@ hardware and software. */
 	connectToRemoteHost(
 
 		/** the host name or IP address to connect to.*/
-		host: any,
+		host: any, 
 
 		/** the port to connect to*/
-		port: any,
+		port: any, 
 
 		/** the callback function that gets called when the connection gets established. A single
           {@link RemoteConnection} parameter is passed into the callback function.*/
@@ -1115,10 +1756,10 @@ hardware and software. */
 	sendDatagramPacket(
 
 		/** the destination host name or IP address*/
-		host: any,
+		host: any, 
 
 		/** the destination port*/
-		port: any,
+		port: any, 
 
 		/** the data to be send. When creating a numeric byte array in JavaScript, the byte values must be
           signed (in the range -128..127).*/
@@ -1128,14 +1769,22 @@ hardware and software. */
 	addDatagramPacketObserver(
 
 		/** a meaningful name that describes the purpose of this observer.*/
-		name: any,
+		name: any, 
 
 		/** the port that should be used*/
-		port: any,
+		port: any, 
 
 		/** the callback function that gets called when data arrives. The function receives a single
           parameter that contains the data byte array.*/
 		callback: any, ): boolean
+
+	/** Creates a {@link PopupBrowser} that represents the pop-up browser in Bitwig Studio. */
+	createPopupBrowser(): PopupBrowser
+
+	/** {@link BeatTimeFormatter} used to format beat times by default. This will be used to format beat times
+when asking for a beat time in string format without providing any formatting options. For example by
+calling {@link BeatTimeStringValue#get()}. */
+	defaultBeatTimeFormatter(): BeatTimeFormatter
 
 	/** Sets the {@link BeatTimeFormatter} to use by default for formatting beat times. */
 	setDefaultBeatTimeFormatter(formatter: BeatTimeFormatter, ): void
@@ -1145,19 +1794,22 @@ hardware and software. */
 
 		/** the character used to separate the segments of the formatted beat time, typically ":", "." or
           "-"*/
-		separator: any,
+		separator: any, 
 
 		/** the number of digits reserved for bars*/
-		barsLen: any,
+		barsLen: any, 
 
 		/** the number of digits reserved for beats*/
-		beatsLen: any,
+		beatsLen: any, 
 
 		/** the number of digits reserved for beat subdivisions*/
-		subdivisionLen: any,
+		subdivisionLen: any, 
 
 		/** the number of digits reserved for ticks*/
 		ticksLen: any, ): BeatTimeFormatter
+
+	/** Creates a {@link HardwareSurface} that can contain hardware controls. */
+	createHardwareSurface(): HardwareSurface
 
 	/** Creates a {@link HardwareActionMatcher} that is matched by either of the 2 supplied action matchers. */
 	createOrHardwareActionMatcher(matcher1: HardwareActionMatcher, matcher2: HardwareActionMatcher, ): HardwareActionMatcher
@@ -1170,12 +1822,16 @@ matchers. */
 matchers. */
 	createOrAbsoluteHardwareValueMatcher(matcher1: AbsoluteHardwareValueMatcher, matcher2: AbsoluteHardwareValueMatcher, ): AbsoluteHardwareValueMatcher
 
+	/** An object that can be used to generate useful MIDI expression strings which can be used in
+{@link MidiIn#createActionMatcher(String)} and other related methods. */
+	midiExpressions(): MidiExpressions
+
 	/** Creates a {@link HardwareActionBindable} that can be bound to some {@link HardwareAction} (such as a
 button press) and when that action occurs the supplied {@link Runnable} will be run */
 	createAction(
 
 		/** Consumer that will be notified of the pressure of the action*/
-		actionPressureConsumer: any,
+		actionPressureConsumer: any, 
 
 		/** Provider that can provide a description of what the runnable does (used for showing onscreen
           feedback or help to the user).*/
@@ -1187,7 +1843,7 @@ button press) and when that action occurs the supplied {@link Runnable} will be 
 	createRelativeHardwareControlStepTarget(
 
 		/** The action that should happen when stepping forwards*/
-		stepForwardsAction: any,
+		stepForwardsAction: any, 
 
 		/** The action that should happen when stepping backwards*/
 		stepBackwardsAction: any, ): RelativeHardwarControlBindable
@@ -1220,6 +1876,15 @@ declare interface CueMarker {
 
 		/** Specified if the cue marker should be launched quantized or immediately*/
 		quantized: boolean, ): void
+
+	/** Gets a representation of the marker name. */
+	getName(): StringValue
+
+	/** Gets a representation of the marker color. */
+	getColor(): ColorValue
+
+	/** Gets a representation of the markers beat-time position in quarter-notes. */
+	position(): SettableBeatTimeValue
 }
 
 /** A cue marker bank provides access to a range of cue markers in Bitwig Studio.
@@ -1242,6 +1907,26 @@ Implementations of this interface can either represent custom selection cursors 
 controller scripts, or represent the cursor of user selections as shown in Bitwig Studio editors, such as
 the Arranger track selection cursor, the note editor event selection cursor and so on. */
 declare interface Cursor {
+
+	/** Select the previous item. */
+	selectPrevious(): void
+	selectPreviousAction(): HardwareActionBindable
+
+	/** Select the next item. */
+	selectNext(): void
+	selectNextAction(): HardwareActionBindable
+
+	/** Select the first item. */
+	selectFirst(): void
+
+	/** Select the last item. */
+	selectLast(): void
+
+	/** Boolean value that reports whether there is an item after the current cursor position. */
+	hasNext(): BooleanValue
+
+	/** Boolean value that reports whether there is an item before the current cursor position. */
+	hasPrevious(): BooleanValue
 }
 
 /** Instances of this interface are used to navigate the filter columns of a Bitwig Studio browsing session. */
@@ -1250,6 +1935,36 @@ declare interface CursorBrowserFilterColumn {
 
 /** Instances of this interface represent entries in a browser filter column. */
 declare interface CursorBrowserFilterItem {
+
+	/** Select the parent item. */
+	selectParent(): void
+
+	/** Select the first child item. */
+	selectFirstChild(): void
+
+	/** Select the last child item. */
+	selectLastChild(): void
+
+	/** Select the previous item. */
+	moveToPrevious(): void
+
+	/** Select the next item. */
+	moveToNext(): void
+
+	/** Select the first item. */
+	moveToFirst(): void
+
+	/** Select the last item. */
+	moveToLast(): void
+
+	/** Select the parent item. */
+	moveToParent(): void
+
+	/** Move the cursor to the first child item. */
+	moveToFirstChild(): void
+
+	/** Move the cursor to the last child item. */
+	moveToLastChild(): void
 }
 
 /** Instances of this interface represent entries in a browser filter column. */
@@ -1293,6 +2008,13 @@ declare interface CursorClip {
 
 /** A special kind of selection cursor used for devices. */
 declare interface CursorDevice {
+
+	/** Returns the channel that this cursor device was created on. Currently this will always be a track or
+cursor track instance. */
+	channel(): Channel
+
+	/** Selects the parent device if there is any. */
+	selectParent(): void
 
 	/** Moves this cursor to the given device. */
 	selectDevice(
@@ -1362,6 +2084,9 @@ declare interface CursorDeviceSlot {
 /** Represents a cursor that looks at a {@link RemoteControlsPage}. */
 declare interface CursorRemoteControlsPage {
 
+	/** Value that reports the names of the devices parameter pages. */
+	pageNames(): StringArrayValue
+
 	/** Selects the next page. */
 	selectNextPage(
 
@@ -1379,7 +2104,7 @@ declare interface CursorRemoteControlsPage {
 
 		/** An expression that can match a page based on how it has been tagged. For now this can only be
           the name of a single tag that you would like to match.*/
-		expression: any,
+		expression: any, 
 
 		/** If true then when the end is reached and there is no next page it selects the first page*/
 		shouldCycle: any, ): void
@@ -1389,14 +2114,29 @@ declare interface CursorRemoteControlsPage {
 
 		/** An expression that can match a page based on how it has been tagged. For now this can only be
           the name of a single tag that you would like to match.*/
-		expression: any,
+		expression: any, 
 
 		/** If true then when the end is reached and there is no next page it selects the first page*/
 		shouldCycle: any, ): void
+
+	/** Value that reports the currently selected parameter page index. */
+	selectedPageIndex(): SettableIntegerValue
+
+	/** Value that represents the number of pages. */
+	pageCount(): IntegerValue
 }
 
 /** Instances of this interface represent the cursor item of track selections. */
 declare interface CursorTrack {
+
+	/** Makes the cursor track point to it's parent group track, in case it is not already pointing to the root
+group track. */
+	selectParent(): void
+
+	/** Makes the cursor track point to the first child found with the track group that this cursor currently
+points to. If this cursor is not pointing to a track group or the track group is empty then this has no
+effect. */
+	selectFirstChild(): void
 
 	/** Specifies the behaviour of the functions {@link #selectPrevious()}, {@link #selectNext()},
 {@link #selectFirst()} and {@link #selectLast()}. Calling those functions can either navigate the cursor
@@ -1409,13 +2149,13 @@ supplied follow mode. */
 	createCursorDevice(
 
 		/** An id that is used to identify this cursor.*/
-		id: any,
+		id: any, 
 
 		/** A name that is displayed to the user for this cursor.*/
-		name: any,
+		name: any, 
 
 		/** the number of sends that are simultaneously accessible in nested channels.*/
-		numSends: any,
+		numSends: any, 
 
 		/** Mode that defines how this cursor should follow devices.*/
 		followMode: any, ): PinnableCursorDevice
@@ -1433,10 +2173,31 @@ declare interface DataReceivedCallback {
 
 /** Interface implemented by objects that can be deleted from the project. */
 declare interface DeleteableObject {
+
+	/** Deletes this object from the document.
+
+If you want to delete multiple objects at once, see Host.deleteObjects(). */
+	deleteObject(): void
 }
 
 /** This interface represents a device in Bitwig Studio, both internal devices and plugins. */
 declare interface Device {
+
+	/** Returns a representation of the device chain that contains this device. Possible device chain instances
+are tracks, device layers, drums pads, or FX slots. */
+	deviceChain(): DeviceChain
+
+	/** Value that reports the position of the device within the parent device chain. */
+	position(): IntegerValue
+
+	/** Returns an object that provides access to the open state of plugin windows. */
+	isWindowOpen(): SettableBooleanValue
+
+	/** Returns an object that provides access to the expanded state of the device. */
+	isExpanded(): SettableBooleanValue
+
+	/** Returns an object that provides access to the visibility of the device remote controls section. */
+	isRemoteControlsSectionVisible(): SettableBooleanValue
 
 	/** Creates a cursor for a remote controls page in the device with the supplied number of parameters. This
 section will be independent from the current page selected by the user in Bitwig Studio's user
@@ -1447,15 +2208,27 @@ empty then no filtering will occur. */
 
 		/** A name to associate with this section. This will be used to remember manual mappings made by
           the user within this section.*/
-		name: any,
+		name: any, 
 
 		/** The number of parameters the remote controls should contain*/
-		parameterCount: any,
+		parameterCount: any, 
 
 		/** An expression used to match pages that the user can navigate through. For now this can only be
           the name of a single tag the pages should contain (e.g "drawbars", "dyn", "env", "eq",
           "filter", "fx", "lfo", "mixer", "osc", "overview", "perf").*/
 		filterExpression: any, ): CursorRemoteControlsPage
+
+	/** Selects the device in Bitwig Studio. */
+	selectInEditor(): void
+
+	/** Value that reports if the device is a plugin. */
+	isPlugin(): BooleanValue
+
+	/** Switches to the previous parameter page. */
+	previousParameterPage(): void
+
+	/** Switches to the next parameter page. */
+	nextParameterPage(): void
 
 	/** Registers an observer that reports if there is a previous parameter page. */
 	addPreviousParameterPageEnabledObserver(
@@ -1480,10 +2253,45 @@ will load or create a device from the selected resource and replace the current 
 	createDeviceBrowser(
 
 		/** the size of the window used to navigate the filter column entries.*/
-		numFilterColumnEntries: any,
+		numFilterColumnEntries: any, 
 
 		/** the size of the window used to navigate the results column entries.*/
 		numResultsColumnEntries: any, ): Browser
+
+	/** Value that reports the name of the device. */
+	name(): StringValue
+
+	/** Value that reports the last loaded preset name. */
+	presetName(): StringValue
+
+	/** Value that reports the current preset category name. */
+	presetCategory(): StringValue
+
+	/** Value that reports the current preset creator name. */
+	presetCreator(): StringValue
+
+	/** Value that reports if the device is enabled. */
+	isEnabled(): SettableBooleanValue
+
+	/** Indicates if the device has nested device chain slots. Use {@link #slotNames()} to get a list of
+available slot names, and navigate to devices in those slots using the {@link CursorDevice} interface. */
+	hasSlots(): BooleanValue
+
+	/** Value of the list of available FX slots in this device. */
+	slotNames(): StringArrayValue
+
+	/** Returns an object that represents the selected device slot as shown in the user interface, and that
+provides access to the contents of slot's device chain. */
+	getCursorSlot(): DeviceSlot
+
+	/** Indicates if the device is contained by another device. */
+	isNested(): BooleanValue
+
+	/** Indicates if the device supports nested layers. */
+	hasLayers(): BooleanValue
+
+	/** Indicates if the device has individual device chains for each note value. */
+	hasDrumPads(): BooleanValue
 
 	/** Create a bank for navigating the nested layers of the device using a fixed-size window.
 
@@ -1503,6 +2311,20 @@ This bank will work over the following devices:
 		/** the number of channels that the drum pad bank should be configured with*/
 		numPads: any, ): DrumPadBank
 
+	/** Returns a device layer instance that can be used to navigate the layers or drum pads of the device, in
+case it has any
+
+This is the selected layer from the user interface. */
+	createCursorLayer(): CursorDeviceLayer
+
+	/** Creates a ChainSelector object which will give you control over the current device if it is an
+Instrument Selector or an Effect Selector.
+
+To check if the device is currently a ChainSelector, use {@link ChainSelector.exists()}.
+
+If you want to have access to all the chains, use {@link #createLayerBank(int)}. */
+	createChainSelector(): ChainSelector
+
 	/** Adds an observer on a list of all parameters for the device.
 
 The callback always updates with an array containing all the IDs for the device. */
@@ -1515,7 +2337,7 @@ The callback always updates with an array containing all the IDs for the device.
 	addDirectParameterNameObserver(
 
 		/** maximum length of the string sent to the observer.*/
-		maxChars: any,
+		maxChars: any, 
 
 		/** function with the signature (String ID, String name)*/
 		callback: any, ): void
@@ -1527,7 +2349,7 @@ avoided to observe all parameters at the same time for performance reasons. */
 	addDirectParameterValueDisplayObserver(
 
 		/** maximum length of the string sent to the observer.*/
-		maxChars: any,
+		maxChars: any, 
 
 		/** function with the signature (String ID, String valueDisplay)*/
 		callback: any, ): DirectParameterValueDisplayObserver
@@ -1543,10 +2365,10 @@ avoided to observe all parameters at the same time for performance reasons. */
 	setDirectParameterValueNormalized(
 
 		/** the parameter identifier string*/
-		id: any,
+		id: any, 
 
 		/** the new value normalized to the range [0..resolution-1]*/
-		value: any,
+		value: any, 
 
 		/** the resolution of the new value*/
 		resolution: any, ): void
@@ -1556,14 +2378,18 @@ avoided to observe all parameters at the same time for performance reasons. */
 	incDirectParameterValueNormalized(
 
 		/** the parameter identifier string*/
-		id: any,
+		id: any, 
 
 		/** the amount that the parameter value should be increased by, normalized to the range
           [0..resolution-1]*/
-		increment: any,
+		increment: any, 
 
 		/** the resolution of the new value*/
 		resolution: any, ): void
+
+	/** Value that reports the file name of the currently loaded sample, in case the device is a sample
+container device. */
+	sampleName(): StringValue
 
 	/** Returns an object that provides bank-wise navigation of sibling devices of the same device chain
 (including the device instance used to create the siblings bank). */
@@ -1571,6 +2397,15 @@ avoided to observe all parameters at the same time for performance reasons. */
 
 		/** the number of devices that are simultaneously accessible*/
 		numDevices: any, ): DeviceBank
+
+	/** {@link InsertionPoint} that can be used for inserting after this device. */
+	afterDeviceInsertionPoint(): InsertionPoint
+
+	/** {@link InsertionPoint} that can be used for inserting before this device. */
+	beforeDeviceInsertionPoint(): InsertionPoint
+
+	/** {@link InsertionPoint} that can be used for replacing this device. */
+	replaceDeviceInsertionPoint(): InsertionPoint
 }
 
 /** This interface is used for navigation of device chains in Bitwig Studio. Instances are configured with a
@@ -1581,12 +2416,28 @@ window moving over the devices.
 To receive an instance of DeviceBank call {@link Track#createDeviceBank}. */
 declare interface DeviceBank {
 
+	/** Returns the object that was used to instantiate this device bank. Possible device chain instances are
+tracks, device layers, drums pads, or FX slots. */
+	getDeviceChain(): DeviceChain
+
 	/** Returns the device at the given index within the bank. */
 	getDevice(
 
 		/** the device index within this bank, not the position within the device chain. Must be in the
           range [0..sizeOfBank-1].*/
 		indexInBank: any, ): Device
+
+	/** Scrolls the device window one page up. */
+	scrollPageUp(): void
+
+	/** Scrolls the device window one page down. */
+	scrollPageDown(): void
+
+	/** Scrolls the device window one device up. */
+	scrollUp(): void
+
+	/** Scrolls the device window one device down. */
+	scrollDown(): void
 
 	/** Browses for content to insert a device at the given index inside this bank. */
 	browseToInsertDevice(
@@ -1598,6 +2449,13 @@ declare interface DeviceBank {
 /** The foundation of all interfaces that contain devices, such as tracks, device layers, drum pads or FX
 slots. */
 declare interface DeviceChain {
+
+	/** Selects the device chain in Bitwig Studio, in case it is a selectable object. */
+	selectInEditor(): void
+
+	/** Value that reports the name of the device chain, such as the track name or the drum pad
+name. */
+	name(): SettableStringValue
 
 	/** Registers an observer that reports if the device chain is selected in Bitwig Studio editors. */
 	addIsSelectedInEditorObserver(
@@ -1616,10 +2474,16 @@ will load or create a device from the selected resource and insert it into the d
 	createDeviceBrowser(
 
 		/** the size of the window used to navigate the filter column entries.*/
-		numFilterColumnEntries: any,
+		numFilterColumnEntries: any, 
 
 		/** the size of the window used to navigate the results column entries.*/
 		numResultsColumnEntries: any, ): Browser
+
+	/** {@link InsertionPoint} that can be used to insert at the start of the device chain. */
+	startOfDeviceChainInsertionPoint(): InsertionPoint
+
+	/** {@link InsertionPoint} that can be used to insert at the end of the device chain. */
+	endOfDeviceChainInsertionPoint(): InsertionPoint
 }
 
 /** Instances of this interface represent device layers in Bitwig Studio. */
@@ -1671,6 +2535,10 @@ declare interface DocumentState {
 
 /** Instances of this interface represent double values. */
 declare interface DoubleValue {
+
+	/** Gets the current value. */
+	get(): number
+	getAsDouble(): number
 }
 
 declare interface DoubleValueChangedCallback {
@@ -1680,6 +2548,9 @@ declare interface DoubleValueChangedCallback {
 /** Instances of this interface are special kind of channel objects that represent the pads of a drum machine
 instrument. Drum pads are typically associated to channel objects via note keys. */
 declare interface DrumPad {
+
+	/** {@link InsertionPoint} that can be used to insert content in this drum pad. */
+	insertionPoint(): InsertionPoint
 }
 
 /** Drum pads are features of special Bitwig Studio devices (currently only the Bitwig Drum Machine
@@ -1698,16 +2569,70 @@ are enabled. */
 
 		/** `true` if visual indications should be enabled, `false` otherwise*/
 		shouldIndicate: any, ): void
+
+	/** Clears mute on all drum pads. */
+	clearMutedPads(): void
+
+	/** Clears solo on all drum pads. */
+	clearSoloedPads(): void
+
+	/** True if there is one or many muted pads. */
+	hasMutedPads(): BooleanValue
+
+	/** True if there is one or many soloed pads. */
+	hasSoloedPads(): BooleanValue
 }
 
 declare interface EnumValue {
+
+	/** Gets the current value. */
+	get(): string
 }
 
 declare interface Extension {
+	getHost(): HostType
+	getExtensionDefinition(): DefinitionType
 }
 
 /** Base class for defining any kind of extension for Bitwig Studio. */
 declare interface ExtensionDefinition {
+
+	/** The name of the extension. */
+	getName(): string
+
+	/** The author of the extension. */
+	getAuthor(): string
+
+	/** The version of the extension. */
+	getVersion(): string
+
+	/** A unique id that identifies this extension. */
+	getId(): string
+
+	/** The minimum API version number that this extensions requires. */
+	getRequiredAPIVersion(): number
+
+	/** Is this extension is using Beta APIs?
+
+Beta APIs are still on development and might not be available in a future version of Bitwig Studio.
+
+Turning this flag to true, will flag your extension as being a beta extension which might not work after
+updating Bitwig Studio. */
+	isUsingBetaAPI(): boolean
+
+	/** Gets a remote URI or a path within the extension's jar file where documentation for this extension can
+be found or null if there is none. If the path is not a URI then it is assumed to be a path below the directory
+"Documentation" within the extension's jar file. */
+	getHelpFilePath(): string
+
+	/** If true then this extension should fail when it calls a deprecated method in the API. This is useful
+during development. */
+	shouldFailOnDeprecatedUse(): boolean
+
+	/** An e-mail address that can be used to contact the author of this extension if a problem is detected with
+it or null if none. */
+	getErrorReportingEMail(): string
+	toString(): string
 }
 
 declare interface FloatValueChangedCallback {
@@ -1716,16 +2641,50 @@ declare interface FloatValueChangedCallback {
 
 /** Information about the dimensions of a font. */
 declare interface FontExtents {
+
+	/** Returns the distance that the font extends above the baseline. Note that this is not always
+exactly equal to the maximum of the extents of all the glyphs in the font, but rather is
+picked to express the font designer's intent as to how the font should align with elements
+above it. */
+	getAscent(): number
+
+	/** Returns the distance that the font extends below the baseline. This value is positive for
+typical fonts that include portions below the baseline. Note that this is not always exactly
+equal to the maximum of the extents of all the glyphs in the font, but rather is picked to
+express the font designer's intent as to how the the font should align with elements below it. */
+	getDescent(): number
+
+	/** Returns the recommended vertical distance between baselines when setting consecutive lines of
+text with the font. This is greater than ascent+descent by a quantity known as the line
+spacing or external leading. When space is at a premium, most fonts can be set with only a
+distance of ascent+descent between lines. */
+	getHeight(): number
+
+	/** the maximum distance in the X direction that the the origin is advanced for any glyph in the
+font. */
+	getMaxAdvanceX(): number
+
+	/** Returns the maximum distance in the Y direction that the the origin is advanced for any glyph
+in the font. this will be zero for normal fonts used for horizontal writing. (The scripts of
+East Asia are sometimes written vertically.) */
+	getMaxAdvanceY(): number
 }
 
 declare interface FontFace {
+
+	/** Get the font name. */
+	getName(): string
 }
 
 /** Configure the font rendering options. */
 declare interface FontOptions {
+	getAntialiasMode(): AntialiasMode
 	setAntialiasMode(mode: AntialiasMode, ): void
+	getSubPixelOrder(): SubPixelOrder
 	setSubPixelOrder(subPixelOrder: SubPixelOrder, ): void
+	getHintStyle(): HintStyle
 	setHintStyle(hintStyle: HintStyle, ): void
+	getHintMetrics(): HintMetrics
 	setHintMetrics(hintMetrics: HintMetrics, ): void
 }
 
@@ -1741,6 +2700,8 @@ declare interface GraphicsOutput {
 	translate(x: number, y: number, ): void
 	rotate(angle: number, ): void
 	scale(xFactor: number, yFactor: number, ): void
+	copyPath(): Path
+	copyPathFlat(): Path
 	appendPath(path: Path, ): void
 	moveTo(x: number, y: number, ): void
 	relMoveTo(x: number, y: number, ): void
@@ -1767,15 +2728,35 @@ declare interface GraphicsOutput {
 	setTolerance(tolerance: number, ): void
 	drawImage(image: Image, x: number, y: number, ): void
 	createLinearGradient(x1: number, y1: number, x2: number, y2: number, ): GradientPattern
+	createMeshGradient(): MeshPattern
 	showText(text: string, ): void
 	setFontSize(fontSize: number, ): void
 	setFontFace(fontFace: FontFace, ): void
 	setFontOptions(fontOptions: FontOptions, ): void
+	getFontExtents(): FontExtents
 	getTextExtents(text: string, ): TextExtents
 }
 
 /** An interface representing the global groove settings of the project. */
 declare interface Groove {
+
+	/** Returns the enabled state of the groove. */
+	getEnabled(): Parameter
+
+	/** Returns the object that represents the shuffle amount in Bitwig Studio. */
+	getShuffleAmount(): Parameter
+
+	/** Returns the object that represents the shuffle rate in Bitwig Studio. */
+	getShuffleRate(): Parameter
+
+	/** Returns the object that represents the accent amount in Bitwig Studio. */
+	getAccentAmount(): Parameter
+
+	/** Returns the object that represents the accent rate in Bitwig Studio. */
+	getAccentRate(): Parameter
+
+	/** Returns the object that represents the accent phase in Bitwig Studio. */
+	getAccentPhase(): Parameter
 }
 
 /** An action that can happen on a hardware control. For example, the user touching it, pressing it, releasing
@@ -1793,10 +2774,13 @@ custom action with
 {@link ControllerHost#createAction(java.util.function.DoubleConsumer, java.util.function.Supplier)} and
 then binding the created action to this {@link HardwareAction}. */
 	setPressureActionMatcher(actionMatcher: AbsoluteHardwareValueMatcher, ): void
+
+	/** Checks if this action is supported (that is, it has a {@link HardwareActionMatcher} that can detect it). */
+	isSupported(): boolean
 }
 
 /** Something that can be bound to a hardware action (such as user pressing a button). */
-declare interface HardwareActionBindable extends HardwareBindable {
+declare interface HardwareActionBindable {
 
 	/** Binds this target to the supplied {@link HardwareAction} so that when the hardware action occurs this
 target is invoked.
@@ -1804,6 +2788,9 @@ target is invoked.
 When the binding is no longer needed the {@link HardwareBinding#removeBinding()} method can be called on
 it. */
 	addBinding(action: HardwareAction, ): HardwareActionBinding
+
+	/** Invokes the action. */
+	invoke(): void
 }
 
 /** Represents a binding from a hardware action (such as user pressing a button) to some target action. */
@@ -1824,6 +2811,9 @@ declare interface HardwareBindable {
 
 When the binding is no longer needed the {@link #removeBinding()} method can be called to remove it. */
 declare interface HardwareBinding {
+
+	/** Removes this binding between its source and target so it is no longer in effect. */
+	removeBinding(): void
 }
 
 /** Represents the source of a {@link HardwareBinding}. */
@@ -1835,6 +2825,9 @@ declare interface HardwareBindingSource {
 	/** Binds this source to the supplied target and returns the created binding. This can only be called if the
 {@link #canBindTo(Object)} returns true. */
 	addBinding(target: HardwareBindable, ): HardwareBindingType
+
+	/** Clears all bindings from this source to its targets. */
+	clearBindings(): void
 
 	/** Ensures there is a single binding to the supplied target.
 
@@ -1866,6 +2859,15 @@ declare interface HardwareBindingWithSensitivity {
 /** Represents a physical hardware button on a controller */
 declare interface HardwareButton {
 
+	/** Action that happens when the user presses the button. */
+	pressedAction(): HardwareAction
+
+	/** Action that happens when the user releases the button. */
+	releasedAction(): HardwareAction
+
+	/** Button state */
+	isPressed(): BooleanValue
+
 	/** Sets the optional control that represents the aftertouch value for this button. */
 	setAftertouchControl(control: AbsoluteHardwareControl, ): void
 
@@ -1876,6 +2878,18 @@ declare interface HardwareButton {
 /** Some kind of physical control on a piece of hardware (such as a knob, button, slider etc). */
 declare interface HardwareControl {
 
+	/** Action that happens when the user touches this control. */
+	beginTouchAction(): HardwareAction
+
+	/** Action that happens when the user stops touching this control. */
+	endTouchAction(): HardwareAction
+
+	/** Value that indicates if this control is being touched or not. */
+	isBeingTouched(): BooleanValue
+
+	/** Optional light that is in the background of this control. */
+	backgroundLight(): HardwareLight
+
 	/** Sets the optional light that is in the background of this control. */
 	setBackgroundLight(light: HardwareLight, ): void
 }
@@ -1884,12 +2898,19 @@ declare interface HardwareControl {
 user needs to choose are defined by the
 {@link ControllerExtensionDefinition#listHardwareDevices(java.util.List)} method. */
 declare interface HardwareDevice {
+
+	/** The {@link HardwareDeviceMatcher} that was provided by the controller for identifying this hardware
+device in {@link ControllerExtensionDefinition#listHardwareDevices(java.util.List)}. */
+	deviceMatcher(): HardwareDeviceMatcher
 }
 
 /** Matcher that can match a particular hardware device that is connected to the user's machine.
 Sub classes of this define how the hardware is connected.
 Currently only USB devices are supported. */
 declare interface HardwareDeviceMatcher {
+
+	/** Human friendly name for the kinds of hardware devices this matcher matches. */
+	getName(): string
 }
 
 /** Defines a list of all the hardware devices that a controller needs. */
@@ -1901,22 +2922,42 @@ will need to match at least one of the supplied matchers.
 For each entry added to this list the user will see a device chooser that lets them select an
 appropriate device. The information added here is also used for auto detection purposes. */
 	add(deviceMatchers: HardwareDeviceMatcher, ): void
+
+	/** The number of hardware devices in the list. */
+	getCount(): number
 	getHardwareDeviceMatchersAt(index: number, ): HardwareDeviceMatcher[]
+	getList(): HardwareDeviceMatcher[]
 }
 
 /** Represents some physical hardware element. Hardware elements can be {@link HardwareControl}s (e.g. buttons,
 sliders etc) or {@link HardwareOutputElement}s (e.g lights, text displays etc). */
 declare interface HardwareElement {
 
+	/** The unique id associated with this element. */
+	getId(): string
+
+	/** An optional label associated with this element. */
+	getLabel(): string
+
 	/** Sets the label for this hardware control as written on the hardware. */
 	setLabel(label: string, ): void
 
+	/** The color of the label. */
+	getLabelColor(): Color
+
 	/** Sets the color of the label. */
 	setLabelColor(color: Color, ): void
+
+	/** {@link RelativePosition} that defines where the label is. */
+	getLabelPosition(): RelativePosition
 	setLabelPosition(position: RelativePosition, ): void
 
 	/** The physical bounds of this hardware element on the controller. */
 	setBounds(xInMM: number, yInMM: number, widthInMM: number, heightInMM: number, ): void
+	getX(): number
+	getY(): number
+	getWidth(): number
+	getHeight(): number
 }
 
 /** Defines a means of recognizing when some kind of hardware input happens.
@@ -1939,6 +2980,13 @@ declare interface HardwareLightVisualState {
 	defaultLabelColorForLightColor(lightColor: Color, ): Color
 	createForColor(color: Color, labelColor: Color, ): HardwareLightVisualState
 	createBlinking(onColor: Color, offColor: Color, labelOnColor: Color, labelOffColor: Color, onBlinkTimeInSec: number, offBlinkTimeInSec: number, ): HardwareLightVisualState
+	isBlinking(): boolean
+	getColor(): Color
+	getBlinkOffColor(): Color
+	getOffBlinkTime(): number
+	getOnBlinkTime(): number
+	getLabelColor(): Color
+	getLabelBlinkOffColor(): Color
 }
 
 /** Represents a physical hardware element that displays some output to the user.
@@ -1953,6 +3001,9 @@ will be called when calling {@link HardwareSurface#updateHardware()} if the stat
 
 /** Defines a physical pixel display on the controller. */
 declare interface HardwarePixelDisplay {
+
+	/** The {@link Bitmap} that contains the contents of this display. */
+	bitmap(): Bitmap
 }
 
 /** Represents a value that needs to be displayed somehow on the hardware.
@@ -2050,8 +3101,28 @@ controller. */
 	/** Sets the physical size of this controller in mm. */
 	setPhysicalSize(widthInMM: number, heightInMM: number, ): void
 
+	/** Updates the state of all {@link HardwareOutputElement}s that have changed since the last time this
+method was called.
+
+Any onUpdateHardware callbacks that have been registered on {@link HardwareOutputElement}s or
+{@link HardwareProperty}s will be invoked if their state/value has changed since the last time it was
+called.
+
+This is typically called by the control script from its flush method. */
+	updateHardware(): void
+
+	/** Mark all {@link HardwareOutputElement}s as needing to resend their output state, regardless of it has
+changed or not. */
+	invalidateHardwareOutputState(): void
+
+	/** A list of all the {@link HardwareControl}s that have been created on this {@link HardwareSurface}. */
+	hardwareControls(): HardwareControl[]
+
 	/** Finds the {@link HardwareElement} that has the supplied id or null if not found. */
 	hardwareElementWithId(id: string, ): HardwareElement
+
+	/** List of all {@link HardwareElement}s on this {@link HardwareSurface}. */
+	hardwareOutputElements(): HardwareOutputElement[]
 }
 
 /** Represents a display on some hardware that shows one or more lines of text. */
@@ -2063,13 +3134,40 @@ declare interface HardwareTextDisplay {
 
 /** Represents a line of text on a {@link HardwareTextDisplay}. */
 declare interface HardwareTextDisplayLine {
+
+	/** Property that defines the current text shown. */
+	text(): StringHardwareProperty
+
+	/** Property that defines the background color of this line. */
+	backgroundColor(): ColorHardwareProperty
+
+	/** Property that defines the text color of this line. */
+	textColor(): ColorHardwareProperty
 }
 
 /** Defines the interface through which an extension can talk to the host application. */
 declare interface Host {
 
+	/** Returns the latest supported API version of the host application. */
+	getHostApiVersion(): number
+
+	/** Returns the vendor of the host application. */
+	getHostVendor(): string
+
+	/** Returns the product name of the host application. */
+	getHostProduct(): string
+
+	/** Returns the version number of the host application. */
+	getHostVersion(): string
+
+	/** The platform type that this host is running on. */
+	getPlatformType(): PlatformType
+
 	/** Sets an email address to use for reporting errors found in this script. */
 	setErrorReportingEMail(address: string, ): void
+
+	/** Gets the OpenSoundControl module. */
+	getOscModule(): OscModule
 
 	/** Allocates some memory that will be automatically freed once the extension exits. */
 	allocateMemoryBlock(size: number, ): MemoryBlock
@@ -2082,6 +3180,11 @@ guaranteed to be freed once this extension exits. */
 The memory used by this font is guaranteed to be freed once this extension exits. */
 	loadFontFace(path: string, ): FontFace
 
+	/** Creates a new FontOptions.
+This object is used to configure how the GraphicOutput will display text.
+The memory used by this object is guaranteed to be freed once this extension exits. */
+	createFontOptions(): FontOptions
+
 	/** Loads a PNG image.
 The memory used by this image is guaranteed to be freed once this extension exits. */
 	loadPNG(path: string, ): Image
@@ -2090,9 +3193,24 @@ The memory used by this image is guaranteed to be freed once this extension exit
 The memory used by this image is guaranteed to be freed once this extension exits. */
 	loadSVG(path: string, scale: number, ): Image
 
+	/** Restarts this controller. */
+	restart(): void
+
 	/** Loads the supplied API version into the calling script. This is only intended to be called from a
 controller script. It cannot be called from a Java controller extension. */
 	loadAPI(version: number, ): void
+
+	/** Call this method to allow your script to use Beta APIs.
+
+Beta APIs are still on development and might not be available in a future version of Bitwig Studio.
+
+Turning this flag to true, will flag your extension as being a beta extension which might not work after
+updating Bitwig Studio. */
+	useBetaApi(): void
+
+	/** Determines whether the calling script should fail if it calls a deprecated method based on the API
+version that it requested. */
+	shouldFailOnDeprecatedUse(): boolean
 
 	/** Sets whether the calling script should fail if it calls a deprecated method based on the API version
 that it requested. This is only intended to be called from a controller script. It cannot be called from
@@ -2103,24 +3221,33 @@ a Java controller extension. */
 script. It cannot be called from a Java controller extension. */
 	load(path: string, ): void
 
+	/** Indicates if the host platform is Windows. */
+	platformIsWindows(): boolean
+
+	/** Indicates if the host platform is Apple Mac OS X. */
+	platformIsMac(): boolean
+
+	/** Indicates if the host platform is Linux. */
+	platformIsLinux(): boolean
+
 	/** Registers a controller script with the given parameters. This function must be called once at the global
 scope of the script. */
 	defineController(
 
 		/** the name of the hardware vendor. Must not be <code>null</code>.*/
-		vendor: any,
+		vendor: any, 
 
 		/** the name of the controller script as listed in the user interface of Bitwig Studio. Must not
           be <code>null</code>.*/
-		name: any,
+		name: any, 
 
 		/** the version of the controller script. Must not be <code>null</code>.*/
-		version: any,
+		version: any, 
 
 		/** a universal unique identifier (UUID) string that is used to distinguish one script from
           another, for example `550e8400-e29b-11d4-a716-446655440000`. Must not be <code>null</code>.
           For generating random UUID strings several free web tools are available.*/
-		uuid: any,
+		uuid: any, 
 
 		/** the name of the script author*/
 		author: any, ): void
@@ -2133,7 +3260,7 @@ individual port objects can be accessed using {@link #getMidiInPort(int index)} 
 	defineMidiPorts(
 
 		/** the number of input ports*/
-		numInports: any,
+		numInports: any, 
 
 		/** the number of output ports*/
 		numOutports: any, ): void
@@ -2168,10 +3295,41 @@ order to support alternative driver names. */
 	addDeviceNameBasedDiscoveryPair(
 
 		/** the array of strings used to detect MIDI input ports, must not be `null`.*/
-		inputs: any,
+		inputs: any, 
 
 		/** the array of strings used to detect MIDI output ports, must not be `null`.*/
 		outputs: any, ): void
+
+	/** Creates a preferences object that can be used to insert settings into the Controller Preferences panel
+in Bitwig Studio. */
+	getPreferences(): Preferences
+
+	/** Creates a document state object that can be used to insert settings into the Studio I/O Panel in Bitwig
+Studio. */
+	getDocumentState(): DocumentState
+
+	/** Returns an object that is used to configure automatic notifications. Bitwig Studio supports automatic
+visual feedback from controllers that shows up as popup notifications. For example when the selected
+track or the current device preset was changed on the controller these notifications are shown,
+depending on your configuration. */
+	getNotificationSettings(): NotificationSettings
+
+	/** Returns an object for controlling various aspects of the currently selected project. */
+	getProject(): Project
+
+	/** Returns an object for controlling and monitoring the elements of the `Transport` section in Bitwig
+Studio. This function should be called once during initialization of the script if transport access is
+desired. */
+	createTransport(): Transport
+
+	/** Returns an object for controlling and monitoring the `Groove` section in Bitwig Studio. This function
+should be called once during initialization of the script if groove control is desired. */
+	createGroove(): Groove
+
+	/** Returns an object that provides access to general application functionality, including global view
+settings, the list of open projects, and other global settings that are not related to a certain
+document. */
+	createApplication(): Application
 
 	/** Returns an object which provides access to the `Arranger` panel inside the specified window. */
 	createArranger(
@@ -2187,7 +3345,7 @@ order to support alternative driver names. */
           panel layout in Bitwig Studio should be followed. Empty strings or invalid names are treated
           the same way as `null`. To receive the list of available panel layouts see
           {@link Application#addPanelLayoutObserver}.*/
-		panelLayout: any,
+		panelLayout: any, 
 
 		/** the index of the window where the mixer panel is shown, or -1 in case the first mixer panel
           found on any window should be taken*/
@@ -2211,13 +3369,13 @@ you are only interested in tracks of a certain kind. */
 	createTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: any, 
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: any, 
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: any, 
 
 		/** specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.*/
@@ -2229,10 +3387,10 @@ in general, see the documentation for {@link #createTrackBank}. */
 	createMainTrackBank(
 
 		/** the number of tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: any, 
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: any, 
 
 		/** the number of scenes spanned by the track bank*/
 		numScenes: any, ): TrackBank
@@ -2243,7 +3401,7 @@ documentation for {@link #createTrackBank}. */
 	createEffectTrackBank(
 
 		/** the number of tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: any, 
 
 		/** the number of scenes spanned by the track bank*/
 		numScenes: any, ): TrackBank
@@ -2276,7 +3434,7 @@ gridHeight parameters specify the grid dimensions used to access the note conten
 	createLauncherCursorClip(
 
 		/** the number of steps spanned by one page of the note content grid.*/
-		gridWidth: any,
+		gridWidth: any, 
 
 		/** the number of keys spanned by one page of the note content grid.*/
 		gridHeight: any, ): Clip
@@ -2286,7 +3444,7 @@ gridHeight parameters specify the grid dimensions used to access the note conten
 	createArrangerCursorClip(
 
 		/** the number of steps spanned by one page of the note content grid.*/
-		gridWidth: any,
+		gridWidth: any, 
 
 		/** the number of keys spanned by one page of the note content grid.*/
 		gridHeight: any, ): Clip
@@ -2304,10 +3462,13 @@ this method once initially and then from within the callback function. */
 	scheduleTask(
 
 		/** the callback function that will be called*/
-		callback: any,
+		callback: any, 
 
 		/** the duration after which the callback function will be called in milliseconds*/
 		delay: any, ): void
+
+	/** Requests that the driver's flush method gets called. */
+	requestFlush(): void
 
 	/** Prints the given string in the control surface console window. The console window can be opened in the
 view menu of Bitwig Studio. */
@@ -2335,7 +3496,7 @@ hardware and software. */
 	createRemoteConnection(
 
 		/** a meaningful name that describes the purpose of this connection.*/
-		name: any,
+		name: any, 
 
 		/** the port that should be used for the connection. If the port is already in use, then another
           port will be used. Check {@link RemoteSocket#getPort()} on the returned object to be sure.*/
@@ -2345,10 +3506,10 @@ hardware and software. */
 	connectToRemoteHost(
 
 		/** the host name or IP address to connect to.*/
-		host: any,
+		host: any, 
 
 		/** the port to connect to*/
-		port: any,
+		port: any, 
 
 		/** the callback function that gets called when the connection gets established. A single
           {@link RemoteConnection} parameter is passed into the callback function.*/
@@ -2358,10 +3519,10 @@ hardware and software. */
 	sendDatagramPacket(
 
 		/** the destination host name or IP address*/
-		host: any,
+		host: any, 
 
 		/** the destination port*/
-		port: any,
+		port: any, 
 
 		/** the data to be send. When creating a numeric byte array in JavaScript, the byte values must be
           signed (in the range -128..127).*/
@@ -2371,14 +3532,22 @@ hardware and software. */
 	addDatagramPacketObserver(
 
 		/** a meaningful name that describes the purpose of this observer.*/
-		name: any,
+		name: any, 
 
 		/** the port that should be used*/
-		port: any,
+		port: any, 
 
 		/** the callback function that gets called when data arrives. The function receives a single
           parameter that contains the data byte array.*/
 		callback: any, ): boolean
+
+	/** Creates a {@link PopupBrowser} that represents the pop-up browser in Bitwig Studio. */
+	createPopupBrowser(): PopupBrowser
+
+	/** {@link BeatTimeFormatter} used to format beat times by default. This will be used to format beat times
+when asking for a beat time in string format without providing any formatting options. For example by
+calling {@link BeatTimeStringValue#get()}. */
+	defaultBeatTimeFormatter(): BeatTimeFormatter
 
 	/** Sets the {@link BeatTimeFormatter} to use by default for formatting beat times. */
 	setDefaultBeatTimeFormatter(formatter: BeatTimeFormatter, ): void
@@ -2388,19 +3557,22 @@ hardware and software. */
 
 		/** the character used to separate the segments of the formatted beat time, typically ":", "." or
           "-"*/
-		separator: any,
+		separator: any, 
 
 		/** the number of digits reserved for bars*/
-		barsLen: any,
+		barsLen: any, 
 
 		/** the number of digits reserved for beats*/
-		beatsLen: any,
+		beatsLen: any, 
 
 		/** the number of digits reserved for beat subdivisions*/
-		subdivisionLen: any,
+		subdivisionLen: any, 
 
 		/** the number of digits reserved for ticks*/
 		ticksLen: any, ): BeatTimeFormatter
+
+	/** Creates a {@link HardwareSurface} that can contain hardware controls. */
+	createHardwareSurface(): HardwareSurface
 
 	/** Creates a {@link HardwareActionMatcher} that is matched by either of the 2 supplied action matchers. */
 	createOrHardwareActionMatcher(matcher1: HardwareActionMatcher, matcher2: HardwareActionMatcher, ): HardwareActionMatcher
@@ -2413,12 +3585,16 @@ matchers. */
 matchers. */
 	createOrAbsoluteHardwareValueMatcher(matcher1: AbsoluteHardwareValueMatcher, matcher2: AbsoluteHardwareValueMatcher, ): AbsoluteHardwareValueMatcher
 
+	/** An object that can be used to generate useful MIDI expression strings which can be used in
+{@link MidiIn#createActionMatcher(String)} and other related methods. */
+	midiExpressions(): MidiExpressions
+
 	/** Creates a {@link HardwareActionBindable} that can be bound to some {@link HardwareAction} (such as a
 button press) and when that action occurs the supplied {@link Runnable} will be run */
 	createAction(
 
 		/** Consumer that will be notified of the pressure of the action*/
-		actionPressureConsumer: any,
+		actionPressureConsumer: any, 
 
 		/** Provider that can provide a description of what the runnable does (used for showing onscreen
           feedback or help to the user).*/
@@ -2430,7 +3606,7 @@ button press) and when that action occurs the supplied {@link Runnable} will be 
 	createRelativeHardwareControlStepTarget(
 
 		/** The action that should happen when stepping forwards*/
-		stepForwardsAction: any,
+		stepForwardsAction: any, 
 
 		/** The action that should happen when stepping backwards*/
 		stepBackwardsAction: any, ): RelativeHardwarControlBindable
@@ -2457,6 +3633,12 @@ way. */
 
 /** Represents an abstract image type. */
 declare interface Image {
+
+	/** Returns the width */
+	getWidth(): number
+
+	/** Returns the height */
+	getHeight(): number
 }
 
 declare interface IndexedBooleanValueChangedCallback {
@@ -2488,10 +3670,10 @@ data has been read the callback will be notified on the controller's thread. */
 	readAsync(
 
 		/** A {@link MemoryBlock} that can receive the data that is read.*/
-		data: any,
+		data: any, 
 
 		/** A callback that is notified on the controller's thread when the read has completed.*/
-		callback: any,
+		callback: any, 
 
 		/** A timeout in milliseconds that will result in an error and termination of the controller if
           the read does not happen in this time. For inifnite timeout use 0.*/
@@ -2546,10 +3728,22 @@ it's not possible to insert a plugin here then his does nothing. */
 
 		/** The VST2 plugin id to insert*/
 		id: any, ): void
+
+	/** Pastes the contents of the clipboard at this insertion point. */
+	paste(): void
+
+	/** Starts browsing using the popup browser for something to insert at this insertion point. */
+	browse(): void
 }
 
 /** Represents an output value shown on some hardware. */
 declare interface IntegerHardwareProperty {
+
+	/** Gets the current value. This is the value that should be sent to the hardware to be displayed. */
+	currentValue(): number
+
+	/** The value that was last sent to the hardware. */
+	lastSentValue(): number
 
 	/** Specifies a callback that should be called with the value that needs to be sent to the hardware. This
 callback is called as a result of calling the {@link HardwareSurface#updateHardware()} method (typically
@@ -2565,12 +3759,16 @@ from the flush method). */
 
 declare interface IntegerValue {
 
+	/** Gets the current value. */
+	get(): number
+	getAsInt(): number
+
 	/** Adds an observer that is notified when this value changes. This is intended to aid in backwards
 compatibility for drivers written to the version 1 API. */
 	addValueObserver(
 
 		/** The callback to notify with the new value*/
-		callback: any,
+		callback: any, 
 
 		/** The value that the callback will be notified with if this value is not currently assigned to
           anything.*/
@@ -2584,6 +3782,9 @@ declare interface IntegerValueChangedCallback {
 /** Defines the current state of a {@link MultiStateHardwareLight}. What this state means is entirely up to the
 controller implementation. */
 declare interface InternalHardwareLightState {
+
+	/** The visual state of this light (used by Bitwig Studio to visualize the light when needed). */
+	getVisualState(): HardwareLightVisualState
 	equals(obj: Object, ): boolean
 }
 
@@ -2594,6 +3795,12 @@ declare interface MasterTrack {
 /** Defines a block of memory. The memory can be read/written using a {@link ByteBuffer} provided by
 {@link #createByteBuffer()}. */
 declare interface MemoryBlock {
+
+	/** The size in bytes of this memory block. */
+	size(): number
+
+	/** Creates a {@link ByteBuffer} that can be used to read/write the data at this memory block. */
+	createByteBuffer(): string[]
 }
 
 /** This represent a 2D gradient. */
@@ -2679,7 +3886,7 @@ be fed directly to the application, and are not processed by the script. */
 	createNoteInput(
 
 		/** the name of the note input as it appears in the track input choosers in Bitwig Studio*/
-		name: any,
+		name: any, 
 
 		/** a filter string formatted as hexadecimal value with `?` as wildcard. For example `80????`
           would match note-off on channel 1 (0). When this parameter is {@null}, a standard filter will
@@ -2722,10 +3929,10 @@ and extract a value out of the MIDI event. */
 	createAbsoluteValueMatcher(
 
 		/** Expression that must be true in order to extract the value.*/
-		eventExpression: any,
+		eventExpression: any, 
 
 		/** Expression that determines the value once an event has been matched.*/
-		valueExpression: any,
+		valueExpression: any, 
 
 		/** The number of bits that are relevant from the value extracted by the valueExpression.*/
 		valueBitCount: any, ): AbsoluteHardwareValueMatcher
@@ -2734,7 +3941,7 @@ and extract a value out of the MIDI event. */
 	createRelativeValueMatcher(
 
 		/** Expression that must be true in order to extract the value.*/
-		eventExpression: any,
+		eventExpression: any, 
 
 		/** The amount of relative adjustment that should be applied*/
 		relativeAdjustment: any, ): RelativeHardwareValueMatcher
@@ -2744,7 +3951,7 @@ value using signed bit. */
 	createRelativeSignedBitValueMatcher(
 
 		/** Value matcher that matches the value that needs to be converted to a relative value*/
-		valueMatcher: any,
+		valueMatcher: any, 
 
 		/** The value that would represent one full rotation to the right (should be very similar to the
           amount of rotation needed to take an absolute knob from 0 to 1). For example, if a value of
@@ -2795,10 +4002,10 @@ declare interface MidiOut {
 	sendMidi(
 
 		/** the status byte of the MIDI message, system messages are not permitted.*/
-		status: any,
+		status: any, 
 
 		/** the data1 part of the MIDI message*/
-		data1: any,
+		data1: any, 
 
 		/** the data2 part of the MIDI message*/
 		data2: any, ): void
@@ -2814,15 +4021,61 @@ declare interface MidiOut {
 
 To get an instance of the mixer interface call {@link ControllerHost#createMixer}. */
 declare interface Mixer {
+
+	/** Gets an object that allows to show/hide the meter section of the mixer panel. Observers can be
+registered on the returned object for receiving notifications when the meter section switches between
+shown and hidden state. */
+	isMeterSectionVisible(): SettableBooleanValue
+
+	/** Gets an object that allows to show/hide the io section of the mixer panel. Observers can be registered
+on the returned object for receiving notifications when the io section switches between shown and hidden
+state. */
+	isIoSectionVisible(): SettableBooleanValue
+
+	/** Gets an object that allows to show/hide the sends section of the mixer panel. Observers can be
+registered on the returned object for receiving notifications when the sends section switches between
+shown and hidden state. */
+	isSendSectionVisible(): SettableBooleanValue
+
+	/** Gets an object that allows to show/hide the clip launcher section of the mixer panel. Observers can be
+registered on the returned object for receiving notifications when the clip launcher section switches
+between shown and hidden state. */
+	isClipLauncherSectionVisible(): SettableBooleanValue
+
+	/** Gets an object that allows to show/hide the devices section of the mixer panel. Observers can be
+registered on the returned object for receiving notifications when the devices section switches between
+shown and hidden state. */
+	isDeviceSectionVisible(): SettableBooleanValue
+
+	/** Gets an object that allows to show/hide the cross-fade section of the mixer panel. Observers can be
+registered on the returned object for receiving notifications when the cross-fade section switches
+between shown and hidden state. */
+	isCrossFadeSectionVisible(): SettableBooleanValue
 }
 
 /** This interface represents a modulation source in Bitwig Studio. */
 declare interface ModulationSource {
+
+	/** Value which reports when the modulation source is in mapping mode. */
+	isMapping(): BooleanValue
+
+	/** Toggles the modulation source between mapping mode and normal control functionality. */
+	toggleIsMapping(): void
+
+	/** Value the reports the name of the modulation source. */
+	name(): StringValue
+
+	/** Value which reports if the modulation source is mapped to any destination(s). */
+	isMapped(): BooleanValue
 }
 
 /** Represents a physical hardware light on a controller. The light has an on/off state and may also be
 optionally colored. */
 declare interface MultiStateHardwareLight {
+
+	/** Value that represents the current state of this light as an integer. The interpretation of this value is
+entirely up to the implementation. */
+	state(): ObjectHardwareProperty<InternalHardwareLightState>
 
 	/** Sets a function that can be used to convert a color to the closest possible state representing that
 color. Once this function has been provided it is possible to then use the convenient
@@ -2887,10 +4140,10 @@ polyphonic aftertouch as well. */
 	assignPolyphonicAftertouchToExpression(
 
 		/** the MIDI channel to map, range [0..15]*/
-		channel: any,
+		channel: any, 
 
 		/** the note-expression to map for the given MIDI channel*/
-		expression: any,
+		expression: any, 
 
 		/** the pitch mapping range in semitones, values must be in the range [1..24]. This parameter is
           ignored for non-pitch expressions.*/
@@ -2900,10 +4153,10 @@ polyphonic aftertouch as well. */
 	setUseExpressiveMidi(
 
 		/** enabled/disable the MPE mode for this note-input*/
-		useExpressiveMidi: any,
+		useExpressiveMidi: any, 
 
 		/** which channel (must be either 0 or 15) which is used as the base for this note-input*/
-		baseChannel: any,
+		baseChannel: any, 
 
 		/** initial pitch bend range used*/
 		pitchBendRange: any, ): void
@@ -2913,17 +4166,38 @@ tables. The MIDI channel of the message will be ignored. */
 	sendRawMidiEvent(
 
 		/** the status byte of the MIDI message*/
-		status: any,
+		status: any, 
 
 		/** the data0 part of the MIDI message*/
-		data0: any,
+		data0: any, 
 
 		/** the data1 part of the MIDI message*/
 		data1: any, ): void
+
+	/** Creates a proxy object to the NoteInput's NoteLatch component. */
+	noteLatch(): NoteLatch
+
+	/** Creates a proxy object to the NoteInput's Arpeggiator component. */
+	arpeggiator(): Arpeggiator
+
+	/** Should this note input be included in the "All Inputs" note source? */
+	includeInAllInputs(): SettableBooleanValue
 }
 
 /** Instances of this interface are used to access the notes for a specific note key. */
 declare interface NoteLane {
+
+	/** Value which represents the id of this lane. is either the note pitch represented by this lane, or in
+case of audio a lane index (currently always 0 in that case). */
+	noteLaneId(): IntegerValue
+
+	/** Value  that reports the name of the note lane. Typically the name of a note lane is
+either equal to the title of an associated drum pad, or reflects the pitch of the note, e.g. "C#3". */
+	name(): StringValue
+
+	/** Value the color of the note lane. By default the reported color will be the
+track color, or in case an associated drum pad has a custom color it will be the color of that pad */
+	color(): SettableColorValue
 
 	/** Plays a note with the key of the note lane and the provided velocity parameter. */
 	play(
@@ -2934,6 +4208,28 @@ declare interface NoteLane {
 
 /** Creates a proxy object to the NoteInput's NoteLatch component. */
 declare interface NoteLatch {
+
+	/** Returns an object to enable or disable the note latch component. */
+	isEnabled(): SettableBooleanValue
+
+	/** Returns an object to configure the note latch mode.
+Possible values:
+ - chord
+ - toggle
+ - velocity */
+	mode(): SettableEnumValue
+
+	/** Only one note at a time. */
+	mono(): SettableBooleanValue
+
+	/** The velocity threshold used by the velocity latch mode. */
+	velocityThreshold(): SettableIntegerValue
+
+	/** How many notes are being latched. */
+	activeNotes(): IntegerValue
+
+	/** Release all notes being latched. */
+	releaseNotes(): void
 }
 
 declare interface NotePlaybackCallback {
@@ -2942,54 +4238,67 @@ declare interface NotePlaybackCallback {
 
 /** Object that describes the content of a step at a given position: x for the time, and y for the key. */
 declare interface NoteStep {
+	x(): number
+	y(): number
+	channel(): number
+	state(): State
+	velocity(): number
 
 	/** If there is a note started at this position, it will update the velocity of the note. */
 	setVelocity(
 
 		/** between 0 and 1*/
 		velocity: number, ): void
+	releaseVelocity(): number
 
 	/** If there is a note started at this position, it will update the release velocity of the note. */
 	setReleaseVelocity(
 
 		/** between 0 and 1*/
 		velocity: number, ): void
+	duration(): number
 
 	/** If there is a note started at this position, it will update the duration of the note. */
 	setDuration(
 
 		/** in beats*/
 		duration: number, ): void
+	pan(): number
 
 	/** If there is a note started at this position, it will update the panning of the note. */
 	setPan(
 
 		/** 1 for left, +1 for right*/
 		pan: number, ): void
+	timbre(): number
 
 	/** If there is a note started at this position, it will update the timbre of the note. */
 	setTimbre(
 
 		/** from -1 to +1*/
 		timbre: number, ): void
+	pressure(): number
 
 	/** If there is a note started at this position, it will update the pressure of the note. */
 	setPressure(
 
 		/** from 0 to +1*/
 		pressure: number, ): void
+	gain(): number
 
 	/** If there is a note started at this position, it will update the gain of the note. */
 	setGain(
 
 		/** in the range 0..1, a value of 0.5 results in a gain of 0dB.*/
 		gain: number, ): void
+	transpose(): number
 
 	/** If there is a note started at this position, it will update the pitch offset of the note. */
 	setTranspose(
 
 		/** in semitones, from -24 to +24*/
 		transpose: number, ): void
+	isIsSelected(): boolean
 }
 
 declare interface NoteStepChangedCallback {
@@ -3009,6 +4318,12 @@ include a display it might be useful to show all notifications. By default all n
 In addition, the user can enable or disable all notifications the have been enabled using this interface in
 the preferences dialog of Bitwig Studio. */
 declare interface NotificationSettings {
+
+	/** Returns an object that reports if user notifications are enabled and that allows to enable/disable user
+notifications from the control surface. If user notifications are disabled, no automatic notifications
+will be shown in the Bitwig Studio user interface. If user notifications are enabled, all automatic
+notifications will be shown that are enabled using the methods of this interface. */
+	getUserNotificationsEnabled(): SettableBooleanValue
 
 	/** Specifies if user notification related to selection changes should be shown. Please note that this
 setting only applies when user notifications are enabled in general, otherwise no notification are
@@ -3077,10 +4392,17 @@ shown. By default this setting is `false`. */
 
 declare interface ObjectArrayValue {
 	get(index: number, ): ObjectType
+	isEmpty(): boolean
 }
 
 /** Represents an output value shown on some hardware. */
 declare interface ObjectHardwareProperty {
+
+	/** Gets the current value. This is the value that should be sent to the hardware to be displayed. */
+	currentValue(): any
+
+	/** The value that was last sent to the hardware. */
+	lastSentValue(): any
 
 	/** Specifies a callback that should be called with the value that needs to be sent to the hardware. This
 callback is called as a result of calling the {@link HardwareSurface#updateHardware()} method (typically
@@ -3098,6 +4420,9 @@ from the flush method). */
 device etc). */
 declare interface ObjectProxy {
 
+	/** Returns a value object that indicates if the object being proxied exists, or if it has content. */
+	exists(): BooleanValue
+
 	/** Creates a {@link BooleanValue} that determines this proxy is considered equal to another proxy. For this
 to be the case both proxies need to be proxying the same target object. */
 	createEqualsValue(other: ObjectProxy, ): BooleanValue
@@ -3109,6 +4434,9 @@ declare interface ObjectValueChangedCallback {
 
 /** Defines a simple hardware light that only has an on and off state. */
 declare interface OnOffHardwareLight {
+
+	/** Property that determines if this light is on or not. */
+	isOn(): BooleanHardwareProperty
 	setOnColor(color: Color, ): void
 	setOffColor(color: Color, ): void
 	setOnVisualState(state: HardwareLightVisualState, ): void
@@ -3130,13 +4458,13 @@ will be registered. */
 	registerMethod(
 
 		/** The address to register the method at*/
-		address: string,
+		address: string, 
 
 		/** The globing pattern used to match the type tag. Pass "*" to match anything.*/
-		typeTagPattern: string,
+		typeTagPattern: string, 
 
 		/** The method description.*/
-		desc: string,
+		desc: string, 
 
 		/** The OSC Method call handler.*/
 		callback: OscMethodCallback, ): void
@@ -3155,6 +4483,8 @@ It is useful if you have multiple address space to identify them when we generat
 
 /** An OSC Bundle. */
 declare interface OscBundle {
+	getNanoseconds(): number
+	getPackets(): OscPacket[]
 }
 
 /** This interface lets you send OscMessage through an connection which can be via Tcp, Udp, or whatever.
@@ -3164,6 +4494,9 @@ If you call sendMessage() with startBundle() before, then the message will be se
 
 Our maximum packet size is 64K. */
 declare interface OscConnection {
+
+	/** Starts an OscBundle. */
+	startBundle(): void
 
 	/** Supported object types:
 - Integer for int32
@@ -3175,10 +4508,17 @@ declare interface OscConnection {
 - String for string
 - byte[] for blob */
 	sendMessage(address: string, args: Object, ): void
+
+	/** Finishes the previous bundle, and if it was not inside an other bundle, it will send the message
+directly. */
+	endBundle(): void
 }
 
 /** An OSC message. */
 declare interface OscMessage {
+	getAddressPattern(): string
+	getTypeTag(): string
+	getArguments(): Object[]
 	getString(index: number, ): string
 	getBlob(index: number, ): string[]
 	getInt(index: number, ): Integer
@@ -3189,6 +4529,10 @@ declare interface OscMessage {
 }
 
 declare interface OscMethod {
+	address(): string
+	typeTagPattern(): string
+	desc(): string
+	obsoleteAddresses(): String[]
 }
 
 declare interface OscMethodCallback {
@@ -3197,6 +4541,12 @@ declare interface OscMethodCallback {
 
 /** Interface to create Osc related object. */
 declare interface OscModule {
+
+	/** Creates a new OscAddressSpace.
+
+In short the OscAddressSpace dispatches the incoming messages to services.
+An OscAddressSpace is an OscService. */
+	createAddressSpace(): OscAddressSpace
 
 	/** Creates a new OSC Server.
 This server is not started yet, you'll have to start it by calling server.start(port);
@@ -3212,10 +4562,15 @@ or if the port number can change at runtime. */
 }
 
 declare interface OscNode {
+	prefix(): string
 }
 
 /** Base class for OscPackets. */
 declare interface OscPacket {
+
+	/** If the message was part of a bundle, get a pointer back to it.
+If not, this methods returns null. */
+	getParentBundle(): OscBundle
 }
 
 declare interface OscServer {
@@ -3232,10 +4587,10 @@ data has been written the callback will be notified on the controller's thread. 
 	writeAsync(
 
 		/** A {@link MemoryBlock} containing the data to be written.*/
-		data: any,
+		data: any, 
 
 		/** A callback that is notified on the controller's thread when the write has completed.*/
-		callback: any,
+		callback: any, 
 
 		/** A timeout in milliseconds that will result in an error and termination of the controller if
           the write does not happen in this time. For infinite timeout use 0.*/
@@ -3246,6 +4601,18 @@ data has been written the callback will be notified on the controller's thread. 
 /** Instances of this interface represent ranged parameters that can be controlled with automation in Bitwig
 Studio. */
 declare interface Parameter {
+
+	/** Gets the current value of this parameter. */
+	value(): SettableRangedValue
+
+	/** Gets the modulated value of this parameter. */
+	modulatedValue(): RangedValue
+
+	/** The name of the parameter. */
+	name(): StringValue
+
+	/** Resets the value to its default. */
+	reset(): void
 
 	/** Touch (or un-touch) the value for automation recording. */
 	touch(
@@ -3266,10 +4633,16 @@ for learning controls. */
 
 		/** the label to be shown in Bitwig Studio*/
 		label: any, ): void
+
+	/** Restores control of this parameter to automation playback. */
+	restoreAutomationControl(): void
 }
 
 /** Defines a bank of parameters. */
 declare interface ParameterBank {
+
+	/** Gets the number of slots that these remote controls have. */
+	getParameterCount(): number
 
 	/** Returns the parameter at the given index within the bank. */
 	getParameter(
@@ -3281,7 +4654,7 @@ declare interface ParameterBank {
 	setHardwareLayout(
 
 		/** which kind of hardware control is used for this bank (knobs/encoders/sliders)*/
-		type: HardwareControlType,
+		type: HardwareControlType, 
 
 		/** How wide this section is in terms of layout (4/8/9)*/
 		columns: number, ): void
@@ -3307,6 +4680,10 @@ for the hardware to simulate the note input. */
 
 /** Interface that defines a cursor that can be "pinned". */
 declare interface PinnableCursor {
+
+	/** Determines if this cursor is currently pinned or not. If the cursor is pinned then it won't follow the
+selection the user makes in the application. */
+	isPinned(): SettableBooleanValue
 }
 
 /** Cursor clip that can act independently from the user's clip selection if desired by being pinned in the
@@ -3329,6 +4706,8 @@ declare interface Pipe {
 }
 
 declare interface PlayingNote {
+	pitch(): number
+	velocity(): number
 }
 
 declare interface PlayingNoteArrayValue {
@@ -3337,6 +4716,74 @@ declare interface PlayingNoteArrayValue {
 
 /** Object that represents the popup browser in Bitwig Studio. */
 declare interface PopupBrowser {
+
+	/** The title of the popup browser. */
+	title(): StringValue
+
+	/** Value that reports the possible content types that can be inserted by the popup browser. These are
+represented by the tabs in Bitwig Studio's popup browser.
+
+(e.g "Device", "Preset", "Sample" etc.) */
+	contentTypeNames(): StringArrayValue
+
+	/** Value that represents the selected content type. */
+	selectedContentTypeName(): StringValue
+
+	/** Value that represents the index of the selected content type within the content types supported. */
+	selectedContentTypeIndex(): SettableIntegerValue
+
+	/** The smart collections column of the browser. */
+	smartCollectionColumn(): BrowserFilterColumn
+
+	/** The location column of the browser. */
+	locationColumn(): BrowserFilterColumn
+
+	/** The device column of the browser. */
+	deviceColumn(): BrowserFilterColumn
+
+	/** The category column of the browser. */
+	categoryColumn(): BrowserFilterColumn
+
+	/** The tag column of the browser. */
+	tagColumn(): BrowserFilterColumn
+
+	/** The device type column of the browser. */
+	deviceTypeColumn(): BrowserFilterColumn
+
+	/** The file type column of the browser. */
+	fileTypeColumn(): BrowserFilterColumn
+
+	/** The creator column of the browser. */
+	creatorColumn(): BrowserFilterColumn
+
+	/** Column that represents the results of the search. */
+	resultsColumn(): BrowserResultsColumn
+
+	/** Value that indicates if the browser is able to audition material in place while browsing. */
+	canAudition(): BooleanValue
+
+	/** Value that decides if the browser is currently auditioning material in place while browsing or not. */
+	shouldAudition(): SettableBooleanValue
+
+	/** Selects the next file. */
+	selectNextFile(): void
+
+	/** Selects the previous file. */
+	selectPreviousFile(): void
+
+	/** Selects the first file. */
+	selectFirstFile(): void
+
+	/** Selects the last file. */
+	selectLastFile(): void
+
+	/** Cancels the popup browser. */
+	cancel(): void
+	cancelAction(): HardwareActionBindable
+
+	/** Commits the selected item in the popup browser. */
+	commit(): void
+	commitAction(): HardwareActionBindable
 }
 
 /** This interface is used to store custom controller settings into the Bitwig Studio preferences. The settings
@@ -3346,17 +4793,60 @@ declare interface Preferences {
 
 /** An interface for representing the current project. */
 declare interface Project {
+
+	/** Returns an object that represents the root track group of the active Bitwig Studio project. */
+	getRootTrackGroup(): Track
+
+	/** Returns an object that represents the top level track group as shown in the arranger/mixer of the active
+Bitwig Studio project. */
+	getShownTopLevelTrackGroup(): Track
+
+	/** Creates a new scene (using an existing empty scene if possible) from the clips that are currently
+playing in the clip launcher. */
+	createSceneFromPlayingLauncherClips(): void
+
+	/** The volume used for cue output. */
+	cueVolume(): Parameter
+
+	/** Mix between cue bus and the studio bus (master). */
+	cueMix(): Parameter
+
+	/** Sets the solo state of all tracks to off. */
+	unsoloAll(): void
+	hasSoloedTracks(): BooleanValue
+
+	/** Sets the mute state of all tracks to off. */
+	unmuteAll(): void
+
+	/** Value that indicates if the project has muted tracks or not. */
+	hasMutedTracks(): BooleanValue
+
+	/** Sets the arm state of all tracks to off. */
+	unarmAll(): void
+
+	/** Value that indicates if the project has armed tracks or not. */
+	hasArmedTracks(): BooleanValue
 }
 
 /** Instances of this interface represent numeric values that have an upper and lower limit. */
 declare interface RangedValue {
+
+	/** The current value normalized between 0..1 where 0 represents the minimum value and 1 the maximum. */
+	get(): number
+
+	/** Gets the current value. */
+	getRaw(): number
+	getAsDouble(): number
+
+	/** Value that represents a formatted text representation of the value whenever the value changes. */
+	displayedValue(): StringValue
 
 	/** Adds an observer which receives the normalized value of the parameter as an integer number within the
 range [0..range-1]. */
 	addValueObserver(
 
 		/** the range used to scale the value when reported to the callback*/
-		range: any,
+		range: any, 
 
 		/** a callback function that receives a single double parameter*/
 		callback: any, ): void
@@ -3433,6 +4923,9 @@ max normalized range and is adjusted with the supplied sensitivity. */
 the supplied min and max normalized range and is adjusted with the supplied sensitivity. */
 	setBindingWithRangeAndSensitivity(target: SettableRangedValue, minNormalizedValue: number, maxNormalizedValue: number, sensitivity: number, ): RelativeHardwareControlBinding
 
+	/** The current steps size (amount of relative rotation) necessary to step through an item in a list. */
+	getStepSize(): number
+
 	/** Sets the step size of this relative hardware control. The step size is used when using this control to
 step through items in a list, or values in an enum parameter, for example. For each step forwards a
 certain action can be invoked and for each step backwards a different action. */
@@ -3462,6 +4955,9 @@ declare interface RelativeHardwareValueMatcher {
 socket via {@link ControllerHost#connectToRemoteHost}. */
 declare interface RemoteConnection {
 
+	/** Disconnects from the remote host. */
+	disconnect(): void
+
 	/** Registers a callback function that gets called when the connection gets lost or disconnected. */
 	setDisconnectCallback(
 
@@ -3488,11 +4984,13 @@ header. */
 
 /** Represents a remote control in Bitwig Studio. */
 declare interface RemoteControl {
+	name(): SettableStringValue
 }
 
 /** Represents a page of remote controls in a device. */
 declare interface RemoteControlsPage {
 	getParameter(indexInBank: number, ): RemoteControl
+	getName(): StringValue
 }
 
 /** Instances of this interface represent a TCP socket that other network clients can connect to, typically
@@ -3504,6 +5002,11 @@ declare interface RemoteSocket {
 
 		/** a callback function which receives a single {@link RemoteConnection} argument*/
 		callback: any, ): void
+
+	/** Gets the actual port used for the remote socket, which might differ from the originally requested port
+when calling {@link ControllerHost#createRemoteConnection(String name, int port)} in case the requested port was
+already used. */
+	getPort(): number
 }
 
 /** This class is a renderer.
@@ -3515,11 +5018,23 @@ declare interface Renderer {
 /** Instances of this interface represent scenes in Bitwig Studio. */
 declare interface Scene {
 
+	/** Returns an object that provides access to the name of the scene. */
+	name(): SettableStringValue
+
+	/** Value that reports the number of clips in the scene. */
+	clipCount(): IntegerValue
+
 	/** Registers an observer that reports if the scene is selected in Bitwig Studio. */
 	addIsSelectedInEditorObserver(
 
 		/** a callback function that takes a single boolean parameter.*/
 		callback: any, ): void
+
+	/** Selects the scene in Bitwig Studio. */
+	selectInEditor(): void
+
+	/** Makes the scene visible in the Bitwig Studio user interface. */
+	showInEditor(): void
 }
 
 /** A scene bank provides access to a range of scenes in Bitwig Studio. Instances of scene bank are configured
@@ -3556,6 +5071,9 @@ default indications are disabled. */
 /** Interface for something that can be scrolled. */
 declare interface Scrollable {
 
+	/** Value that reports the current scroll position. */
+	scrollPosition(): SettableIntegerValue
+
 	/** Scrolls the supplied position into view if it isn't already. */
 	scrollIntoView(position: number, ): void
 
@@ -3565,27 +5083,70 @@ declare interface Scrollable {
 		/** The number of steps to scroll by (positive is forwards and negative is backwards).*/
 		amount: any, ): void
 
+	/** Scrolls forwards by one step. This is the same as calling {@link #scrollBy(int)} with 1 */
+	scrollForwards(): void
+	scrollForwardsAction(): HardwareActionBindable
+
+	/** Scrolls forwards by one step. This is the same as calling {@link #scrollBy(int)} with -1 */
+	scrollBackwards(): void
+	scrollBackwardsAction(): HardwareActionBindable
+
 	/** Scrolls by a number of pages. */
 	scrollByPages(
 
 		/** The number of pages to scroll by (positive is forwards and negative is backwards).*/
 		amount: any, ): void
+
+	/** Scrolls forwards by one page. */
+	scrollPageForwards(): void
+	scrollPageForwardsAction(): HardwareActionBindable
+
+	/** Scrolls backwards by one page. */
+	scrollPageBackwards(): void
+	scrollPageBackwardsAction(): HardwareActionBindable
+
+	/** Value that reports if it is possible to scroll the bank backwards or not. */
+	canScrollBackwards(): BooleanValue
+
+	/** Value that reports if it is possible to scroll the bank forwards or not. */
+	canScrollForwards(): BooleanValue
 }
 
 declare interface Send {
+
+	/** Value that reports the color of the channel that this send sends to. */
+	sendChannelColor(): SettableColorValue
+
+	/** Value that reports if the send happens before or after the fader. */
+	isPreFader(): BooleanValue
+
+	/** Define how the send will happen.
+Possible values: AUTO, PRE, POST. */
+	sendMode(): SettableEnumValue
 }
 
 declare interface SettableBeatTimeValue {
+
+	/** Stepper that steps through beat values. This can be used as a target for a
+{@link RelativeHardwareControl}. */
+	beatStepper(): RelativeHardwarControlBindable
 }
 
 /** Instances of this interface represent boolean values. */
-declare interface SettableBooleanValue extends BooleanValue, HardwareActionBindable {
+declare interface SettableBooleanValue {
 
 	/** Sets the internal value. */
 	set(
 
 		/** the new boolean value.*/
 		value: any, ): void
+
+	/** Toggles the current state. In case the current value is `false`, the new value will be `true` and the
+other way round. */
+	toggle(): void
+	toggleAction(): HardwareActionBindable
+	setToTrueAction(): HardwareActionBindable
+	setToFalseAction(): HardwareActionBindable
 }
 
 declare interface SettableColorValue {
@@ -3647,7 +5208,7 @@ take care of scaling it. */
 	set(
 
 		/** integer number in the range [0 .. resolution-1]*/
-		value: any,
+		value: any, 
 
 		/** the resolution used for scaling @ if passed-in parameters are null*/
 		resolution: any, ): void
@@ -3668,7 +5229,7 @@ take care of scaling it. */
 	inc(
 
 		/** the amount that the current value is increased by*/
-		increment: any,
+		increment: any, 
 
 		/** the resolution used for scaling*/
 		resolution: any, ): void
@@ -3711,6 +5272,24 @@ declare interface SettableStringValue {
 
 /** A common base interface for labeled and categorized settings. */
 declare interface Setting {
+
+	/** Returns the category name of the setting. */
+	getCategory(): string
+
+	/** Returns the label text of the setting. */
+	getLabel(): string
+
+	/** Marks the settings as enabled in Bitwig Studio. By default the setting is enabled. */
+	enable(): void
+
+	/** Marks the settings as disabled in Bitwig Studio. By default the setting is enabled. */
+	disable(): void
+
+	/** Shows the setting in Bitwig Studio. By default the setting is shown. */
+	show(): void
+
+	/** Hides the setting in Bitwig Studio. By default the setting is shown. */
+	hide(): void
 }
 
 /** This interface builds the foundation for storing custom settings in Bitwig Studio documents or in the
@@ -3721,10 +5300,10 @@ declare interface Settings {
 	getSignalSetting(
 
 		/** the name of the setting, must not be `null`*/
-		label: any,
+		label: any, 
 
 		/** the name of the category, may not be `null`*/
-		category: any,
+		category: any, 
 
 		/** the action string as displayed on the related Bitwig Studio button, must not be `null`*/
 		action: any, ): Signal
@@ -3733,22 +5312,22 @@ declare interface Settings {
 	getNumberSetting(
 
 		/** the name of the setting, must not be `null`*/
-		label: any,
+		label: any, 
 
 		/** the name of the category, may not be `null`*/
-		category: any,
+		category: any, 
 
 		/** the minimum value that the user is allowed to enter*/
-		minValue: any,
+		minValue: any, 
 
 		/** the minimum value that the user is allowed to enter*/
-		maxValue: any,
+		maxValue: any, 
 
 		/** the step resolution used for the number field*/
-		stepResolution: any,
+		stepResolution: any, 
 
 		/** the string that should be used to display the unit of the number*/
-		unit: any,
+		unit: any, 
 
 		/** the initial numeric value of the setting*/
 		initialValue: any, ): SettableRangedValue
@@ -3758,13 +5337,13 @@ depending on the number of provided options. */
 	getEnumSetting(
 
 		/** the name of the setting, must not be `null`*/
-		label: any,
+		label: any, 
 
 		/** the name of the category, may not be `null`*/
-		category: any,
+		category: any, 
 
 		/** the string array that defines the allowed options for the button group or chooser*/
-		options: any,
+		options: any, 
 
 		/** the initial string value, must be one of the items specified with the option argument*/
 		initialValue: any, ): SettableEnumValue
@@ -3773,13 +5352,13 @@ depending on the number of provided options. */
 	getStringSetting(
 
 		/** the name of the setting, must not be `null`*/
-		label: any,
+		label: any, 
 
 		/** the name of the category, may not be `null`*/
-		category: any,
+		category: any, 
 
 		/** the maximum number of character used for the text value*/
-		numChars: any,
+		numChars: any, 
 
 		/** the initial text value of the setting*/
 		initialText: any, ): SettableStringValue
@@ -3788,10 +5367,10 @@ depending on the number of provided options. */
 	getColorSetting(
 
 		/** the name of the setting, must not be `null`*/
-		label: any,
+		label: any, 
 
 		/** the name of the category, may not be `null`*/
-		category: any,
+		category: any, 
 
 		/** the initial color value of the setting*/
 		initialColor: any, ): SettableColorValue
@@ -3800,10 +5379,10 @@ depending on the number of provided options. */
 	getBooleanSetting(
 
 		/** the name of the setting, must not be `null`*/
-		label: any,
+		label: any, 
 
 		/** the name of the category, may not be `null`*/
-		category: any,
+		category: any, 
 
 		/** the initial color value of the setting*/
 		initialValue: any, ): SettableBooleanValue
@@ -3816,6 +5395,19 @@ declare interface ShortMidiDataReceivedCallback {
 }
 
 declare interface ShortMidiMessage {
+	getStatusByte(): number
+	getData1(): number
+	getData2(): number
+	getChannel(): number
+	getStatusMessage(): number
+	isNoteOff(): boolean
+	isNoteOn(): boolean
+	isPitchBend(): boolean
+	isPolyPressure(): boolean
+	isControlChange(): boolean
+	isProgramChange(): boolean
+	isChannelPressure(): boolean
+	toString(): string
 }
 
 declare interface ShortMidiMessageReceivedCallback {
@@ -3830,6 +5422,9 @@ declare interface Signal {
 
 		/** a callback function that does not receive any argument.*/
 		callback: any, ): void
+
+	/** Fires the action or event represented by the signal object. */
+	fire(): void
 }
 
 /** Instances of this interface represent the state of a solo button. */
@@ -3849,6 +5444,12 @@ user interface and contain entries for either note inputs or audio inputs or bot
 The most prominent source selector in Bitwig Studio is the one shown in the track IO section, which can be
 accessed via the API by calling {@link Track#getSourceSelector()}. */
 declare interface SourceSelector {
+
+	/** Returns an object that indicates if the source selector has note inputs enabled. */
+	hasNoteInputSelected(): BooleanValue
+
+	/** Returns an object that indicates if the source selector has audio inputs enabled. */
+	hasAudioInputSelected(): BooleanValue
 }
 
 declare interface StepDataChangedCallback {
@@ -3860,10 +5461,19 @@ indicates if the step is empty (`0`) or if a note continues playing (`1`) or sta
 }
 
 declare interface StringArrayValue {
+
+	/** Gets the current value. */
+	get(): String[]
 }
 
 /** Represents an output value shown on some hardware (for example, the title of a track). */
 declare interface StringHardwareProperty {
+
+	/** Gets the current value. This is the value that should be sent to the hardware to be displayed. */
+	currentValue(): string
+
+	/** The value that was last sent to the hardware. */
+	lastSentValue(): string
 
 	/** Specifies a callback that should be called with the value that needs to be sent to the hardware. This
 callback is called as a result of calling the {@link HardwareSurface#updateHardware()} method (typically
@@ -3875,10 +5485,16 @@ from the flush method). */
 
 	/** Sets the current value from a {@link Supplier} that supplies the latest value. */
 	setValueSupplier(supplier: java.util.function.Supplier<java.lang.String>, ): void
+
+	/** The maximum number of characters that can be output or -1 if not specified and there is no limit. */
+	getMaxChars(): number
 	setMaxChars(maxChars: number, ): void
 }
 
 declare interface StringValue {
+
+	/** Gets the current value. */
+	get(): string
 
 	/** Gets the current value and tries to intelligently limit it to the supplied length in the best way
 possible. */
@@ -3894,6 +5510,16 @@ everything.
 
 Subscription is counter based. */
 declare interface Subscribable {
+
+	/** Determines if this object is currently 'subscribed'. In the subscribed state it will notify any
+observers registered on it. */
+	isSubscribed(): boolean
+
+	/** Subscribes the driver to this object. */
+	subscribe(): void
+
+	/** Unsubscribes the driver from this object. */
+	unsubscribe(): void
 }
 
 declare interface SysexBuilder {
@@ -3902,6 +5528,8 @@ declare interface SysexBuilder {
 	addString(string: string, length: number, ): SysexBuilder
 	add(bytes: string[], ): SysexBuilder
 	addHex(hex: string, ): SysexBuilder
+	terminate(): string[]
+	array(): string[]
 }
 
 declare interface SysexMidiDataReceivedCallback {
@@ -3912,10 +5540,34 @@ declare interface SysexMidiDataReceivedCallback {
 }
 
 declare interface TextExtents {
+
+	/** Returns the horizontal distance from the origin to the leftmost part of the glyphs as drawn.
+Positive if the glyphs lie entirely to the right of the origin. */
+	getBearingX(): number
+
+	/** Returns the vertical distance from the origin to the topmost part of the glyphs as drawn.
+Positive only if the glyphs lie completely below the origin; will usually be negative. */
+	getBearingY(): number
+
+	/** Returns the width of the glyphs as drawn. */
+	getWidth(): number
+
+	/** Returns the height of the glyphs as drawn. */
+	getHeight(): number
+
+	/** Returns the distance to advance in the X direction after drawing these glyphs. */
+	getAdvanceX(): number
+
+	/** Returns the distance to advance in the Y direction after drawing these glyphs. Will typically
+be zero except for vertical text layout as found in East-Asian languages. */
+	getAdvanceY(): number
 }
 
 /** Instances of this interface represent time signature values. */
 declare interface TimeSignatureValue {
+
+	/** Gets the current value. */
+	get(): string
 
 	/** Updates the time signature according to the given string. */
 	set(
@@ -3923,10 +5575,57 @@ declare interface TimeSignatureValue {
 		/** a textual representation of the new time signature value, formatted as
           `numerator/denominator[, ticks]`*/
 		name: any, ): void
+
+	/** Returns an object that provides access to the time signature numerator. */
+	numerator(): SettableIntegerValue
+
+	/** Returns an object that provides access to the time signature denominator. */
+	denominator(): SettableIntegerValue
+
+	/** Returns an object that provides access to the time signature tick subdivisions. */
+	ticks(): SettableIntegerValue
 }
 
 /** Instances of this interface represent tracks in Bitwig Studio. */
 declare interface Track {
+
+	/** Value that reports the position of the track within the list of Bitwig Studio tracks. */
+	position(): IntegerValue
+
+	/** Returns an object that can be used to access the clip launcher slots of the track. */
+	clipLauncherSlotBank(): ClipLauncherSlotBank
+
+	/** Returns an object that provides access to the arm state of the track. */
+	arm(): SettableBooleanValue
+
+	/** Returns an object that provides access to the monitoring state of the track. */
+	monitor(): SettableBooleanValue
+
+	/** Returns an object that provides access to the auto-monitoring state of the track. */
+	autoMonitor(): SettableBooleanValue
+
+	/** Returns an object that provides access to the cross-fade mode of the track. */
+	crossFadeMode(): SettableEnumValue
+
+	/** Value that reports if this track is currently stopped. When a track is stopped it is not playing content
+from the arranger or clip launcher. */
+	isStopped(): BooleanValue
+
+	/** Value that reports if the clip launcher slots are queued for stop. */
+	isQueuedForStop(): BooleanValue
+
+	/** Returns the source selector for the track, which is shown in the IO section of the track in Bitwig
+Studio and lists either note or audio sources or both depending on the track type. */
+	sourceSelector(): SourceSelector
+
+	/** Stops playback of the track. */
+	stop(): void
+
+	/** Action to call {@link #stop()}. */
+	stopAction(): HardwareActionBindable
+
+	/** Calling this method causes the arrangement sequencer to take over playback. */
+	returnToArrangement(): void
 
 	/** Updates the name of the track. */
 	setName(
@@ -3947,7 +5646,7 @@ Drum Machine. */
 	playNote(
 
 		/** the key value of the played note*/
-		key: any,
+		key: any, 
 
 		/** the velocity of the played note*/
 		velocity: any, ): void
@@ -3956,7 +5655,7 @@ Drum Machine. */
 	startNote(
 
 		/** the key value of the played note*/
-		key: any,
+		key: any, 
 
 		/** the velocity of the played note*/
 		velocity: any, ): void
@@ -3965,7 +5664,7 @@ Drum Machine. */
 	stopNote(
 
 		/** the key value of the playing note*/
-		key: any,
+		key: any, 
 
 		/** the note-off velocity*/
 		velocity: any, ): void
@@ -3974,13 +5673,30 @@ Drum Machine. */
 	sendMidi(
 
 		/** the status byte of the MIDI message*/
-		status: any,
+		status: any, 
 
 		/** the data1 part of the MIDI message*/
-		data1: any,
+		data1: any, 
 
 		/** the data2 part of the MIDI message*/
 		data2: any, ): void
+
+	/** Value that reports the track type. Possible reported track types are `Group`, `Instrument`, `Audio`,
+`Hybrid`, `Effect` or `Master`. */
+	trackType(): StringValue
+
+	/** Value that reports if the track may contain child tracks, which is the case for group tracks. */
+	isGroup(): BooleanValue
+
+	/** If the track is an effect track, returns an object that indicates if the effect track is configured
+as pre-fader. */
+	getIsPreFader(): SettableBooleanValue
+
+	/** Returns an object that indicates if the track may contain notes. */
+	canHoldNoteData(): SettableBooleanValue
+
+	/** Returns an object that indicates if the track may contain audio events. */
+	canHoldAudioData(): SettableBooleanValue
 
 	/** Creates a named device selection cursor that is independent from the device selection in the Bitwig
 Studio user interface, assuming the name parameter is not null. When `name` is `null` the result is
@@ -3990,7 +5706,7 @@ equal to calling {@link Track#createCursorDevice}. */
 		/** the name of the custom device selection cursor, for example "Primary", or `null` to refer to
           the device selection cursor in the arranger cursor track as shown in the Bitwig Studio user
           interface.*/
-		name: any,
+		name: any, 
 
 		/** the number of sends that are simultaneously accessible in nested channels.*/
 		numSends: any, ): CursorDevice
@@ -4014,13 +5730,13 @@ you are only interested in tracks of a certain kind. */
 	createTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: any, 
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: any, 
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: any, 
 
 		/** specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.*/
@@ -4033,13 +5749,13 @@ general, see the documentation for {@link #createTrackBank}. */
 	createMainTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: any, 
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: any, 
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: any, 
 
 		/** specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.*/
@@ -4052,10 +5768,10 @@ information about track banks and the `bank pattern` in general, see the documen
 	createEffectTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: any, 
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: any, 
 
 		/** specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.*/
@@ -4073,19 +5789,25 @@ about track banks and the `bank pattern` in general, see the documentation for {
 	createSiblingsTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: any, 
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: any, 
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: any, 
 
 		/** specifies whether effect tracks should be included*/
-		shouldIncludeEffectTracks: any,
+		shouldIncludeEffectTracks: any, 
 
 		/** specifies whether the master should be included*/
 		shouldIncludeMasterTrack: any, ): TrackBank
+
+	/** {@link InsertionPoint} that can be used to insert after this track. */
+	afterTrackInsertionPoint(): InsertionPoint
+
+	/** {@link InsertionPoint} that can be used to insert after this track. */
+	beforeTrackInsertionPoint(): InsertionPoint
 
 	/** Creates an object that represent the parent track. */
 	createParentTrack(numSends: number, numScenes: number, ): Track
@@ -4121,6 +5843,15 @@ Additional methods are provided in the {@link ControllerHost} interface to creat
 tracks ({@link ControllerHost#createMainTrackBank}) or only effect tracks ({@link ControllerHost#createEffectTrackBank}). */
 declare interface TrackBank {
 
+	/** {@link SceneBank} that represents a view on the scenes in this {@link TrackBank}. */
+	sceneBank(): SceneBank
+
+	/** Scrolls the scenes one step up. */
+	scrollScenesUp(): void
+
+	/** Scrolls the scenes one step down. */
+	scrollScenesDown(): void
+
 	/** Makes the scene with the given position visible in the track bank. */
 	scrollToScene(
 
@@ -4138,15 +5869,167 @@ scrolled so that the cursor is within the bank, if possible. */
 /** An interface representing the transport section in Bitwig Studio. */
 declare interface Transport {
 
+	/** Starts playback in the Bitwig Studio transport. */
+	play(): void
+
+	/** Continues the playback in the Bitwig Studio transport. */
+	continuePlayback(): void
+
+	/** Action that can be used to play the transport. */
+	playAction(): HardwareActionBindable
+
+	/** Action that can be used to continue the transport. */
+	continuePlaybackAction(): HardwareActionBindable
+
+	/** Stops playback in the Bitwig Studio transport. */
+	stop(): void
+
+	/** Action that can be used to stop the transport. */
+	stopAction(): HardwareActionBindable
+
+	/** Toggles the transport playback state between playing and stopped. */
+	togglePlay(): void
+
+	/** When the transport is stopped, calling this function starts transport playback, otherwise the transport
+is first stopped and the playback is restarted from the last play-start position. */
+	restart(): void
+
+	/** Action that can be used to restart the transport. */
+	restartAction(): HardwareActionBindable
+
+	/** Starts recording in the Bitwig Studio transport. */
+	record(): void
+
+	/** Action that can be used to start recording */
+	recordAction(): HardwareActionBindable
+
+	/** Rewinds the Bitwig Studio transport to the beginning of the arrangement. */
+	rewind(): void
+
+	/** Action that can be used to rewind the transport. */
+	rewindAction(): HardwareActionBindable
+
+	/** Calling this function is equivalent to pressing the fast forward button in the Bitwig Studio transport. */
+	fastForward(): void
+
+	/** Action that can be used to fast forward the transport. */
+	fastForwardAction(): HardwareActionBindable
+
+	/** When calling this function multiple times, the timing of those calls gets evaluated and causes
+adjustments to the project tempo. */
+	tapTempo(): void
+
+	/** Action that can be used to tap the tempo. */
+	tapTempoAction(): HardwareActionBindable
+
+	/** Value that reports if the Bitwig Studio transport is playing. */
+	isPlaying(): SettableBooleanValue
+
+	/** Value that reports if the Bitwig Studio transport is recording. */
+	isArrangerRecordEnabled(): SettableBooleanValue
+
+	/** Value that reports if overdubbing is enabled in Bitwig Studio. */
+	isArrangerOverdubEnabled(): SettableBooleanValue
+
+	/** Value reports if clip launcher overdubbing is enabled in Bitwig Studio. */
+	isClipLauncherOverdubEnabled(): SettableBooleanValue
+
+	/** Value that reports the current automation write mode. Possible values are `"latch"`, `"touch"` or
+`"write"`. */
+	automationWriteMode(): SettableEnumValue
+
+	/** Value that reports if automation write is currently enabled for the arranger. */
+	isArrangerAutomationWriteEnabled(): SettableBooleanValue
+
+	/** Value that reports if automation write is currently enabled on the clip launcher. */
+	isClipLauncherAutomationWriteEnabled(): SettableBooleanValue
+
+	/** Value that indicates if automation override is currently on. */
+	isAutomationOverrideActive(): BooleanValue
+
+	/** Value that indicates if the loop is currently active or not. */
+	isArrangerLoopEnabled(): SettableBooleanValue
+
+	/** Value that reports if punch-in is enabled in the Bitwig Studio transport. */
+	isPunchInEnabled(): SettableBooleanValue
+
+	/** Value that reports if punch-in is enabled in the Bitwig Studio transport. */
+	isPunchOutEnabled(): SettableBooleanValue
+
+	/** Value that reports if the metronome is enabled in Bitwig Studio. */
+	isMetronomeEnabled(): SettableBooleanValue
+
+	/** Value that reports if the metronome has tick playback enabled. */
+	isMetronomeTickPlaybackEnabled(): SettableBooleanValue
+
+	/** Value that reports the metronome volume. */
+	metronomeVolume(): SettableRangedValue
+
+	/** Value that reports if the metronome is audible during pre-roll. */
+	isMetronomeAudibleDuringPreRoll(): SettableBooleanValue
+
+	/** Value that reports the current pre-roll setting. Possible values are `"none"`, `"one_bar"`,
+`"two_bars"`, or `"four_bars"`. */
+	preRoll(): SettableEnumValue
+
+	/** Toggles the latch automation write mode in the Bitwig Studio transport. */
+	toggleLatchAutomationWriteMode(): void
+
+	/** Toggles the arranger automation write enabled state of the Bitwig Studio transport. */
+	toggleWriteArrangerAutomation(): void
+
+	/** Toggles the clip launcher automation write enabled state of the Bitwig Studio transport. */
+	toggleWriteClipLauncherAutomation(): void
+
+	/** Resets any automation overrides in Bitwig Studio. */
+	resetAutomationOverrides(): void
+
+	/** Switches playback to the arrangement sequencer on all tracks. */
+	returnToArrangement(): void
+
+	/** Returns an object that provides access to the project tempo. */
+	tempo(): Parameter
+
 	/** Increases the project tempo value by the given amount, which is specified relative to the given range. */
 	increaseTempo(
 
 		/** the new tempo value relative to the specified range. Values should be in the range
           [0..range-1].*/
-		amount: any,
+		amount: any, 
 
 		/** the range of the provided amount value*/
 		range: any, ): void
+
+	/** Returns an object that provides access to the transport position in Bitwig Studio. */
+	getPosition(): SettableBeatTimeValue
+
+	/** Returns an object that provides access to the current transport position. */
+	playPosition(): BeatTimeValue
+
+	/** Returns an object that provides access to the current transport position in seconds. */
+	playPositionInSeconds(): DoubleValue
+
+	/** Returns an object that provides access to the transport's play-start position. (blue triangle) */
+	playStartPosition(): SettableBeatTimeValue
+
+	/** Returns an object that provides access to the transport's play-start position in seconds. (blue triangle) */
+	playStartPositionInSeconds(): SettableDoubleValue
+
+	/** Make the transport jump to the play-start position. */
+	launchFromPlayStartPosition(): void
+	launchFromPlayStartPositionAction(): HardwareActionBindable
+
+	/** Make the transport jump to the play-start position. */
+	jumpToPlayStartPosition(): void
+	jumpToPlayStartPositionAction(): HardwareActionBindable
+
+	/** Make the transport jump to the previous cue marker. */
+	jumpToPreviousCueMarker(): void
+	jumpToPreviousCueMarkerAction(): HardwareActionBindable
+
+	/** Make the transport jump to the previous cue marker. */
+	jumpToNextCueMarker(): void
+	jumpToNextCueMarkerAction(): HardwareActionBindable
 
 	/** Sets the transport playback position to the given beat time value. */
 	setPosition(
@@ -4160,18 +6043,51 @@ given range. */
 
 		/** the beat time value that gets added to the current transport position. Values have double
           precision and can be positive or negative.*/
-		beats: any,
+		beats: any, 
 
 		/** when `true` the actual new transport position will be quantized to the beat grid, when `false`
           the position will be increased exactly by the specified beat time*/
 		snap: any, ): void
+
+	/** Returns an object that provides access to the punch-in position in the Bitwig Studio transport. */
+	getInPosition(): SettableBeatTimeValue
+
+	/** Returns an object that provides access to the punch-out position in the Bitwig Studio transport. */
+	getOutPosition(): SettableBeatTimeValue
+
+	/** Returns an object that provides access to the cross-fader, used for mixing between A/B-channels as
+specified on the Bitwig Studio tracks. */
+	crossfade(): Parameter
+
+	/** Returns an object that provides access to the transport time signature. */
+	timeSignature(): TimeSignatureValue
+
+	/** Value that reports the current clip launcher post recording action. Possible values are `"off"`,
+`"play_recorded"`, `"record_next_free_slot"`, `"stop"`, `"return_to_arrangement"`,
+`"return_to_previous_clip"` or `"play_random"`. */
+	clipLauncherPostRecordingAction(): SettableEnumValue
+
+	/** Returns an object that provides access to the clip launcher post recording time offset. */
+	getClipLauncherPostRecordingTimeOffset(): SettableBeatTimeValue
+
+	/** Setting for the default launch quantization.
+
+Possible values are `"none"`, `"8"`, `"4"`, `"2"`, `"1"`, `"1/2"`, `"1/4"`, `"1/8"`, `"1/16"`. */
+	defaultLaunchQuantization(): SettableEnumValue
 }
 
 declare interface UsbConfigurationMatcher {
+	getInterfaceMatchers(): UsbInterfaceMatcher[]
 }
 
 /** Defines a USB device that is available for communication. */
 declare interface UsbDevice {
+
+	/** The {@link UsbDeviceMatcher} that was provided by the controller for identifying this device. */
+	deviceMatcher(): UsbDeviceMatcher
+
+	/** The list of {@link UsbInterface}s that have been opened for this device. */
+	ifaces(): UsbInterface[]
 
 	/** The {@link UsbInterface} that was claimed using the {@link UsbInterfaceMatcher} defined at the
 corresponding index in the {@link UsbDeviceMatcher}. */
@@ -4180,23 +6096,64 @@ corresponding index in the {@link UsbDeviceMatcher}. */
 
 /** Defines information needed to identify suitable USB devices for use by an extension. */
 declare interface UsbDeviceMatcher {
+
+	/** An expression that can be used on the USB device descriptor to decide if the device matches.
+          Variables in the expression can refer to the following fields of the device descriptor:
+
+          - bDeviceClass - bDeviceSubClass - bDeviceProtocol - idVendor - idProduct
+
+          For example to match a device that has vendor id 0x10 product id 0x20 the expression would be:
+
+          "idVendor == 0x10 && idProduct == 0x20" */
+	getExpression(): string
+
+	/** Object that tries to match a configuration on the device that it can use. */
+	getConfigurationMatcher(): UsbConfigurationMatcher
 }
 
 declare interface UsbEndpointMatcher {
+	getDirection(): UsbTransferDirection
+	getTransferType(): UsbTransferType
 }
 
 declare interface UsbInterface {
+
+	/** The {@link UsbInterfaceMatcher} that was provided by the controller for identifying this device. */
+	interfaceMatcher(): UsbInterfaceMatcher
+
+	/** The list of pipes that have been opened for this interface. */
+	pipes(): UsbPipe[]
 	pipe(index: number, ): UsbPipe
+	pipeCount(): number
 }
 
 declare interface UsbInterfaceMatcher {
+	getEndpointMatchers(): UsbEndpointMatcher[]
 }
 
 declare interface UsbMatcher {
+	getExpression(): string
+	getMatchOccurrence(): number
 }
 
 /** Defines a pipe for talking to an endpoint on a USB device. */
 declare interface UsbPipe {
+
+	/** The device this endpoint is on. */
+	device(): UsbDevice
+
+	/** The {@link UsbEndpointMatcher} that was provided by the controller for identifying the endpoint to use
+for communication. */
+	endpointMatcher(): UsbEndpointMatcher
+
+	/** The endpoint address on the device that this endpoint is for. */
+	endpointAddress(): string
+
+	/** {@link UsbTransferDirection} for this pipe. */
+	direction(): UsbTransferDirection
+
+	/** The {@link UsbTransferType} type that this pipe uses for communicating with the USB device. */
+	transferType(): UsbTransferType
 }
 
 /** Instances of this interface represent a bank of custom controls that can be manually learned to device
@@ -4211,16 +6168,20 @@ declare interface UserControlBank {
 }
 
 /** The common interface that is shared by all value objects in the controller API. */
-export interface Value<ObserverType> {
-	markInterested(): void
-	addValueObserver(callback: ObserverType): void
-	/**
-	 * this is actually only for Integer, but i couldn't figure out how to
-	 * model that in ts
-	 */
-	addValueObserver(callback: ObserverType, valueWhenUnassigned: number): void
-}
+declare interface Value {
 
+	/** Marks this value as being of interest to the driver. This can only be called once during the driver's
+init method. A value that is of interest to the driver can be obtained using the value's get method. If
+a value has not been marked as interested then an error will be reported if the driver attempts to get
+the current value. Adding an observer to a value will automatically mark this value as interested. */
+	markInterested(): void
+
+	/** Registers an observer that reports the current value. */
+	addValueObserver(
+
+		/** a callback function that receives a single parameter*/
+		callback: any, ): void
+}
 
 declare enum CursorDeviceFollowMode {
 	FOLLOW_SELECTION,

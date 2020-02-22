@@ -111,8 +111,8 @@ exports.publish = (data, opts, tutorials) => {
 					params.push(param)
 				}
 				member.params = params
-				face.prototype[doclet.name] = member
 			}
+			face.prototype[doclet.name] = member
 		} else if (doclet.scope == "static") {
 			// this was an enum too
 			enums[doclet.memberof] = enums[doclet.memberof] || []
@@ -135,7 +135,7 @@ exports.publish = (data, opts, tutorials) => {
 			process.stdout.write(`	`)
 			process.stdout.write(methodName)
 			process.stdout.write(`(`)
-			for (let param of method.params) {
+			for (let param of (method.params || [])) {
 				let prefix = ""
 				if (param.description) {
 					prefix = `		`
