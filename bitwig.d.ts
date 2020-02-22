@@ -1,6 +1,6 @@
 /** Something that can be bound to an {@link AbsoluteHardwareControl} and can respond to the user input (such
 as user moving a slider up or down) in a meaningful way. */
-declare interface AbsoluteHardwarControlBindable {
+declare interface AbsoluteHardwarControlBindable extends HardwareBindable {
 
 	/** Binds this target to the supplied hardware control so that when the user moves the hardware control this
 target will respond in a meaningful way.
@@ -20,7 +20,7 @@ it. */
 
 /** Represents a hardware control that can input and absolute value (for example, a slider, knob or foot
 pedal). */
-declare interface AbsoluteHardwareControl {
+declare interface AbsoluteHardwareControl extends ContinuousHardwareControl<AbsoluteHardwarControlBinding> {
 
 	/** Sets the {@link AbsoluteHardwareValueMatcher} that can be used to detect when the user adjusts the
 hardware control's value. */
@@ -4102,54 +4102,54 @@ declare interface Value {
 }
 
 declare enum CursorDeviceFollowMode {
-	0,
-	1,
-	2,
-	3,
-	4,
-	5,
+	FOLLOW_SELECTION,
+	FIRST_DEVICE,
+	FIRST_INSTRUMENT,
+	FIRST_AUDIO_EFFECT,
+	FIRST_INSTRUMENT_OR_DEVICE,
+	LAST_DEVICE,
 }
 
 declare enum CursorNavigationMode {
-	0,
-	1,
-	2,
+	NESTED,
+	FLAT,
+	GUI,
 }
 
 declare enum NoteExpression {
-	0,
-	1,
-	2,
-	3,
-	4,
-	5,
-	6,
-	7,
-	8,
+	NONE,
+	PITCH_DOWN,
+	PITCH_UP,
+	GAIN_DOWN,
+	GAIN_UP,
+	PAN_LEFT,
+	PAN_RIGHT,
+	TIMBRE_DOWN,
+	TIMBRE_UP,
 }
 
 declare enum State {
-	0,
-	1,
-	2,
+	Empty,
+	NoteOn,
+	NoteSustain,
 }
 
 declare enum RelativePosition {
-	0,
-	1,
-	2,
-	3,
-	4,
+	ABOVE,
+	BELOW,
+	LEFT,
+	RIGHT,
+	INSIDE,
 }
 
 declare enum UsbTransferStatus {
-	0,
-	1,
-	2,
-	3,
-	4,
-	5,
-	6,
+	Completed,
+	Error,
+	TimedOut,
+	Cancelled,
+	Stall,
+	NoDevice,
+	Overflow,
 }
 
 declare var host: ControllerHost

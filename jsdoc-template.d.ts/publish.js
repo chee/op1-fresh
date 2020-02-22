@@ -157,16 +157,11 @@ exports.publish = (data, opts, tutorials) => {
 	for (let name in enums) {
 		let values = enums[name]
 		process.stdout.write(`declare enum ${name} {\n`)
-		for (let value in values) {
+		for (let value of values) {
 			process.stdout.write(`	${value},\n`)
 		}
 		process.stdout.write(`}\n\n`)
 	}
-	// going to do these by hand
-	// for (let name in vars) {
-	// 	let varType = vars[name]
-	// 	process.stdout.write(`declare var ${name}: ${varType}\n`)
-	// }
 
 	process.stdout.write(`declare var host: ControllerHost\n`)
 	// console.log(interfaces)
