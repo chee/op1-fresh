@@ -1,3 +1,5 @@
+host.load("./polyfill.js")
+
 host.loadAPI(10)
 
 // Remove this if you want to be able to use deprecated methods without causing script to stop.
@@ -6,7 +8,7 @@ host.setShouldFailOnDeprecatedUse(true)
 
 host.defineController(
 	"teenage engineering",
-	"op-1 [fresh]",
+	"op-1 (fresh)",
 	"0.1",
 	"92ea135d-5de7-4e1c-b364-40196d723320",
 	"chee"
@@ -19,31 +21,28 @@ host.addDeviceNameBasedDiscoveryPair(
 	["OP-1 Midi Device"]
 )
 
+let global = this
+
 let op1 = {
 	sequences: {
 		id: "f0 7e 7f 06 01 f7",
 		enable: "f0 00 20 76 00 01 02 f7",
 		disable: "f0 00 20 76 00 01 00 f7",
 		text: {
-			start: "f0 0 20 76 00 03",
+			start: "f0 00 20 76 00 03",
 			end: "f7",
 		},
 		color: {
-			start: "f0 0 20 76 00 04",
+			start: "f0 00 20 76 00 04",
 		},
 	},
-	mode: 0,
 	cc: {
-		perform: 0,
-		clip: 1,
-		transport: 2,
-		mixer: 3,
 		help: 5,
 		metronome: 6,
-		mode1: 7,
-		mode2: 8,
-		mode3: 9,
-		mode4: 10,
+		synth: 7,
+		drum: 8,
+		tape: 9,
+		mixer: 10,
 		t1: 11,
 		t2: 12,
 		t3: 13,
@@ -68,39 +67,69 @@ let op1 = {
 		micro: 48,
 		com: 49
 	},
+	/**
+	 * Get the OP-1's midi-in
+	 * @returns {MidiIn}
+	 */
 	input() {
 		return host.getMidiInPort(0)
 	},
+	/**
+	 * Get the OP-1's midi-out
+	 * @returns {MidiOut}
+	 */
 	output() {
 		return host.getMidiOutPort(0)
 	},
-	send(data: string) {
+	/**
+	 * Send some sysex data to the OP-1
+	 * @param {String} data - The sequence to send
+	 */
+	send(data) {
 		this.output().sendSysex(data)
 	},
+	/**
+	 * Send the init sequence to the OP-1
+	 */
 	enable() {
 		this.send(this.sequences.enable)
 	},
+	/**
+	 * Send the disable sequence to the OP-1
+	 */
 	disable() {
 		this.send(this.sequences.disable)
 	},
+	/**
+	 * Print a message to the OP-1
+	 * @param {String} text - The message to print
+	 */
 	print(text) {
 		text = text.trim()
-
-		let chars = Array.prototype.slice(text)
-
-		let hext = chars.map(c => c.charCodeAt(0).toString(16).padStart(2, "0")).join("")
-		// not sure if this space should be here
-		// this.send(`${this.sequences.text.start}${text.length}${hext}${this.sequences.text.end}`)
-		this.send(`${this.sequences.text.start} ${text.length}${hext}${this.sequences.text.end}`)
+		let chars = Array.prototype.slice.call(text)
+		let hext = chars.map(c => c.charCodeAt(0).toHex()).join(" ")
+		this.send(`${this.sequences.text.start} ${text.length.toHex()} ${hext} ${this.sequences.text.end}`)
+	},
+	printEverywhere(text) {
+		println(text)
+		host.showPopupNotification(text)
+		op1.print(text)
 	}
+}
+
+let modes = {
+	perform: op1.cc.synth,
+	clip: op1.cc.drum,
+	transport: op1.cc.tape,
+	mixer: op1.cc.mixer
 }
 
 host.defineSysexIdentityReply(op1.sequences.id)
 
 function createStore (initialState) {
-	let subs = new Set();
+	let subs = new Set()
 	let state = {}
-	let store
+	let store = {}
 
 	for (let key in initialState) {
 		state[key] = initialState[key]
@@ -110,8 +139,10 @@ function createStore (initialState) {
 				return state[key]
 			},
 			set (value) {
-				state[key] = value
-				subs.forEach(fn => fn())
+				state = Object.assign({}, state, {
+					[key]: value
+				})
+				subs.forEach(fn => fn(state, key, value))
 			}
 		})
 	}
@@ -128,14 +159,49 @@ function createStore (initialState) {
 }
 
 let state = createStore({
+	mode: modes.transport,
 	shift: false,
 	metronome: false,
 	playing: false
 })
 
+let performanceEncouragement = [
+	 "beep boop",
+	"and now,",
+	"make music",
+	"operate",
+	"modulate me",
+	"beep\nboop",
+	"fantasy",
+	"limitations: \rbig\rfeature",
+	"pulse // wave",
+	"play",
+]
+
+state.sub(function (state, key, value) {
+	if (key == "mode") {
+		let mode = value
+		if (mode == modes.clip) {
+			op1.printEverywhere("clips")
+		}
+		if (mode == modes.perform) {
+			let message = performanceEncouragement[Math.floor(Math.random() * performanceEncouragement.length)]
+			host.showPopupNotification(message)
+			op1.print(message)
+		} else {
+			op1.printEverywhere(mode)
+		}
+	}
+})
+
+global = this
+
 function init() {
-	transport = host.createTransport()
-	keyboard = op1.input().createNoteInput("op-1 fresh keyboard", "??????")
+	println("beginning initiation sequence")
+
+	/** @type {Transport} */
+	let transport = host.createTransport()
+	let keyboard = op1.input().createNoteInput("op-1 fresh keyboard", "??????")
 	keyboard.setShouldConsumeEvents(false)
 
 	op1.input().setMidiCallback(onMidi)
@@ -144,22 +210,41 @@ function init() {
 
 	op1.print("yeet")
 
-	application = host.createApplication()
-	masterTrack_0 = host.createMasterTrack(0)
-	cursorTrack = host.createCursorTrack(4, 5)
-	trackBank = host.createTrackBank(8, 4, 0)
-	cursorDevice = cursorTrack.createCursorDevice()
-	userControls = host.createUserControls(42)
+	let application = host.createApplication()
+	let masterTrack = host.createMasterTrack(0)
+	let cursorTrack = host.createCursorTrack(4, 5)
+	let trackBank = host.createTrackBank(8, 4, 0)
+	let cursorDevice = cursorTrack.createCursorDevice()
+	let userControls = host.createUserControls(42)
+
 	transport.isMetronomeEnabled().markInterested()
 	transport.isMetronomeAudibleDuringPreRoll().markInterested()
 
-	// figure this out:
-	// transport.getPosition().addTimeObserver(".", 1, 2, 2, 0, onTimeUpdate)
+	let position = transport.getPosition()
+
+	position.addValueObserver(function () {
+		let time = position.getFormatted()
+		if (state.mode == modes.transport) {
+			`song position\r${time}`
+		}
+	})
 
 	println("op-1 (fresh) initialized!")
-}
 
-function onTimeUpdate() {
+
+	global.keyboard = keyboard
+	global.transport = transport
+	global.position = position
+	global.application = application
+	global.masterTrack = masterTrack
+	global.cursorTrack = cursorTrack
+	global.trackBank = trackBank
+	global.cursorDevice = cursorDevice
+	global.userControls = userControls
+
+	let message = performanceEncouragement[Math.floor(Math.random() * performanceEncouragement.length)]
+	println(message)
+	op1.printEverywhere(message)
 }
 
 let midiHandlers = {
