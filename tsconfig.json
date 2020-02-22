@@ -1,0 +1,7 @@
+{
+	"lib": ["bitwig"],
+	"compilerOptions": {
+		"lib": ["es5", "es2015"],
+		"target": "es2015"
+	}
+}

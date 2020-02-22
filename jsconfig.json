@@ -1,8 +1,0 @@
-{
-	"emit": false,
-	"lib": ["bitwig"],
-	"compilerOptions": {
-		"lib": [ "es5"],
-		"target": "es5"
-	}
-}

@@ -126,7 +126,7 @@ declare interface Application {
           case the track should be inserted at the end of the list. Values outside the valid range will
           get pinned to the valid range, so the actual position might be different from the provided
           parameter value.*/
-		position: any): void
+		position: number): void
 
 	/** Creates a new instrument track at the given position. */
 	createInstrumentTrack(
@@ -135,7 +135,7 @@ declare interface Application {
           case the track should be inserted at the end of the list. Values outside the valid range will
           get pinned to the valid range, so the actual position might be different from the provided
           parameter value.*/
-		position: any): void
+		position: number): void
 
 	/** Creates a new effect track at the given position. */
 	createEffectTrack(
@@ -144,7 +144,7 @@ declare interface Application {
           case the track should be inserted at the end of the list. Values outside the valid range will
           get pinned to the valid range, so the actual position might be different from the provided
           parameter value.*/
-		position: any): void
+		position: number): void
 
 	/** Returns a list of actions that the application supports. Actions are commands in Bitwig Studio that are
 typically accessible through menus or keyboard shortcuts.
@@ -159,7 +159,7 @@ provides a more generic way to find available application functionality. */
 	getAction(
 
 		/** the action identifier string, must not be `null`*/
-		id: any): Action
+		id: string): Action
 
 	/** Returns a list of action categories that is used by Bitwig Studio to group actions into categories. */
 	getActionCategories(): ActionCategory[]
@@ -169,7 +169,7 @@ categories, see {@link #getActionCategories()}. */
 	getActionCategory(
 
 		/** the category identifier string, must not be `null`*/
-		id: any): ActionCategory
+		id: string): ActionCategory
 
 	/** Activates the audio engine in Bitwig Studio. */
 	activateEngine(): void
@@ -208,7 +208,7 @@ panel layouts depends on the active display profile. */
 	setPanelLayout(
 
 		/** the name of the new panel layout*/
-		panelLayout: any): void
+		panelLayout: string): void
 
 	/** Switches to the next panel layout of the active display profile in Bitwig Studio. */
 	nextPanelLayout(): void
@@ -459,7 +459,7 @@ the given size, that can be scrolled over the list of markers. */
 	createCueMarkerBank(
 
 		/** the number of simultaneously accessible items*/
-		size: any): CueMarkerBank
+		size: number): CueMarkerBank
 }
 
 /** Callback that is notified when an asynchronous transfer has completed. */
@@ -581,10 +581,6 @@ declare interface BooleanValue extends Value<BooleanValueChangedCallback> {
 	getAsBoolean(): boolean
 }
 
-declare interface BooleanValueChangedCallback {
-	valueChanged(newValue: boolean): void
-}
-
 /** Instances of this interface are used to navigate a column in the Bitwig Studio browser. */
 declare interface BrowserColumn {
 
@@ -599,7 +595,7 @@ the given size, that can be scrolled over the list of entries. */
 	createItemBank(
 
 		/** the number of simultaneously accessible items*/
-		size: any): BrowserItemBank
+		size: number): BrowserItemBank
 }
 
 /** Instances of this interface are used to navigate a filter column in the Bitwig Studio browser. */
@@ -616,7 +612,7 @@ the given size, that can be scrolled over the list of entries. */
 	createItemBank(
 
 		/** the number of simultaneously accessible items*/
-		size: any): BrowserFilterItemBank
+		size: number): BrowserFilterItemBank
 
 	/** Value that reports the name of the filter column. */
 	name(): StringValue
@@ -658,7 +654,7 @@ the given size, that can be scrolled over the list of entries. */
 	createItemBank(
 
 		/** the number of simultaneously accessible items*/
-		size: any): BrowserResultsItemBank
+		size: number): BrowserResultsItemBank
 }
 
 /** Instances of this interface represent entries in a browser results column. */
@@ -694,6 +690,8 @@ If the current active chain the first one, then moves to the last one. */
 	cyclePrevious(): void
 }
 
+declare interface SendBank extends Bank<Send> {}
+
 /** This interface defines access to the common attributes and operations of channels, such as tracks or nested
 device channels. */
 declare interface Channel extends DeviceChain, DeleteableObject {
@@ -721,17 +719,17 @@ declare interface Channel extends DeviceChain, DeleteableObject {
 
 		/** the number of steps to which the reported values should be scaled. For example a range of 128
           would cause the callback to be called with values between 0 and 127.*/
-		range: any,
+		range: number,
 
 		/** 0 for left channel, 1 for right channel, -1 for the sum of both*/
-		channel: any,
+		channel: number,
 
 		/** when `true` the peak value is reported, otherwise the RMS value*/
-		peak: any,
+		peak: boolean,
 
 		/** a callback function that takes a single numeric argument. The value is in the range
           [0..range-1].*/
-		callback: any): void
+		callback: (value: number) => void): void
 
 	/** Returns an array of the playing notes. */
 	playingNotes(): PlayingNoteArrayValue
@@ -740,7 +738,7 @@ declare interface Channel extends DeviceChain, DeleteableObject {
 	color(): SettableColorValue
 
 	/** Gets a {@link SendBank} that can be used to navigate the sends of this channel. */
-	sendBank(): any
+	sendBank(): SendBank
 
 	/** Duplicates the track. */
 	duplicate(): void
@@ -752,7 +750,7 @@ declare interface Channel extends DeviceChain, DeleteableObject {
 	addIsSelectedInMixerObserver(
 
 		/** a callback function that takes a single boolean parameter.*/
-		callback: any): void
+		callback: (isSelectedInMixer: boolean) => void): void
 
 	/** Tries to scroll the contents of the arrangement editor so that the channel becomes visible. */
 	makeVisibleInArranger(): void
@@ -771,7 +769,7 @@ declare interface ChannelBank<ChannelType extends Channel> extends ObjectProxy, 
 	setChannelScrollStepSize(
 
 		/** the step size used for scrolling. Default is `1`.*/
-		stepSize: any): void
+		stepSize: number): void
 
 	/** Value that reports if the channel bank can be scrolled further down. */
 	canScrollChannelsUp(): BooleanValue
@@ -797,7 +795,7 @@ Note: This can cause some parts of the grid to represent invalid keys as there i
 
 		/** the key that should be the new key with a y position of 0. This must be a value in the range
           0...127.*/
-		key: any): void
+		key: number): void
 
 	/** Scrolls the note grid keys one page up. For example if the note grid is configured to show 12 keys and
 is currently showing keys [36..47], calling this method would scroll the note grid to key range
@@ -822,7 +820,7 @@ is currently showing keys [36..47], calling this method would scroll the note gr
 	scrollToStep(
 
 		/** the step that should become visible*/
-		step: any): void
+		step: number): void
 
 	/** Scrolls the note grid steps one page forward. For example if the note grid is configured to show 16
 steps and is currently showing keys [0..15], calling this method would scroll the note grid to key range
@@ -863,13 +861,13 @@ steps and is currently showing keys [1..16], calling this method would scroll th
 		channel: number,
 
 		/** the x position within the note grid, defining the step/time of the target note*/
-		x: any,
+		x: number,
 
 		/** the y position within the note grid, defining the key of the target note*/
-		y: any,
+		y: number,
 
 		/** the velocity of the target note in case a new note gets inserted*/
-		insertVelocity: any): void
+		insertVelocity: number): void
 
 	/** Creates a note in the grid cell specified by the given x and y arguments. Existing notes are
 overwritten. */
@@ -883,10 +881,10 @@ nothing in case no note exists at the given x-y-coordinates. */
 		channel: number,
 
 		/** the x position within the note grid, defining the step/time of the target note*/
-		x: any,
+		x: number,
 
 		/** the y position within the note grid, defining the key of the target note*/
-		y: any): void
+		y: number): void
 
 	/** Removes all notes in the grid started on the step x. */
 	clearStepsAtX(channel: number, x: number): void
@@ -911,20 +909,20 @@ note at the given x-y-coordinates. */
 		channel: number,
 
 		/** the x position within the note grid, defining the step/time of the target note*/
-		x: any,
+		x: number,
 
 		/** the y position within the note grid, defining the key of the target note*/
-		y: any,
+		y: number,
 
 		/** `true` if the existing selection should be cleared, {@false} if the note should be added to
           the current selection.*/
-		clearCurrentSelection: any): void
+		clearCurrentSelection: boolean): void
 
 	/** Sets the beat time duration that is represented by one note grid step. */
 	setStepSize(
 
 		/** the length of one note grid step in beat time.*/
-		lengthInBeatTime: any): void
+		lengthInBeatTime: number): void
 
 	/** Registers an observer that reports which note grid steps/keys contain notes. */
 	addStepDataObserver(
@@ -933,13 +931,15 @@ note at the given x-y-coordinates. */
           grid (integer), 2. the y (key) coordinate within the note grid (integer), and 3. an integer
           value that indicates if the step is empty (`0`) or if a note continues playing (`1`) or starts
           playing (`2`).*/
-		callback: any): void
+		callback: (x: number, y: number, state: number) => void
+	): void
 
 	/** Registers an observer that reports which note grid steps/keys contain notes. */
 	addNoteStepObserver(
 
 		/** A callback function that receives the StepInfo.*/
-		callback: NoteStepChangedCallback): void
+		callback: NoteStepChangedCallback
+	): void
 
 	/** Value that reports note grid cells as they get played by the sequencer. */
 	playingStep(): IntegerValue
@@ -948,7 +948,7 @@ note at the given x-y-coordinates. */
 	setName(
 
 		/** the new clip name*/
-		name: any): void
+		name: string): void
 
 	/** Returns shuffle settings of the clip. */
 	getShuffle(): SettableBooleanValue
@@ -984,7 +984,7 @@ note at the given x-y-coordinates. */
 	transpose(
 
 		/** the amount of semitones to transpose, can be a positive or negative integer value.*/
-		semitones: any): void
+		semitones: number): void
 
 	/** Quantize the start time of all notes in the clip according to the given amount. The note lengths remain
 the same as before. */
@@ -992,7 +992,7 @@ the same as before. */
 
 		/** a factor between `0` and `1` that allows to morph between the original note start and the
           quantized note start.*/
-		amount: any): void
+		amount: number): void
 
 	/** Gets the track that contains the clip. */
 	getTrack(): Track
@@ -1078,19 +1078,19 @@ declare interface ClipLauncherSlotBank extends ClipLauncherSlotOrSceneBank<ClipL
 	select(
 
 		/** the index of the slot within the slot window.*/
-		slot: any): void
+		slot: number): void
 
 	/** Starts recording into the slot with the given index. */
 	record(
 
 		/** the index of the slot within the slot window.*/
-		slot: any): void
+		slot: number): void
 
 	/** Makes the clip content of the slot with the given index visible in the note or audio editor. */
 	showInEditor(
 
 		/** the index of the slot within the slot window.*/
-		slot: any): void
+		slot: number): void
 
 	/** Creates an new clip in the slot with the given index. */
 	createEmptyClip(slot: number, lengthInBeats: number): void
@@ -1099,14 +1099,14 @@ declare interface ClipLauncherSlotBank extends ClipLauncherSlotOrSceneBank<ClipL
 	duplicateClip(
 
 		/** the index of the slot within the slot window.*/
-		slot: any): void
+		slot: number): void
 
 	/** Registers an observer that reports selection changes for the slots inside the window. */
 	addIsSelectedObserver(
 
 		/** a callback function that receives two parameters: 1. the slot index (integer), and 2. a
           boolean parameter indicating if the slot at that index is selected (`true`) or not (`false`)*/
-		callback: any): void
+		callback: (slot: number, selected: boolean) => void): void
 
 	/** Registers an observer that reports which slots contain clips. */
 	addHasContentObserver(
@@ -1114,7 +1114,7 @@ declare interface ClipLauncherSlotBank extends ClipLauncherSlotOrSceneBank<ClipL
 		/** a callback function that receives two parameters: 1. the slot index (integer), and 2. a
           boolean parameter indicating if the slot at that index contains a clip (`true`) or not
           (`false`)*/
-		callback: any): void
+		callback: (slot: number, containsClip: boolean) => void): void
 
 	/** Registers an observer that reports the playback state of clips / slots. The reported states include
 `stopped`, `playing`, `recording`, but also `queued for stop`, `queued for playback`, `queued for
@@ -1125,7 +1125,8 @@ recording`. */
           or playback state: `0` when stopped, `1` when playing, or `2` when recording, and 3. a boolean
           parameter indicating if the second argument is referring to the queued state (`true`) or the
           actual playback state (`false`)*/
-		callback: any): void
+		callback: (slot: number, state: number, refersToQueuedState: boolean) => void
+	): void
 
 	/** Registers an observer that reports which slots have clips that are currently playing. */
 	addIsPlayingObserver(
@@ -1133,7 +1134,7 @@ recording`. */
 		/** a callback function that receives two parameters: 1. the slot index (integer), and 2. a
           boolean parameter indicating if the slot at that index has a clip that is currently playing
           (`true`) or not (`false`)*/
-		callback: any): void
+		callback: (slot: number, playing: boolean) => void): void
 
 	/** Registers an observer that reports which slots have clips that are currently recording. */
 	addIsRecordingObserver(
@@ -1141,7 +1142,7 @@ recording`. */
 		/** a callback function that receives two parameters: 1. the slot index (integer), and 2. a
           boolean parameter indicating if the slot at that index has a clip that is currently recording
           (`true`) or not (`false`)*/
-		callback: any): void
+		callback: (slot: number, recording: boolean) => void): void
 
 	/** Add an observer if clip playback is queued on the slot. */
 	addIsPlaybackQueuedObserver(
@@ -1149,7 +1150,7 @@ recording`. */
 		/** a callback function that receives two parameters: 1. the slot index (integer), and 2. a
           boolean parameter indicating if the slot at that index has a clip that is currently queued for
           playback (`true`) or not (`false`)*/
-		callback: any): void
+		callback: (slot: number, queued: boolean) => void): void
 
 	/** Add an observer if clip recording is queued on the slot. */
 	addIsRecordingQueuedObserver(
@@ -1157,7 +1158,7 @@ recording`. */
 		/** a callback function that receives two parameters: 1. the slot index (integer), and 2. a
           boolean parameter indicating if the slot at that index has a clip that is currently queued for
           recording (`true`) or not (`false`)*/
-		callback: any): void
+		callback: (slot: number, queued: boolean) => void): void
 
 	/** Add an observer if clip playback is queued to stop on the slot. */
 	addIsStopQueuedObserver(
@@ -1165,7 +1166,7 @@ recording`. */
 		/** a callback function that receives two parameters: 1. the slot index (integer), and 2. a
           boolean parameter indicating if the slot at that index has a clip that is currently queued for
           stop (`true`) or not (`false`)*/
-		callback: any): void
+		callback: (slot: number, queued: boolean) => void): void
 
 	/** Registers an observer that reports the colors of clip in the current slot window. */
 	addColorObserver(
@@ -1173,14 +1174,14 @@ recording`. */
 		/** a callback function that receives four parameters: 1. the slot index (integer), 2. the red
           coordinate of the RBG color value, 3. the green coordinate of the RBG color value, and 4. the
           blue coordinate of the RBG color value*/
-		callback: any): void
+		callback: (slot: number, red: number, green: number, blue: number) => void): void
 
 	/** Specifies if the Bitwig Studio clip launcher should indicate which slots are part of the window. By
 default indications are disabled. */
 	setIndication(
 
 		/** `true` if visual indications should be enabled, `false` otherwise*/
-		shouldIndicate: any): void
+		shouldIndicate: boolean): void
 
 	/** Returns an object that can be used to observe and toggle if the slots on a connected track group show
 either scenes launch buttons (for launching the content of the track group) or the clips of the group
@@ -1216,7 +1217,7 @@ default indications are disabled. */
 	setIndication(
 
 		/** `true` if visual indications should be enabled, `false` otherwise*/
-		shouldIndicate: any): void
+		shouldIndicate: boolean): void
 
 	/** An {@link InsertionPoint} that is used to replace the contents of this slot or scene. */
 	replaceInsertionPoint(): InsertionPoint
@@ -1235,7 +1236,7 @@ declare interface ClipLauncherSlotOrSceneBank<ClipLauncherType extends ClipLaunc
 	launch(
 
 		/** the index of the slot that should be launched*/
-		slot: any): void
+		slot: number): void
 
 	/** Stops clip launcher playback for the associated track. */
 	stop(): void
@@ -1253,7 +1254,8 @@ of containing clips. */
 
 		/** a callback function receiving two parameters: 1. the slot index (integer) within the
           configured window, and 2. the name of the scene/slot (string)*/
-		callback: any): void
+		callback: (slot: number, name: string) => void
+	): void
 }
 
 /** This class represents an RGBA color with each component being stored as double. */
@@ -1313,13 +1315,6 @@ declare interface ColorValue extends Value<ColorValueChangedCallback> {
 	/** Gets the alpha component of the current value. */
 	alpha(): number
 	get(): Color
-}
-
-declare interface ColorValueChangedCallback {
-	/** As alpha component was introduced after this interface was released,
-the alpha component is not part of the parameter and would have to be
-checked manually. */
-	valueChanged(red: number, green: number, blue: number): void
 }
 
 declare interface ConnectionEstablishedCallback {
@@ -1456,22 +1451,22 @@ scope of the script. */
 	defineController(
 
 		/** the name of the hardware vendor. Must not be <code>null</code>.*/
-		vendor: any,
+		vendor: string,
 
 		/** the name of the controller script as listed in the user interface of Bitwig Studio. Must not
           be <code>null</code>.*/
-		name: any,
+		name: string,
 
 		/** the version of the controller script. Must not be <code>null</code>.*/
-		version: any,
+		version: string,
 
 		/** a universal unique identifier (UUID) string that is used to distinguish one script from
           another, for example `550e8400-e29b-11d4-a716-446655440000`. Must not be <code>null</code>.
           For generating random UUID strings several free web tools are available.*/
-		uuid: any,
+		uuid: string,
 
 		/** the name of the script author*/
-		author: any): void
+		author: string): void
 
 	/** Defines the number of MIDI ports for input and output that the device uses. This method should be called
 once in the global scope if the script is supposed to exchange MIDI messages with the device, or if the
@@ -1481,10 +1476,10 @@ individual port objects can be accessed using {@link #getMidiInPort(int index)} 
 	defineMidiPorts(
 
 		/** the number of input ports*/
-		numInports: any,
+		numInports: number,
 
 		/** the number of output ports*/
-		numOutports: any): void
+		numOutports: number): void
 
 	/** Returns the MIDI input port with the given index. */
 	getMidiInPort(
@@ -1496,7 +1491,7 @@ individual port objects can be accessed using {@link #getMidiInPort(int index)} 
 	getMidiOutPort(
 
 		/** the index of the MIDI output port, must be valid.*/
-		index: any): MidiOut
+		index: number): MidiOut
 
 	/** Gets the {@link HardwareDevice} at the specified index. This index corresponds to the index of the
 {@link HardwareDeviceMatcher} specified in the
@@ -1516,10 +1511,10 @@ order to support alternative driver names. */
 	addDeviceNameBasedDiscoveryPair(
 
 		/** the array of strings used to detect MIDI input ports, must not be `null`.*/
-		inputs: any,
+		inputs: string[],
 
 		/** the array of strings used to detect MIDI output ports, must not be `null`.*/
-		outputs: any): void
+		outputs: string[]): void
 
 	/** Creates a preferences object that can be used to insert settings into the Controller Preferences panel
 in Bitwig Studio. */
@@ -1557,7 +1552,7 @@ document. */
 
 		/** the index of the window where the arranger panel is shown, or -1 in case the first arranger
           panel found on any window should be taken*/
-		window: any): Arranger
+		window: number): Arranger
 
 	/** Returns an object which provides access to the `Mixer` panel that matches the specified parameters. */
 	createMixer(
@@ -1566,11 +1561,11 @@ document. */
           panel layout in Bitwig Studio should be followed. Empty strings or invalid names are treated
           the same way as `null`. To receive the list of available panel layouts see
           {@link Application#addPanelLayoutObserver}.*/
-		panelLayout: any,
+		panelLayout: string,
 
 		/** the index of the window where the mixer panel is shown, or -1 in case the first mixer panel
           found on any window should be taken*/
-		window: any): Mixer
+		window: number): Mixer
 
 	/** Returns a track bank with the given number of child tracks, sends and scenes.<br/>
 
@@ -1590,17 +1585,17 @@ you are only interested in tracks of a certain kind. */
 	createTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: number,
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: number,
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: number,
 
 		/** specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.*/
-		hasFlatTrackList: any): TrackBank
+		hasFlatTrackList: boolean): TrackBank
 
 	/** Returns a track bank with the given number of tracks, sends and scenes. Only audio tracks, instrument
 tracks and hybrid tracks are considered. For more information about track banks and the `bank pattern`
@@ -1608,13 +1603,13 @@ in general, see the documentation for {@link #createTrackBank}. */
 	createMainTrackBank(
 
 		/** the number of tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: number,
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: number,
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any): TrackBank
+		numScenes: number): TrackBank
 
 	/** Returns a track bank with the given number of effect tracks and scenes. Only effect tracks are
 considered. For more information about track banks and the `bank pattern` in general, see the
@@ -1622,16 +1617,17 @@ documentation for {@link #createTrackBank}. */
 	createEffectTrackBank(
 
 		/** the number of tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: number,
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any): TrackBank
+		numScenes: number): TrackBank
 
 	/** Returns an object that represents the master track of the document. */
 	createMasterTrack(
 
 		/** the number of scenes for bank-wise navigation of the master tracks clip launcher slots.*/
-		numScenes: any): MasterTrack
+		numScenes: number): MasterTrack
+
 	createCursorTrack(numSends: number, numScenes: number): CursorTrack
 
 	/** Returns a scene bank with the given number of scenes.<br/>
@@ -1648,45 +1644,44 @@ are currently shown on the hardware.<br/> */
 	createSceneBank(
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any): SceneBank
+		numScenes: number): SceneBank
 
 	/** Returns a clip object that represents the cursor of the launcher clip selection. The gridWidth and
 gridHeight parameters specify the grid dimensions used to access the note content of the clip. */
 	createLauncherCursorClip(
 
 		/** the number of steps spanned by one page of the note content grid.*/
-		gridWidth: any,
+		gridWidth: number,
 
 		/** the number of keys spanned by one page of the note content grid.*/
-		gridHeight: any): Clip
+		gridHeight: number): Clip
 
 	/** Returns a clip object that represents the cursor of the arranger clip selection. The gridWidth and
 gridHeight parameters specify the grid dimensions used to access the note content of the clip. */
 	createArrangerCursorClip(
 
 		/** the number of steps spanned by one page of the note content grid.*/
-		gridWidth: any,
+		gridWidth: number,
 
 		/** the number of keys spanned by one page of the note content grid.*/
-		gridHeight: any): Clip
+		gridHeight: number): Clip
 
 	/** Returns an object that is used to define a bank of custom user controls. These controls are available to
 the user for free controller assignments and are typically used when bank-wise navigation is
 inconvenient. */
 	createUserControls(
-
 		/** the number of controls that are available for free assignments*/
-		numControllers: any): UserControlBank
+		numControllers: number): UserControlBank
 
 	/** Schedules the given callback function for execution after the given delay. For timer applications call
 this method once initially and then from within the callback function. */
 	scheduleTask(
 
 		/** the callback function that will be called*/
-		callback: any,
+		callback: () => void,
 
 		/** the duration after which the callback function will be called in milliseconds*/
-		delay: any): void
+		delay: number): void
 
 	/** Requests that the driver's flush method gets called. */
 	requestFlush(): void
@@ -1696,71 +1691,71 @@ view menu of Bitwig Studio. */
 	println(
 
 		/** the string to be printed*/
-		s: any): void
+		message: string): void
 
 	/** Prints the given string in the control surface console window using a text style that highlights the
 string as error. The console window can be opened in the view menu of Bitwig Studio. */
 	errorln(
 
 		/** the error string to be printed*/
-		s: any): void
+		message: string): void
 
 	/** Shows a temporary text overlay on top of the application GUI, that will fade-out after a short interval.
 If the overlay is already shown, it will get updated with the given text. */
 	showPopupNotification(
 
 		/** the text to be shown*/
-		text: any): void
+		text: string): void
 
 	/** Opens a TCP (Transmission Control Protocol) host socket for allowing network connections from other
 hardware and software. */
 	createRemoteConnection(
 
 		/** a meaningful name that describes the purpose of this connection.*/
-		name: any,
+		name: string,
 
 		/** the port that should be used for the connection. If the port is already in use, then another
           port will be used. Check {@link RemoteSocket#getPort()} on the returned object to be sure.*/
-		defaultPort: any): RemoteSocket
+		defaultPort: number): RemoteSocket
 
 	/** Connects to a remote TCP (Transmission Control Protocol) socket. */
 	connectToRemoteHost(
 
 		/** the host name or IP address to connect to.*/
-		host: any,
+		host: string,
 
 		/** the port to connect to*/
-		port: any,
+		port: number,
 
 		/** the callback function that gets called when the connection gets established. A single
           {@link RemoteConnection} parameter is passed into the callback function.*/
-		callback: any): void
+		callback: (connection: RemoteConnection) => void): void
 
 	/** Sends a UDP (User Datagram Protocol) packet with the given data to the specified host. */
 	sendDatagramPacket(
 
 		/** the destination host name or IP address*/
-		host: any,
+		host: string,
 
 		/** the destination port*/
-		port: any,
+		port: number,
 
 		/** the data to be send. When creating a numeric byte array in JavaScript, the byte values must be
           signed (in the range -128..127).*/
-		data: any): void
+		data: number): void
 
 	/** Adds an observer for incoming UDP (User Datagram Protocol) packets on the selected port. */
 	addDatagramPacketObserver(
 
 		/** a meaningful name that describes the purpose of this observer.*/
-		name: any,
+		name: number,
 
 		/** the port that should be used*/
-		port: any,
+		port: number,
 
 		/** the callback function that gets called when data arrives. The function receives a single
           parameter that contains the data byte array.*/
-		callback: any): boolean
+		callback: (bytes: number[]) => void): boolean
 
 	/** Creates a {@link PopupBrowser} that represents the pop-up browser in Bitwig Studio. */
 	createPopupBrowser(): PopupBrowser
@@ -1778,19 +1773,19 @@ calling {@link BeatTimeStringValue#get()}. */
 
 		/** the character used to separate the segments of the formatted beat time, typically ":", "." or
           "-"*/
-		separator: any,
+		separator: string,
 
 		/** the number of digits reserved for bars*/
-		barsLen: any,
+		barsLen: number,
 
 		/** the number of digits reserved for beats*/
-		beatsLen: any,
+		beatsLen: number,
 
 		/** the number of digits reserved for beat subdivisions*/
-		subdivisionLen: any,
+		subdivisionLen: number,
 
 		/** the number of digits reserved for ticks*/
-		ticksLen: any): BeatTimeFormatter
+		ticksLen: number): BeatTimeFormatter
 
 	/** Creates a {@link HardwareSurface} that can contain hardware controls. */
 	createHardwareSurface(): HardwareSurface
@@ -1882,7 +1877,7 @@ declare interface CueMarkerBank {
 		/** the index of the marker within the underlying full list of markers (not the index within the
           bank). The position is typically directly related to the layout of the marker list in Bitwig
           Studio, starting with zero in case of the first marker.*/
-		position: any): void
+		position: number): void
 }
 
 /** A generic interface that provides the foundation for working with selections.
@@ -1959,7 +1954,7 @@ automatically scroll so that the cursor item is always visible. */
 	createSiblingsBank(
 
 		/** the number of simultaneously accessible siblings*/
-		numSiblings: any): BrowserItemBank
+		numSiblings: number): BrowserItemBank
 }
 
 /** Instances of this interface represent entries in a browser column. */
@@ -1978,9 +1973,9 @@ declare interface CursorChannel extends Channel, Cursor {
 
 	/** Points the cursor to the given channel. */
 	selectChannel(
-
 		/** the channel that this channel cursor should point to*/
-		channel: any): void
+		channel: Channel
+	): void
 }
 
 /** Represents a cursor clip. */
@@ -2004,55 +1999,55 @@ cursor track instance. */
 	selectDevice(
 
 		/** the device that this cursor should point to*/
-		device: any): void
+		device: Device): void
 
 	/** Selects the first device in the given channel. */
 	selectFirstInChannel(
 
 		/** the channel in which the device should be selected*/
-		channel: any): void
+		channel: Channel): void
 
 	/** Selects the last device in the given channel. */
 	selectLastInChannel(
 
 		/** the channel in which the device should be selected*/
-		channel: any): void
+		channel: Channel): void
 
 	/** Selects the first device in the nested FX slot with the given name. */
 	selectFirstInSlot(
 
 		/** the name of the FX slot in which the device should be selected*/
-		chain: any): void
+		chain: string): void
 
 	/** Selects the last device in the nested FX slot with the given name. */
 	selectLastInSlot(
 
 		/** the name of the FX slot in which the device should be selected*/
-		chain: any): void
+		chain: string): void
 
 	/** Selects the first device in the drum pad associated with the given key. */
 	selectFirstInKeyPad(
 
 		/** the key associated with the drum pad in which the device should be selected*/
-		key: any): void
+		key: number): void
 
 	/** Selects the last device in the drum pad associated with the given key. */
 	selectLastInKeyPad(
 
 		/** the key associated with the drum pad in which the device should be selected*/
-		key: any): void
+		key: number): void
 
 	/** Selects the first device in the nested layer with the given name. */
 	selectFirstInLayer(
 
 		/** the name of the nested layer in which the device should be selected*/
-		name: any): void
+		name: number): void
 
 	/** Selects the last device in the nested layer with the given name. */
 	selectLastInLayer(
 
 		/** the name of the nested layer in which the device should be selected*/
-		name: any): void
+		name: number): void
 }
 
 /** Instances of this interface represent the cursor item in device layer selections. */
@@ -2075,33 +2070,33 @@ declare interface CursorRemoteControlsPage extends Cursor, RemoteControlsPage {
 	selectNextPage(
 
 		/** If true then when the end is reached and there is no next page it selects the first page*/
-		shouldCycle: any): void
+		shouldCycle: boolean): void
 
 	/** Selects the previous page. */
 	selectPreviousPage(
 
 		/** If true then when the end is reached and there is no next page it selects the first page*/
-		shouldCycle: any): void
+		shouldCycle: boolean): void
 
 	/** Selects the next page that matches the given expression. */
 	selectNextPageMatching(
 
 		/** An expression that can match a page based on how it has been tagged. For now this can only be
           the name of a single tag that you would like to match.*/
-		expression: any,
+		expression: number,
 
 		/** If true then when the end is reached and there is no next page it selects the first page*/
-		shouldCycle: any): void
+		shouldCycle: boolean): void
 
 	/** Selects the previous page that matches the given expression. */
 	selectPreviousPageMatching(
 
 		/** An expression that can match a page based on how it has been tagged. For now this can only be
           the name of a single tag that you would like to match.*/
-		expression: any,
+		expression: string,
 
 		/** If true then when the end is reached and there is no next page it selects the first page*/
-		shouldCycle: any): void
+		shouldCycle: boolean): void
 
 	/** Value that reports the currently selected parameter page index. */
 	selectedPageIndex(): SettableIntegerValue
@@ -2128,22 +2123,22 @@ within the current nesting level, or over a flat list of either all tracks or on
 Default is CursorNavigationMode.FLAT. */
 	setCursorNavigationMode(mode: CursorNavigationMode): void
 
-	// disabling this because
-// 	/** Creates a {@link CursorDevice} for this cursor track that by default follows a device based on the
-// supplied follow mode. */
-// 	createCursorDevice(
+	/** Returns an object that provides access to the cursor item of the
+	track's device selection as shown in the Bitwig Studio user interface. */
+	createCursorDevice(): PinnableCursorDevice
 
-// 		/** An id that is used to identify this cursor.*/
-// 		id: any,
+	createCursorDevice(
+		id: string,
+		/** the name of the custom device selection cursor, for example "Primary", or `null` to refer to
+          the device selection cursor in the arranger cursor track as shown in the Bitwig Studio user
+          interface.*/
+		name: string|null,
 
-// 		/** A name that is displayed to the user for this cursor.*/
-// 		name: any,
-
-// 		/** the number of sends that are simultaneously accessible in nested channels.*/
-// 		numSends: any,
-
-// 		/** Mode that defines how this cursor should follow devices.*/
-// 		followMode: any): PinnableCursorDevice
+		/** the number of sends that are simultaneously accessible in nested channels.*/
+		numSends: number,
+		/** Mode that defines how this cursor should follow devices. */
+		followMode: CursorDeviceFollowMode
+	): PinnableCursorDevice
 
 	/** Creates a {@link PinnableCursorClip} for this track that follows a clip within the track on the clip
 launcher. This clip typically gets updated when the user selects a new clip on the clip launcher. It can
@@ -2193,15 +2188,15 @@ empty then no filtering will occur. */
 
 		/** A name to associate with this section. This will be used to remember manual mappings made by
           the user within this section.*/
-		name: any,
+		name: string,
 
 		/** The number of parameters the remote controls should contain*/
-		parameterCount: any,
+		parameterCount: number,
 
 		/** An expression used to match pages that the user can navigate through. For now this can only be
           the name of a single tag the pages should contain (e.g "drawbars", "dyn", "env", "eq",
           "filter", "fx", "lfo", "mixer", "osc", "overview", "perf").*/
-		filterExpression: any): CursorRemoteControlsPage
+		filterExpression: string): CursorRemoteControlsPage
 
 	/** Selects the device in Bitwig Studio. */
 	selectInEditor(): void
@@ -2219,19 +2214,19 @@ empty then no filtering will occur. */
 	addPreviousParameterPageEnabledObserver(
 
 		/** a callback function that receives a single boolean parameter*/
-		callback: any): void
+		callback: (enabled: boolean) => void): void
 
 	/** Registers an observer that reports if there is a next parameter page. */
 	addNextParameterPageEnabledObserver(
 
 		/** a callback function that receives a single boolean parameter*/
-		callback: any): void
+		callback: (enabled: boolean) => void): void
 
 	/** Switches to the parameter page at the given page index. */
 	setParameterPage(
 
 		/** the index of the desired parameter page*/
-		page: any): void
+		page: number): void
 
 	/** Returns//  an object used for browsing devices, presets and other content. Committing the browsing session
 // will load or create a device from the selected resource and replace the current device. */
@@ -2288,13 +2283,13 @@ This bank will work over the following devices:
 	createLayerBank(
 
 		/** the number of channels that the device layer bank should be configured with*/
-		numChannels: any): DeviceLayerBank
+		numChannels: number): DeviceLayerBank
 
 	/** Create a bank for navigating the nested layers of the device using a fixed-size window. */
 	createDrumPadBank(
 
 		/** the number of channels that the drum pad bank should be configured with*/
-		numPads: any): DrumPadBank
+		numPads: number): DrumPadBank
 
 	/** Returns a device layer instance that can be used to navigate the layers or drum pads of the device, in
 case it has any
@@ -2316,16 +2311,16 @@ The callback always updates with an array containing all the IDs for the device.
 	addDirectParameterIdObserver(
 
 		/** function with the signature (String[])*/
-		callback: any): void
+		callback: (ids: string[]) => void): void
 
 	/** Adds an observer for the parameter names (initial and changes) of all parameters for the device. */
 	addDirectParameterNameObserver(
 
 		/** maximum length of the string sent to the observer.*/
-		maxChars: any,
+		maxChars: number,
 
 		/** function with the signature (String ID, String name)*/
-		callback: any): void
+		callback: (id: string, name: string) => void): void
 
 	/** Returns an observer that reports changes of parameter display values, i.e. parameter values formatted as
 a string to be read by the user, for example "-6.02 dB". The returned observer object can be used to
@@ -2334,43 +2329,43 @@ avoided to observe all parameters at the same time for performance reasons. */
 	addDirectParameterValueDisplayObserver(
 
 		/** maximum length of the string sent to the observer.*/
-		maxChars: any,
+		maxChars: number,
 
 		/** function with the signature (String ID, String valueDisplay)*/
-		callback: any): DirectParameterValueDisplayObserver
+		callback: (id: string, valueDisplay: string) => void): DirectParameterValueDisplayObserver
 
 	/** Adds an observer for the parameter display value (initial and changes) of all parameters for the device. */
 	addDirectParameterNormalizedValueObserver(
 
 		/** a callback function with the signature (String ID, float normalizedValue). If the value is not
           accessible 'Number.NaN' (not-a-number) is reported, can be checked with 'isNaN(value)'.*/
-		callback: any): void
+		callback: (id: string, normalizedValue: number) => void): void
 
 	/** Sets the parameter with the specified `id` to the given `value` according to the given `resolution`. */
 	setDirectParameterValueNormalized(
 
 		/** the parameter identifier string*/
-		id: any,
+		id: string,
 
 		/** the new value normalized to the range [0..resolution-1]*/
-		value: any,
+		value: number,
 
 		/** the resolution of the new value*/
-		resolution: any): void
+		resolution: number): void
 
 	/** Increases the parameter with the specified `id` by the given `increment` according to the given
 `resolution`. To decrease the parameter value pass in a negative increment. */
 	incDirectParameterValueNormalized(
 
 		/** the parameter identifier string*/
-		id: any,
+		id: string,
 
 		/** the amount that the parameter value should be increased by, normalized to the range
           [0..resolution-1]*/
-		increment: any,
+		increment: number,
 
 		/** the resolution of the new value*/
-		resolution: any): void
+		resolution: number): void
 
 	/** Value that reports the file name of the currently loaded sample, in case the device is a sample
 container device. */
@@ -2490,18 +2485,6 @@ declare interface DeviceLayerBank extends ChannelBank<DeviceLayer> {
 declare interface DeviceSlot extends DeviceChain {
 }
 
-declare interface DirectParameterDisplayedValueChangedCallback {
-	directParameterDisplayedValueChanged(id: string, value: string): void
-}
-
-declare interface DirectParameterNameChangedCallback {
-	directParameterNameChanged(id: string, name: string): void
-}
-
-declare interface DirectParameterNormalizedValueChangedCallback {
-	directParameterNormalizedValueChanged(id: string, normalizedValue: number): void
-}
-
 /** This interface is used to configure observation of pretty-printed device parameter values. */
 declare interface DirectParameterValueDisplayObserver {
 
@@ -2524,10 +2507,6 @@ declare interface DoubleValue extends Value<DoubleValueChangedCallback> {
 	/** Gets the current value. */
 	get(): number
 	getAsDouble(): number
-}
-
-declare interface DoubleValueChangedCallback {
-	valueChanged(newValue: number): void
 }
 
 /** Instances of this interface are special kind of channel objects that represent the pads of a drum machine
@@ -2617,10 +2596,6 @@ during development. */
 it or null if none. */
 	getErrorReportingEMail(): string
 	toString(): string
-}
-
-declare interface FloatValueChangedCallback {
-	valueChanged(newValue: number): void
 }
 
 /** Information about the dimensions of a font. */
@@ -2892,7 +2867,6 @@ declare interface HardwareButton extends HardwareControl {
 
 /** Some kind of physical control on a piece of hardware (such as a knob, button, slider etc). */
 declare interface HardwareControl extends HardwareElement {
-
 	/** Action that happens when the user touches this control. */
 	beginTouchAction(): HardwareAction
 
@@ -3658,27 +3632,6 @@ declare interface Image {
 	getHeight(): number
 }
 
-declare interface IndexedBooleanValueChangedCallback {
-
-	/** Registers an observer that reports the names of the scenes and slots. The slot names reflect the names
-of containing clips. */
-	valueChanged(index: number, newValue: boolean): void
-}
-
-declare interface IndexedColorValueChangedCallback {
-
-	/** Registers an observer that reports the names of the scenes and slots. The slot names reflect the names
-of containing clips. */
-	valueChanged(index: number, red: number, green: number, blue: number): void
-}
-
-declare interface IndexedStringValueChangedCallback {
-
-	/** Registers an observer that reports the names of the scenes and slots. The slot names reflect the names
-of containing clips. */
-	valueChanged(index: number, newValue: string): void
-}
-
 /** A pipe that can be used to read data. */
 declare interface InputPipe extends Pipe {
 
@@ -3793,15 +3746,12 @@ compatibility for drivers written to the version 1 API. */
 	addValueObserver(
 
 		/** The callback to notify with the new value*/
-		callback: any,
+		callback: IntegerValueChangedCallback,
 
 		/** The value that the callback will be notified with if this value is not currently assigned to
           anything.*/
-		valueWhenUnassigned: any): void
-}
-
-declare interface IntegerValueChangedCallback {
-	valueChanged(newValue: number): void
+		valueWhenUnassigned: any
+	): void
 }
 
 /** Defines the current state of a {@link MultiStateHardwareLight}. What this state means is entirely up to the
@@ -3897,13 +3847,15 @@ declare interface MidiIn {
 
 		/** a callback function that receives three integer parameters: 1. the status byte 2. the data1
           value 2. the data2 value*/
-		callback: any): void
+		callback: (status: number, data1: any, data2: any) => void
+	): void
 
 	/** Registers a callback for receiving sysex MIDI messages on this MIDI input port. */
 	setSysexCallback(
 
 		/** a callback function that takes a single string argument*/
-		callback: any): void
+		callback: (message: string) => void
+	): void
 
 	/** Creates a note input that appears in the track input choosers in Bitwig Studio. This method must be
 called within the `init()` function of the script. The messages matching the given mask parameter will
@@ -3919,7 +3871,8 @@ be fed directly to the application, and are not processed by the script. */
 
           If multiple note input match the same MIDI event then they'll all receive the MIDI event, and
           if one of them does not consume events then the events wont' be consumed.*/
-		masks: any): NoteInput
+		masks: any
+	): NoteInput
 
 	/** Creates a matcher that matches the absolute value of a MIDI CC message. */
 	createAbsoluteCCValueMatcher(channel: number, controlNumber: number): AbsoluteHardwareValueMatcher
@@ -3954,7 +3907,7 @@ and extract a value out of the MIDI event. */
 	createAbsoluteValueMatcher(
 
 		/** Expression that must be true in order to extract the value.*/
-		eventExpression: any,
+		eventExpression: string,
 
 		/** Expression that determines the value once an event has been matched.*/
 		valueExpression: any,
@@ -3966,10 +3919,11 @@ and extract a value out of the MIDI event. */
 	createRelativeValueMatcher(
 
 		/** Expression that must be true in order to extract the value.*/
-		eventExpression: any,
+		eventExpression: string,
 
 		/** The amount of relative adjustment that should be applied*/
-		relativeAdjustment: any): RelativeHardwareValueMatcher
+		relativeAdjustment: number
+	): RelativeHardwareValueMatcher
 
 	/** Creates a matcher that converts a value matched by an {@link AbsoluteHardwareValueMatcher} to a relative
 value using signed bit. */
@@ -4424,10 +4378,10 @@ declare interface ObjectArrayValue<ObjectType> extends Value<ObjectValueChangedC
 declare interface ObjectHardwareProperty<T> extends HardwareProperty {
 
 	/** Gets the current value. This is the value that should be sent to the hardware to be displayed. */
-	currentValue(): any
+	currentValue(): T
 
 	/** The value that was last sent to the hardware. */
-	lastSentValue(): any
+	lastSentValue(): T
 
 	/** Specifies a callback that should be called with the value that needs to be sent to the hardware. This
 callback is called as a result of calling the {@link HardwareSurface#updateHardware()} method (typically
@@ -4435,7 +4389,7 @@ from the flush method). */
 	onUpdateHardware(sendValueConsumer: (arg: T) => any): void
 
 	/** Sets the current value. */
-	setValue(value: any): void
+	setValue(value: T): void
 
 	/** Sets the current value from a {@link BooleanSupplier} that supplies the latest value. */
 	setValueSupplier(supplier: (...args: any[]) => T): void
@@ -4451,10 +4405,6 @@ declare interface ObjectProxy extends Subscribable {
 	/** Creates a {@link BooleanValue} that determines this proxy is considered equal to another proxy. For this
 to be the case both proxies need to be proxying the same target object. */
 	createEqualsValue(other: ObjectProxy): BooleanValue
-}
-
-declare interface ObjectValueChangedCallback<ValueType> {
-	valueChanged(newValue: ValueType): void
 }
 
 /** Defines a simple hardware light that only has an on and off state. */
@@ -4641,16 +4591,16 @@ declare interface Parameter extends SettableRangedValue, ObjectProxy {
 
 	/** Touch (or un-touch) the value for automation recording. */
 	touch(
-
 		/** `true` for touching, `false` for un-touching*/
-		isBeingTouched: any): void
+		isBeingTouched: any
+	): void
 
 	/** Specifies if this value should be indicated as mapped in Bitwig Studio, which is visually shown as
 colored dots or tinting on the parameter controls. */
 	setIndication(
-
 		/** `true` in case visual indications should be shown in Bitwig Studio, `false` otherwise*/
-		shouldIndicate: any): void
+		shouldIndicate: any
+	): void
 
 	/** Specifies a label for the mapped hardware parameter as shown in Bitwig Studio, for example in menu items
 for learning controls. */
@@ -4878,16 +4828,18 @@ range [0..range-1]. */
 	addValueObserver(
 
 		/** the range used to scale the value when reported to the callback*/
-		range: any,
+		range: number,
 
 		/** a callback function that receives a single double parameter*/
-		callback: any): void
+		callback: IntegerValueChangedCallback
+	): void
 
 	/** Add an observer which receives the internal raw of the parameter as floating point. */
 	addRawValueObserver(
 
 		/** a callback function that receives a single numeric parameter with double precision.*/
-		callback: any): void
+		callback: IntegerValueChangedCallback
+	): void
 }
 
 /** Something that can be bound to an {@link RelativeHardwareControl} and can respond to the user input (such
@@ -5169,9 +5121,8 @@ declare interface SettableBooleanValue extends BooleanValue, HardwareActionBinda
 
 	/** Sets the internal value. */
 	set(
-
 		/** the new boolean value.*/
-		value: any): void
+		value: boolean): void
 
 	/** Toggles the current state. In case the current value is `false`, the new value will be `true` and the
 other way round. */
@@ -5193,13 +5144,13 @@ declare interface SettableDoubleValue extends DoubleValue {
 	set(
 
 		/** the new integer value.*/
-		value: any): void
+		value: number): void
 
 	/** Increases/decrease the internal value by the given amount. */
 	inc(
 
 		/** the integer amount to increase*/
-		amount: any): void
+		amount: number): void
 }
 
 /** Instances of this interface represent enumeration values. Enum values work similar to string values, but
@@ -5210,7 +5161,7 @@ declare interface SettableEnumValue extends EnumValue {
 	set(
 
 		/** the name of the new enum item*/
-		name: any): void
+		name: string): void
 }
 
 /** Instances of this interface represent integer values. */
@@ -5220,13 +5171,13 @@ declare interface SettableIntegerValue extends IntegerValue, RelativeHardwareCon
 	set(
 
 		/** the new integer value.*/
-		value: any): void
+		value: number): void
 
 	/** Increases/decrease the internal value by the given amount. */
 	inc(
 
 		/** the integer amount to increase*/
-		amount: any): void
+		amount: number): void
 }
 
 /** Instances of this interface represent numeric values that have an upper and lower limit. */
@@ -5240,7 +5191,7 @@ take care of scaling it. */
 	set(
 
 		/** integer number in the range [0 .. resolution-1]*/
-		value: any,
+		value: number,
 
 		/** the resolution used for scaling @ if passed-in parameters are null*/
 		resolution: any): void
@@ -5251,7 +5202,7 @@ user has selected. This is useful if the value does not need take over (e.g. a m
 	setImmediately(
 
 		/** absolute value [0 .. 1]*/
-		value: any): void
+		value: number): void
 
 	/** Increments or decrements the value according to the given increment and resolution parameters.
 
@@ -5261,22 +5212,22 @@ take care of scaling it. */
 	inc(
 
 		/** the amount that the current value is increased by*/
-		increment: any,
+		increment: number,
 
 		/** the resolution used for scaling*/
-		resolution: any): void
+		resolution: number): void
 
 	/** Set the internal (raw) value. */
 	setRaw(
 
 		/** the new value with double precision. Range is undefined.*/
-		value: any): void
+		value: number): void
 
 	/** Increments / decrements the internal (raw) value. */
 	incRaw(
 
 		/** the amount that the current internal value get increased by.*/
-		delta: any): void
+		delta: number): void
 	addBinding(hardwareControl: RelativeHardwareControl): RelativeHardwareControlToRangedValueBinding
 	addBindingWithRange(hardwareControl: RelativeHardwareControl, minNormalizedValue: number, maxNormalizedValue: number): RelativeHardwareControlBinding
 	addBindingWithRangeAndSensitivity(hardwareControl: RelativeHardwareControl, minNormalizedValue: number, maxNormalizedValue: number, sensitivity: number): RelativeHardwareControlToRangedValueBinding
@@ -5289,7 +5240,7 @@ declare interface SettableStringArrayValue extends StringArrayValue {
 	set(
 
 		/** the new value.*/
-		value: any): void
+		value: string[]): void
 }
 
 /** Instances of this interface implement the {@link Value} interface for string values. */
@@ -5299,7 +5250,7 @@ declare interface SettableStringValue extends StringValue {
 	set(
 
 		/** the new value string*/
-		value: any): void
+		value: string): void
 }
 
 /** A common base interface for labeled and categorized settings. */
@@ -5378,7 +5329,7 @@ depending on the number of provided options. */
 		options: any,
 
 		/** the initial string value, must be one of the items specified with the option argument*/
-		initialValue: any): SettableEnumValue
+		initialValue: string): SettableEnumValue
 
 	/** Returns a textual setting that is shown as a text field in the Bitwig Studio user interface. */
 	getStringSetting(
@@ -5453,7 +5404,7 @@ declare interface Signal {
 	addSignalObserver(
 
 		/** a callback function that does not receive any argument.*/
-		callback: any): void
+		callback: () => any): void
 
 	/** Fires the action or event represented by the signal object. */
 	fire(): void
@@ -5566,7 +5517,7 @@ declare interface SysexMidiDataReceivedCallback {
 	sysexDataReceived(
 
 		/** The data encoded as a hex string*/
-		data: any): void
+		data: string): void
 }
 
 declare interface TextExtents {
@@ -5604,7 +5555,7 @@ declare interface TimeSignatureValue extends Value<StringValueChangedCallback> {
 
 		/** a textual representation of the new time signature value, formatted as
           `numerator/denominator[, ticks]`*/
-		name: any): void
+		name: string): void
 
 	/** Returns an object that provides access to the time signature numerator. */
 	numerator(): SettableIntegerValue
@@ -5659,27 +5610,27 @@ Studio and lists either note or audio sources or both depending on the track typ
 
 	/** Updates the name of the track. */
 	setName(
-
 		/** the new track name*/
-		name: any): void
+		name: any
+	): void
 
 	/** Registers an observer that reports names for note key values on this track. The track might provide
 special names for certain keys if it contains instruments that support that features, such as the Bitwig
 Drum Machine. */
 	addPitchNamesObserver(
-
 		/** a callback function that receives two arguments: 1. the key value in the range [0..127], and
           2. the name string*/
-		callback: any): void
+		callback: any
+	): void
 
 	/** Plays a note on the track with a default duration and the given key and velocity. */
 	playNote(
-
 		/** the key value of the played note*/
 		key: any,
 
 		/** the velocity of the played note*/
-		velocity: any): void
+		velocity: any
+	): void
 
 	/** Starts playing a note on the track with the given key and velocity. */
 	startNote(
@@ -5688,7 +5639,8 @@ Drum Machine. */
 		key: any,
 
 		/** the velocity of the played note*/
-		velocity: any): void
+		velocity: any
+	): void
 
 	/** Stops playing a currently played note. */
 	stopNote(
@@ -5728,6 +5680,20 @@ as pre-fader. */
 	/** Returns an object that indicates if the track may contain audio events. */
 	canHoldAudioData(): SettableBooleanValue
 
+	createCursorDevice(): CursorDevice
+
+	createCursorDevice(
+		id: string,
+		/** the name of the custom device selection cursor, for example "Primary", or `null` to refer to
+          the device selection cursor in the arranger cursor track as shown in the Bitwig Studio user
+          interface.*/
+		name: string|null,
+
+		/** the number of sends that are simultaneously accessible in nested channels.*/
+		numSends: number,
+		/** Mode that defines how this cursor should follow devices. */
+		followMode: CursorDeviceFollowMode
+	): CursorDevice
 	/** Creates a named device selection cursor that is independent from the device selection in the Bitwig
 Studio user interface, assuming the name parameter is not null. When `name` is `null` the result is
 equal to calling {@link Track#createCursorDevice}. */
@@ -5736,10 +5702,10 @@ equal to calling {@link Track#createCursorDevice}. */
 		/** the name of the custom device selection cursor, for example "Primary", or `null` to refer to
           the device selection cursor in the arranger cursor track as shown in the Bitwig Studio user
           interface.*/
-		name: any,
+		name: string|null,
 
 		/** the number of sends that are simultaneously accessible in nested channels.*/
-		numSends: any): CursorDevice
+		numSends: number): CursorDevice
 
 	/** Returns a track bank with the given number of child tracks, sends and scenes. The track bank will only
 have content if the connected track is a group track.<br/>
@@ -5760,17 +5726,18 @@ you are only interested in tracks of a certain kind. */
 	createTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: number,
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: number,
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: number,
 
 		/** specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.*/
-		hasFlatTrackList: any): TrackBank
+		hasFlatTrackList: boolean
+	): TrackBank
 
 	/** Returns a track bank with the given number of child tracks, sends and scenes. Only audio tracks,
 instrument tracks and hybrid tracks are considered. The track bank will only have content if the
@@ -5779,17 +5746,18 @@ general, see the documentation for {@link #createTrackBank}. */
 	createMainTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: number,
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: number,
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: number,
 
 		/** specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.*/
-		hasFlatTrackList: any): TrackBank
+		hasFlatTrackList: boolean
+	): TrackBank
 
 	/** Returns a track bank with the given number of child effect tracks and scenes. Only effect tracks are
 considered. The track bank will only have content if the connected track is a group track. For more
@@ -5798,40 +5766,40 @@ information about track banks and the `bank pattern` in general, see the documen
 	createEffectTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: number,
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: number,
 
 		/** specifies whether the track bank should operate on a flat list of all nested child tracks or
           only on the direct child tracks of the connected group track.*/
-		hasFlatTrackList: any): TrackBank
+		hasFlatTrackList: boolean): TrackBank
 
 	/** Returns an object that represents the master track of the connected track group. The returned object
 will only have content if the connected track is a group track. */
 	createMasterTrack(
-
 		/** the number of scenes for bank-wise navigation of the master tracks clip launcher slots.*/
-		numScenes: any): MasterTrack
+		numScenes: number
+	): MasterTrack
 
 	/** Returns a bank of sibling tracks with the given number of tracks, sends and scenes. For more information
 about track banks and the `bank pattern` in general, see the documentation for {@link #createTrackBank}. */
 	createSiblingsTrackBank(
 
 		/** the number of child tracks spanned by the track bank*/
-		numTracks: any,
+		numTracks: number,
 
 		/** the number of sends spanned by the track bank*/
-		numSends: any,
+		numSends: number,
 
 		/** the number of scenes spanned by the track bank*/
-		numScenes: any,
+		numScenes: number,
 
 		/** specifies whether effect tracks should be included*/
-		shouldIncludeEffectTracks: any,
+		shouldIncludeEffectTracks: boolean,
 
 		/** specifies whether the master should be included*/
-		shouldIncludeMasterTrack: any): TrackBank
+		shouldIncludeMasterTrack: boolean): TrackBank
 
 	/** {@link InsertionPoint} that can be used to insert after this track. */
 	afterTrackInsertionPoint(): InsertionPoint
@@ -5893,7 +5861,7 @@ scrolled so that the cursor is within the bank, if possible. */
 	followCursorTrack(
 
 		/** The {@link CursorTrack} that this bank should follow.*/
-		cursorTrack: any): void
+		cursorTrack: CursorTrack): void
 }
 
 /** An interface representing the transport section in Bitwig Studio. */
@@ -6025,7 +5993,7 @@ adjustments to the project tempo. */
 
 		/** the new tempo value relative to the specified range. Values should be in the range
           [0..range-1].*/
-		amount: any,
+		amount: number,
 
 		/** the range of the provided amount value*/
 		range: any): void
@@ -6073,11 +6041,11 @@ given range. */
 
 		/** the beat time value that gets added to the current transport position. Values have double
           precision and can be positive or negative.*/
-		beats: any,
+		beats: number,
 
 		/** when `true` the actual new transport position will be quantized to the beat grid, when `false`
           the position will be increased exactly by the specified beat time*/
-		snap: any): void
+		snap: boolean): void
 
 	/** Returns an object that provides access to the punch-in position in the Bitwig Studio transport. */
 	getInPosition(): SettableBeatTimeValue
@@ -6192,9 +6160,9 @@ declare interface UserControlBank {
 
 	/** Gets the user control at the given bank index. */
 	getControl(
-
 		/** the index of the control within the bank*/
-		index: any): Parameter
+		index: number
+	): Parameter
 }
 
 /** The common interface that is shared by all value objects in the controller API. */
@@ -6211,12 +6179,6 @@ the current value. Adding an observer to a value will automatically mark this va
 
 		/** a callback function that receives a single parameter*/
 		callback: ObserverType): void
-
-		/** Registers an observer that reports the current value. */
-	addValueObserver(
-
-		/** a callback function that receives a single parameter*/
-		callback: ObserverType, valueWhenUnassigned: any): void
 }
 
 declare enum CursorDeviceFollowMode {
@@ -6292,9 +6254,28 @@ declare enum PlatformType {
 
 declare var host: ControllerHost
 
-//declare type BooleanValueChangedCallback = (value: boolean) => void
+declare type BooleanValueChangedCallback = (value: boolean) => void
 declare type StringValueChangedCallback = (value: string) => void
 declare type EnumValueChangedCallback = (value: string) => void
-//declare type IntegerValueChangedCallback = (value: number) => void
+declare type IntegerValueChangedCallback = (value: number) => void
 declare type StringArrayValueChangedCallback = (value: string[]) => void
 declare type RangedValueChangedCallback = (value: number) => void
+declare type ObjectValueChangedCallback<ValueType> = (value: ValueType) => void
+declare type ColorValueChangedCallback = (red: number, green: number, blue: number) => void
+declare type DoubleValueChangedCallback = (value: number) => void
+declare type FloatValueChangedCallback = (value: number) => void
+declare type IndexedBooleanValueChangedCallback = (index: number, value: boolean) => void
+declare type IndexedColorValueChangedCallback = (index: number, red: number, green: number, blue: number) => void
+declare type IndexedStringValueChangedCallback = (index: number, value: string) => void
+
+declare interface DirectParameterDisplayedValueChangedCallback {
+	directParameterDisplayedValueChanged(id: string, value: string): void
+}
+
+declare interface DirectParameterNameChangedCallback {
+	directParameterNameChanged(id: string, name: string): void
+}
+
+declare interface DirectParameterNormalizedValueChangedCallback {
+	directParameterNormalizedValueChanged(id: string, normalizedValue: number): void
+}
