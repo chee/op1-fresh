@@ -1,3 +1,5 @@
+var println = host.println
+
 host.load("./polyfill.js")
 
 host.loadAPI(10)
