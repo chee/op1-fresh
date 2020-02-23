@@ -396,25 +396,24 @@ function init() {
 	cursorDevice = cursorTrack.createCursorDevice()
 	userControls = host.createUserControls(42)
 	trackBank.followCursorTrack(cursorTrack)
-	transport.isMetronomeEnabled().markInterested()
-	transport.isMetronomeAudibleDuringPreRoll().markInterested()
-	transport.isArrangerLoopEnabled().markInterested()
-	transport.timeSignature().markInterested()
+	cursorTrack.name().markInterested()
+	println(cursorTrack.name().get())
 
+	host.println("op-1 (fresh) initialized!")
+
+	setupBindings(op1)
+	setupObservers(op1)
+}
+
+function setupObservers(op1) {
 	let position = transport.getPosition()
 
 	position.addValueObserver(function (_: number) {
 		let time = position.getFormatted()
 		if (op1.mode == Mode.Arrange) {
-			op1.printEverywhere(`song position\r${time}`)
-			op1.print("yeet")
+			op1.print(`song position\r${time}`)
 		}
 	})
-
-	host.println("op-1 (fresh) initialized!")
-	op1.print("yeet")
-
-	setupBindings(op1)
 }
 
 type HelperCallback = () => void
@@ -488,6 +487,13 @@ function setupBindings(op1: OperatorOne) {
 		on.up(() => op1.shift = false)
 	}))
 
+	bindGlobal(op1)
+	bindArrange(op1)
+	bindPerform(op1)
+	bindMix(op1)
+}
+
+function bindGlobal(op1: OperatorOne) {
 	// *
 	// * GLOBALS
 	// *
@@ -518,6 +524,8 @@ function setupBindings(op1: OperatorOne) {
 		}))
 	}))
 
+	transport.isMetronomeEnabled().markInterested()
+	transport.isMetronomeAudibleDuringPreRoll().markInterested()
 	op1.bind(Key.Metronome, withKey(on => {
 		on.up(withShift(on => {
 			on.shift(() => transport.isMetronomeAudibleDuringPreRoll().toggle())
@@ -525,20 +533,26 @@ function setupBindings(op1: OperatorOne) {
 		}))
 	}))
 
+	transport.isArrangerLoopEnabled().markInterested()
 	op1.bind(Key.Loop, withKey(on => {
 		on.up(() => transport.isArrangerLoopEnabled().toggle())
 	}))
 
 	op1.bind(Key.Help, withKey(on => {
+		on.down(() => op1.print("yeet"))
 		on.up(() => op1.printEverywhere("no one is coming to save you"))
 	}))
+}
 
+function bindArrange(op1: OperatorOne) {
 	/*
 	 * Mode-specific
 	 */
+	transport.timeSignature().markInterested()
 	function getBarInBeats () {
 		return transport.timeSignature().denominator().get()
 	}
+
 	op1.bind(Key.Left, withKey(on => {
 		on.up(() => {
 			let bar = getBarInBeats()
@@ -555,6 +569,22 @@ function setupBindings(op1: OperatorOne) {
 		})
 	}), Mode.Arrange)
 
+	transport.isPunchInEnabled().markInterested()
+	op1.bind(Key.In, withKey(on => {
+		on.up(withShift(on => {
+			on.shift(() => transport.isPunchInEnabled().toggle())
+			// TODO default case of moving loop in-point
+		}))
+	}), Mode.Arrange)
+
+	transport.isPunchOutEnabled().markInterested()
+	op1.bind(Key.Out, withKey(on => {
+		on.up(withShift(on => {
+			on.shift(() => transport.isPunchOutEnabled().toggle())
+			// TODO default case of moving loop out-point
+		}))
+	}), Mode.Arrange)
+
 	let encoderAmount = 0.1
 	let encoderResolutions = {
 		shift: 2,
@@ -565,7 +595,7 @@ function setupBindings(op1: OperatorOne) {
 	// cursorTrack takes care of the live binding for me (if the selected track
 	// changes, does the passed cursorTrack.volume effect the correct track?
 	/* maybeArgs: amount: number, resolution: number, shiftedResolution: number */
-	function bindEncoderIncrementer(encoder: Encoder, getParameter: () => Parameter): void {
+	function bindEncoderParameterIncrementer(encoder: Encoder, getParameter: () => Parameter, mode: Mode): void {
 		op1.bind(encoder, withEncoder(on => {
 			on.left(withShift(on => {
 				on.shift(() => getParameter().inc(-encoderAmount, encoderResolutions.shift))
@@ -575,12 +605,102 @@ function setupBindings(op1: OperatorOne) {
 				on.shift(() => getParameter().inc(encoderAmount, encoderResolutions.shift))
 				on.default(() => getParameter().inc(encoderAmount, encoderResolutions.default))
 			}))
-		}))
+		}), mode)
 	}
 
-	bindEncoderIncrementer(Encoder.Blue, () => cursorTrack.volume())
-	bindEncoderIncrementer(Encoder.Green, () => cursorTrack.pan())
+	bindEncoderParameterIncrementer(Encoder.Blue, () => cursorTrack.volume(), Mode.Arrange)
+	bindEncoderParameterIncrementer(Encoder.Green, () => cursorTrack.pan(), Mode.Arrange)
 }
+
+enum ArpeggiatorModes {
+	All = "all",
+	Up = "up",
+	UpDown = "up-down",
+	UpThenDown = "up-then-down",
+	Down = "down",
+	DownUp = "down-up",
+	DownThenUp = "down-then-up",
+	Flow = "flow",
+	Random = "random",
+	ConvergeUp = "converge-up",
+	ConvergeDown = "converge-down",
+	DivergeUp = "diverge-up",
+	DivergeDown = "diverge-down",
+	ThumbUp = "thumb-up",
+	ThumbDown = "thumb-down",
+	PinkyUp = "pinky-up",
+	PinkyDown = "pinky-down",
+}
+
+let arpeggiatorModes = [
+	"all",
+	"up",
+	"up-down",
+	"up-then-down",
+	"down",
+	"down-up",
+	"down-then-up",
+	"flow",
+	"random",
+	"converge-up",
+	"converge-down",
+	"diverge-up",
+	"diverge-down",
+	"thumb-up",
+	"thumb-down",
+	"pinky-up",
+	"pinky-down",
+]
+
+
+declare interface Array<T> {
+	random(): T
+}
+
+Array.prototype.random = function () {
+	return this[Math.floor(Math.random() * this.length)]
+}
+
+function bindPerform(op1: OperatorOne) {
+	keyboard.arpeggiator().isEnabled().markInterested()
+
+	op1.bind(Encoder.Blue, withEncoder(on => {
+		on.left(withShift(on => {
+			cursorTrack.playNote(128, 128)
+		}))
+		on.right(withShift(on => {
+		}))
+	}))
+
+	op1.bind(Key.Sequence, withKey(on => {
+		on.up(withShift(on => {
+			let arpMode = arpeggiatorModes.random()
+			op1.printEverywhere(arpMode)
+			on.shift(() => {
+				keyboard.arpeggiator().isEnabled().set(false)
+				op1.printEverywhere("arpeggiator off")
+			})
+			on.default(() => {
+				keyboard.arpeggiator().isEnabled().set(true)
+				keyboard.arpeggiator().mode().set(arpMode)
+			})
+		}))
+	}), Mode.Perform)
+
+	op1.bind(Key.Left, withKey(on => {
+		on.up(() => {
+			keyboard
+		})
+	}), Mode.Perform)
+
+	op1.bind(Key.Left, withKey(on => {
+		on.up(() => {
+
+		})
+	}), Mode.Perform)
+}
+
+function bindMix(op1: OperatorOne) {}
 
 function flush() {
 }
