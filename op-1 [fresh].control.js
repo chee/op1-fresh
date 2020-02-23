@@ -1,17 +1,7 @@
 var global = this;
 var println = host.println;
 host.loadAPI(10);
-// load libraries
-host.load("./util.js");
-function objectValues(obj) {
-    var vals = [];
-    for (var key in obj) {
-        if (obj.hasOwnProperty(key) && Object.prototype.propertyIsEnumerable.call(obj, key)) {
-            vals.push(obj[key]);
-        }
-    }
-    return vals;
-}
+host.load("./polyfill.io.js");
 function objectIncludes(target, targetValue) {
     for (var key in target) {
         var value = targetValue[key];
@@ -45,6 +35,8 @@ var Key;
     Key[Key["Orange"] = 67] = "Orange";
     Key[Key["Help"] = 5] = "Help";
     Key[Key["Metronome"] = 6] = "Metronome";
+    Key[Key["Lift"] = 15] = "Lift";
+    Key[Key["Drop"] = 16] = "Drop";
     Key[Key["Scissor"] = 17] = "Scissor";
     Key[Key["Synth"] = 7] = "Synth";
     Key[Key["Drum"] = 8] = "Drum";
@@ -74,12 +66,13 @@ var Key;
     Key[Key["Chop"] = 23] = "Chop";
     Key[Key["M1"] = 24] = "M1";
     Key[Key["M2"] = 25] = "M2";
+    Key[Key["Sequence"] = 26] = "Sequence";
     Key[Key["Record"] = 38] = "Record";
     Key[Key["Play"] = 39] = "Play";
     Key[Key["Stop"] = 40] = "Stop";
     Key[Key["Microphone"] = 49] = "Microphone";
     Key[Key["Com"] = 49] = "Com";
-    Key[Key["Shift"] = 34] = "Shift";
+    Key[Key["Shift"] = 43] = "Shift";
 })(Key || (Key = {}));
 /** These are the modes available via the synth, drum, tape and mixer keys */
 var Mode;
@@ -117,7 +110,7 @@ function getControlEnumValues(controlEnum) {
 }
 var Binding = /** @class */ (function () {
     function Binding(op1, control, callback, mode) {
-        this.isModeKey = objectIncludes(UserMode, control) || objectIncludes(Mode, control);
+        this.isModeKey = getControlEnumValues(UserMode).includes(control) || getControlEnumValues(Mode).includes(control);
         if (this.isModeKey && mode) {
             throw new Error("Refusing to bind mode key to anything mode-specific");
         }
@@ -125,6 +118,7 @@ var Binding = /** @class */ (function () {
         this.control = control;
         this.callback = callback;
         this.op1 = op1;
+        return this;
     }
     Binding.prototype.call = function (data) {
         if (this.isModeKey) {
@@ -155,6 +149,7 @@ var Bindings = /** @class */ (function () {
     function Bindings(op1) {
         this.op1 = op1;
         this.bindings = {};
+        return this;
     }
     Bindings.prototype.add = function (control, callback, mode) {
         var controlBindings = this.bindings[control] = this.bindings[control] || [];
@@ -176,6 +171,12 @@ var Bindings = /** @class */ (function () {
     };
     return Bindings;
 }());
+var PanelLayout;
+(function (PanelLayout) {
+    PanelLayout["Arrange"] = "ARRANGE";
+    PanelLayout["Edit"] = "EDIT";
+    PanelLayout["Mix"] = "MIX";
+})(PanelLayout || (PanelLayout = {}));
 var OperatorOne = /** @class */ (function () {
     function OperatorOne() {
         this.input = host.getMidiInPort(0);
@@ -183,9 +184,10 @@ var OperatorOne = /** @class */ (function () {
         this._shift = false;
         this._mode = Mode.Perform;
         this._userMode = UserMode.Mix;
-        this.input.setMidiCallback(this.receiveMidi);
-        this.input.setSysexCallback(this.receiveSysex);
+        this.input.setMidiCallback(this.receiveMidi.bind(this));
+        this.input.setSysexCallback(this.receiveSysex.bind(this));
         this.bindings = new Bindings(this);
+        return this;
     }
     /** Send some sysex data to the op-1 */
     OperatorOne.prototype.send = function (data) {
@@ -195,11 +197,16 @@ var OperatorOne = /** @class */ (function () {
     OperatorOne.prototype.sendSequence = function (sequence) {
         this.send(sequence);
     };
+    OperatorOne.prototype.colorize = function () {
+        var message = Sequence.ColorStart + " 03 ff 00 00 00 ff 00 00 ff ff ff ff ff " + Sequence.TextEnd;
+        this.send(message);
+    };
     /**
      * Send the init sequence to the OP-1
      */
     OperatorOne.prototype.enable = function () {
         this.sendSequence(Sequence.Enable);
+        this.colorize();
     };
     /**
      * Send the shutdown sequence to the OP-1
@@ -212,8 +219,9 @@ var OperatorOne = /** @class */ (function () {
      * @param {string} text The message to print
      */
     OperatorOne.prototype.print = function (text) {
+        var hexify = function (n) { return n.toString(16).padStart(2, "0"); };
         text = text.trim();
-        var chars = Array.prototype.slice.call(text);
+        var chars = Array.from(text);
         var hext = chars.map(function (c) { return hexify(c.charCodeAt(0)); }).join(" ");
         // maybe?
         // this.sendSequence(Sequence.TextStart)
@@ -221,6 +229,7 @@ var OperatorOne = /** @class */ (function () {
         // this.send(hext)
         // this.sendSequence(Sequence.TextEnd)
         this._message = Sequence.TextStart + " " + hexify(text.length) + " " + hext + " " + Sequence.TextEnd;
+        println(this._message);
         this.send(this._message);
     };
     OperatorOne.prototype.printEverywhere = function (text) {
@@ -245,6 +254,19 @@ var OperatorOne = /** @class */ (function () {
             return this._mode;
         },
         set: function (mode) {
+            // FIXME ugly
+            if (this.shift) {
+                switch (mode) {
+                    case Mode.Mix: {
+                        application.setPanelLayout(PanelLayout.Mix);
+                        break;
+                    }
+                    case Mode.Arrange: {
+                        application.setPanelLayout(PanelLayout.Arrange);
+                        break;
+                    }
+                }
+            }
             this._mode = mode;
         },
         enumerable: true,
@@ -263,8 +285,9 @@ var OperatorOne = /** @class */ (function () {
     OperatorOne.prototype.bind = function (control, callback, mode) {
         this.bindings.add(control, callback, mode);
     };
-    OperatorOne.prototype.receiveMidi = function (_status, cc, value) {
-        this.bindings.call(cc, value);
+    OperatorOne.prototype.receiveMidi = function (status, cc, value) {
+        println("received: midi(" + status + ", " + cc + ", " + value + ")");
+        this.bindings && this.bindings.call(cc, value);
     };
     OperatorOne.prototype.receiveSysex = function () {
         var args = [];
@@ -296,8 +319,11 @@ function init() {
     op1 = new OperatorOne();
     op1.print("hello");
     transport = host.createTransport();
+    // TODO: idea, have a key in perform mode for keyboard.noteLatch
+    // TODO: idea, sequence key toggles through arpegiator modes
     keyboard = op1.input.createNoteInput("op-1 fresh keyboard", "??????");
     keyboard.setShouldConsumeEvents(false);
+    op1.shutdown();
     op1.enable();
     application = host.createApplication();
     masterTrack = host.createMasterTrack(0);
@@ -306,21 +332,21 @@ function init() {
     cursorDevice = cursorTrack.createCursorDevice();
     userControls = host.createUserControls(42);
     trackBank.followCursorTrack(cursorTrack);
-    transport.isMetronomeEnabled().markInterested();
-    transport.isMetronomeAudibleDuringPreRoll().markInterested();
-    transport.isArrangerLoopEnabled().markInterested();
-    transport.timeSignature().markInterested();
+    cursorTrack.playNote(10, 128);
+    cursorTrack.name().markInterested();
+    println(cursorTrack.name().get());
+    host.println("op-1 (fresh) initialized!");
+    setupBindings(op1);
+    setupObservers(op1);
+}
+function setupObservers(op1) {
     var position = transport.getPosition();
     position.addValueObserver(function (_) {
         var time = position.getFormatted();
         if (op1.mode == Mode.Arrange) {
-            op1.printEverywhere("song position\r" + time);
-            op1.print("yeet");
+            op1.print("song position\r" + time);
         }
     });
-    host.println("op-1 (fresh) initialized!");
-    op1.print("yeet");
-    setupBindings(op1);
 }
 function withShift(fn) {
     return function () { return fn({
@@ -384,6 +410,12 @@ function setupBindings(op1) {
         on.down(function () { return op1.shift = true; });
         on.up(function () { return op1.shift = false; });
     }));
+    bindGlobal(op1);
+    bindArrange(op1);
+    bindPerform(op1);
+    bindMix(op1);
+}
+function bindGlobal(op1) {
     // *
     // * GLOBALS
     // *
@@ -412,21 +444,28 @@ function setupBindings(op1) {
             });
         }));
     }));
+    transport.isMetronomeEnabled().markInterested();
+    transport.isMetronomeAudibleDuringPreRoll().markInterested();
     op1.bind(Key.Metronome, withKey(function (on) {
         on.up(withShift(function (on) {
             on.shift(function () { return transport.isMetronomeAudibleDuringPreRoll().toggle(); });
             on.default(function () { return transport.isMetronomeEnabled().toggle(); });
         }));
     }));
+    transport.isArrangerLoopEnabled().markInterested();
     op1.bind(Key.Loop, withKey(function (on) {
         on.up(function () { return transport.isArrangerLoopEnabled().toggle(); });
     }));
     op1.bind(Key.Help, withKey(function (on) {
+        on.down(function () { return op1.print("yeet"); });
         on.up(function () { return op1.printEverywhere("no one is coming to save you"); });
     }));
+}
+function bindArrange(op1) {
     /*
      * Mode-specific
      */
+    transport.timeSignature().markInterested();
     function getBarInBeats() {
         return transport.timeSignature().denominator().get();
     }
@@ -444,6 +483,20 @@ function setupBindings(op1) {
             transport.incPosition(op1.shift ? bar : beat, true);
         });
     }), Mode.Arrange);
+    transport.isPunchInEnabled().markInterested();
+    op1.bind(Key.In, withKey(function (on) {
+        on.up(withShift(function (on) {
+            on.shift(function () { return transport.isPunchInEnabled().toggle(); });
+            // TODO default case of moving loop in-point
+        }));
+    }), Mode.Arrange);
+    transport.isPunchOutEnabled().markInterested();
+    op1.bind(Key.Out, withKey(function (on) {
+        on.up(withShift(function (on) {
+            on.shift(function () { return transport.isPunchOutEnabled().toggle(); });
+            // TODO default case of moving loop out-point
+        }));
+    }), Mode.Arrange);
     var encoderAmount = 0.1;
     var encoderResolutions = {
         shift: 2,
@@ -453,7 +506,7 @@ function setupBindings(op1) {
     // cursorTrack takes care of the live binding for me (if the selected track
     // changes, does the passed cursorTrack.volume effect the correct track?
     /* maybeArgs: amount: number, resolution: number, shiftedResolution: number */
-    function bindEncoderIncrementer(encoder, getParameter) {
+    function bindEncoderParameterIncrementer(encoder, getParameter, mode) {
         op1.bind(encoder, withEncoder(function (on) {
             on.left(withShift(function (on) {
                 on.shift(function () { return getParameter().inc(-encoderAmount, encoderResolutions.shift); });
@@ -463,11 +516,87 @@ function setupBindings(op1) {
                 on.shift(function () { return getParameter().inc(encoderAmount, encoderResolutions.shift); });
                 on.default(function () { return getParameter().inc(encoderAmount, encoderResolutions.default); });
             }));
-        }));
+        }), mode);
     }
-    bindEncoderIncrementer(Encoder.Blue, function () { return cursorTrack.volume(); });
-    bindEncoderIncrementer(Encoder.Green, function () { return cursorTrack.pan(); });
+    bindEncoderParameterIncrementer(Encoder.Blue, function () { return cursorTrack.volume(); }, Mode.Arrange);
+    bindEncoderParameterIncrementer(Encoder.Green, function () { return cursorTrack.pan(); }, Mode.Arrange);
 }
+var ArpeggiatorModes;
+(function (ArpeggiatorModes) {
+    ArpeggiatorModes["All"] = "all";
+    ArpeggiatorModes["Up"] = "up";
+    ArpeggiatorModes["UpDown"] = "up-down";
+    ArpeggiatorModes["UpThenDown"] = "up-then-down";
+    ArpeggiatorModes["Down"] = "down";
+    ArpeggiatorModes["DownUp"] = "down-up";
+    ArpeggiatorModes["DownThenUp"] = "down-then-up";
+    ArpeggiatorModes["Flow"] = "flow";
+    ArpeggiatorModes["Random"] = "random";
+    ArpeggiatorModes["ConvergeUp"] = "converge-up";
+    ArpeggiatorModes["ConvergeDown"] = "converge-down";
+    ArpeggiatorModes["DivergeUp"] = "diverge-up";
+    ArpeggiatorModes["DivergeDown"] = "diverge-down";
+    ArpeggiatorModes["ThumbUp"] = "thumb-up";
+    ArpeggiatorModes["ThumbDown"] = "thumb-down";
+    ArpeggiatorModes["PinkyUp"] = "pinky-up";
+    ArpeggiatorModes["PinkyDown"] = "pinky-down";
+})(ArpeggiatorModes || (ArpeggiatorModes = {}));
+var arpeggiatorModes = [
+    "all",
+    "up",
+    "up-down",
+    "up-then-down",
+    "down",
+    "down-up",
+    "down-then-up",
+    "flow",
+    "random",
+    "converge-up",
+    "converge-down",
+    "diverge-up",
+    "diverge-down",
+    "thumb-up",
+    "thumb-down",
+    "pinky-up",
+    "pinky-down",
+];
+Array.prototype.random = function () {
+    return this[Math.floor(Math.random() * this.length)];
+};
+function bindPerform(op1) {
+    keyboard.arpeggiator().isEnabled().markInterested();
+    op1.bind(Encoder.Blue, withEncoder(function (on) {
+        on.left(withShift(function (on) {
+            cursorTrack.playNote(128, 128);
+        }));
+        on.right(withShift(function (on) {
+        }));
+    }));
+    op1.bind(Key.Sequence, withKey(function (on) {
+        on.up(withShift(function (on) {
+            var arpMode = arpeggiatorModes.random();
+            op1.printEverywhere(arpMode);
+            on.shift(function () {
+                keyboard.arpeggiator().isEnabled().set(false);
+                op1.printEverywhere("arpeggiator off");
+            });
+            on.default(function () {
+                keyboard.arpeggiator().isEnabled().set(true);
+                keyboard.arpeggiator().mode().set(arpMode);
+            });
+        }));
+    }), Mode.Perform);
+    op1.bind(Key.Left, withKey(function (on) {
+        on.up(function () {
+            keyboard;
+        });
+    }), Mode.Perform);
+    op1.bind(Key.Left, withKey(function (on) {
+        on.up(function () {
+        });
+    }), Mode.Perform);
+}
+function bindMix(op1) { }
 function flush() {
 }
 function exit() {
