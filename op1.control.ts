@@ -249,11 +249,17 @@ class OperatorOne {
 		this.send(sequence)
 	}
 
+	colorize() {
+		let message = `${Sequence.ColorStart} 03 ff 00 00 00 ff 00 00 ff ff ff ff ff ${Sequence.TextEnd}`
+		this.send(message)
+	}
+
 	/**
 	 * Send the init sequence to the OP-1
 	 */
 	enable() {
 		this.sendSequence(Sequence.Enable)
+		this.colorize()
 	}
 
 	/**
@@ -268,8 +274,9 @@ class OperatorOne {
 	 * @param {string} text The message to print
 	 */
 	print(text: string) {
+		let hexify = (n: number) => n.toString(16).padStart(2, "0")
 		text = text.trim()
-		let chars = Array.prototype.slice.call(text)
+		let chars = Array.from(text)
 		let hext = chars.map((c: string) => hexify(c.charCodeAt(0))).join(" ")
 		// maybe?
 		// this.sendSequence(Sequence.TextStart)
@@ -277,6 +284,7 @@ class OperatorOne {
 		// this.send(hext)
 		// this.sendSequence(Sequence.TextEnd)
 		this._message = `${Sequence.TextStart} ${hexify(text.length)} ${hext} ${Sequence.TextEnd}`
+		println(this._message)
 		this.send(this._message)
 	}
 
