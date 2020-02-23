@@ -1485,7 +1485,7 @@ individual port objects can be accessed using {@link #getMidiInPort(int index)} 
 	getMidiInPort(
 
 		/** the index of the MIDI input port, must be valid.*/
-		index: any): MidiIn
+		index: number): MidiIn
 
 	/** Returns the MIDI output port with the given index. */
 	getMidiOutPort(
@@ -2376,7 +2376,7 @@ container device. */
 	createSiblingsDeviceBank(
 
 		/** the number of devices that are simultaneously accessible*/
-		numDevices: any): DeviceBank
+		numDevices: number): DeviceBank
 
 	/** {@link InsertionPoint} that can be used for inserting after this device. */
 	afterDeviceInsertionPoint(): InsertionPoint
@@ -2405,7 +2405,7 @@ tracks, device layers, drums pads, or FX slots. */
 
 		/** the device index within this bank, not the position within the device chain. Must be in the
           range [0..sizeOfBank-1].*/
-		indexInBank: any): Device
+		indexInBank: number): Device
 
 	/** Scrolls the device window one page up. */
 	scrollPageUp(): void
@@ -2423,7 +2423,7 @@ tracks, device layers, drums pads, or FX slots. */
 	browseToInsertDevice(
 
 		/** the index to insert the device at. Must be >= 0 and <= {@link #getSizeOfBank()}.*/
-		index: any): void
+		index: number): void
 }
 
 /** The foundation of all interfaces that contain devices, such as tracks, device layers, drum pads or FX
@@ -2441,13 +2441,15 @@ name. */
 	addIsSelectedInEditorObserver(
 
 		/** a callback function that takes a single boolean parameter.*/
-		callback: any): void
+		callback: (bool: boolean) => void
+	): void
 
 	/** Returns an object that provides bank-wise navigation of devices. */
 	createDeviceBank(
 
 		/** the number of devices should be accessible simultaneously*/
-		numDevices: any): DeviceBank
+		numDevices: number
+	): DeviceBank
 
 // 	/** Returns an object used for browsing devices, presets and other content. Committing the browsing session
 // will load or create a device from the selected resource and insert it into the device chain. */
@@ -2493,7 +2495,7 @@ declare interface DirectParameterValueDisplayObserver {
 	setObservedParameterIds(
 
 		/** the array of parameter IDs or `null` to stop observing parameter display values.*/
-		parameterIds: any): void
+		parameterIds: number[]|null): void
 }
 
 /** This interface is used to save custom script settings inside Bitwig Studio documents. The settings are
@@ -2532,7 +2534,7 @@ are enabled. */
 	setIndication(
 
 		/** `true` if visual indications should be enabled, `false` otherwise*/
-		shouldIndicate: any): void
+		shouldIndicate: boolean): void
 
 	/** Clears mute on all drum pads. */
 	clearMutedPads(): void
@@ -3053,21 +3055,21 @@ declare interface HardwareSurface {
 	createHardwareSlider(
 
 		/** A unique string that identifies this control.*/
-		id: any): HardwareSlider
+		id: string): HardwareSlider
 
 	/** Creates an {@link AbsoluteHardwareKnob} that represents a physical knob on a controller that can be used
 to input an absolute value. */
 	createAbsoluteHardwareKnob(
 
 		/** A unique string that identifies this control.*/
-		id: any): AbsoluteHardwareKnob
+		id: string): AbsoluteHardwareKnob
 
 	/** Creates an {@link RelativeHardwareKnob} that represents a physical knob on a controller that can be used
 to input a relative value change. */
 	createRelativeHardwareKnob(
 
 		/** A unique string that identifies this control.*/
-		id: any): RelativeHardwareKnob
+		id: string): RelativeHardwareKnob
 	createPianoKeyboard(id: string, numKeys: number, octave: number, startKeyInOctave: number): PianoKeyboard
 
 	/** Creates a {@link HardwareButton} that represents a physical button on a controller */
@@ -5626,42 +5628,42 @@ Drum Machine. */
 	/** Plays a note on the track with a default duration and the given key and velocity. */
 	playNote(
 		/** the key value of the played note*/
-		key: any,
+		key: number,
 
 		/** the velocity of the played note*/
-		velocity: any
+		velocity: number
 	): void
 
 	/** Starts playing a note on the track with the given key and velocity. */
 	startNote(
 
 		/** the key value of the played note*/
-		key: any,
+		key: number,
 
 		/** the velocity of the played note*/
-		velocity: any
+		velocity: number
 	): void
 
 	/** Stops playing a currently played note. */
 	stopNote(
 
 		/** the key value of the playing note*/
-		key: any,
+		key: number,
 
 		/** the note-off velocity*/
-		velocity: any): void
+		velocity: number): void
 
 	/** Sends a MIDI message to the hardware device. */
 	sendMidi(
 
 		/** the status byte of the MIDI message*/
-		status: any,
+		status: number,
 
 		/** the data1 part of the MIDI message*/
-		data1: any,
+		data1: number,
 
 		/** the data2 part of the MIDI message*/
-		data2: any): void
+		data2: number): void
 
 	/** Value that reports the track type. Possible reported track types are `Group`, `Instrument`, `Audio`,
 `Hybrid`, `Effect` or `Master`. */
@@ -5996,7 +5998,7 @@ adjustments to the project tempo. */
 		amount: number,
 
 		/** the range of the provided amount value*/
-		range: any): void
+		range: number): void
 
 	/** Returns an object that provides access to the transport position in Bitwig Studio. */
 	getPosition(): SettableBeatTimeValue
@@ -6033,7 +6035,7 @@ adjustments to the project tempo. */
 	setPosition(
 
 		/** the new playback position in beats*/
-		beats: any): void
+		beats: number): void
 
 	/** Increases the transport position value by the given number of beats, which is specified relative to the
 given range. */
