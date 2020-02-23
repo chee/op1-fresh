@@ -353,10 +353,10 @@ host.defineSysexIdentityReply(Sequence.Id)
 host.setShouldFailOnDeprecatedUse(true)
 host.defineController(
 	"teenage engineering",
-	"op-1 (fresh)",
+	"op-1",
 	"0.1",
 	"92ea135d-5de7-4e1c-b364-40196d723320",
-	"chee"
+	"chee rabbits"
 )
 host.defineMidiPorts(1, 1)
 host.addDeviceNameBasedDiscoveryPair(
