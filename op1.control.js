@@ -302,7 +302,7 @@ var OperatorOne = /** @class */ (function () {
 // @ts-ignore this is a deprecated thing, but i'm not sure how to replcae it yet
 host.defineSysexIdentityReply(Sequence.Id);
 host.setShouldFailOnDeprecatedUse(true);
-host.defineController("teenage engineering", "op-1 (fresh)", "0.1", "92ea135d-5de7-4e1c-b364-40196d723320", "chee");
+host.defineController("teenage engineering", "op-1", "0.1", "92ea135d-5de7-4e1c-b364-40196d723320", "chee rabbits");
 host.defineMidiPorts(1, 1);
 host.addDeviceNameBasedDiscoveryPair(["OP-1 Midi Device"], ["OP-1 Midi Device"]);
 var keyboard;
