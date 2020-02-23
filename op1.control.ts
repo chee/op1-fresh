@@ -2,18 +2,7 @@ var global = this
 var println = host.println
 host.loadAPI(10)
 
-// load libraries
-host.load("./util.js")
-
-function objectValues(obj: object): any[] {
-	let vals = []
-	for (let key in obj) {
-		if (obj.hasOwnProperty(key) && Object.prototype.propertyIsEnumerable.call(obj, key)) {
-			vals.push(obj[key])
-		}
-	}
-	return vals
-}
+host.load("./polyfill.io.js")
 
 function objectIncludes (target: object, targetValue: string|number) {
 	for (let key in target) {
