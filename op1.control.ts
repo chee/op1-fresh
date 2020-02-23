@@ -1,10 +1,11 @@
 var global = this
 var println = host.println
+
 host.loadAPI(10)
 
 host.load("./polyfill.io.js")
 
-function objectIncludes (target: object, targetValue: string|number) {
+function objectIncludes (target: object, targetValue: string | number) {
 	for (let key in target) {
 		let value = targetValue[key]
 		if (value != null) {
@@ -40,6 +41,9 @@ enum Key {
 
 	Help = 5,
 	Metronome = 6,
+
+	Lift = 15,
+	Drop = 16,
 	Scissor = 17,
 
 	Synth = 7,
@@ -74,6 +78,7 @@ enum Key {
 	Chop = 23,
 	M1 = 24,
 	M2 = 25,
+	Sequence = 26,
 
 	Record = 38,
 	Play = 39,
@@ -81,7 +86,7 @@ enum Key {
 	Microphone = 49,
 	Com = 49,
 
-	Shift = 34
+	Shift = 43
 }
 
 /** These are the modes available via the synth, drum, tape and mixer keys */
