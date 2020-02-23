@@ -1,207 +1,303 @@
 var global = this;
 var println = host.println;
-host.load("./util.js");
 host.loadAPI(10);
-// Remove this if you want to be able to use deprecated methods without causing script to stop.
-// This is useful during development.
-host.setShouldFailOnDeprecatedUse(true);
-host.defineController("teenage engineering", "op-1 (fresh)", "0.1", "92ea135d-5de7-4e1c-b364-40196d723320", "chee");
-host.defineMidiPorts(1, 1);
-host.addDeviceNameBasedDiscoveryPair(["OP-1 Midi Device"], ["OP-1 Midi Device"]);
-let op1 = {
-    sequences: {
-        id: "f0 7e 7f 06 01 f7",
-        enable: "f0 00 20 76 00 01 02 f7",
-        disable: "f0 00 20 76 00 01 00 f7",
-        text: {
-            start: "f0 00 20 76 00 03",
-            end: "f7",
-        },
-        color: {
-            start: "f0 00 20 76 00 04",
-        },
-    },
-    cc: {
-        blue: 1,
-        green: 2,
-        white: 3,
-        orange: 4,
-        bluepush: 64,
-        greenpush: 65,
-        whitepush: 66,
-        orangepush: 67,
-        help: 5,
-        metronome: 6,
-        synth: 7,
-        drum: 8,
-        tape: 9,
-        mixer: 10,
-        t1: 11,
-        t2: 12,
-        t3: 13,
-        t4: 14,
-        up: 15,
-        down: 16,
-        left: 41,
-        right: 42,
-        scissor: 17,
-        ss1: 50,
-        ss2: 51,
-        ss3: 52,
-        ss4: 21,
-        ss5: 22,
-        ss6: 23,
-        ss7: 24,
-        ss8: 25,
-        inn: 50,
-        out: 51,
-        loop: 52,
-        flange: 21,
-        reverse: 22,
-        dots: 23,
-        m1: 24,
-        m2: 25,
-        record: 38,
-        play: 39,
-        stop: 40,
-        shift: 43,
-        micro: 48,
-        com: 49
-    },
-    /**
-     * Get the OP-1's midi-in
-     */
-    input() {
-        return host.getMidiInPort(0);
-    },
-    /**
-     * Get the OP-1's midi-out
-     */
-    output() {
-        return host.getMidiOutPort(0);
-    },
-    /**
-     * Send some sysex data to the OP-1
-     * @param {string} data The sequence to send
-     */
-    send(data) {
-        this.output().sendSysex(data);
-    },
+// load libraries
+host.load("./util.js");
+function objectValues(obj) {
+    var vals = [];
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key) && Object.prototype.propertyIsEnumerable.call(obj, key)) {
+            vals.push(obj[key]);
+        }
+    }
+    return vals;
+}
+function objectIncludes(target, targetValue) {
+    for (var key in target) {
+        var value = targetValue[key];
+        if (value != null) {
+            return true;
+        }
+    }
+    return false;
+}
+var Sequence;
+(function (Sequence) {
+    Sequence["Id"] = "f0 7e 7f 06 01 f7";
+    Sequence["Enable"] = "f0 00 20 76 00 01 02 f7";
+    Sequence["Disable"] = "f0 00 20 76 00 01 00 f7";
+    Sequence["TextStart"] = "f0 00 20 76 00 03";
+    Sequence["TextEnd"] = "f7";
+    Sequence["ColorStart"] = "f0 00 20 76 00 04";
+})(Sequence || (Sequence = {}));
+var Encoder;
+(function (Encoder) {
+    Encoder[Encoder["Blue"] = 1] = "Blue";
+    Encoder[Encoder["Green"] = 2] = "Green";
+    Encoder[Encoder["White"] = 3] = "White";
+    Encoder[Encoder["Orange"] = 4] = "Orange";
+})(Encoder || (Encoder = {}));
+var Key;
+(function (Key) {
+    Key[Key["Blue"] = 64] = "Blue";
+    Key[Key["Green"] = 65] = "Green";
+    Key[Key["White"] = 66] = "White";
+    Key[Key["Orange"] = 67] = "Orange";
+    Key[Key["Help"] = 5] = "Help";
+    Key[Key["Metronome"] = 6] = "Metronome";
+    Key[Key["Scissor"] = 17] = "Scissor";
+    Key[Key["Synth"] = 7] = "Synth";
+    Key[Key["Drum"] = 8] = "Drum";
+    Key[Key["Tape"] = 9] = "Tape";
+    Key[Key["Mixer"] = 10] = "Mixer";
+    Key[Key["T1"] = 11] = "T1";
+    Key[Key["T2"] = 12] = "T2";
+    Key[Key["T3"] = 13] = "T3";
+    Key[Key["T4"] = 14] = "T4";
+    Key[Key["Up"] = 15] = "Up";
+    Key[Key["Down"] = 16] = "Down";
+    Key[Key["Left"] = 41] = "Left";
+    Key[Key["Right"] = 42] = "Right";
+    Key[Key["Sound1"] = 50] = "Sound1";
+    Key[Key["Sound2"] = 51] = "Sound2";
+    Key[Key["Sound3"] = 52] = "Sound3";
+    Key[Key["Sound4"] = 21] = "Sound4";
+    Key[Key["Sound5"] = 22] = "Sound5";
+    Key[Key["Sound6"] = 23] = "Sound6";
+    Key[Key["Sound7"] = 24] = "Sound7";
+    Key[Key["Sound8"] = 25] = "Sound8";
+    Key[Key["In"] = 50] = "In";
+    Key[Key["Out"] = 51] = "Out";
+    Key[Key["Loop"] = 52] = "Loop";
+    Key[Key["Break"] = 21] = "Break";
+    Key[Key["Reverse"] = 22] = "Reverse";
+    Key[Key["Chop"] = 23] = "Chop";
+    Key[Key["M1"] = 24] = "M1";
+    Key[Key["M2"] = 25] = "M2";
+    Key[Key["Record"] = 38] = "Record";
+    Key[Key["Play"] = 39] = "Play";
+    Key[Key["Stop"] = 40] = "Stop";
+    Key[Key["Microphone"] = 49] = "Microphone";
+    Key[Key["Com"] = 49] = "Com";
+    Key[Key["Shift"] = 34] = "Shift";
+})(Key || (Key = {}));
+/** These are the modes available via the synth, drum, tape and mixer keys */
+var Mode;
+(function (Mode) {
+    Mode[Mode["Perform"] = 7] = "Perform";
+    // Scene = Key.Drum,
+    Mode[Mode["Arrange"] = 9] = "Arrange";
+    Mode[Mode["Mix"] = 10] = "Mix";
+})(Mode || (Mode = {}));
+/** These are the modes that appear as boxes at the bottom. availabe via T1-T4 */
+var UserMode;
+(function (UserMode) {
+    UserMode[UserMode["Mix"] = 11] = "Mix";
+    UserMode[UserMode["U01"] = 12] = "U01";
+    UserMode[UserMode["U02"] = 13] = "U02";
+    UserMode[UserMode["U03"] = 14] = "U03";
+})(UserMode || (UserMode = {}));
+function getControlEnumNames(controlEnum) {
+    var vals = [];
+    for (var key in controlEnum) {
+        if (typeof controlEnum[key] == "string") {
+            vals.push(controlEnum[key]);
+        }
+    }
+    return vals;
+}
+function getControlEnumValues(controlEnum) {
+    var vals = [];
+    for (var key in controlEnum) {
+        if (typeof controlEnum[key] == "number") {
+            vals.push(controlEnum[key]);
+        }
+    }
+    return vals;
+}
+var Binding = /** @class */ (function () {
+    function Binding(op1, control, callback, mode) {
+        this.isModeKey = objectIncludes(UserMode, control) || objectIncludes(Mode, control);
+        if (this.isModeKey && mode) {
+            throw new Error("Refusing to bind mode key to anything mode-specific");
+        }
+        this.mode = mode || "global";
+        this.control = control;
+        this.callback = callback;
+        this.op1 = op1;
+    }
+    Binding.prototype.call = function (data) {
+        if (this.isModeKey) {
+            host.println("calling " + this.control + " " + this.callback.name + " as mode-key");
+            this.callback(data);
+            // else if because it's a modeKey we don't want to run it twice
+        }
+        else if (this.mode == "global") {
+            if (this.op1.userMode != UserMode.Mix) {
+                host.errorln("ignoring " + this.control + " in user mode");
+                return;
+            }
+            host.println("calling " + this.control + " " + this.callback.name + " as global");
+            this.callback(data);
+        }
+        else {
+            if (this.op1.mode != this.mode) {
+                host.errorln("ignoring " + this.control + " in " + this.op1.mode + " mode");
+                return;
+            }
+            host.println("calling " + this.control + " " + this.callback.name + " as " + this.op1.mode + " mode control");
+            this.callback(data);
+        }
+    };
+    return Binding;
+}());
+var Bindings = /** @class */ (function () {
+    function Bindings(op1) {
+        this.op1 = op1;
+        this.bindings = {};
+    }
+    Bindings.prototype.add = function (control, callback, mode) {
+        var controlBindings = this.bindings[control] = this.bindings[control] || [];
+        var binding = new Binding(this.op1, control, callback, mode);
+        controlBindings.push(binding);
+    };
+    Bindings.prototype.call = function (control, data) {
+        // this is inefficient as fuck lol
+        var controlBindings = this.bindings[control];
+        /*
+         * I can make this more efficient by making controlBindings a
+         * hashmap. controlBindings[control][this.op1.mode].call(data). In Bindings.add I'd
+         * set the same binding as the binding for every listed mode, or all
+         * of them if it's global. Also: emit warning if rebinding a key in a mode
+         */
+        controlBindings && controlBindings.forEach(function (binding) {
+            binding.call(data);
+        });
+    };
+    return Bindings;
+}());
+var OperatorOne = /** @class */ (function () {
+    function OperatorOne() {
+        this.input = host.getMidiInPort(0);
+        this.output = host.getMidiOutPort(0);
+        this._shift = false;
+        this._mode = Mode.Perform;
+        this._userMode = UserMode.Mix;
+        this.input.setMidiCallback(this.receiveMidi);
+        this.input.setSysexCallback(this.receiveSysex);
+        this.bindings = new Bindings(this);
+    }
+    /** Send some sysex data to the op-1 */
+    OperatorOne.prototype.send = function (data) {
+        this.output.sendSysex(data);
+    };
+    /** Send a sequence to the op-1 */
+    OperatorOne.prototype.sendSequence = function (sequence) {
+        this.send(sequence);
+    };
     /**
      * Send the init sequence to the OP-1
      */
-    enable() {
-        this.send(this.sequences.enable);
-    },
+    OperatorOne.prototype.enable = function () {
+        this.sendSequence(Sequence.Enable);
+    };
     /**
-     * Send the disable sequence to the OP-1
+     * Send the shutdown sequence to the OP-1
      */
-    disable() {
-        this.send(this.sequences.disable);
-    },
+    OperatorOne.prototype.shutdown = function () {
+        this.sendSequence(Sequence.Disable);
+    };
     /**
      * Print a message to the OP-1
      * @param {string} text The message to print
      */
-    print(text) {
+    OperatorOne.prototype.print = function (text) {
         text = text.trim();
-        let chars = Array.prototype.slice.call(text);
-        let hext = chars.map((c) => hexify(c.charCodeAt(0))).join(" ");
-        println(hext);
-        this.send(`${this.sequences.text.start} ${hexify(text.length)} ${hext} ${this.sequences.text.end}`);
-    },
-    printEverywhere(text) {
+        var chars = Array.prototype.slice.call(text);
+        var hext = chars.map(function (c) { return hexify(c.charCodeAt(0)); }).join(" ");
+        // maybe?
+        // this.sendSequence(Sequence.TextStart)
+        // this.send(hexify(text.length))
+        // this.send(hext)
+        // this.sendSequence(Sequence.TextEnd)
+        this._message = Sequence.TextStart + " " + hexify(text.length) + " " + hext + " " + Sequence.TextEnd;
+        this.send(this._message);
+    };
+    OperatorOne.prototype.printEverywhere = function (text) {
         text = text.toString();
-        let computer = text.replace(/\r/g, ': ');
+        var computer = text.replace(/\r/g, ': ');
         println(computer);
         host.showPopupNotification(computer);
-        op1.print(text);
-    }
-};
-let modes = {
-    perform: op1.cc.synth,
-    clip: op1.cc.drum,
-    transport: op1.cc.tape,
-    mixer: op1.cc.mixer
-};
-let tmodes = {
-    mix: op1.cc.t1,
-    u01: op1.cc.t2,
-    u02: op1.cc.t3,
-    u03: op1.cc.t4
-};
-// @ts-ignore this is a deprecated thing, but i'm not sure how to replcae it yet
-host.defineSysexIdentityReply(op1.sequences.id);
-function createStore(initialState) {
-    let subs = new Set();
-    let state = {};
-    let store = Object.defineProperty({}, "sub", {
-        enumerable: false,
-        value(fn) {
-            if (typeof fn == "function") {
-                subs.add(fn);
-                return () => subs.delete(fn);
-            }
-        }
+        this.print(text);
+    };
+    Object.defineProperty(OperatorOne.prototype, "shift", {
+        get: function () {
+            return this._shift;
+        },
+        set: function (value) {
+            this._shift = value;
+        },
+        enumerable: true,
+        configurable: true
     });
-    for (let key in initialState) {
-        state[key] = initialState[key];
-        Object.defineProperty(store, key, {
-            enumerable: true,
-            get() {
-                return state[key];
-            },
-            set(value) {
-                state[key] = value;
-                subs.forEach(fn => fn(state, key, value));
-            }
-        });
-    }
-    return store;
-}
-// @ts-ignore
-let state = createStore({
-    mode: modes.perform,
-    shift: false,
-    metronome: false,
-    playing: false,
-    tmode: tmodes.mix
-});
-let performanceEncouragement = [
-    "beep boop",
-    "and now,",
-    "make music",
-    "operate",
-    "modulate me",
-    "beepboop",
-    "fantasy",
-    "limitations: bigfeature",
-    "pulse // wave",
-    "play",
-];
-state.sub(function (_state, key, value) {
-    if (key == "mode") {
-        let mode = value;
-        if (mode == modes.perform) {
-            let message = performanceEncouragement[Math.floor(Math.random() * performanceEncouragement.length)];
-            host.showPopupNotification(message);
-            op1.print(message);
+    Object.defineProperty(OperatorOne.prototype, "mode", {
+        get: function () {
+            return this._mode;
+        },
+        set: function (mode) {
+            this._mode = mode;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(OperatorOne.prototype, "userMode", {
+        get: function () {
+            return this._userMode;
+        },
+        set: function (userMode) {
+            this._userMode = userMode;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    OperatorOne.prototype.bind = function (control, callback, mode) {
+        this.bindings.add(control, callback, mode);
+    };
+    OperatorOne.prototype.receiveMidi = function (_status, cc, value) {
+        this.bindings.call(cc, value);
+    };
+    OperatorOne.prototype.receiveSysex = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
         }
-        else {
-            for (let key in modes) {
-                if (modes[key] == mode)
-                    return op1.printEverywhere(key);
-            }
-        }
-    }
-});
+        println("sysex alert!!!!");
+        println(args.join(""));
+    };
+    return OperatorOne;
+}());
+// @ts-ignore this is a deprecated thing, but i'm not sure how to replcae it yet
+host.defineSysexIdentityReply(Sequence.Id);
+host.setShouldFailOnDeprecatedUse(true);
+host.defineController("teenage engineering", "op-1 (fresh)", "0.1", "92ea135d-5de7-4e1c-b364-40196d723320", "chee");
+host.defineMidiPorts(1, 1);
+host.addDeviceNameBasedDiscoveryPair(["OP-1 Midi Device"], ["OP-1 Midi Device"]);
+var keyboard;
+var transport;
+var application;
+var masterTrack;
+var cursorTrack;
+var trackBank;
+var cursorDevice;
+var userControls;
+var op1;
 function init() {
     println("beginning initiation sequence");
+    op1 = new OperatorOne();
+    op1.print("hello");
     transport = host.createTransport();
-    keyboard = op1.input().createNoteInput("op-1 fresh keyboard", "??????");
+    keyboard = op1.input.createNoteInput("op-1 fresh keyboard", "??????");
     keyboard.setShouldConsumeEvents(false);
-    op1.input().setMidiCallback(onMidi);
-    op1.input().setSysexCallback(onSysex);
     op1.enable();
     application = host.createApplication();
     masterTrack = host.createMasterTrack(0);
@@ -214,175 +310,166 @@ function init() {
     transport.isMetronomeAudibleDuringPreRoll().markInterested();
     transport.isArrangerLoopEnabled().markInterested();
     transport.timeSignature().markInterested();
-    let position = transport.getPosition();
+    var position = transport.getPosition();
     position.addValueObserver(function (_) {
-        let time = position.getFormatted();
-        if (state.mode == modes.transport) {
-            op1.printEverywhere(`song position\r${time}`);
+        var time = position.getFormatted();
+        if (op1.mode == Mode.Arrange) {
+            op1.printEverywhere("song position\r" + time);
             op1.print("yeet");
         }
     });
-    println("op-1 (fresh) initialized!");
+    host.println("op-1 (fresh) initialized!");
     op1.print("yeet");
-    let message = performanceEncouragement[Math.floor(Math.random() * performanceEncouragement.length)];
-    op1.printEverywhere(message);
-    op1.print("yeet");
+    setupBindings(op1);
 }
-let midiHandlers = {
-    [op1.cc.play]() {
-        if (state.shift) {
-            cursorTrack.solo().toggle();
-            state.playing = true;
+function withShift(fn) {
+    return function () { return fn({
+        shift: function (fn) {
+            if (op1.shift)
+                fn();
+        },
+        default: function (fn) {
+            if (!op1.shift)
+                fn();
         }
-        else {
-            transport.play();
+    }); };
+}
+function withEncoder(fn) {
+    return function (data) { return fn({
+        left: function (fn) {
+            if (data > 64)
+                fn();
+        },
+        right: function (fn) {
+            if (data < 64)
+                fn();
         }
-    },
-    [op1.cc.record]() {
-        if (state.shift) {
-            cursorTrack.arm().toggle();
+    }); };
+}
+function withKey(fn) {
+    return function (data) { return fn({
+        up: function (fn) {
+            if (data == 0)
+                fn();
+        },
+        down: function (fn) {
+            if (data == 127)
+                fn();
         }
-        else {
-            transport.record();
-        }
-    },
-    [op1.cc.stop]() {
-        if (state.shift) {
-            cursorTrack.mute().toggle();
-        }
-        else if (transport.isPlaying()) {
-            transport.stop();
-        }
-        else {
-            transport.setPosition(0);
-        }
-    },
-    [op1.cc.metronome]() {
-        if (state.shift) {
-            transport.isMetronomeAudibleDuringPreRoll().toggle();
-        }
-        else {
-            transport.isMetronomeEnabled().toggle();
-        }
-    },
-    [op1.cc.loop]() {
-        transport.isArrangerLoopEnabled().toggle();
-    },
-    [op1.cc.left]() {
-        let amount = state.shift ? -transport.timeSignature().denominator().get() : -1;
-        transport.incPosition(amount, true);
-    },
-    [op1.cc.right]() {
-        let amount = state.shift ? transport.timeSignature().denominator().get() : 1;
-        transport.incPosition(amount, true);
-    },
-    [modes.perform]() {
-        state.mode = modes.perform;
-    },
-    [modes.clip]() {
-        state.mode = modes.clip;
-    },
-    [modes.transport]() {
-        state.mode = modes.transport;
-    },
-    [modes.mixer]() {
-        state.mode = modes.mixer;
-    },
-    [tmodes.mix]() {
-        state.tmode = tmodes.mix;
-    },
-    [tmodes.u01]() {
-        state.tmode = tmodes.u01;
-    },
-    [tmodes.u02]() {
-        state.tmode = tmodes.u02;
-    },
-    [tmodes.u03]() {
-        state.tmode = tmodes.u03;
-    },
-    [op1.cc.help]() {
-        op1.printEverywhere("no one is coming to save you");
-    }
-};
-var KeyPress;
-(function (KeyPress) {
-    KeyPress[KeyPress["Up"] = 0] = "Up";
-    KeyPress[KeyPress["Down"] = 127] = "Down";
-})(KeyPress || (KeyPress = {}));
-function getKnobIncArgs(data) {
-    return {
-        amount: data > 65 ? -0.1 : 0.1,
-        resolution: state.shift ? 2 : 10
+    }); };
+}
+function setupBindings(op1) {
+    var _loop_1 = function (mode) {
+        op1.bind(mode, withKey(function (on) {
+            on.down(function () {
+                op1.mode = mode;
+            });
+        }));
     };
-}
-let fancyHandlers = {
-    [op1.cc.blue](data) {
-        let args = getKnobIncArgs(data);
-        cursorTrack.volume().inc(args.amount, args.resolution);
-    },
-    [op1.cc.green](data) {
-        let args = getKnobIncArgs(data);
-        cursorTrack.pan().inc(args.amount, args.resolution);
-    },
-    [op1.cc.white](data) {
-        let args = getKnobIncArgs(data);
-        cursorTrack;
-        cursorTrack.pan().inc(args.amount, args.resolution);
-    },
-    [op1.cc.orange](data) {
-        let args = getKnobIncArgs(data);
-        cursorTrack.pan().inc(args.amount, args.resolution);
+    for (var _i = 0, _a = getControlEnumValues(Mode); _i < _a.length; _i++) {
+        var mode = _a[_i];
+        _loop_1(mode);
     }
-};
-// Called when a short MIDI message is received on MIDI input port 0.
-function onMidi(_status, data1, data2) {
-    println(data1.toString());
-    if (data1 == op1.cc.shift) {
-        if (data2 == KeyPress.Down) {
-            state.shift = true;
-        }
-        else {
-            state.shift = false;
-        }
+    var _loop_2 = function (mode) {
+        op1.bind(mode, withKey(function (on) {
+            on.down(function () { return op1.userMode = mode; });
+        }));
+    };
+    for (var _b = 0, _c = getControlEnumValues(UserMode); _b < _c.length; _b++) {
+        var mode = _c[_b];
+        _loop_2(mode);
     }
-    if (data2 == KeyPress.Down) {
-        if (state.tmode != tmodes.mix && data1 != tmodes.mix && data1 != tmodes.u01 && data1 != tmodes.u02 && data1 != tmodes.u03) {
-            return;
-        }
-        let handler = midiHandlers[data1];
-        handler && handler(data2);
+    // shifty
+    op1.bind(Key.Shift, withKey(function (on) {
+        on.down(function () { return op1.shift = true; });
+        on.up(function () { return op1.shift = false; });
+    }));
+    // *
+    // * GLOBALS
+    // *
+    op1.bind(Key.Play, withKey(function (on) {
+        on.up(withShift(function (on) {
+            on.shift(function () { return cursorTrack.solo().toggle(); });
+            on.default(function () { return transport.play(); });
+        }));
+    }));
+    op1.bind(Key.Record, withKey(function (on) {
+        on.up(withShift(function (on) {
+            on.shift(function () { return cursorTrack.arm().toggle(); });
+            on.default(function () { return transport.record(); });
+        }));
+    }));
+    op1.bind(Key.Stop, withKey(function (on) {
+        on.up(withShift(function (on) {
+            on.shift(function () { return cursorTrack.mute().toggle(); });
+            on.default(function () {
+                if (transport.isPlaying()) {
+                    transport.stop();
+                }
+                else {
+                    transport.setPosition(0);
+                }
+            });
+        }));
+    }));
+    op1.bind(Key.Metronome, withKey(function (on) {
+        on.up(withShift(function (on) {
+            on.shift(function () { return transport.isMetronomeAudibleDuringPreRoll().toggle(); });
+            on.default(function () { return transport.isMetronomeEnabled().toggle(); });
+        }));
+    }));
+    op1.bind(Key.Loop, withKey(function (on) {
+        on.up(function () { return transport.isArrangerLoopEnabled().toggle(); });
+    }));
+    op1.bind(Key.Help, withKey(function (on) {
+        on.up(function () { return op1.printEverywhere("no one is coming to save you"); });
+    }));
+    /*
+     * Mode-specific
+     */
+    function getBarInBeats() {
+        return transport.timeSignature().denominator().get();
     }
-    else {
-        let handler = fancyHandlers[data1];
-        handler && handler(data2);
+    op1.bind(Key.Left, withKey(function (on) {
+        on.up(function () {
+            var bar = getBarInBeats();
+            var beat = 1;
+            transport.incPosition(op1.shift ? -bar : -beat, true);
+        });
+    }), Mode.Arrange);
+    op1.bind(Key.Right, withKey(function (on) {
+        on.up(function () {
+            var bar = getBarInBeats();
+            var beat = 1;
+            transport.incPosition(op1.shift ? bar : beat, true);
+        });
+    }), Mode.Arrange);
+    var encoderAmount = 0.1;
+    var encoderResolutions = {
+        shift: 2,
+        default: 10
+    };
+    // TODO test if i need to pass a function like getParameter or if
+    // cursorTrack takes care of the live binding for me (if the selected track
+    // changes, does the passed cursorTrack.volume effect the correct track?
+    /* maybeArgs: amount: number, resolution: number, shiftedResolution: number */
+    function bindEncoderIncrementer(encoder, getParameter) {
+        op1.bind(encoder, withEncoder(function (on) {
+            on.left(withShift(function (on) {
+                on.shift(function () { return getParameter().inc(-encoderAmount, encoderResolutions.shift); });
+                on.default(function () { return getParameter().inc(-encoderAmount, encoderResolutions.default); });
+            }));
+            on.right(withShift(function (on) {
+                on.shift(function () { return getParameter().inc(encoderAmount, encoderResolutions.shift); });
+                on.default(function () { return getParameter().inc(encoderAmount, encoderResolutions.default); });
+            }));
+        }));
     }
-}
-// Called when a MIDI sysex message is received on MIDI input port 0.
-function onSysex(data) {
-    println("SYSEX ALERT");
-    println(data);
-    // MMC Transport Controls
-    // switch (data) {
-    // 	case "f07f7f0605f7":
-    // 		transport.rewind()
-    // 		break
-    // 	case "f07f7f0604f7":
-    // 		transport.fastForward()
-    // 		break
-    // 	case "f07f7f0601f7":
-    // 		transport.stop()
-    // 		break
-    // 	case "f07f7f0602f7":
-    // 		transport.play()
-    // 		break
-    // 	case "f07f7f0606f7":
-    // 		transport.record()
-    // 		break
-    // }
+    bindEncoderIncrementer(Encoder.Blue, function () { return cursorTrack.volume(); });
+    bindEncoderIncrementer(Encoder.Green, function () { return cursorTrack.pan(); });
 }
 function flush() {
-    // TODO: Flush any output to your controller here.
 }
 function exit() {
-    op1.disable();
+    op1.shutdown();
 }
