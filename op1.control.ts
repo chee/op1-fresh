@@ -233,9 +233,10 @@ class OperatorOne {
 		this._shift = false
 		this._mode = Mode.Perform
 		this._userMode = UserMode.Mix
-		this.input.setMidiCallback(this.receiveMidi)
-		this.input.setSysexCallback(this.receiveSysex)
+		this.input.setMidiCallback(this.receiveMidi.bind(this))
+		this.input.setSysexCallback(this.receiveSysex.bind(this))
 		this.bindings = new Bindings(this)
+		return this
 	}
 
 	/** Send some sysex data to the op-1 */
