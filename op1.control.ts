@@ -136,7 +136,7 @@ class Binding {
 	private op1: OperatorOne
 
 	constructor (op1: OperatorOne, control: Control, callback: BindingCallback, mode?: Mode) {
-		this.isModeKey = objectIncludes(UserMode, control) || objectIncludes(Mode, control)
+		this.isModeKey = getControlEnumValues(UserMode).includes(control) || getControlEnumValues(Mode).includes(control)
 		if (this.isModeKey && mode) {
 			throw new Error("Refusing to bind mode key to anything mode-specific")
 		}
@@ -144,6 +144,7 @@ class Binding {
 		this.control = control
 		this.callback = callback
 		this.op1 = op1
+		return this
 	}
 
 	call (data: number) {
@@ -183,6 +184,7 @@ class Bindings {
 	constructor (op1: OperatorOne) {
 		this.op1 = op1
 		this.bindings = {}
+		return this
 	}
 
 	add(control: Control, callback: BindingCallback, mode?: Mode) {
