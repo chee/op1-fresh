@@ -313,6 +313,19 @@ class OperatorOne {
 	}
 
 	set mode(mode: Mode) {
+		// FIXME ugly
+		if (this.shift) {
+			switch (mode) {
+				case Mode.Mix: {
+					application.setPanelLayout(PanelLayout.Mix)
+					break
+				}
+				case Mode.Arrange: {
+					application.setPanelLayout(PanelLayout.Arrange)
+					break
+				}
+			}
+		}
 		this._mode = mode
 	}
 
