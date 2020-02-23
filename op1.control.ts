@@ -382,6 +382,8 @@ function init() {
 	op1.print("hello")
 
 	transport = host.createTransport()
+	// TODO: idea, have a key in perform mode for keyboard.noteLatch
+	// TODO: idea, sequence key toggles through arpegiator modes
 	keyboard = op1.input.createNoteInput("op-1 fresh keyboard", "??????")
 	keyboard.setShouldConsumeEvents(false)
 
