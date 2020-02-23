@@ -210,6 +210,12 @@ class Bindings {
 	}
 }
 
+enum PanelLayout {
+	Arrange = "ARRANGE",
+	Edit = "EDIT",
+	Mix = "MIX"
+}
+
 class OperatorOne {
 	/** op-1 in */
 	input: MidiIn
