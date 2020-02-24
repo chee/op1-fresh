@@ -326,6 +326,24 @@ class OperatorOne {
 				}
 			}
 		}
+
+		if (mode == Mode.Perform) {
+			let encouragement = [
+				"beep boop",
+				"and now,",
+				"make music",
+				"operate",
+				"modulate me",
+				"beepboop",
+				"fantasy",
+				"limitations: bigfeature",
+				"pulse // wave",
+				"play"
+			]
+
+			this.print(encouragement.random())
+		}
+
 		this._mode = mode
 	}
 
@@ -360,8 +378,8 @@ host.defineController(
 )
 host.defineMidiPorts(1, 1)
 host.addDeviceNameBasedDiscoveryPair(
-	["OP-1 Midi Device"],
-	["OP-1 Midi Device"]
+	["OP-1 Midi Device MIDI 1"],
+	["OP-1 Midi Device MIDI 1"]
 )
 
 let keyboard: NoteInput
@@ -379,7 +397,7 @@ function init() {
 
 	op1 = new OperatorOne()
 
-	op1.print("hello")
+	op1.print("<3\rhappy birthday")
 
 	transport = host.createTransport()
 	// TODO: idea, have a key in perform mode for keyboard.noteLatch
@@ -411,7 +429,7 @@ function setupObservers(op1) {
 	position.addValueObserver(function (_: number) {
 		let time = position.getFormatted()
 		if (op1.mode == Mode.Arrange) {
-			op1.print(`song position\r${time}`)
+			op1.print(`\r${time}`)
 		}
 	})
 }
@@ -652,7 +670,6 @@ let arpeggiatorModes = [
 	"pinky-down",
 ]
 
-
 declare interface Array<T> {
 	random(): T
 }
@@ -663,14 +680,6 @@ Array.prototype.random = function () {
 
 function bindPerform(op1: OperatorOne) {
 	keyboard.arpeggiator().isEnabled().markInterested()
-
-	op1.bind(Encoder.Blue, withEncoder(on => {
-		on.left(withShift(on => {
-			cursorTrack.playNote(128, 128)
-		}))
-		on.right(withShift(on => {
-		}))
-	}))
 
 	op1.bind(Key.Sequence, withKey(on => {
 		on.up(withShift(on => {
