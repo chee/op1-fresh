@@ -5,16 +5,6 @@ host.loadAPI(10)
 
 host.load("./polyfill.io.js")
 
-function objectIncludes (target: object, targetValue: string | number) {
-	for (let key in target) {
-		let value = targetValue[key]
-		if (value != null) {
-			return true
-		}
-	}
-	return false
-}
-
 type ValueOf<T> = T[keyof T]
 
 enum Sequence {
