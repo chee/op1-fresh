@@ -8,9 +8,9 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://git.snoot.club/chee/op1-fresh"
+		"url": "https://github.com/chee/op1-fresh"
 	},
-	"author": "chee <chee@snoot.club>",
+	"author": "chee <yay@chee.party>",
 	"license": "GPL-3.0+",
 	"devDependencies": {}
 }
