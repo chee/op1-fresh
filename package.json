@@ -1,6 +1,6 @@
 {
 	"name": "op1-bitwig-controller-script",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "op-1 [fresh]",
 	"main": "op-1 [fresh].control.js",
 	"scripts": {
